@@ -5,27 +5,25 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc/Joystick.h>
 
-#include "commands/ExampleCommand.h"
-#include "subsystems/ExampleSubsystem.h"
+#include "Constants.h"
+#include "subsystems/DrivetrainOmni.h"
+#include "commands/driving/Drive.h"
+#include "lib/JsonConfig.h"
 
-/**
- * This class is where the bulk of the robot should be declared.  Since
- * Command-based is a "declarative" paradigm, very little robot logic should
- * actually be handled in the {@link Robot} periodic methods (other than the
- * scheduler calls).  Instead, the structure of the robot (including subsystems,
- * commands, and button mappings) should be declared here.
- */
-class RobotContainer {
- public:
+class RobotContainer
+{
+public:
   RobotContainer();
 
-  frc2::Command* GetAutonomousCommand();
-
- private:
-  // The robot's subsystems and commands are defined here...
-  ExampleSubsystem m_subsystem;
-  ExampleCommand m_autonomousCommand;
-
+private:
   void ConfigureButtonBindings();
+
+#if IS_DRIVETRAIN_OMNIBASE
+  Drivetrain m_Drivetrain;
+#endif
+
+  frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
+  frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};
 };
