@@ -4,18 +4,21 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
+RobotContainer::RobotContainer()
+{
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureButtonBindings();
+  m_Drivetrain.SetDefaultCommand(Drive([this]
+                                       { return -m_DriverRightJoystick.GetY(); },
+                                       [this]
+                                       { return m_DriverRightJoystick.GetZ(); },
+                                       [this]
+                                       { return m_DriverLeftJoystick.GetX(); },
+                                       &m_Drivetrain));
 }
 
-void RobotContainer::ConfigureButtonBindings() {
-  // Configure your button bindings here
-}
-
-frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // An example command will be run in autonomous
-  return &m_autonomousCommand;
+void RobotContainer::ConfigureButtonBindings()
+{
 }
