@@ -10,6 +10,7 @@
 
 #include "RobotContainer.h"
 #include "Constants.h"
+#include "lib/JsonConfig.h"
 
 class Robot : public frc::TimedRobot
 {

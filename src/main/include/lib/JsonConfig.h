@@ -18,7 +18,7 @@ public:
   static void LoadConfig(const std::string fileName);
   static bool isConfigLoaded();
   static void UnloadConfig();
-  static wpi::json GetJson();
+  static wpi::json GetConfig();
 
 private:
   static wpi::json Config;

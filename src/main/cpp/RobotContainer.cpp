@@ -10,12 +10,14 @@ RobotContainer::RobotContainer()
 
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_Drivetrain.SetDefaultCommand(Drive([this]
-                                       { return -m_DriverRightJoystick.GetY(); },
-                                       [this]
-                                       { return m_DriverRightJoystick.GetZ(); },
-                                       [this]
-                                       { return m_DriverLeftJoystick.GetX(); },
+  frc::Joystick *joystick1 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverRightJoystick : &m_DriverLeftJoystick);
+  frc::Joystick *joystick2 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverLeftJoystick : &m_DriverRightJoystick);
+  m_Drivetrain.SetDefaultCommand(Drive([=]
+                                       { return -joystick1->GetY(); },
+                                       [=]
+                                       { return joystick1->GetZ(); },
+                                       [=]
+                                       { return joystick2->GetX(); },
                                        &m_Drivetrain));
 }
 

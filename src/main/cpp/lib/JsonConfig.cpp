@@ -37,7 +37,7 @@ void JsonConfig::UnloadConfig()
     JsonConfig::Config = nullptr;
 }
 
-wpi::json JsonConfig::GetJson()
+wpi::json JsonConfig::GetConfig()
 {
     return JsonConfig::Config;
 }

@@ -10,6 +10,7 @@
 #include "Constants.h"
 #include "subsystems/DrivetrainOmni.h"
 #include "commands/driving/Drive.h"
+#include "lib/JsonConfig.h"
 
 class RobotContainer
 {
