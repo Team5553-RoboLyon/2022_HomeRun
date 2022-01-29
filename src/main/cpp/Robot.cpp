@@ -9,7 +9,7 @@
 
 void Robot::RobotInit()
 {
-  JsonConfig::LoadConfig(CONFIG_FILE_PATH);
+  //JsonConfig::LoadConfig(CONFIG_FILE_PATH);
 }
 
 void Robot::RobotPeriodic()

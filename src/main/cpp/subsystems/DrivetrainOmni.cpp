@@ -14,6 +14,18 @@ Drivetrain::Drivetrain()
 
     m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
     m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
+
+    m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+    m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+    m_NeoMotorRight.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+    m_NeoMotorRightFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+    m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
+
+    m_NeoMotorLeft.SetInverted(true);
+    m_NeoMotorLeftFollower.SetInverted(true);
+    m_NeoMotorRight.SetInverted(false);
+    m_NeoMotorRightFollower.SetInverted(false);
+    m_FalconMotor.SetInverted(false);
 }
 
 void Drivetrain::Periodic() {}
