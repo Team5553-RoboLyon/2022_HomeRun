@@ -77,7 +77,8 @@
     "streambuf": "cpp",
     "thread": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "regex": "cpp"
   },
   "cmake.configureOnOpen": false
 }

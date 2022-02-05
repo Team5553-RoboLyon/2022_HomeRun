@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
 #include <frc/DoubleSolenoid.h>
+#include <frc/simulation/SimDeviceSim.h>
 #include <frc/simulation/CTREPCMSim.h>
-#include <ctre/phoenix/motorcontrol/TalonFXSimCollection.h>
 
 #include "subsystems/Intake.h"
 #include "Constants.h"
@@ -10,33 +10,28 @@
 class IntakeTest : public testing::Test
 {
 protected:
-  Intake intake;                                                                                                                    // create our intake
-  frc::sim::CA simMotor{Constants::Intake::MOTOR_PORT};                                                                             // create our simulation PWM
-  frc::sim::CTREPCMSim simPiston{frc::PneumaticsModuleType::CTREPCM, Constants::Intake::PISTON_FWD, Constants::Intake::PISTON_REV}; // create our simulation solenoid
+  Intake intake;                                       // create our intake
+  frc::sim::SimDeviceSim intakeMotor{"SPARK MAX [7]"}; // create our intake motor
+  frc::sim::CTREPCMSim PCM;
 };
 
-TEST_F(IntakeTest, DoesntWorkWhenClosed)
+TEST_F(IntakeTest, CloseTest)
 {
-  intake.Retract();                           // close the intake
-  intake.Activate(0.5);                       // try to activate the motor
-  EXPECT_DOUBLE_EQ(0.0, simMotor.GetSpeed()); // make sure that the value set to the motor is 0
+  intake.Close();
+  EXPECT_EQ(true, PCM.GetSolenoidOutput(INTAKE_SOLENOID_1_ID));  // Forward channel must be 0 for closed
+  EXPECT_EQ(false, PCM.GetSolenoidOutput(INTAKE_SOLENOID_2_ID)); // Reverse channel must be 1 for closed
 }
 
-TEST_F(IntakeTest, WorksWhenOpen)
+TEST_F(IntakeTest, OpenTest)
 {
-  intake.Deploy();
-  intake.Activate(0.5);
-  EXPECT_DOUBLE_EQ(0.5, simMotor.GetSpeed());
+  intake.Open();
+  EXPECT_EQ(false, PCM.GetSolenoidOutput(INTAKE_SOLENOID_1_ID)); // Forward channel must be 1 for opened
+  EXPECT_EQ(true, PCM.GetSolenoidOutput(INTAKE_SOLENOID_2_ID));  // Reverse channel must be 0 for opened
 }
 
-TEST_F(IntakeTest, RetractTest)
+TEST_F(IntakeTest, MotorForwardTest)
 {
-  intake.Retract();
-  EXPECT_EQ(frc::DoubleSolenoid::Value::kReverse, simPiston.Get());
-}
-
-TEST_F(IntakeTest, DeployTest)
-{
-  intake.Deploy();
-  EXPECT_EQ(frc::DoubleSolenoid::Value::kForward, simPiston.Get());
+  intake.ActiveMotor();
+  intakeMotor.EnumerateValues()
+  //EXPECT_EQ(INTAKE_MOTOR_SPEED, intakeMotor.("MotorControl")); // Motor must be at speed
 }
