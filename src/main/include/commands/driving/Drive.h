@@ -10,7 +10,7 @@
 #include "Constants.h"
 
 #if IS_DRIVETRAIN_OMNIBASE
-#include "subsystems/DrivetrainOmni.h"
+#include "subsystems/Drivetrain.h"
 #endif
 
 /**

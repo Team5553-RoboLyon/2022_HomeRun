@@ -32,6 +32,7 @@ void Drivetrain::Periodic() {}
 
 /**
  * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
+ * @warning  Does not work if the robot is not TANK_BASE
  *
  * @param right Right wheels pourcentage
  * @param left Left wheels pourcentage
@@ -51,6 +52,7 @@ void Drivetrain::Drive(double right, double left, double lateral)
 
 /**
  * @brief Sets the speed of the left and right motors for TANK_BASE
+ * @warning  Does not work if the robot is OMNI_BASE
  *
  * @param right Right wheels pourcentage
  * @param left Left wheels pourcentage
