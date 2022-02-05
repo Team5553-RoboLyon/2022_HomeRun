@@ -12,6 +12,10 @@
 #include "Constants.h"
 #include "lib/JsonConfig.h"
 
+#include <spdlog/spdlog.h>
+#include "spdlog/fmt/ostr.h" // must be included
+#include "spdlog/sinks/stdout_sinks.h"
+
 class Robot : public frc::TimedRobot
 {
 public:

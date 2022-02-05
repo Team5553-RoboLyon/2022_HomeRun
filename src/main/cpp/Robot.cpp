@@ -6,10 +6,12 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-#include <spdlog/spdlog.h>
 
 void Robot::RobotInit()
 {
+  auto logger = spdlog::stdout_logger_mt("LOGGER");
+  spdlog::set_default_logger(logger);
+
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
   spdlog::set_level(spdlog::level::info);
   //JsonConfig::LoadConfig(CONFIG_FILE_PATH);
