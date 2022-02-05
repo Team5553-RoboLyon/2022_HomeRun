@@ -6,7 +6,9 @@
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
+#include <spdlog/spdlog.h>
 
+#include "lib/RobotError.h"
 #include "Constants.h"
 
 class Drivetrain : public frc2::SubsystemBase

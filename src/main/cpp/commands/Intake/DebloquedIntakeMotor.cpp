@@ -12,7 +12,7 @@ DebloquedIntakeMotor::DebloquedIntakeMotor(Intake *pintake)
 
 void DebloquedIntakeMotor::Initialize() {}
 
-void DebloquedIntakeMotor::Execute() { m_pIntake->DebloquedMotor(); }
+void DebloquedIntakeMotor::Execute() { m_pIntake->UnblockMotor(); }
 
 void DebloquedIntakeMotor::End(bool interrupted) { m_pIntake->StopMotor(); }
 

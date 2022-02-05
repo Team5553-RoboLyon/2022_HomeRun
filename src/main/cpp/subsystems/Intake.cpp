@@ -10,7 +10,7 @@ void Intake::ActiveMotor()
     m_IntakeMotor.Set(ctre::phoenix::motorcontrol::VictorSPXControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
 }
 
-void Intake::DebloquedMotor()
+void Intake::UnblockMotor()
 {
     m_IntakeMotor.Set(ctre::phoenix::motorcontrol::VictorSPXControlMode::PercentOutput, -INTAKE_MOTOR_DEBLOQUED_SPEED);
 }

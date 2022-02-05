@@ -14,7 +14,7 @@ class Intake : public frc2::SubsystemBase
 public:
     Intake();
     void ActiveMotor();
-    void DebloquedMotor();
+    void UnblockMotor();
     void StopMotor();
     void Close();
     void Open();
