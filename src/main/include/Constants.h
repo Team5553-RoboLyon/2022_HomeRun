@@ -9,22 +9,21 @@
 
 // ######### CAN IDs #########
 
-#if IS_DRIVETRAIN_OMNIBASE
 // DrivetrainOmni
 
 #define DRIVETRAIN_NEO_MOTOR_RIGHT_ID 1
 #define DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID 2
 #define DRIVETRAIN_NEO_MOTOR_LEFT_ID 3
 #define DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID 4
-#define DRIVETRAIN_FALCON_MOTOR_ID 5
-
-#endif
+#define DRIVETRAIN_FALCON_MOTOR_OMNI_ID 5
 
 // Turret
 #define TURRET_MOTOR_ID 6
 
 // Intake
 #define INTAKE_MOTOR_ID 7
+#define INTAKE_SOLENOID_1_ID 1
+#define INTAKE_SOLENOID_2_ID 2
 
 // Climber
 #define CLIMBER_NEO_MOTOR_ID 8
@@ -39,7 +38,7 @@
 
 // Feeder
 #define FEEDER_MOTOR_ID 13
-
+#define FEEDER_MOTOR_FOLLOWER_ID 14
 // Conveyor
 #define CONVEYOR_MOTOR_ID 14
 
