@@ -16,7 +16,7 @@
 // the kernel HZ.
 // Uncomment to use it instead of the regular clock.
 //
-// #define SPDLOG_CLOCK_COARSE
+#define SPDLOG_CLOCK_COARSE
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@
 // WARNING: If the log pattern contains thread id (i.e, %t) while this flag is
 // on, zero will be logged as thread id.
 //
-// #define SPDLOG_NO_THREAD_ID
+#define SPDLOG_NO_THREAD_ID
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 // WARNING: if your program forks, UNCOMMENT this flag to prevent undefined
 // thread ids in the children logs.
 //
-// #define SPDLOG_NO_TLS
+#define SPDLOG_NO_TLS
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@
 // Use only if your code never modifies a logger's log levels concurrently by
 // different threads.
 //
-// #define SPDLOG_NO_ATOMIC_LEVELS
+#define SPDLOG_NO_ATOMIC_LEVELS
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -89,8 +89,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Uncomment to customize level names (e.g. "MY TRACE")
 //
-// #define SPDLOG_LEVEL_NAMES { "MY TRACE", "MY DEBUG", "MY INFO", "MY WARNING",
-// "MY ERROR", "MY CRITICAL", "OFF" }
+#define SPDLOG_LEVEL_NAMES                                                                                                                 \
+    {                                                                                                                                      \
+        "TRACE", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL", "OFF"                                                                    \
+    }
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
