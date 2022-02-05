@@ -46,3 +46,8 @@
 
 #define DRIVER_JOYSTICK_RIGHT_ID 0
 #define DRIVER_JOYSTICK_LEFT_ID 1
+
+// ######### speed #########
+
+#define INTAKE_MOTOR_SPEED 0.5
+#define INTAKE_MOTOR_DEBLOQUED_SPEED 0.5

@@ -6,12 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-
-#include "Constants.h"
-
-#if IS_DRIVETRAIN_OMNIBASE
-#include "subsystems/Drivetrain.h"
-#endif
+#include "subsystems/Intake.h"
 
 /**
  * An example command.
@@ -20,11 +15,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class Drive
-    : public frc2::CommandHelper<frc2::CommandBase, Drive>
+class ActiveIntakeMotor
+    : public frc2::CommandHelper<frc2::CommandBase, ActiveIntakeMotor>
 {
 public:
-  Drive(std::function<double()> forward, std::function<double()> turn, std::function<double()> lateral, Drivetrain *pdrivetrain);
+  ActiveIntakeMotor(Intake *pintake);
 
   void Initialize() override;
 
@@ -35,8 +30,5 @@ public:
   bool IsFinished() override;
 
 private:
-  std::function<double()> m_Forward;
-  std::function<double()> m_Turn;
-  std::function<double()> m_Lateral;
-  Drivetrain *m_pDrivetrain;
+  Intake *m_pIntake;
 };
