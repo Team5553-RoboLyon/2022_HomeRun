@@ -8,7 +8,7 @@
 #include <frc/Joystick.h>
 
 #include "Constants.h"
-#include "subsystems/DrivetrainOmni.h"
+#include "subsystems/Drivetrain.h"
 #include "commands/driving/Drive.h"
 #include "lib/JsonConfig.h"
 
@@ -20,9 +20,7 @@ public:
 private:
   void ConfigureButtonBindings();
 
-#if IS_DRIVETRAIN_OMNIBASE
   Drivetrain m_Drivetrain;
-#endif
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};

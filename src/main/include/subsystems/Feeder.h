@@ -15,4 +15,6 @@ public:
 
 private:
     ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorFollower{FEEDER_MOTOR_FOLLOWER_ID};
+
 };

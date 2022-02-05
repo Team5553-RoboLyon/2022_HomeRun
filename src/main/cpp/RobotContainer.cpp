@@ -17,7 +17,7 @@ RobotContainer::RobotContainer()
                                        [=]
                                        { return m_DriverRightJoystick.GetZ(); },
                                        [=]
-                                       { return m_DriverLeftJoystick.GetX(); },
+                                       { return m_DriverRightJoystick.GetX(); },
                                        &m_Drivetrain));
 }
 

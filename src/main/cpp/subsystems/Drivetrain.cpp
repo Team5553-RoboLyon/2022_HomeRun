@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "subsystems/DrivetrainOmni.h"
+#include "subsystems/Drivetrain.h"
 
 Drivetrain::Drivetrain()
 {
@@ -30,9 +30,38 @@ Drivetrain::Drivetrain()
 
 void Drivetrain::Periodic() {}
 
+/**
+ * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
+ *
+ * @param right Right wheels pourcentage
+ * @param left Left wheels pourcentage
+ * @param lateral Lateral pourcentage
+ */
 void Drivetrain::Drive(double right, double left, double lateral)
 {
+
+    if (!IS_DRIVETRAIN_OMNIBASE)
+    {
+        throw std::runtime_error("Drivetrain::Drive(double right, double left, double lateral) : Cannot use this function for TANK_BASE");
+    }
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
+}
+
+/**
+ * @brief Sets the speed of the left and right motors for TANK_BASE
+ *
+ * @param right Right wheels pourcentage
+ * @param left Left wheels pourcentage
+ */
+void Drivetrain::Drive(double right, double left)
+{
+
+    if (IS_DRIVETRAIN_OMNIBASE)
+    {
+        throw std::runtime_error("Drivetrain::Drive(double right, double left) : Cannot use this function for OMNI_BASE");
+    }
+    m_NeoMotorLeft.Set(left);
+    m_NeoMotorRight.Set(right);
 }
