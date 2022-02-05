@@ -49,5 +49,8 @@
 
 // ######### speed #########
 
+// Intake
 #define INTAKE_MOTOR_SPEED 0.5
-#define INTAKE_MOTOR_DEBLOQUED_SPEED 0.5
+
+// Feeder
+#define FEEDER_MOTOR_SPEED 0.5

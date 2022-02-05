@@ -6,13 +6,13 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Intake.h"
+#include "subsystems/Feeder.h"
 
-class DebloquedIntakeMotor
-    : public frc2::CommandHelper<frc2::CommandBase, DebloquedIntakeMotor>
+class UnblockFeederMotor
+    : public frc2::CommandHelper<frc2::CommandBase, UnblockFeederMotor>
 {
 public:
-  DebloquedIntakeMotor(Intake *pintake);
+  UnblockFeederMotor(Feeder *pfeeder);
 
   void Initialize() override;
 
@@ -23,5 +23,5 @@ public:
   bool IsFinished() override;
 
 private:
-  Intake *m_pIntake;
+  Feeder *m_pFeeder;
 };

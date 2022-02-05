@@ -14,8 +14,7 @@ void Robot::RobotInit()
 
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
   spdlog::set_level(spdlog::level::info);
-  //JsonConfig::LoadConfig(CONFIG_FILE_PATH);
-
+  // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
   spdlog::trace("RobotInit()");
 }
 
