@@ -7,14 +7,25 @@
 ChangeIntakePosition::ChangeIntakePosition(Intake *pintake)
     : m_pIntake(pintake)
 {
+  spdlog::trace("ChangeIntakePosition::ChangeIntakePosition()");
   AddRequirements(m_pIntake);
 }
 
-void ChangeIntakePosition::Initialize() { m_pIntake->ChangePosition(); }
+void ChangeIntakePosition::Initialize()
+{
+  spdlog::trace("ChangeIntakePosition::Initialize()");
+  m_pIntake->ChangePosition();
+}
 
-void ChangeIntakePosition::Execute() {}
+void ChangeIntakePosition::Execute()
+{
+  spdlog::trace("ChangeIntakePosition::Execute()");
+}
 
-void ChangeIntakePosition::End(bool interrupted) {}
+void ChangeIntakePosition::End(bool interrupted)
+{
+  spdlog::trace("ChangeIntakePosition::End()");
+}
 
 bool ChangeIntakePosition::IsFinished()
 {

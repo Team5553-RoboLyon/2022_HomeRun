@@ -7,14 +7,26 @@
 ActiveIntakeMotor::ActiveIntakeMotor(Intake *pintake)
     : m_pIntake(pintake)
 {
+  spdlog::trace("ActiveIntakeMotor::ActiveIntakeMotor()");
   AddRequirements(m_pIntake);
 }
 
-void ActiveIntakeMotor::Initialize() {}
+void ActiveIntakeMotor::Initialize()
+{
+  spdlog::trace("ActiveIntakeMotor::Initialize()");
+}
 
-void ActiveIntakeMotor::Execute() { m_pIntake->ActiveMotor(); }
+void ActiveIntakeMotor::Execute()
+{
+  spdlog::trace("ActiveIntakeMotor::Execute()");
+  m_pIntake->ActiveMotor();
+}
 
-void ActiveIntakeMotor::End(bool interrupted) { m_pIntake->StopMotor(); }
+void ActiveIntakeMotor::End(bool interrupted)
+{
+  spdlog::trace("ActiveIntakeMotor::End()");
+  m_pIntake->StopMotor();
+}
 
 bool ActiveIntakeMotor::IsFinished()
 {

@@ -7,14 +7,26 @@
 UnblockIntakeMotor::UnblockIntakeMotor(Intake *pintake)
     : m_pIntake(pintake)
 {
+  spdlog::trace("UnblockIntakeMotor::UnblockIntakeMotor()");
   AddRequirements(m_pIntake);
 }
 
-void UnblockIntakeMotor::Initialize() {}
+void UnblockIntakeMotor::Initialize()
+{
+  spdlog::trace("UnblockIntakeMotor::Initialize()");
+}
 
-void UnblockIntakeMotor::Execute() { m_pIntake->UnblockMotor(); }
+void UnblockIntakeMotor::Execute()
+{
+  spdlog::trace("UnblockIntakeMotor::Execute()");
+  m_pIntake->UnblockMotor();
+}
 
-void UnblockIntakeMotor::End(bool interrupted) { m_pIntake->StopMotor(); }
+void UnblockIntakeMotor::End(bool interrupted)
+{
+  spdlog::trace("UnblockIntakeMotor::End()");
+  m_pIntake->StopMotor();
+}
 
 bool UnblockIntakeMotor::IsFinished()
 {

@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Intake.h"
+#include <spdlog/spdlog.h>
 
 class ChangeIntakePosition
     : public frc2::CommandHelper<frc2::CommandBase, ChangeIntakePosition>

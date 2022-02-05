@@ -7,14 +7,26 @@
 ActiveFeederMotor::ActiveFeederMotor(Feeder *pfeeder)
     : m_pFeeder(pfeeder)
 {
+  spdlog::trace("ActiveFeederMotor::ActiveFeederMotor()");
   AddRequirements(m_pFeeder);
 }
 
-void ActiveFeederMotor::Initialize() {}
+void ActiveFeederMotor::Initialize()
+{
+  spdlog::trace("ActiveFeederMotor::Initialize()");
+}
 
-void ActiveFeederMotor::Execute() { m_pFeeder->ActiveMotor(); }
+void ActiveFeederMotor::Execute()
+{
+  spdlog::trace("ActiveFeederMotor::Execute()");
+  m_pFeeder->ActiveMotor();
+}
 
-void ActiveFeederMotor::End(bool interrupted) { m_pFeeder->StopMotor(); }
+void ActiveFeederMotor::End(bool interrupted)
+{
+  spdlog::trace("ActiveFeederMotor::End()");
+  m_pFeeder->StopMotor();
+}
 
 bool ActiveFeederMotor::IsFinished()
 {

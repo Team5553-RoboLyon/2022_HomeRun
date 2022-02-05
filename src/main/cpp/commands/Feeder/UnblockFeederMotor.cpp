@@ -5,16 +5,27 @@
 #include "commands/Feeder/UnblockFeederMotor.h"
 
 UnblockFeederMotor::UnblockFeederMotor(Feeder *pfeeder)
-    : m_pFeeder(pfeeder);
+    : m_pFeeder(pfeeder)
 {
   AddRequirements(m_pFeeder);
 }
 
-void UnblockFeederMotor::Initialize() {}
+void UnblockFeederMotor::Initialize()
+{
+  spdlog::trace("UnblockFeederMotor::Initialize()");
+}
 
-void UnblockFeederMotor::Execute() {}
+void UnblockFeederMotor::Execute()
+{
+  spdlog::trace("UnblockFeederMotor::Execute()");
+  m_pFeeder->UnblockMotor();
+}
 
-void UnblockFeederMotor::End(bool interrupted) {}
+void UnblockFeederMotor::End(bool interrupted)
+{
+  spdlog::trace("UnblockFeederMotor::End()");
+  m_pFeeder->StopMotor();
+}
 
 bool UnblockFeederMotor::IsFinished()
 {

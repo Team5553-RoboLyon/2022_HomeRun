@@ -6,6 +6,7 @@
 
 RobotContainer::RobotContainer()
 {
+  spdlog::trace("RobotContainer::RobotContainer()");
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
@@ -23,4 +24,5 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::ConfigureButtonBindings()
 {
+  spdlog::trace("RobotContainer::ConfigureButtonBindings()");
 }
