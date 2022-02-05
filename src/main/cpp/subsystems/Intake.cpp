@@ -2,22 +2,24 @@
 
 Intake::Intake()
 {
+    m_IntakeMotor.RestoreFactoryDefaults();
+
     m_IntakeMotor.SetInverted(true);
 }
 
 void Intake::ActiveMotor()
 {
-    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::VictorSPXControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
+    m_IntakeMotor.Set(INTAKE_MOTOR_SPEED);
 }
 
 void Intake::UnblockMotor()
 {
-    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::VictorSPXControlMode::PercentOutput, -INTAKE_MOTOR_SPEED);
+    m_IntakeMotor.Set(-INTAKE_MOTOR_SPEED);
 }
 
 void Intake::StopMotor()
 {
-    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::VictorSPXControlMode::PercentOutput, 0.0);
+    m_IntakeMotor.Set(0.0);
 }
 
 void Intake::Open()

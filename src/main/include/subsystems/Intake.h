@@ -4,7 +4,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <rev/CANSparkMax.h>
 #include <frc/DoubleSolenoid.h>
 
 #include "Constants.h"
@@ -21,6 +21,6 @@ public:
     void ChangePosition();
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_IntakeMotor{INTAKE_MOTOR_ID};
+    rev::CANSparkMax m_IntakeMotor{INTAKE_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
     frc::DoubleSolenoid m_IntakeSolenoid{frc::PneumaticsModuleType::CTREPCM, INTAKE_SOLENOID_1_ID, INTAKE_SOLENOID_2_ID};
 };

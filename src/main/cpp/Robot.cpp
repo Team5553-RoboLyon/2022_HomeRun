@@ -14,14 +14,17 @@ void Robot::RobotInit()
 
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
   spdlog::set_level(spdlog::level::info);
+
   // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
   spdlog::trace("RobotInit()");
+
+  spdlog::debug("OMNIBASE : {}", IS_DRIVETRAIN_OMNIBASE);
 }
 
 void Robot::RobotPeriodic()
 {
-  frc2::CommandScheduler::GetInstance().Run();
   spdlog::trace("RobotPeriodic()");
+  frc2::CommandScheduler::GetInstance().Run();
 }
 
 void Robot::DisabledInit()

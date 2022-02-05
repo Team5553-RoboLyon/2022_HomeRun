@@ -8,23 +8,19 @@
 #include <frc2/command/CommandHelper.h>
 
 #include "Constants.h"
+#include "lib/RobotError.h"
 
-#if IS_DRIVETRAIN_OMNIBASE
 #include "subsystems/Drivetrain.h"
-#endif
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
 class Drive
     : public frc2::CommandHelper<frc2::CommandBase, Drive>
 {
 public:
+#if IS_DRIVETRAIN_OMNIBASE
   Drive(std::function<double()> forward, std::function<double()> turn, std::function<double()> lateral, Drivetrain *pdrivetrain);
+#else
+  Drive(std::function<double()> forward, std::function<double()> turn, Drivetrain *pdrivetrain);
+#endif
 
   void Initialize() override;
 
@@ -37,6 +33,9 @@ public:
 private:
   std::function<double()> m_Forward;
   std::function<double()> m_Turn;
+#if IS_DRIVETRAIN_OMNIBASE
   std::function<double()> m_Lateral;
+#endif
+
   Drivetrain *m_pDrivetrain;
 };

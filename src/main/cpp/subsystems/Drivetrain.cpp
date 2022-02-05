@@ -11,7 +11,6 @@ Drivetrain::Drivetrain()
     m_NeoMotorRightFollower.RestoreFactoryDefaults();
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
-    m_FalconMotor.ConfigFactoryDefault();
 
     m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
     m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
@@ -20,13 +19,17 @@ Drivetrain::Drivetrain()
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorRight.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorRightFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
-    m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
 
     m_NeoMotorLeft.SetInverted(true);
     m_NeoMotorLeftFollower.SetInverted(true);
     m_NeoMotorRight.SetInverted(false);
     m_NeoMotorRightFollower.SetInverted(false);
+
+#if IS_DRIVETRAIN_OMNIBASE
+    m_FalconMotor.ConfigFactoryDefault();
+    m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
     m_FalconMotor.SetInverted(false);
+#endif
 }
 
 void Drivetrain::Periodic()
@@ -34,6 +37,7 @@ void Drivetrain::Periodic()
     spdlog::trace("Drivetrain::Periodic()");
 }
 
+#if IS_DRIVETRAIN_OMNIBASE
 /**
  * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
  * @warning  Does not work if the robot is not TANK_BASE
@@ -54,7 +58,7 @@ void Drivetrain::Drive(double right, double left, double lateral)
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
 }
-
+#else
 /**
  * @brief Sets the speed of the left and right motors for TANK_BASE
  * @warning  Does not work if the robot is OMNI_BASE
@@ -73,3 +77,4 @@ void Drivetrain::Drive(double right, double left)
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
 }
+#endif
