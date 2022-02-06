@@ -32,6 +32,6 @@ TEST_F(IntakeTest, OpenTest)
 TEST_F(IntakeTest, MotorForwardTest)
 {
   intake.ActiveMotor();
-  intakeMotor.EnumerateValues()
-  //EXPECT_EQ(INTAKE_MOTOR_SPEED, intakeMotor.("MotorControl")); // Motor must be at speed
+  // intakeMotor.EnumerateValues();
+  // EXPECT_EQ(INTAKE_MOTOR_SPEED, intakeMotor.("MotorControl")); // Motor must be at speed
 }

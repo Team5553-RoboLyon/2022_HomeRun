@@ -54,3 +54,6 @@
 
 // Feeder
 #define FEEDER_MOTOR_SPEED 0.5
+
+// Conveyor
+#define CONVEYOR_MOTOR_SPEED 0.5
