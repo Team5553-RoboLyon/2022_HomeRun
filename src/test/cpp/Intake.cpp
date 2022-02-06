@@ -30,11 +30,6 @@ TEST_F(IntakeTest, OpenTest)
   EXPECT_EQ(true, PCM.GetSolenoidOutput(INTAKE_SOLENOID_2_ID));  // Reverse channel must be 0 for opened
 }
 
-void callbackt(const char *msg, HAL_SimValueHandle handle, int uInt, const HAL_Value *value)
-{
-  std::cout << msg << ":" << value->data.v_double << std::endl;
-}
-
 TEST_F(IntakeTest, MotorSpeedTest)
 {
   intake.ActiveMotor();
