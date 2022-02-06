@@ -5,6 +5,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
+#include <lib/wrappers/CANSparkMaxWrapper.h>
 #include <frc/DoubleSolenoid.h>
 
 #include "Constants.h"
@@ -21,6 +22,6 @@ public:
     void ChangePosition();
 
 private:
-    rev::CANSparkMax m_IntakeMotor{INTAKE_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+    CANSparkMaxWrapper m_IntakeMotor{INTAKE_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
     frc::DoubleSolenoid m_IntakeSolenoid{frc::PneumaticsModuleType::CTREPCM, INTAKE_SOLENOID_1_ID, INTAKE_SOLENOID_2_ID};
 };

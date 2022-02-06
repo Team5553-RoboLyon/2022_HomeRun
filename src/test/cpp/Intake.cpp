@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 
 #include <frc/DoubleSolenoid.h>
-#include <frc/simulation/SimDeviceSim.h>
 #include <frc/simulation/CTREPCMSim.h>
+#include <frc/simulation/SimDeviceSim.h>
+#include <rev/sim/CANSparkMax.h>
 
 #include "subsystems/Intake.h"
 #include "Constants.h"
@@ -10,8 +11,8 @@
 class IntakeTest : public testing::Test
 {
 protected:
-  Intake intake;                                       // create our intake
-  frc::sim::SimDeviceSim intakeMotor{"SPARK MAX [7]"}; // create our intake motor
+  Intake intake;                                                                                                // create our intake
+  frc::sim::SimDeviceSim intakeMotor{("WRAPPER::SPARK MAX [" + std::to_string(INTAKE_MOTOR_ID) + "]").c_str()}; // create our intake motor
   frc::sim::CTREPCMSim PCM;
 };
 
@@ -29,9 +30,13 @@ TEST_F(IntakeTest, OpenTest)
   EXPECT_EQ(true, PCM.GetSolenoidOutput(INTAKE_SOLENOID_2_ID));  // Reverse channel must be 0 for opened
 }
 
-TEST_F(IntakeTest, MotorForwardTest)
+void callbackt(const char *msg, HAL_SimValueHandle handle, int uInt, const HAL_Value *value)
+{
+  std::cout << msg << ":" << value->data.v_double << std::endl;
+}
+
+TEST_F(IntakeTest, MotorSpeedTest)
 {
   intake.ActiveMotor();
-  intakeMotor.EnumerateValues()
-  //EXPECT_EQ(INTAKE_MOTOR_SPEED, intakeMotor.("MotorControl")); // Motor must be at speed
+  EXPECT_EQ(INTAKE_MOTOR_SPEED, intakeMotor.GetDouble("Setpoint").Get()); // Motor must be at speed
 }
