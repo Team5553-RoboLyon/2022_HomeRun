@@ -126,6 +126,16 @@ model {
                 }
             }
 
+            sources.cpp {
+                source {
+                    srcDir './third_party/spdlog-1.9.2/src'
+                    include '**/*.cpp'
+                }
+                exportedHeaders {
+                    srcDir './third_party/spdlog-1.9.2/include'
+                }
+            }
+
             // Enable run tasks for this component
             wpi.cpp.enableExternalTasks(it)
 
