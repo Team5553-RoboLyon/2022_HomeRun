@@ -57,7 +57,15 @@ void Robot::TeleopPeriodic()
   spdlog::trace("TeleopPeriodic()");
 }
 
-void Robot::TestPeriodic() {}
+void Robot::TestInit()
+{
+  spdlog::trace("TestInit()");
+}
+
+void Robot::TestPeriodic()
+{
+  spdlog::trace("TestPeriodic()");
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main()

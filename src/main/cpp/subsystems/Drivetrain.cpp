@@ -52,7 +52,7 @@ void Drivetrain::Drive(double right, double left, double lateral)
 
     if (!IS_DRIVETRAIN_OMNIBASE)
     {
-        throw RBLErrors::RobotCriticalError("Drivetrain::Drive(double right, double left, double lateral) : Cannot use this function for TANK_BASE");
+        throw RobotError::RobotCriticalError("Drivetrain::Drive(double right, double left, double lateral) : Cannot use this function for TANK_BASE");
     }
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
@@ -72,7 +72,7 @@ void Drivetrain::Drive(double right, double left)
 
     if (IS_DRIVETRAIN_OMNIBASE)
     {
-        throw RBLErrors::RobotCriticalError("Drivetrain::Drive(double right, double left) : Cannot use this function for OMNI_BASE");
+        throw RobotError::RobotCriticalError("Drivetrain::Drive(double right, double left) : Cannot use this function for OMNI_BASE");
     }
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);

@@ -26,3 +26,15 @@ void RobotContainer::ConfigureButtonBindings()
 {
   spdlog::trace("RobotContainer::ConfigureButtonBindings()");
 }
+
+void RobotContainer::StartTests()
+{
+  if (!frc::DriverStation::IsTest())
+    throw RobotError::RobotCriticalError("RobotContainer::StartTests() called when not in test mode");
+
+  spdlog::trace("RobotContainer::StartTests()");
+
+  // Start a DrivetrainTest command
+  DrivetrainTest command(&m_Drivetrain);
+  frc2::CommandScheduler::GetInstance().Schedule(&command);
+}
