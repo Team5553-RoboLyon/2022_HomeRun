@@ -5,7 +5,9 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
+#include <rev/SparkMaxRelativeEncoder.h>
+
+#include "lib/wrappers/CANSparkMaxWrapper.h"
 #include "Constants.h"
 
 class Climber : public frc2::SubsystemBase
@@ -13,8 +15,9 @@ class Climber : public frc2::SubsystemBase
 public:
     Climber();
     void ActiveMotor(double speed);
+    double GetEncoderValue();
 
 private:
-    rev::CANSparkMax m_NeoMotor{CLIMBER_NEO_MOTOR_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-    rev::CANSparkMax m_NeoMotorFollower{CLIMBER_NEO_MOTOR_FOLLOWER_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+    CANSparkMaxWrapper m_NeoMotor{CLIMBER_NEO_MOTOR_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+    rev::SparkMaxRelativeEncoder m_NeoMotorEncoder = m_NeoMotor.GetEncoder();
 };
