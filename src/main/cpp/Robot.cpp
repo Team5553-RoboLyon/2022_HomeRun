@@ -7,6 +7,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+#include <ostream>
+
 void Robot::RobotInit()
 {
   auto logger = spdlog::stdout_logger_mt("LOGGER");
@@ -19,12 +21,14 @@ void Robot::RobotInit()
   spdlog::trace("RobotInit()");
 
   spdlog::debug("OMNIBASE : {}", IS_DRIVETRAIN_OMNIBASE);
+  planetaryencoder.Reset();
 }
 
 void Robot::RobotPeriodic()
 {
   spdlog::trace("RobotPeriodic()");
   frc2::CommandScheduler::GetInstance().Run();
+  spdlog::info(planetaryencoder.Get());
 }
 
 void Robot::DisabledInit()

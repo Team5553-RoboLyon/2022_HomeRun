@@ -12,7 +12,7 @@ class Climber : public frc2::SubsystemBase
 {
 public:
     Climber();
-    void Periodic() override;
+    void ActiveMotor(double speed);
 
 private:
     rev::CANSparkMax m_NeoMotor{CLIMBER_NEO_MOTOR_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};

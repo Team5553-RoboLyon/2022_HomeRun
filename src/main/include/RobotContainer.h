@@ -9,7 +9,9 @@
 
 #include "Constants.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Climber.h"
 #include "commands/driving/Drive.h"
+#include "commands/Climber/ClimberActiveMotor.h"
 #include "lib/JsonConfig.h"
 
 class RobotContainer
@@ -21,6 +23,7 @@ private:
   void ConfigureButtonBindings();
 
   Drivetrain m_Drivetrain;
+  Climber m_Climber;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};
