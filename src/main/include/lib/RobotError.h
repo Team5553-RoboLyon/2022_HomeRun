@@ -5,7 +5,7 @@
 #include <string>
 #include <spdlog/spdlog.h>
 
-namespace RBLErrors
+namespace RobotError
 {
     class RobotError : public std::exception
     {

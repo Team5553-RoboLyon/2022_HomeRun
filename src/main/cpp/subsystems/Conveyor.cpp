@@ -1,4 +1,3 @@
-#pragma once
 #include "subsystems/Conveyor.h"
 
 Conveyor::Conveyor()
