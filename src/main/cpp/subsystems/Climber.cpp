@@ -1,5 +1,3 @@
-#pragma once
-
 #include "subsystems/Climber.h"
 
 Climber::Climber() { m_NeoMotor.RestoreFactoryDefaults(); }
