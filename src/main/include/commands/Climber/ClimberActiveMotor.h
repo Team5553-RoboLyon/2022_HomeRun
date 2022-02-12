@@ -18,7 +18,7 @@ class ClimberActiveMotor
     : public frc2::CommandHelper<frc2::CommandBase, ClimberActiveMotor>
 {
 public:
-  ClimberActiveMotor(Climber *pclimber, std::function<double()> up);
+  ClimberActiveMotor(std::function<double()> joystickInput, Climber *pclimber);
 
   void Initialize() override;
 
@@ -29,6 +29,6 @@ public:
   bool IsFinished() override;
 
 private:
-  std::function<double()> m_Up;
   Climber *m_pClimber;
+  std::function<double()> m_joystickInput;
 };

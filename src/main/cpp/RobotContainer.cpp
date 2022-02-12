@@ -28,8 +28,9 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings()
 {
   spdlog::trace("RobotContainer::ConfigureButtonBindings()");
-  m_ThrottleLeft.WhileActiveContinous(ClimberActiveMotor(&m_Climber, [=]
-                                                         { return m_DriverRightJoystick.GetThrottle(); }));
+  m_ThrottleLeft.WhileActiveContinous(ClimberActiveMotor([=]
+                                                         { return m_DriverRightJoystick.GetThrottle(); },
+                                                         &m_Climber));
 }
 
 void RobotContainer::StartTests()

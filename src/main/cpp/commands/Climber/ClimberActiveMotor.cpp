@@ -3,8 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 #include "commands/Climber/ClimberActiveMotor.h"
 
-ClimberActiveMotor::ClimberActiveMotor(Climber *pclimber, std::function<double()> up)
-    : m_pClimber(pclimber), m_Up(up)
+ClimberActiveMotor::ClimberActiveMotor(std::function<double()> joystickInput, Climber *pclimber)
+    : m_pClimber(pclimber), m_joystickInput(joystickInput)
 {
   AddRequirements(m_pClimber);
 }
@@ -15,7 +15,10 @@ void ClimberActiveMotor::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ClimberActiveMotor::Execute()
 {
-  m_pClimber->ActiveMotor(m_Up());
+  // double joystickInput = utils::Deadband(m_joystickInput());
+  // joystickInput *= 0.2;
+
+  m_pClimber->ActiveMotor(m_joystickInput());
 }
 
 // Called once the command ends or is interrupted.
