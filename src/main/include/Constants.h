@@ -57,3 +57,9 @@
 
 // Conveyor
 #define CONVEYOR_MOTOR_SPEED 0.5
+
+// Climber PID
+#define CLIMBER_PID_P 0.1
+#define CLIMBER_PID_I 0.0
+#define CLIMBER_PID_D 0.0
+#define CLIMBER_ENCODER_CONVERSION_FACTOR 1.0

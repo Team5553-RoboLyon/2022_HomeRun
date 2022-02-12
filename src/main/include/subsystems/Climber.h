@@ -16,8 +16,11 @@ public:
     Climber();
     void ActiveMotor(double speed);
     double GetEncoderValue();
+    void Climber::SetPID(double P, double I, double D);
+    void Climber::SetSetpoint(double setpoint);
 
 private:
     CANSparkMaxWrapper m_NeoMotor{CLIMBER_NEO_MOTOR_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
     rev::SparkMaxRelativeEncoder m_NeoMotorEncoder = m_NeoMotor.GetEncoder();
+    rev::SparkMaxPIDController m_NeoMotorPIDController = m_NeoMotor.GetPIDController();
 };
