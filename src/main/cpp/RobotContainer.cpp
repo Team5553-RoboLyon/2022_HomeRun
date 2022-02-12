@@ -13,14 +13,23 @@ RobotContainer::RobotContainer()
   ConfigureButtonBindings();
   // frc::Joystick *joystick1 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverRightJoystick : &m_DriverLeftJoystick);
   // frc::Joystick *joystick2 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverLeftJoystick : &m_DriverRightJoystick);
-  m_Climber.SetDefaultCommand(ClimberActiveMotor([=]
-                                                 { return m_DriverRightJoystick.GetX(); },
-                                                 &m_Climber));
+  m_Drivetrain.SetDefaultCommand(Drive([=]
+                                       { return -m_DriverLeftJoystick.GetY(); },
+                                       [=]
+                                       { return m_DriverRightJoystick.GetZ(); },
+                                       [=]
+                                       { return m_DriverRightJoystick.GetX(); },
+                                       &m_Drivetrain));
+
+  // m_Climber.SetDefaultCommand(ClimberActiveMotor(&m_Climber, [=]
+  //                                                { return m_DriverRightJoystick.GetX(); }));
 }
 
 void RobotContainer::ConfigureButtonBindings()
 {
   spdlog::trace("RobotContainer::ConfigureButtonBindings()");
+  m_ThrottleLeft.WhileActiveContinous(ClimberActiveMotor(&m_Climber, [=]
+                                                         { return m_DriverRightJoystick.GetThrottle(); }));
 }
 
 void RobotContainer::StartTests()
