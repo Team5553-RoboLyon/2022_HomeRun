@@ -17,4 +17,4 @@ void Climber::ActiveMotor(double speed) { m_NeoMotor.Set(speed); }
 
 double Climber::GetEncoderValue() { return m_NeoMotorEncoder.GetPosition(); }
 
-void Climber::SetSetpoint(double setpoint) { m_NeoMotorPIDController.SetReference(setpoint, rev::ControlType::kPosition); }
+void Climber::SetSetpoint(double setpoint) { m_NeoMotorPIDController.SetReference(setpoint, rev::CANSparkMaxLowLevel::ControlType::kPosition); }
