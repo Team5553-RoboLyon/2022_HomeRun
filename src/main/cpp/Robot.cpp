@@ -5,71 +5,68 @@
 #include "Robot.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
-#include <frc2/command/CommandScheduler.h>
 
-#include <ostream>
+void Robot::RobotInit() {}
 
-void Robot::RobotInit()
-{
-  auto logger = spdlog::stdout_logger_mt("LOGGER");
-  spdlog::set_default_logger(logger);
-
-  spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
-  spdlog::set_level(spdlog::level::debug);
-
-  // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
-  spdlog::trace("RobotInit()");
-
-  spdlog::debug("OMNIBASE : {}", IS_DRIVETRAIN_OMNIBASE);
-  planetaryencoder.Reset();
-}
-
+/**
+ * This function is called every robot packet, no matter the mode. Use
+ * this for items like diagnostics that you want to run during disabled,
+ * autonomous, teleoperated and test.
+ *
+ * <p> This runs after the mode specific periodic functions, but before
+ * LiveWindow and SmartDashboard integrated updating.
+ */
 void Robot::RobotPeriodic()
 {
-  spdlog::trace("RobotPeriodic()");
-  frc2::CommandScheduler::GetInstance().Run();
-  spdlog::info(planetaryencoder.Get());
 }
 
-void Robot::DisabledInit()
-{
-  spdlog::trace("DisabledInit()");
-}
+/**
+ * This function is called once each time the robot enters Disabled mode. You
+ * can use it to reset any subsystem information you want to clear when the
+ * robot is disabled.
+ */
+void Robot::DisabledInit() {}
 
-void Robot::DisabledPeriodic()
-{
-  spdlog::trace("DisabledPeriodic()");
-}
+void Robot::DisabledPeriodic() {}
 
+/**
+ * This autonomous runs the autonomous command selected by your {@link
+ * RobotContainer} class.
+ */
 void Robot::AutonomousInit()
 {
-  spdlog::trace("AutonomousInit()");
 }
 
-void Robot::AutonomousPeriodic()
-{
-  spdlog::trace("AutonomousPeriodic()");
-}
+void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  spdlog::trace("TeleopInit()");
+  m_ClimberMotor.SetInverted(false);
+  m_ClimberMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_ClimberMotor.EnableVoltageCompensation(10);
+  m_ClimberMotor.SetOpenLoopRampRate(0.2);
 }
 
+/**
+ * This function is called periodically during operator control.
+ */
 void Robot::TeleopPeriodic()
 {
-  spdlog::trace("TeleopPeriodic()");
+  frc::SmartDashboard::PutNumber("Vitesse", -m_Joystick.GetThrottle());
+  if (m_Joystick.GetRawButton(1))
+  {
+    m_ClimberMotor.Set(-m_Joystick.GetThrottle());
+  }
+  else
+  {
+    m_ClimberMotor.Set(-0.06);
+  }
 }
 
-void Robot::TestInit()
-{
-  spdlog::trace("TestInit()");
-}
-
-void Robot::TestPeriodic()
-{
-  spdlog::trace("TestPeriodic()");
-}
+/**
+ * This function is called periodically during test mode.
+ */
+void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
 int main()
