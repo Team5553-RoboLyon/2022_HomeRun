@@ -6,7 +6,13 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() {}
+#define MAX_HEIGHT_CLIMBER 56.4 // In rotations
+
+void Robot::RobotInit()
+{
+  m_setpoint = 0.0;
+  m_Encoder.SetPosition(0);
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -18,6 +24,8 @@ void Robot::RobotInit() {}
  */
 void Robot::RobotPeriodic()
 {
+  frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
+  frc::SmartDashboard::PutNumber("Position", m_Encoder.GetPosition());
 }
 
 /**
@@ -42,9 +50,13 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit()
 {
   m_ClimberMotor.SetInverted(false);
-  m_ClimberMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_ClimberMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
   m_ClimberMotor.EnableVoltageCompensation(10);
   m_ClimberMotor.SetOpenLoopRampRate(0.2);
+
+  frc::SmartDashboard::PutNumber("Setpoint", m_setpoint);
+  frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
+  frc::SmartDashboard::PutNumber("Position", m_Encoder.GetPosition());
 }
 
 /**
@@ -52,15 +64,17 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  frc::SmartDashboard::PutNumber("Vitesse", -m_Joystick.GetThrottle());
-  if (m_Joystick.GetRawButton(1))
-  {
-    m_ClimberMotor.Set(-m_Joystick.GetThrottle());
-  }
-  else
-  {
-    m_ClimberMotor.Set(-0.06);
-  }
+  m_setpoint = std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 0.0, MAX_HEIGHT_CLIMBER - 0.5);
+  double error = m_setpoint - m_Encoder.GetPosition();
+  frc::SmartDashboard::PutNumber("Erreur", error);
+  double derivative = (error - m_lastError) / .02;
+  frc::SmartDashboard::PutNumber("Derivative", derivative);
+  m_integrative += (error * 0.02);
+  frc::SmartDashboard::PutNumber("Integrative", m_integrative);
+  double speed = std::abs(m_Joystick.GetThrottle()) * std::clamp((0.1 * error + 0.001 * m_integrative + 0.01 * derivative), -1.0, 1.0);
+  frc::SmartDashboard::PutNumber("Speed", speed);
+  m_lastError = error;
+  m_ClimberMotor.Set(speed);
 }
 
 /**

@@ -8,6 +8,8 @@
 #include <frc2/command/Command.h>
 #include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
+#include <rev/SparkMaxRelativeEncoder.h>
+#include <spdlog/spdlog.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -25,4 +27,8 @@ public:
 private:
   rev::CANSparkMax m_ClimberMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
   frc::Joystick m_Joystick{0};
+  rev::SparkMaxRelativeEncoder m_Encoder = m_ClimberMotor.GetEncoder();
+  double m_setpoint;
+  double m_lastError;
+  double m_integrative;
 };
