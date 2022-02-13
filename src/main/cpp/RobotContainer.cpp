@@ -40,7 +40,13 @@ void RobotContainer::StartTests()
 
   spdlog::trace("RobotContainer::StartTests()");
 
-  // Start a DrivetrainTest command
-  DrivetrainTest command(&m_Drivetrain);
-  frc2::CommandScheduler::GetInstance().Schedule(&command);
+  try
+  {
+    DrivetrainDirectionTest command(&m_Drivetrain);
+    frc2::CommandScheduler::GetInstance().Schedule(&command);
+  }
+  catch (std::exception &e)
+  {
+    spdlog::error("DrivetrainTests failed: {}", e.what());
+  }
 }

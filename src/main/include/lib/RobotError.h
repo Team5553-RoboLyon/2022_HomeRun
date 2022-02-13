@@ -28,4 +28,15 @@ namespace RobotError
         }
         const char *what() const noexcept override { return message.c_str(); }
     };
+
+    class RobotTestError : public std::exception
+    {
+    public:
+        std::string message;
+        RobotTestError(const std::string &testName, const std::string &msg) : message(msg)
+        {
+            spdlog::error("TEST [{}] ERROR : {}", testName, message);
+        }
+        const char *what() const noexcept override { return message.c_str(); }
+    };
 }

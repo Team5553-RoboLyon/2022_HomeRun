@@ -8,12 +8,14 @@
 #include <frc2/command/CommandHelper.h>
 
 #include "subsystems/Drivetrain.h"
+#include "Constants.h"
+#include "lib/RobotError.h"
 
-class DrivetrainTest
-    : public frc2::CommandHelper<frc2::CommandBase, DrivetrainTest>
+class DrivetrainDirectionTest
+    : public frc2::CommandHelper<frc2::CommandBase, DrivetrainDirectionTest>
 {
 public:
-  DrivetrainTest(Drivetrain *pdrivetrain);
+  DrivetrainDirectionTest(Drivetrain *pdrivetrain);
 
   void Initialize() override;
 
@@ -25,4 +27,5 @@ public:
 
 private:
   Drivetrain *m_pDrivetrain;
+  bool m_IsFinished;
 };

@@ -2,14 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#define DEBUG true
 #define IS_DRIVETRAIN_OMNIBASE true
 
 #define CONFIG_FILE_PATH "/home/admin/config.json"
 
 // ######### CAN IDs #########
 
-// DrivetrainOmni
+// Drivetrain
 
 #define DRIVETRAIN_NEO_MOTOR_RIGHT_ID 1
 #define DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID 2
@@ -63,3 +62,5 @@
 #define CLIMBER_PID_I 0.0
 #define CLIMBER_PID_D 0.0
 #define CLIMBER_ENCODER_CONVERSION_FACTOR 1.0
+
+#define DRIVETRAIN_TEST_SPEED 0.1

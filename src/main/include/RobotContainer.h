@@ -19,7 +19,7 @@
 #include "commands/Climber/ClimberActiveMotor.h"
 #include "lib/JsonConfig.h"
 
-#include "commands/tests/DrivetrainTest.h"
+#include "commands/tests/DrivetrainDirectionTest.h"
 
 class RobotContainer
 {

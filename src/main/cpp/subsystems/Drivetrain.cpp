@@ -25,10 +25,16 @@ Drivetrain::Drivetrain()
     m_NeoMotorRight.SetInverted(false);
     m_NeoMotorRightFollower.SetInverted(false);
 
+    m_NeoMotorLeft.GetEncoder().SetPosition(0);
+    m_NeoMotorLeftFollower.GetEncoder().SetPosition(0);
+    m_NeoMotorRight.GetEncoder().SetPosition(0);
+    m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
+
 #if IS_DRIVETRAIN_OMNIBASE
     m_FalconMotor.ConfigFactoryDefault();
     m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
     m_FalconMotor.SetInverted(false);
+    m_FalconMotor.GetSensorCollection().SetIntegratedSensorPosition(false);
 #endif
 }
 
@@ -37,10 +43,21 @@ void Drivetrain::Periodic()
     spdlog::trace("Drivetrain::Periodic()");
 }
 
+void Drivetrain::Stop()
+{
+    spdlog::trace("Drivetrain::Stop()");
+    m_NeoMotorLeft.StopMotor();
+    m_NeoMotorRight.StopMotor();
+
+#if IS_DRIVETRAIN_OMNIBASE
+    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+#endif
+}
+
 #if IS_DRIVETRAIN_OMNIBASE
 /**
  * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
- * @warning  Does not work if the robot is not TANK_BASE
+ * @warning  Does not work if the robot is TANK_BASE
  *
  * @param right Right wheels pourcentage
  * @param left Left wheels pourcentage
@@ -57,6 +74,20 @@ void Drivetrain::Drive(double right, double left, double lateral)
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
+}
+
+/**
+ * @brief Gets the encoder values of the left, right and lateral motors for OMNI_BASE
+ * @warning  Does not work if the robot is TANK_BASE
+ *
+ * @param encoderValues Array of 3 doubles where the encoder values will be stored
+ */
+void Drivetrain::GetEncoderValues(double (&encoderValues)[3])
+{
+    spdlog::trace("Drivetrain::GetEncoderValues()");
+    encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
+    encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
+    encoderValues[2] = m_FalconMotor.GetSensorCollection().GetIntegratedSensorPosition();
 }
 #else
 /**
@@ -76,5 +107,18 @@ void Drivetrain::Drive(double right, double left)
     }
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
+}
+
+/**
+ * @brief Gets the encoder values of the left and right motors for TANK_BASE
+ * @warning  Does not work if the robot is OMNI_BASE
+ *
+ * @param encoderValues Array of 2 doubles where the encoder values will be stored
+ */
+void Drivetrain::GetEncoderValues(double (&encoderValues)[2])
+{
+    spdlog::trace("Drivetrain::GetEncoderValues()");
+    encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
+    encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
 }
 #endif

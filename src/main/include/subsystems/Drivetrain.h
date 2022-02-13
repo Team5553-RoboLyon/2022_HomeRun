@@ -17,10 +17,13 @@ class Drivetrain : public frc2::SubsystemBase
 public:
   Drivetrain();
   void Periodic() override;
+  void Stop();
 #if IS_DRIVETRAIN_OMNIBASE
   void Drive(double right, double left, double lateral);
+  void GetEncoderValues(double (&encoderValues)[3]);
 #else
   void Drive(double right, double left);
+  void GetEncoderValues(double (&encoderValues)[2])
 #endif
 
 private:
