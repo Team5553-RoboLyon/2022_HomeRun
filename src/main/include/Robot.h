@@ -8,6 +8,7 @@
 #include <frc2/command/Command.h>
 #include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
+#include <frc/DutyCycleEncoder.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -23,6 +24,5 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_ClimberMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-  frc::Joystick m_Joystick{0};
+  frc::DutyCycleEncoder planetaryencoder{1};
 };

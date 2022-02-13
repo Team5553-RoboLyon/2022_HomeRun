@@ -5,6 +5,7 @@
 #include "Robot.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <spdlog/spdlog.h>
 
 void Robot::RobotInit() {}
 
@@ -41,10 +42,6 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  m_ClimberMotor.SetInverted(false);
-  m_ClimberMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
-  m_ClimberMotor.EnableVoltageCompensation(10);
-  m_ClimberMotor.SetOpenLoopRampRate(0.2);
 }
 
 /**
@@ -52,15 +49,7 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  frc::SmartDashboard::PutNumber("Vitesse", -m_Joystick.GetThrottle());
-  if (m_Joystick.GetRawButton(1))
-  {
-    m_ClimberMotor.Set(-m_Joystick.GetThrottle());
-  }
-  else
-  {
-    m_ClimberMotor.Set(-0.06);
-  }
+  spdlog::info(planetaryencoder.Get());
 }
 
 /**
