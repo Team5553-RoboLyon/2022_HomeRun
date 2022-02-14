@@ -9,6 +9,7 @@
 #include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
 #include <rev/SparkMaxRelativeEncoder.h>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <spdlog/spdlog.h>
 
 class Robot : public frc::TimedRobot
@@ -25,10 +26,11 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_ClimberMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-  frc::Joystick m_Joystick{0};
-  rev::SparkMaxRelativeEncoder m_Encoder = m_ClimberMotor.GetEncoder();
-  double m_setpoint;
-  double m_lastError;
-  double m_integrative;
+  rev::CANSparkMax m_ConveyorMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorRight{1};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorLeft{2};
+  frc::Joystick m_JoystickRight{0};
+  frc::Joystick m_JoystickLeft{1};
+  double m_speedFeeder;
+  double m_speedConveyor;
 };

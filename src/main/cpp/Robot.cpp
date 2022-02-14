@@ -10,8 +10,8 @@
 
 void Robot::RobotInit()
 {
-  m_setpoint = 0.0;
-  m_Encoder.SetPosition(0);
+  m_speedFeeder = 0.0;
+  m_speedConveyor = 0.0;
 }
 
 /**
@@ -24,8 +24,7 @@ void Robot::RobotInit()
  */
 void Robot::RobotPeriodic()
 {
-  frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
-  frc::SmartDashboard::PutNumber("Position", m_Encoder.GetPosition());
+  // frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
 }
 
 /**
@@ -49,14 +48,9 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  m_ClimberMotor.SetInverted(false);
-  m_ClimberMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
-  m_ClimberMotor.EnableVoltageCompensation(10);
-  m_ClimberMotor.SetOpenLoopRampRate(0.2);
-
-  frc::SmartDashboard::PutNumber("Setpoint", m_setpoint);
-  frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
-  frc::SmartDashboard::PutNumber("Position", m_Encoder.GetPosition());
+  m_ConveyorMotor.SetInverted(false);
+  m_FeederMotorLeft.SetInverted(false);
+  m_FeederMotorRight.SetInverted(true);
 }
 
 /**
@@ -64,17 +58,29 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  m_setpoint = std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 0.0, MAX_HEIGHT_CLIMBER - 0.5);
-  double error = m_setpoint - m_Encoder.GetPosition();
-  frc::SmartDashboard::PutNumber("Erreur", error);
-  double derivative = (error - m_lastError) / .02;
-  frc::SmartDashboard::PutNumber("Derivative", derivative);
-  m_integrative += (error * 0.02);
-  frc::SmartDashboard::PutNumber("Integrative", m_integrative);
-  double speed = std::abs(m_Joystick.GetThrottle()) * std::clamp((0.1 * error + 0.001 * m_integrative + 0.01 * derivative), -1.0, 1.0);
-  frc::SmartDashboard::PutNumber("Speed", speed);
-  m_lastError = error;
-  m_ClimberMotor.Set(speed);
+  // frc::SmartDashboard::PutNumber("Coefficient de vitesse conveyor", std::abs(m_JoystickRight.GetThrottle()));
+  // frc::SmartDashboard::PutNumber("Coefficient de vitesse feeder", std::abs(m_JoystickLeft.GetThrottle()));
+  m_speedFeeder = frc::SmartDashboard::GetNumber("vitesse feeder", 0.0);
+  m_speedConveyor = frc::SmartDashboard::GetNumber("vitesse conveyor", 0.0);
+
+  if (m_JoystickLeft.GetRawButton(1))
+  {
+    m_ConveyorMotor.Set(m_speedConveyor);
+  }
+  else
+  {
+    m_ConveyorMotor.Set(0.0);
+  }
+  if (m_JoystickRight.GetRawButton(1))
+  {
+    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedFeeder);
+    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedFeeder);
+  }
+  else
+  {
+    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  }
 }
 
 /**
