@@ -13,6 +13,7 @@ DrivetrainDirectionTest::DrivetrainDirectionTest(Drivetrain *pdrivetrain)
 void DrivetrainDirectionTest::Initialize()
 {
   m_IsFinished = false;
+  m_testDuration = 0.0;
 #if IS_DRIVETRAIN_OMNIBASE
   m_pDrivetrain->Drive(DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED);
 #else
@@ -24,22 +25,35 @@ void DrivetrainDirectionTest::Execute()
 {
 #if IS_DRIVETRAIN_OMNIBASE
   double m_encoderValues[3];
+#else
+  double m_encoderValues[2];
+#endif
+
   m_pDrivetrain->GetEncoderValues(m_encoderValues);
   bool isValueSupposedToBePositive = DRIVETRAIN_TEST_SPEED > 0;
+
+#if IS_DRIVETRAIN_OMNIBASE
   bool isValuePositive = m_encoderValues[0] > 0 && m_encoderValues[1] > 0 && m_encoderValues[2] > 0;
-  if (isValueSupposedToBePositive && isValuePositive)
+#else
+  bool isValuePositive = m_encoderValues[0] > 0 && m_encoderValues[1] > 0;
+#endif
+
+  if (m_testDuration > DRIVETRAIN_TEST_DURATION)
   {
-    m_IsFinished = true;
+    if (isValueSupposedToBePositive && isValuePositive)
+    {
+      m_IsFinished = true;
+    }
+    else
+    {
+      this->Cancel();
+      throw RobotError::RobotTestError("DrivetrainDirectionTest", "Drivetrain is not moving in the correct direction");
+    }
   }
   else
   {
-    this->Cancel();
-    throw RobotError::RobotTestError("DrivetrainDirectionTest", "Drivetrain is not moving in the correct direction");
+    m_testDuration += ROBOT_LOOP_TIME;
   }
-#else
-  double m_encoderValues[2];
-  m_pDrivetrain->GetEncoderValues(m_encoderValues);
-#endif
 }
 
 void DrivetrainDirectionTest::End(bool interrupted)

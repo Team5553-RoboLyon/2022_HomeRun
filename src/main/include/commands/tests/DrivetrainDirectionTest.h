@@ -28,4 +28,5 @@ public:
 private:
   Drivetrain *m_pDrivetrain;
   bool m_IsFinished;
+  double m_testDuration;
 };

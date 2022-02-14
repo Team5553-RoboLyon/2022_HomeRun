@@ -82,5 +82,6 @@
     "bitset": "cpp",
     "variant": "cpp"
   },
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "wpilib.skipTests": false
 }

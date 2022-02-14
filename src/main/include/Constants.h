@@ -6,6 +6,8 @@
 
 #define CONFIG_FILE_PATH "/home/admin/config.json"
 
+#define ROBOT_LOOP_TIME 0.02
+
 // ######### CAN IDs #########
 
 // Drivetrain
@@ -64,3 +66,4 @@
 #define CLIMBER_ENCODER_CONVERSION_FACTOR 1.0
 
 #define DRIVETRAIN_TEST_SPEED 0.1
+#define DRIVETRAIN_TEST_DURATION 0.5
