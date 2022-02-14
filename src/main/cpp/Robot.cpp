@@ -10,8 +10,7 @@
 
 void Robot::RobotInit()
 {
-  m_speedFeeder = 0.0;
-  m_speedConveyor = 0.0;
+  m_speedShooter = 0.0;
 }
 
 /**
@@ -48,9 +47,8 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  m_ConveyorMotor.SetInverted(false);
-  m_FeederMotorLeft.SetInverted(false);
-  m_FeederMotorRight.SetInverted(true);
+  m_ShooterMotorLeft.SetInverted(false);
+  m_ShooterMotorRight.SetInverted(true);
 }
 
 /**
@@ -58,26 +56,17 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  m_speedFeeder = frc::SmartDashboard::GetNumber("vitesse feeder", 0.0);
-  m_speedConveyor = frc::SmartDashboard::GetNumber("vitesse conveyor", 0.0);
+  m_speedShooter = std::clamp(frc::SmartDashboard::GetNumber("vitesse shooter", 0.0), -1.0, 1.0);
 
-  if (m_JoystickLeft.GetRawButton(1))
+  if (m_Joystick.GetRawButton(1))
   {
-    m_ConveyorMotor.Set(m_speedConveyor);
+    m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedShooter);
+    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedShooter);
   }
   else
   {
-    m_ConveyorMotor.Set(0.0);
-  }
-  if (m_JoystickRight.GetRawButton(1))
-  {
-    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedFeeder);
-    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedFeeder);
-  }
-  else
-  {
-    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+    m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 }
 
