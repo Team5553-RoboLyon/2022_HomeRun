@@ -58,8 +58,6 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  // frc::SmartDashboard::PutNumber("Coefficient de vitesse conveyor", std::abs(m_JoystickRight.GetThrottle()));
-  // frc::SmartDashboard::PutNumber("Coefficient de vitesse feeder", std::abs(m_JoystickLeft.GetThrottle()));
   m_speedFeeder = frc::SmartDashboard::GetNumber("vitesse feeder", 0.0);
   m_speedConveyor = frc::SmartDashboard::GetNumber("vitesse conveyor", 0.0);
 
