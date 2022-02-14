@@ -6,21 +6,47 @@
 
 RobotContainer::RobotContainer()
 {
+  spdlog::trace("RobotContainer::RobotContainer()");
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureButtonBindings();
-  //frc::Joystick *joystick1 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverRightJoystick : &m_DriverLeftJoystick);
-  //frc::Joystick *joystick2 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverLeftJoystick : &m_DriverRightJoystick);
+  // frc::Joystick *joystick1 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverRightJoystick : &m_DriverLeftJoystick);
+  // frc::Joystick *joystick2 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverLeftJoystick : &m_DriverRightJoystick);
   m_Drivetrain.SetDefaultCommand(Drive([=]
                                        { return -m_DriverLeftJoystick.GetY(); },
                                        [=]
                                        { return m_DriverRightJoystick.GetZ(); },
                                        [=]
-                                       { return m_DriverLeftJoystick.GetX(); },
+                                       { return m_DriverRightJoystick.GetX(); },
                                        &m_Drivetrain));
+
+  // m_Climber.SetDefaultCommand(ClimberActiveMotor(&m_Climber, [=]
+  //                                                { return m_DriverRightJoystick.GetX(); }));
 }
 
 void RobotContainer::ConfigureButtonBindings()
 {
+  spdlog::trace("RobotContainer::ConfigureButtonBindings()");
+  m_ThrottleLeft.WhileActiveContinous(ClimberActiveMotor([=]
+                                                         { return m_DriverRightJoystick.GetThrottle(); },
+                                                         &m_Climber));
+}
+
+void RobotContainer::StartTests()
+{
+  if (!frc::DriverStation::IsTest())
+    throw RobotError::RobotCriticalError("RobotContainer::StartTests() called when not in test mode");
+
+  spdlog::trace("RobotContainer::StartTests()");
+
+  try
+  {
+    DrivetrainDirectionTest command(&m_Drivetrain);
+    frc2::CommandScheduler::GetInstance().Schedule(&command);
+  }
+  catch (std::exception &e)
+  {
+    spdlog::error("DrivetrainTests failed: {}", e.what());
+  }
 }

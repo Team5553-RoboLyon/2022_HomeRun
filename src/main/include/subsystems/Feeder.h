@@ -12,7 +12,11 @@ class Feeder : public frc2::SubsystemBase
 {
 public:
     Feeder();
+    void ActiveMotor();
+    void UnblockMotor();
+    void StopMotor();
 
 private:
     ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorFollower{FEEDER_MOTOR_FOLLOWER_ID};
 };

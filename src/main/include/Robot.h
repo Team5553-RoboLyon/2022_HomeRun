@@ -12,6 +12,12 @@
 #include "Constants.h"
 #include "lib/JsonConfig.h"
 
+#include <spdlog/spdlog.h>
+#include "spdlog/fmt/ostr.h" // must be included
+#include "spdlog/sinks/stdout_sinks.h"
+#include <frc/DutyCycleEncoder.h>
+#include <frc/DigitalInput.h>
+
 class Robot : public frc::TimedRobot
 {
 public:
@@ -23,12 +29,14 @@ public:
   void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
+  void TestInit() override;
   void TestPeriodic() override;
 
 private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
   frc2::Command *m_autonomousCommand = nullptr;
+  frc::DutyCycleEncoder planetaryencoder{1};
 
   RobotContainer m_container;
 };

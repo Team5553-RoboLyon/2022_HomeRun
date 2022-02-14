@@ -77,6 +77,11 @@
     "streambuf": "cpp",
     "thread": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp"
-  }
+    "typeinfo": "cpp",
+    "regex": "cpp",
+    "bitset": "cpp",
+    "variant": "cpp"
+  },
+  "cmake.configureOnOpen": false,
+  "wpilib.skipTests": false
 }

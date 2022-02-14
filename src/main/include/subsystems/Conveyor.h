@@ -13,8 +13,10 @@ class Conveyor : public frc2::SubsystemBase
 {
 public:
     Conveyor();
-    void Periodic() override;
+    void ActiveMotor();
+    void UnblockMotor();
+    void StopMotor();
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{CONVEYOR_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorMotor{CONVEYOR_MOTOR_ID};
 };
