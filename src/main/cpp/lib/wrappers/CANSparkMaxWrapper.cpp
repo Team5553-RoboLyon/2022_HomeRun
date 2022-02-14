@@ -17,6 +17,7 @@ CANSparkMaxWrapper::CANSparkMaxWrapper(int deviceId, rev::CANSparkMax::MotorType
 
 void CANSparkMaxWrapper::Set(double speed)
 {
+    speed = std::clamp(speed, -1.0, 1.0);
     if (m_isSimulated)
     {
         m_setpoint.Set(speed);

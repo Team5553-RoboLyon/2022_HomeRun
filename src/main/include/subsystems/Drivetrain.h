@@ -21,6 +21,7 @@ public:
 #if IS_DRIVETRAIN_OMNIBASE
   void Drive(double right, double left, double lateral);
   void GetEncoderValues(double (&encoderValues)[3]);
+  double GetFalconSimulatedOutput();
 #else
   void Drive(double right, double left);
   void GetEncoderValues(double (&encoderValues)[2])

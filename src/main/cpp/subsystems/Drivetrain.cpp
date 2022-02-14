@@ -12,6 +12,16 @@ Drivetrain::Drivetrain()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.2);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.2);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.2);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.2);
+
+    m_NeoMotorLeft.EnableVoltageCompensation(10);
+    m_NeoMotorRight.EnableVoltageCompensation(10);
+    m_NeoMotorLeftFollower.EnableVoltageCompensation(10);
+    m_NeoMotorRightFollower.EnableVoltageCompensation(10);
+
     m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
     m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
 
@@ -34,7 +44,10 @@ Drivetrain::Drivetrain()
     m_FalconMotor.ConfigFactoryDefault();
     m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
     m_FalconMotor.SetInverted(false);
-    m_FalconMotor.GetSensorCollection().SetIntegratedSensorPosition(false);
+    m_FalconMotor.GetSensorCollection().SetIntegratedSensorPosition(0.0);
+    m_FalconMotor.ConfigOpenloopRamp(0.2);
+    m_FalconMotor.EnableVoltageCompensation(true);
+    m_FalconMotor.ConfigVoltageCompSaturation(10);
 #endif
 }
 
@@ -88,6 +101,12 @@ void Drivetrain::GetEncoderValues(double (&encoderValues)[3])
     encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
     encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
     encoderValues[2] = m_FalconMotor.GetSensorCollection().GetIntegratedSensorPosition();
+}
+
+double Drivetrain::GetFalconSimulatedOutput()
+{
+    spdlog::trace("Drivetrain::GetFalconSimulatedOutput()");
+    return m_FalconMotor.GetSimCollection().GetMotorOutputLeadVoltage();
 }
 #else
 /**

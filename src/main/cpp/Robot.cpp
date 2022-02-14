@@ -28,7 +28,6 @@ void Robot::RobotPeriodic()
 {
   spdlog::trace("RobotPeriodic()");
   frc2::CommandScheduler::GetInstance().Run();
-  spdlog::info(planetaryencoder.Get());
 }
 
 void Robot::DisabledInit()
