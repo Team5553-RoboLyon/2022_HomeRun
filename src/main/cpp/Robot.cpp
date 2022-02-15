@@ -10,8 +10,7 @@
 
 void Robot::RobotInit()
 {
-  m_speedFeeder = 0.0;
-  m_speedConveyor = 0.0;
+  m_speedIntake = 0.0;
 }
 
 /**
@@ -48,11 +47,7 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  m_ConveyorMotor.SetInverted(true);
-  m_FeederMotorLeft.SetInverted(false);
-  m_FeederMotorRight.SetInverted(true);
-  // frc::SmartDashboard::PutNumber("vitesse feeder", m_speedFeeder);
-  // frc::SmartDashboard::PutNumber("vitesse conveyor", m_speedConveyor);
+  m_IntakeMotor.SetInverted(true);
 }
 
 /**
@@ -60,32 +55,32 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  frc::SmartDashboard::PutNumber("vitesse feeder", m_JoystickRight.GetThrottle());
-  frc::SmartDashboard::PutNumber("vitesse conveyor", m_JoystickLeft.GetThrottle());
-  double speedFeeder = frc::SmartDashboard::GetNumber("vitesse feeder", 0.0);
-  double speedConveyor = frc::SmartDashboard::GetNumber("vitesse conveyor", 0.0);
+  frc::SmartDashboard::PutNumber("vitesse Intake", m_JoystickRight.GetThrottle());
+  double speedIntake = frc::SmartDashboard::GetNumber("vitesse Intake", 0.0);
 
   // m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
   // m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
-  if (m_JoystickLeft.GetRawButton(1))
-  {
-    m_ConveyorMotor.Set(speedConveyor);
-  }
-  else
-  {
-    m_ConveyorMotor.Set(0.0);
-  }
   if (m_JoystickRight.GetRawButton(1))
   {
-    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
-    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
-    m_ConveyorMotor.Set(speedConveyor);
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedIntake);
   }
   else
   {
-    m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-    m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-    // m_ConveyorMotor.Set(0.0);
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  }
+
+  if (m_JoystickLeft.GetRawButton(1))
+  {
+    if (m_IntakePosition)
+    {
+      m_IntakeSolenoid.kReverse;
+      m_IntakePosition = false;
+    }
+    else
+    {
+      m_IntakeSolenoid.kForward;
+      m_IntakePosition = true;
+    }
   }
 }
 

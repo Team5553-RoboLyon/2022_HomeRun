@@ -11,6 +11,7 @@
 #include <rev/SparkMaxRelativeEncoder.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <spdlog/spdlog.h>
+#include <frc/DoubleSolenoid.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -26,11 +27,10 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_ConveyorMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorRight{3};
-  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorLeft{5};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_IntakeMotor{5};
+  frc::DoubleSolenoid m_IntakeSolenoid{frc::PneumaticsModuleType::CTREPCM, 0, 1};
   frc::Joystick m_JoystickRight{0};
   frc::Joystick m_JoystickLeft{1};
-  double m_speedFeeder;
-  double m_speedConveyor;
+  double m_speedIntake;
+  bool m_IntakePosition;
 };
