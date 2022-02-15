@@ -47,8 +47,12 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  frc::SmartDashboard::PutNumber("vitesse shooter", m_speedShooter);
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
+
+  m_ShooterMotorLeft.ConfigClosedloopRamp(0.2);
+  m_ShooterMotorRight.ConfigClosedloopRamp(0.2);
 }
 
 /**
@@ -58,14 +62,10 @@ void Robot::TeleopPeriodic()
 {
   m_speedShooter = std::clamp(frc::SmartDashboard::GetNumber("vitesse shooter", 0.0), -1.0, 1.0);
 
-  if (m_Joystick.GetRawButton(2))
-  {
-    m_speedShooter = 0.2;
-  }
   if (m_Joystick.GetRawButton(1))
   {
-    m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1.0);
-    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1.0);
+    m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedShooter);
+    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_speedShooter);
   }
   else
   {
