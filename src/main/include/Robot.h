@@ -8,8 +8,8 @@
 #include <frc2/command/Command.h>
 #include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
-#include <frc/DutyCycleEncoder.h>
-
+#include <frc/DoubleSolenoid.h>
+#include <rev/CANSparkMax.h>
 class Robot : public frc::TimedRobot
 {
 public:
@@ -24,5 +24,13 @@ public:
   void TestPeriodic() override;
 
 private:
-  frc::DutyCycleEncoder planetaryencoder{1};
+  rev::CANSparkMax m_NeoMotorRight{1, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  rev::CANSparkMax m_NeoMotorRightFollower{2, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  rev::CANSparkMax m_NeoMotorLeft{3, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  rev::CANSparkMax m_NeoMotorLeftFollower{4, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+
+  frc::Joystick m_Joystick{0};
+  frc::DoubleSolenoid m_TransfertSolenoid{frc::PneumaticsModuleType::CTREPCM, 0, 1};
+
+  bool m_TransfertPosition;
 };

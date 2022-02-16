@@ -42,14 +42,46 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  m_NeoMotorRight.RestoreFactoryDefaults();
+  m_NeoMotorRightFollower.RestoreFactoryDefaults();
+  m_NeoMotorLeft.RestoreFactoryDefaults();
+  m_NeoMotorLeftFollower.RestoreFactoryDefaults();
+
+  m_NeoMotorRight.SetInverted(true);
+  m_NeoMotorRightFollower.SetInverted(false);
+  m_NeoMotorLeft.SetInverted(true);
+  m_NeoMotorLeftFollower.SetInverted(false);
+
+  m_NeoMotorRight.SetOpenLoopRampRate(0.2);
+  m_NeoMotorRightFollower.SetOpenLoopRampRate(0.2);
+  m_NeoMotorLeft.SetOpenLoopRampRate(0.2);
+  m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.2);
 }
 
-/**
- * This function is called periodically during operator control.
- */
 void Robot::TeleopPeriodic()
 {
-  spdlog::info(planetaryencoder.Get());
+  frc::SmartDashboard::PutNumber("joystick ", m_Joystick.GetY());
+  double speed = frc::SmartDashboard::GetNumber("joystick", 0.0) * 0.1;
+  frc::SmartDashboard::PutNumber("vitesse bras", speed);
+
+  m_NeoMotorRight.Set(speed);
+  m_NeoMotorRightFollower.Set(speed);
+  // m_NeoMotorLeft.Set(speed);
+  // m_NeoMotorLeftFollower.Set(speed);
+
+  if (m_Joystick.GetRawButton(1))
+  {
+    if (m_TransfertPosition)
+    {
+      m_TransfertSolenoid.kReverse;
+      m_TransfertPosition = false;
+    }
+    else
+    {
+      m_TransfertSolenoid.kForward;
+      m_TransfertPosition = true;
+    }
+  }
 }
 
 /**
