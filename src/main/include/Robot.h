@@ -27,10 +27,8 @@ public:
 
 private:
   rev::CANSparkMax m_ConveyorMotor{8, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorRight{3};
-  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotorLeft{5};
-  frc::Joystick m_JoystickRight{1};
-  frc::Joystick m_JoystickLeft{0};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{4};
+  frc::Joystick m_Joystick{0};
   double m_speedFeeder;
   double m_speedConveyor;
 };
