@@ -7,7 +7,10 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <spdlog/spdlog.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit()
+{
+  m_TransfertPosition = true;
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -48,8 +51,8 @@ void Robot::TeleopInit()
   m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
   m_NeoMotorRight.SetInverted(true);
-  m_NeoMotorRightFollower.SetInverted(false);
-  m_NeoMotorLeft.SetInverted(true);
+  m_NeoMotorRightFollower.SetInverted(true);
+  m_NeoMotorLeft.SetInverted(false);
   m_NeoMotorLeftFollower.SetInverted(false);
 
   m_NeoMotorRight.SetOpenLoopRampRate(0.2);
@@ -61,7 +64,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
   frc::SmartDashboard::PutNumber("joystick ", m_Joystick.GetY());
-  double speed = frc::SmartDashboard::GetNumber("joystick", 0.0) * 0.1;
+  double speed = m_Joystick.GetY() * 0.1;
   frc::SmartDashboard::PutNumber("vitesse bras", speed);
 
   m_NeoMotorRight.Set(speed);
@@ -70,17 +73,16 @@ void Robot::TeleopPeriodic()
   // m_NeoMotorLeftFollower.Set(speed);
 
   if (m_Joystick.GetRawButton(1))
+
   {
-    if (m_TransfertPosition)
-    {
-      m_TransfertSolenoid.kReverse;
-      m_TransfertPosition = false;
-    }
-    else
-    {
-      m_TransfertSolenoid.kForward;
-      m_TransfertPosition = true;
-    }
+    m_TransfertSolenoid.Set(frc::DoubleSolenoid::Value::kForward);
+    m_TransfertPosition = false;
+  }
+
+  if (m_Joystick.GetRawButton(2))
+  {
+    m_TransfertSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+    m_TransfertPosition = true;
   }
 }
 
