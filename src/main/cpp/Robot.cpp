@@ -55,12 +55,13 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  frc::SmartDashboard::PutNumber("vitesse Intake", m_JoystickRight.GetThrottle());
+  frc::SmartDashboard::PutNumber("vitesse Intake", m_Joystick.GetThrottle());
+  frc::SmartDashboard::PutNumber("valeur intake", m_IntakeSolenoid.Get());
   double speedIntake = frc::SmartDashboard::GetNumber("vitesse Intake", 0.0);
 
   // m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
   // m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
-  if (m_JoystickRight.GetRawButton(1))
+  if (m_Joystick.GetRawButton(1))
   {
     m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedIntake);
   }
@@ -69,17 +70,15 @@ void Robot::TeleopPeriodic()
     m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  if (m_JoystickLeft.GetRawButton(1))
+  if (m_Joystick.GetRawButton(2))
   {
-    if (m_IntakePosition)
     {
-      m_IntakeSolenoid.kReverse;
-      m_IntakePosition = false;
+      m_IntakeSolenoid.Set(frc::DoubleSolenoid::Value::kForward);
     }
-    else
+
+    if (m_Joystick.GetRawButton(3))
     {
-      m_IntakeSolenoid.kForward;
-      m_IntakePosition = true;
+      m_IntakeSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
     }
   }
 }
