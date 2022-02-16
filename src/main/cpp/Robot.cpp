@@ -61,6 +61,8 @@ void Robot::TeleopPeriodic()
 {
   double joystick = std::abs(m_Joystick.GetThrottle());
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
+  // frc::SmartDashboard::PutNumber("encodeur 1", m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity());
+  // frc::SmartDashboard::PutNumber("encodeur 2", -m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity());
   double speed = frc::SmartDashboard::GetNumber("vitesse shooter", 0.0);
 
   if (m_Joystick.GetRawButton(1))
