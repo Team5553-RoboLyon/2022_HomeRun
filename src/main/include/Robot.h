@@ -12,6 +12,8 @@
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 #include <spdlog/spdlog.h>
 
+#define SPEED_TO_RPM(x) ((x * 600) / 2048)
+
 class Robot : public frc::TimedRobot
 {
 public:
