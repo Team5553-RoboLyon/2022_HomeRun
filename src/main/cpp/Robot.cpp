@@ -49,6 +49,7 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit()
 {
   frc::SmartDashboard::PutNumber("vitesse conveyor", 0.0);
+  frc::SmartDashboard::PutNumber("vitesse feeder", 0.0);
   m_ConveyorMotor.SetInverted(true);
   m_FeederMotor.SetInverted(false);
   // frc::SmartDashboard::PutNumber("vitesse feeder", m_speedFeeder);
@@ -66,14 +67,6 @@ void Robot::TeleopPeriodic()
 
   // m_FeederMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
   // m_FeederMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
-  if (m_Joystick.GetRawButton(1))
-  {
-    m_ConveyorMotor.Set(speedConveyor);
-  }
-  else
-  {
-    m_ConveyorMotor.Set(0.0);
-  }
   if (m_Joystick.GetRawButton(2))
   {
     m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedFeeder);
@@ -82,7 +75,7 @@ void Robot::TeleopPeriodic()
   else
   {
     m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-    // m_ConveyorMotor.Set(0.0);
+    m_ConveyorMotor.Set(0.0);
   }
 }
 
