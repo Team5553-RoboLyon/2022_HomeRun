@@ -7,7 +7,17 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <spdlog/spdlog.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit()
+{
+
+  m_leftMotor.RestoreFactoryDefaults();
+  m_leftMotorFollower.RestoreFactoryDefaults();
+  m_rightMotor.RestoreFactoryDefaults();
+  m_rightMotorFollower.RestoreFactoryDefaults();
+
+  m_leftMotorFollower.Follow(m_leftMotor);
+  m_rightMotorFollower.Follow(m_rightMotor);
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -42,6 +52,7 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  frc::SmartDashboard::PutNumber("Speed PTO", 0.0);
 }
 
 /**
@@ -49,6 +60,22 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
+  if (m_joystick.GetRawButton(1))
+  {
+    m_leftMotor.Set(frc::SmartDashboard::GetNumber("Speed PTO", 0.0));
+    m_rightMotor.Set(frc::SmartDashboard::GetNumber("Speed PTO", 0.0));
+  }
+  else
+  {
+    m_leftMotor.Set(0);
+    m_rightMotor.Set(0);
+  }
+
+  if (m_joystick.GetRawButtonPressed(2))
+  {
+    frc::DoubleSolenoid::Value value = m_solenoid.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
+    m_solenoid.Set(value);
+  }
 }
 
 /**
