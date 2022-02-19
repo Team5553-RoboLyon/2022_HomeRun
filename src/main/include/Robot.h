@@ -24,5 +24,4 @@ public:
   void TestPeriodic() override;
 
 private:
-  frc::DutyCycleEncoder planetaryencoder{1};
 };

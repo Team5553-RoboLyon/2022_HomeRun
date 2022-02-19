@@ -49,7 +49,6 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  spdlog::info(planetaryencoder.Get());
 }
 
 /**
