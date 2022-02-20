@@ -5,7 +5,7 @@
 #pragma once
 
 #include <frc2/command/PIDSubsystem.h>
-#include <frc/DutyCycleEncoder.h>
+#include <frc/Encoder.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
@@ -20,5 +20,6 @@ public:
 
 private:
   ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
-  frc::DutyCycleEncoder m_encoderTurret{1};
+  frc::Encoder m_encoderTurret{1, 2};
+  // frc::Encoder m_encodeur{1, 2};
 };

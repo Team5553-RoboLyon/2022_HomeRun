@@ -48,9 +48,6 @@ void Robot::TeleopInit()
   // a mettre dans init de hood et turret
   frc::SmartDashboard::PutNumber("Setpoint hood", 0.0);
   frc::SmartDashboard::PutNumber("Setpoint turret", 0.0);
-
-  turret.ResetEncoder();
-  turret.Enable();
 }
 
 void Robot::TeleopPeriodic()
@@ -72,7 +69,7 @@ void Robot::TeleopPeriodic()
   }
   // a mettre dans le useoutput de turret et hood
   hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint hood", 0.0), 1.0, 57.0));
-  turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), -45.0, 45.0));
+  turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), -35.0, 35.0));
 }
 
 void Robot::TestPeriodic() {}

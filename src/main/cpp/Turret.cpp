@@ -6,12 +6,13 @@
 #include <spdlog/spdlog.h>
 
 Turret::Turret()
-    : PIDSubsystem(frc2::PIDController(0.065, 0.001, 0.006))
+    : PIDSubsystem(frc2::PIDController(0.04, 0.02, 0.002))
 {
   SetSetpoint(0.0);
   GetController().SetIntegratorRange(-5, 5);
   GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
-  m_encoderTurret.SetDistancePerRotation(90.000 / 2.577);
+  m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
+  m_encoderTurret.SetReverseDirection(true);
   Disable();
 }
 
@@ -28,9 +29,7 @@ double Turret::GetMeasurement()
 
 void Turret::ResetEncoder()
 {
-  spdlog::info("RESETING TURRET ENCODEUR");
   m_encoderTurret.Reset();
-  spdlog::info("RESETTED TURRET ENCODEUR");
 }
 
 void Turret::SetPID(double p, double i, double d)
