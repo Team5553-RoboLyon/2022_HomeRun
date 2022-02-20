@@ -12,10 +12,10 @@ Drivetrain::Drivetrain()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.2);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.2);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.2);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.2);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.7);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.7);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.7);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.7);
 
     m_NeoMotorLeft.EnableVoltageCompensation(10);
     m_NeoMotorRight.EnableVoltageCompensation(10);
@@ -45,10 +45,12 @@ Drivetrain::Drivetrain()
     m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
     m_FalconMotor.SetInverted(false);
     m_FalconMotor.GetSensorCollection().SetIntegratedSensorPosition(0.0);
-    m_FalconMotor.ConfigOpenloopRamp(0.2);
+    m_FalconMotor.ConfigOpenloopRamp(0.7);
     m_FalconMotor.EnableVoltageCompensation(true);
     m_FalconMotor.ConfigVoltageCompSaturation(10);
 #endif
+    m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
+    m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void Drivetrain::Periodic()

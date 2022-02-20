@@ -8,6 +8,7 @@
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 #include <spdlog/spdlog.h>
 #include "lib/wrappers/CANSparkMaxWrapper.h"
+#include <frc/DoubleSolenoid.h>
 
 #include "lib/RobotError.h"
 #include "Constants.h"
@@ -35,4 +36,6 @@ private:
 #if IS_DRIVETRAIN_OMNIBASE
   ctre::phoenix::motorcontrol::can::TalonFX m_FalconMotor{DRIVETRAIN_FALCON_MOTOR_OMNI_ID};
 #endif
+  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE};
+  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_CLIMBER_ID_FORWARD, DRIVETRAIN_SOLENOID_CLIMBER_ID_REVERSE};
 };
