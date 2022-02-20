@@ -17,6 +17,11 @@ void Robot::RobotInit()
 
   m_leftMotorFollower.Follow(m_leftMotor);
   m_rightMotorFollower.Follow(m_rightMotor);
+
+  m_leftMotor.SetInverted(true);
+  m_leftMotorFollower.SetInverted(true);
+  m_rightMotor.SetInverted(false);
+  m_rightMotorFollower.SetInverted(false);
 }
 
 /**
@@ -60,12 +65,22 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
+  if (time >= 50)
+  {
+    m_leftMotor.Set(0.0);
+    m_rightMotor.Set(0.0);
+  }
+  else
+  {
+    time++;
+  }
+
   if (m_joystick.GetRawButton(1))
   {
     m_leftMotor.Set(frc::SmartDashboard::GetNumber("Speed PTO", 0.0));
     m_rightMotor.Set(frc::SmartDashboard::GetNumber("Speed PTO", 0.0));
   }
-  else
+  else if (m_joystick.GetRawButtonReleased(1))
   {
     m_leftMotor.Set(0);
     m_rightMotor.Set(0);
@@ -73,8 +88,11 @@ void Robot::TeleopPeriodic()
 
   if (m_joystick.GetRawButtonPressed(2))
   {
+    m_leftMotor.Set(0.1);
+    m_rightMotor.Set(0.1);
     frc::DoubleSolenoid::Value value = m_solenoid.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
     m_solenoid.Set(value);
+    time = 0;
   }
 }
 

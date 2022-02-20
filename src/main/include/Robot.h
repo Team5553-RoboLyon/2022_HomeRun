@@ -33,4 +33,5 @@ private:
   frc::Joystick m_joystick{0};
   frc::DutyCycleEncoder m_encoder{1};
   frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, 0, 1};
+  double time = 0;
 };
