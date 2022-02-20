@@ -11,6 +11,7 @@
 #include <frc/DutyCycleEncoder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DoubleSolenoid.h>
+#include <frc/Compressor.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -26,12 +27,16 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_leftMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotor{3, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotorFollower{4, rev::CANSparkMax::MotorType::kBrushless};
-  frc::Joystick m_joystick{0};
-  frc::DutyCycleEncoder m_encoder{1};
-  frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, 0, 1};
+  rev::CANSparkMax m_leftMotor{3, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_leftMotorFollower{4, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotor{1, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
+  frc::Joystick m_joystickRight{0};
+  frc::Joystick m_joystickLeft{1};
+  frc::DutyCycleEncoder m_encoderRotatingArms{0};
+  frc::DutyCycleEncoder m_encoderClimber{1};
+  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 1, 0};
+  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 2, 3};
   double time = 0;
+  frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
 };
