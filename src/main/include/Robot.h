@@ -6,13 +6,13 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
-#include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
 #include <frc/DutyCycleEncoder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/DoubleSolenoid.h>
-#include <frc/Compressor.h>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h >
+#include <frc/DutyCycleEncoder.h>
 
+#define ROTATION (190 / 18) * 30
 class Robot : public frc::TimedRobot
 {
 public:
@@ -27,16 +27,7 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_leftMotor{3, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftMotorFollower{4, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
-  frc::Joystick m_joystickRight{0};
-  frc::Joystick m_joystickLeft{1};
-  frc::DutyCycleEncoder m_encoderRotatingArms{0};
-  frc::DutyCycleEncoder m_encoderClimber{1};
-  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 1, 0};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 3, 2};
-  double time = 0;
-  frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
+  frc::Joystick m_joystick{0};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{1};
+  frc::DutyCycleEncoder m_TurretEncoder{9};
 };

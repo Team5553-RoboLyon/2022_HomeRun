@@ -7,41 +7,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <spdlog/spdlog.h>
 
-namespace utils
-{
-  double Deadband(double value, double deadband = 0.1)
-  {
-    if (std::abs(value) < deadband)
-    {
-      return 0;
-    }
-
-    if (value >= 0)
-    {
-      return (value - deadband) / (1.0 - deadband);
-    }
-    else
-    {
-      return (value + deadband) / (1.0 - deadband);
-    }
-  }
-} // namespace utils
-
 void Robot::RobotInit()
 {
-
-  m_leftMotor.RestoreFactoryDefaults();
-  m_leftMotorFollower.RestoreFactoryDefaults();
-  m_rightMotor.RestoreFactoryDefaults();
-  m_rightMotorFollower.RestoreFactoryDefaults();
-
-  m_leftMotorFollower.Follow(m_leftMotor);
-  m_rightMotorFollower.Follow(m_rightMotor);
-
-  m_leftMotor.SetInverted(true);
-  m_leftMotorFollower.SetInverted(true);
-  m_rightMotor.SetInverted(false);
-  m_rightMotorFollower.SetInverted(false);
 }
 
 /**
@@ -61,7 +28,9 @@ void Robot::RobotPeriodic()
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit()
+{
+}
 
 void Robot::DisabledPeriodic() {}
 
@@ -77,10 +46,8 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  frc::SmartDashboard::PutNumber("Speed PTO", 0.0);
-  m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidClimber.GetFwdChannel();
+  m_TurretEncoder.Reset();
+  m_TurretMotor.SetInverted(false);
 }
 
 /**
@@ -88,52 +55,23 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ||
-                         m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
-
-  double speedCoefficientLeft = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.4 : 0.2;
-  double speedCoefficientRight = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
-  double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficientRight;
-  double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficientLeft;
-
-  if (m_joystickLeft.GetRawButtonPressed(1))
+  if (m_joystick.GetRawButton(1))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidClimber.Set(value);
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+  }
+  frc::SmartDashboard::PutNumber("encodeur turret", m_TurretEncoder.Get().value());
+  double encoder = frc::SmartDashboard::GetNumber("encodeur turret", 0.0);
+  spdlog::info(m_TurretEncoder.Get());
+  double speedTurret = m_joystick.GetZ() * 0.5;
+  frc::SmartDashboard::PutNumber("Speed Turret", speedTurret);
+  if (m_joystick.GetRawButtonPressed(2))
+  {
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
   }
 
-  if (m_joystickRight.GetRawButtonPressed(1))
+  if (encoder >= 10.05) // 10.05 pour 0.5
   {
-    frc::DoubleSolenoid::Value value = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidRotatingArms.Set(value);
-  }
-
-  if (m_joystickRight.GetRawButtonPressed(2))
-  {
-    if (m_compressor.Enabled())
-    {
-      m_compressor.Disable();
-    }
-    else
-    {
-      m_compressor.EnableDigital();
-    }
-  }
-
-  if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
-  {
-    m_leftMotor.Set(speedLeft);
-  }
-
-  if (m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse)
-  {
-    m_rightMotor.Set(-speedRight);
-  }
-
-  if (!isAnyPTOEnabled)
-  {
-    m_leftMotor.Set(speedLeft);
-    m_rightMotor.Set(speedRight);
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 }
 
