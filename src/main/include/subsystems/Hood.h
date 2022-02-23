@@ -6,13 +6,16 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <frc2/command/PIDSubsystem.h>
 #include "Constants.h"
 
-class Hood : public frc2::SubsystemBase
+class Hood : public frc2::PIDSubsystem
 {
 public:
   Hood();
-  void Periodic() override;
+  void UseOutput(double output, double setpoint) override;
+  double GetMeasurement() override;
+  bool AtSetpoint();
 
 private:
   ctre::phoenix::motorcontrol::can::VictorSPX m_HoodMotor{HOOD_MOTOR_ID};

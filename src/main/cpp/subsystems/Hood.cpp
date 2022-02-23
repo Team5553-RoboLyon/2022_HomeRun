@@ -4,7 +4,25 @@
 
 #include "subsystems/Hood.h"
 
-Hood::Hood() = default;
+Hood::Hood() : PIDSubsystem(frc2::PIDController(HOOD_PID_P, HOOD_PID_I, HOOD_PID_D))
+{
+    m_HoodMotor.ConfigFactoryDefault();
+    m_HoodMotor.SetInverted(false);
+    m_HoodMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+    GetController().SetTolerance(HOOD_PID_TOLERANCE);
+}
 
-// This method will be called once per scheduler run
-void Hood::Periodic() {}
+double Hood::GetMeasurement()
+{
+    return 0;
+}
+
+void Hood::UseOutput(double output, double setpoint)
+{
+    m_HoodMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
+}
+
+bool Hood::AtSetpoint()
+{
+    return GetController().AtSetpoint();
+}
