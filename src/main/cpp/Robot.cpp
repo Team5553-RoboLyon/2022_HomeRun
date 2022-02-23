@@ -23,7 +23,27 @@ void Robot::RobotInit()
  */
 void Robot::RobotPeriodic()
 {
-  // frc::SmartDashboard::PutNumber("Coefficient de vitesse", std::abs(m_Joystick.GetThrottle()));
+  if (m_file.is_open())
+  {
+    // Get timestamp as an integer
+    m_file << frc::Timer::GetFPGATimestamp().value() << ";";
+    m_file << m_PDP.GetVoltage() << ";";
+    for (int i = 0; i < 16; i++)
+    {
+      m_file << m_PDP.GetCurrent(i) << ";";
+    }
+    m_file << m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorAbsolutePosition() << ";";
+    m_file << m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorAbsolutePosition() << ";";
+    m_file << m_ShooterMotorLeft.GetBusVoltage() << ";";
+    m_file << m_ShooterMotorRight.GetBusVoltage() << ";";
+    m_file << m_ShooterMotorLeft.GetStatorCurrent() << ";";
+    m_file << m_ShooterMotorRight.GetStatorCurrent() << ";";
+    m_file << m_ShooterMotorLeft.GetTemperature() << ";";
+    m_file << m_ShooterMotorRight.GetTemperature() << ";\n";
+    m_file << m_ShooterMotorLeft.GetMotorOutputPercent() << ";";
+    m_file << m_ShooterMotorRight.GetMotorOutputPercent() << ";";
+    m_file.flush();
+  }
 }
 
 /**
@@ -31,7 +51,11 @@ void Robot::RobotPeriodic()
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit()
+{
+  if (m_file.is_open())
+    m_file.close();
+}
 
 void Robot::DisabledPeriodic() {}
 
@@ -47,11 +71,32 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  m_ShooterMotorLeft.ConfigFactoryDefault();
+  m_ShooterMotorRight.ConfigFactoryDefault();
+
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
 
-  m_ShooterMotorLeft.ConfigClosedloopRamp(0.2);
-  m_ShooterMotorRight.ConfigClosedloopRamp(0.2);
+  // Get time from the computer to use for logging file name
+  time_t rawtime;
+  struct tm *timeinfo;
+  char buffer[80];
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
+  strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
+  m_file.open("/home/lvuser/logfile" + std::string(buffer) + ".csv", std::ios::out);
+  m_file << "Time;Voltage;";
+  m_file << "Current Channel 1;Current Channel 2;Current Channel 3;";
+  m_file << "Current Channel 4;Current Channel 5;Current Channel 6;";
+  m_file << "Current Channel 7;Current Channel 8;Current Channel 9;";
+  m_file << "Current Channel 10;Current Channel 11;Current Channel 12;";
+  m_file << "Current Channel 13;Current Channel 14;Current Channel 15;";
+  m_file << "Current Channel 16;Shooter Motor Left Encoder;Shooter Motor Right Encoder;";
+  m_file << "Shooter Motor Left Speed;Shooter Motor Right Speed;";
+  m_file << "Shooter Motor Left Voltage;Shooter Motor Right Voltage;";
+  m_file << "Shooter Motor Left Current;Shooter Motor Right Current;";
+  m_file << "Shooter Motor Left Temperature;Shooter Motor Right Temperature;";
+  m_file << "Shooter Motor Left Setpoint;Shooter Motor Right Setpoint;\n";
 }
 
 /**

@@ -11,6 +11,9 @@
 #include <rev/SparkMaxRelativeEncoder.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 #include <spdlog/spdlog.h>
+#include <fstream>
+#include <frc/PowerDistribution.h>
+#include <frc/DriverStation.h>
 
 #define SPEED_TO_RPM(x) ((x * 600) / 2048)
 
@@ -32,4 +35,6 @@ private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{4};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
+  std::fstream m_file;
+  frc::PowerDistribution m_PDP;
 };
