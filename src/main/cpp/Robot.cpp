@@ -39,9 +39,9 @@ void Robot::RobotPeriodic()
     m_file << m_ShooterMotorLeft.GetStatorCurrent() << ";";
     m_file << m_ShooterMotorRight.GetStatorCurrent() << ";";
     m_file << m_ShooterMotorLeft.GetTemperature() << ";";
-    m_file << m_ShooterMotorRight.GetTemperature() << ";\n";
+    m_file << m_ShooterMotorRight.GetTemperature() << ";";
     m_file << m_ShooterMotorLeft.GetMotorOutputPercent() << ";";
-    m_file << m_ShooterMotorRight.GetMotorOutputPercent() << ";";
+    m_file << m_ShooterMotorRight.GetMotorOutputPercent() << ";\n";
     m_file.flush();
   }
 }
@@ -84,7 +84,7 @@ void Robot::TeleopInit()
   time(&rawtime);
   timeinfo = localtime(&rawtime);
   strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
-  m_file.open("/home/lvuser/logfile" + std::string(buffer) + ".csv", std::ios::out);
+  m_file.open("/home/lvuser/logfile-" + std::string(buffer) + ".csv", std::ios::out);
   m_file << "Time;Voltage;";
   m_file << "Current Channel 1;Current Channel 2;Current Channel 3;";
   m_file << "Current Channel 4;Current Channel 5;Current Channel 6;";
@@ -105,9 +105,12 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
   double joystick = m_Joystick.GetThrottle();
+  double speedHood = m_Joystick.GetY() * 0.2;
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
+  frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
+  // frc::SmartDashboard::PutNumber("encodeur mini NEO",ALEXANDRE tu peux mettre ici le getencoder du mini neo stp);
 
   if (m_Joystick.GetRawButton(1))
   {
@@ -119,6 +122,8 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
+
+  m_HoodMotor.Set(speedHood);
 }
 
 /**

@@ -14,6 +14,7 @@
 #include <fstream>
 #include <frc/PowerDistribution.h>
 #include <frc/DriverStation.h>
+#include <rev/CANSparkMax.h>
 
 #define SPEED_TO_RPM(x) ((x * 600) / 2048)
 
@@ -33,6 +34,7 @@ public:
 private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{3};
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{4};
+  rev::CANSparkMax m_HoodMotor{2, rev::CANSparkMax::MotorType::kBrushless};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
   std::fstream m_file;
