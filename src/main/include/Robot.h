@@ -28,8 +28,8 @@ public:
   void TestPeriodic() override;
 
 private:
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{1};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{2};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{3};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{4};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
 };
