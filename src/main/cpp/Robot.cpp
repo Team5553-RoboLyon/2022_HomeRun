@@ -10,7 +10,12 @@
 
 void Robot::RobotInit()
 {
+  m_setpoint = 0.0;
   m_speedShooter = 0.0;
+  m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_HoodMotor.SetInverted(true);
+  m_HoodMotor.SetOpenLoopRampRate(0.2);
+  // m_encodeur.SetInverted(true);
 }
 
 /**
@@ -71,11 +76,16 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  frc::SmartDashboard::PutNumber("Setpoint", m_setpoint);
+  frc::SmartDashboard::PutNumber("Coefficient de vitesse", 0.4);
+  frc::SmartDashboard::PutNumber("Position", m_encodeur.GetPosition());
   m_ShooterMotorLeft.ConfigFactoryDefault();
   m_ShooterMotorRight.ConfigFactoryDefault();
 
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
+
+  frc::SmartDashboard::PutNumber("pid", 1.0);
 
   // Get time from the computer to use for logging file name
   time_t rawtime;
@@ -110,7 +120,7 @@ void Robot::TeleopPeriodic()
   frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
-  frc::SmartDashboard::PutNumber("encodeur mini NEO", m_HoodMotor.GetEncoder().GetPosition());
+  frc::SmartDashboard::PutNumber("encodeur mini NEO", m_encodeur.GetPosition());
 
   if (m_Joystick.GetRawButton(1))
   {
@@ -124,6 +134,22 @@ void Robot::TeleopPeriodic()
   }
 
   m_HoodMotor.Set(speedHood);
+
+  if (m_Joystick.GetRawButton(2))
+  {
+    m_encodeur.SetPosition(0.0);
+  }
+  m_setpoint = (frc::SmartDashboard::GetNumber("Setpoint", 0.0));
+  double error = m_setpoint - m_encodeur.GetPosition();
+  frc::SmartDashboard::PutNumber("Erreur", error);
+  double derivative = (error - m_lastError) / .02;
+  frc::SmartDashboard::PutNumber("Derivative", derivative);
+  m_integrative += (error * 0.02);
+  frc::SmartDashboard::PutNumber("Integrative", m_integrative);
+  double speed = frc::SmartDashboard::GetNumber("Coefficient de vitesse", 0.0) * std::clamp((0.1 * error + 0.001 * m_integrative + 0.01 * derivative), -1.0, 1.0);
+  frc::SmartDashboard::PutNumber("Speed", speed);
+  m_lastError = error;
+  m_HoodMotor.Set(speed);
 }
 
 /**

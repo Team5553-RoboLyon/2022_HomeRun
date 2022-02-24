@@ -6,6 +6,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/PIDSubsystem.h>
 #include <rev/CANSparkMax.h>
 #include <frc/Joystick.h>
 #include <rev/SparkMaxRelativeEncoder.h>
@@ -35,6 +36,10 @@ private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{3};
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{4};
   rev::CANSparkMax m_HoodMotor{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::SparkMaxRelativeEncoder m_encodeur = m_HoodMotor.GetEncoder();
+  double m_setpoint;
+  double m_lastError;
+  double m_integrative;
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
   std::fstream m_file;
