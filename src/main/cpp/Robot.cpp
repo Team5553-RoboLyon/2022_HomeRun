@@ -110,7 +110,7 @@ void Robot::TeleopPeriodic()
   frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
-  // frc::SmartDashboard::PutNumber("encodeur mini NEO",ALEXANDRE tu peux mettre ici le getencoder du mini neo stp);
+  frc::SmartDashboard::PutNumber("encodeur mini NEO", m_HoodMotor.GetEncoder().GetPosition());
 
   if (m_Joystick.GetRawButton(1))
   {
