@@ -77,10 +77,8 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  frc::SmartDashboard::PutNumber("Speed PTO", 0.0);
   m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
   m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidClimber.GetFwdChannel();
 }
 
 /**
@@ -88,6 +86,8 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
+  double offset = m_joystickLeft.GetThrottle() + m_joystickRight.GetThrottle() * 0.1;
+  frc::SmartDashboard::PutNumber("Offset", offset);
   bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ||
                          m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
 
@@ -122,7 +122,7 @@ void Robot::TeleopPeriodic()
 
   if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
   {
-    m_leftMotor.Set(speedLeft);
+    m_leftMotor.Set(speedLeft + offset);
   }
 
   if (m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse)
