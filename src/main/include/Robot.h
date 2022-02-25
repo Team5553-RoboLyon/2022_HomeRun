@@ -13,15 +13,14 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc/Compressor.h>
 
+#define MAX_HEIGHT_CLIMBER 56.4
+#define IS_CLIMBER_PID true
+
 class Robot : public frc::TimedRobot
 {
 public:
   void RobotInit() override;
   void RobotPeriodic() override;
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
@@ -37,6 +36,17 @@ private:
   frc::DutyCycleEncoder m_encoderClimber{1};
   frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 1, 0};
   frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 3, 2};
-  double time = 0;
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
+  double time = 0;
+
+  double m_speedPID;
+  double m_speedCoef;
+  double m_setpoint;
+  double m_lastError;
+  double m_error;
+  double m_integrative;
+  double m_derivative;
+  double kP = 0.1;
+  double kI = 0.0001;
+  double kD = 0.001;
 };

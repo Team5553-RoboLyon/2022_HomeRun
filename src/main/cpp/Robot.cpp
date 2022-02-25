@@ -29,6 +29,14 @@ namespace utils
 
 void Robot::RobotInit()
 {
+#if IS_CLIMBER_PID
+  m_setpoint = 0.0;
+  m_encoderClimber.Reset();
+  m_integrative = 0.0;
+  m_lastError = 0.0;
+  frc::SmartDashboard::PutNumber("setpoint", 0.0);
+  frc::SmartDashboard::PutNumber("speedCoef", 0.0);
+#endif
 
   m_leftMotor.RestoreFactoryDefaults();
   m_leftMotorFollower.RestoreFactoryDefaults();
@@ -44,36 +52,9 @@ void Robot::RobotInit()
   m_rightMotorFollower.SetInverted(false);
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want to run during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic()
 {
 }
-
-/**
- * This function is called once each time the robot enters Disabled mode. You
- * can use it to reset any subsystem information you want to clear when the
- * robot is disabled.
- */
-void Robot::DisabledInit() {}
-
-void Robot::DisabledPeriodic() {}
-
-/**
- * This autonomous runs the autonomous command selected by your {@link
- * RobotContainer} class.
- */
-void Robot::AutonomousInit()
-{
-}
-
-void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
@@ -95,6 +76,8 @@ void Robot::TeleopPeriodic()
   double speedCoefficientRight = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
   double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficientRight;
   double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficientLeft;
+  frc::SmartDashboard::PutNumber("speedRight", speedRight);
+  frc::SmartDashboard::PutNumber("speedLeft", speedLeft);
 
   if (m_joystickLeft.GetRawButtonPressed(1))
   {
@@ -135,6 +118,21 @@ void Robot::TeleopPeriodic()
     m_leftMotor.Set(speedLeft);
     m_rightMotor.Set(speedRight);
   }
+
+#if IS_CLIMBER_PID
+  frc::SmartDashboard::PutNumber("encodeur climber", m_encoderClimber.Get().value());
+  frc::SmartDashboard::PutNumber("error", m_error);
+  frc::SmartDashboard::PutNumber("integrative", m_integrative);
+  frc::SmartDashboard::PutNumber("derivative", m_derivative);
+  frc::SmartDashboard::PutNumber("speedClimber_PID", m_speedPID);
+  m_speedCoef = frc::SmartDashboard::GetNumber("speedCoef", 0.0);
+  m_setpoint = frc::SmartDashboard::GetNumber("setpoint", 0.0);
+  m_error = m_setpoint - m_encoderClimber.Get().value();
+  m_integrative += (m_error * 0.02);
+  m_derivative = (m_error - m_lastError) / .02;
+  m_lastError = m_error;
+  m_speedPID = std::abs(m_speedCoef) * std::clamp(kP * m_error + kI * m_integrative + kD * m_derivative, -1.0, 1.0);
+#endif
 }
 
 /**
