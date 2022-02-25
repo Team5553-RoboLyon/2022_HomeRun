@@ -27,10 +27,10 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_leftMotor{3, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftMotorFollower{4, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_leftMotor{1, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_leftMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotor{7, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotorFollower{6, rev::CANSparkMax::MotorType::kBrushless};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
   frc::DutyCycleEncoder m_encoderRotatingArms{0};
