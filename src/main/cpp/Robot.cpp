@@ -11,6 +11,7 @@
 void Robot::RobotInit()
 {
   m_speedShooter = 0.0;
+  hood.ResetEncoders();
 }
 
 /**
@@ -24,6 +25,7 @@ void Robot::RobotInit()
 void Robot::RobotPeriodic()
 {
   frc2::CommandScheduler::GetInstance().Run();
+  frc::SmartDashboard::PutNumber("encodeur Hood", hood.GetEncoder());
 }
 
 /**
@@ -45,13 +47,15 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  hood.ResetEncoders();
-
   m_ShooterMotorLeft.ConfigFactoryDefault();
   m_ShooterMotorRight.ConfigFactoryDefault();
 
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
+
+  m_ShooterMotorLeft.ConfigVoltageCompSaturation(11);
+  m_ShooterMotorRight.ConfigVoltageCompSaturation(11);
+
   frc::SmartDashboard::PutNumber("Setpoint", 0.0);
 }
 
@@ -63,7 +67,6 @@ void Robot::TeleopPeriodic()
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
   frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
   frc::SmartDashboard::PutNumber("vitesse turret", speedTurret);
-  frc::SmartDashboard::PutNumber("encodeur Hood", hood.GetEncoder());
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
 
@@ -80,7 +83,7 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 0.0, 58.0));
+  hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 1.0, 57.0));
 
   // m_HoodMotor.Set(speedHood);
   m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);

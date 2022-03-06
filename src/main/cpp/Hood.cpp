@@ -7,21 +7,27 @@
 #include <frc/livewindow/LiveWindow.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
+#include <spdlog/spdlog.h>
 
 Hood::Hood()
-    : PIDSubsystem(frc2::PIDController{0.04, 0.01, 0.0002})
+    : PIDSubsystem(frc2::PIDController{0.035, 0.008, 0.0004})
 {
   m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
+  this->Enable();
   this->SetSetpoint(0.0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetInverted(true);
-  GetController().SetIntegratorRange(-50, 50);
+  GetController().SetIntegratorRange(-5, 5);
 }
 
 void Hood::ResetEncoders()
 {
+  while (!m_encoderHood.IsConnected())
+  {
+    spdlog::info("ENCODER NOT RESETTED");
+  }
   m_encoderHood.Reset();
   m_HoodMotor.GetEncoder().SetPosition(0.0);
 }
