@@ -10,12 +10,7 @@
 
 void Robot::RobotInit()
 {
-  m_setpoint = 0.0;
   m_speedShooter = 0.0;
-  m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
-  m_HoodMotor.SetInverted(true);
-  m_HoodMotor.SetOpenLoopRampRate(0.2);
-  // m_encodeur.SetInverted(true);
 }
 
 /**
@@ -28,27 +23,7 @@ void Robot::RobotInit()
  */
 void Robot::RobotPeriodic()
 {
-  if (m_file.is_open())
-  {
-    // Get timestamp as an integer
-    m_file << frc::Timer::GetFPGATimestamp().value() << ";";
-    m_file << m_PDP.GetVoltage() << ";";
-    for (int i = 0; i < 16; i++)
-    {
-      m_file << m_PDP.GetCurrent(i) << ";";
-    }
-    m_file << m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorAbsolutePosition() << ";";
-    m_file << m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorAbsolutePosition() << ";";
-    m_file << m_ShooterMotorLeft.GetBusVoltage() << ";";
-    m_file << m_ShooterMotorRight.GetBusVoltage() << ";";
-    m_file << m_ShooterMotorLeft.GetStatorCurrent() << ";";
-    m_file << m_ShooterMotorRight.GetStatorCurrent() << ";";
-    m_file << m_ShooterMotorLeft.GetTemperature() << ";";
-    m_file << m_ShooterMotorRight.GetTemperature() << ";";
-    m_file << m_ShooterMotorLeft.GetMotorOutputPercent() << ";";
-    m_file << m_ShooterMotorRight.GetMotorOutputPercent() << ";\n";
-    m_file.flush();
-  }
+  frc2::CommandScheduler::GetInstance().Run();
 }
 
 /**
@@ -58,16 +33,10 @@ void Robot::RobotPeriodic()
  */
 void Robot::DisabledInit()
 {
-  if (m_file.is_open())
-    m_file.close();
 }
 
 void Robot::DisabledPeriodic() {}
 
-/**
- * This autonomous runs the autonomous command selected by your {@link
- * RobotContainer} class.
- */
 void Robot::AutonomousInit()
 {
 }
@@ -76,51 +45,29 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  frc::SmartDashboard::PutNumber("Setpoint", m_setpoint);
-  frc::SmartDashboard::PutNumber("Coefficient de vitesse", 0.4);
-  frc::SmartDashboard::PutNumber("Position", m_encodeur.GetPosition());
+  hood.ResetEncoders();
+
   m_ShooterMotorLeft.ConfigFactoryDefault();
   m_ShooterMotorRight.ConfigFactoryDefault();
 
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
-
-  frc::SmartDashboard::PutNumber("pid", 1.0);
-
-  // Get time from the computer to use for logging file name
-  time_t rawtime;
-  struct tm *timeinfo;
-  char buffer[80];
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-  strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
-  m_file.open("/home/lvuser/logfile-" + std::string(buffer) + ".csv", std::ios::out);
-  m_file << "Time;Voltage;";
-  m_file << "Current Channel 1;Current Channel 2;Current Channel 3;";
-  m_file << "Current Channel 4;Current Channel 5;Current Channel 6;";
-  m_file << "Current Channel 7;Current Channel 8;Current Channel 9;";
-  m_file << "Current Channel 10;Current Channel 11;Current Channel 12;";
-  m_file << "Current Channel 13;Current Channel 14;Current Channel 15;";
-  m_file << "Current Channel 16;Shooter Motor Left Encoder;Shooter Motor Right Encoder;";
-  m_file << "Shooter Motor Left Speed;Shooter Motor Right Speed;";
-  m_file << "Shooter Motor Left Voltage;Shooter Motor Right Voltage;";
-  m_file << "Shooter Motor Left Current;Shooter Motor Right Current;";
-  m_file << "Shooter Motor Left Temperature;Shooter Motor Right Temperature;";
-  m_file << "Shooter Motor Left Setpoint;Shooter Motor Right Setpoint;\n";
+  frc::SmartDashboard::PutNumber("Setpoint", 0.0);
 }
 
-/**
- * This function is called periodically during operator control.
- */
 void Robot::TeleopPeriodic()
 {
   double joystick = m_Joystick.GetThrottle();
-  double speedHood = m_Joystick.GetY() * 0.2;
+  double speedHood = m_Joystick.GetY() * 0.1;
+  double speedTurret = m_Joystick.GetZ() * 0.3;
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
   frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
+  frc::SmartDashboard::PutNumber("vitesse turret", speedTurret);
+  frc::SmartDashboard::PutNumber("encodeur Hood", hood.GetEncoder());
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
-  frc::SmartDashboard::PutNumber("encodeur mini NEO", m_encodeur.GetPosition());
+
+  frc::SmartDashboard::PutNumber("encodeur Turret", m_encoderTurret.GetDistance());
 
   if (m_Joystick.GetRawButton(1))
   {
@@ -133,28 +80,12 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  m_HoodMotor.Set(speedHood);
+  hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 0.0, 58.0));
 
-  if (m_Joystick.GetRawButton(2))
-  {
-    m_encodeur.SetPosition(0.0);
-  }
-  m_setpoint = (frc::SmartDashboard::GetNumber("Setpoint", 0.0));
-  double error = m_setpoint - m_encodeur.GetPosition();
-  frc::SmartDashboard::PutNumber("Erreur", error);
-  double derivative = (error - m_lastError) / .02;
-  frc::SmartDashboard::PutNumber("Derivative", derivative);
-  m_integrative += (error * 0.02);
-  frc::SmartDashboard::PutNumber("Integrative", m_integrative);
-  double speed = frc::SmartDashboard::GetNumber("Coefficient de vitesse", 0.0) * std::clamp((0.1 * error + 0.001 * m_integrative + 0.01 * derivative), -1.0, 1.0);
-  frc::SmartDashboard::PutNumber("Speed", speed);
-  m_lastError = error;
-  m_HoodMotor.Set(speed);
+  // m_HoodMotor.Set(speedHood);
+  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
 }
 
-/**
- * This function is called periodically during test mode.
- */
 void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
