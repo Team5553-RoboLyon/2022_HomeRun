@@ -58,6 +58,7 @@ void Robot::TeleopInit()
   m_ShooterMotorLeft.ConfigVoltageCompSaturation(11);
   m_ShooterMotorRight.ConfigVoltageCompSaturation(11);
 
+  // a mettre dans init de hood et turret
   frc::SmartDashboard::PutNumber("Setpoint hood", 0.0);
   frc::SmartDashboard::PutNumber("Setpoint turret", 0.0);
 
@@ -68,11 +69,11 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
   double joystick = m_Joystick.GetThrottle();
-  double speedHood = m_Joystick.GetY() * 0.1;
-  double speedTurret = m_Joystick.GetZ() * 0.3;
+  // double speedHood = m_Joystick.GetY() * 0.1;
+  // double speedTurret = m_Joystick.GetZ() * 0.3;
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
-  frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
-  frc::SmartDashboard::PutNumber("vitesse turret", speedTurret);
+  // frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
+  // frc::SmartDashboard::PutNumber("vitesse turret", speedTurret);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
 
@@ -86,11 +87,11 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
-
+  // a mettre dans le useoutput de turret et hood
   hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint hood", 0.0), 1.0, 57.0));
   turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), -45.0, 45.0));
 
-  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
+  // m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
 }
 
 void Robot::TestPeriodic() {}
