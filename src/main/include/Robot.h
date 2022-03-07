@@ -19,6 +19,7 @@
 #include <rev/CANSparkMax.h>
 #include <frc/DutyCycleEncoder.h>
 #include "Hood.h"
+#include "Turret.h"
 
 #define SPEED_TO_RPM(x) ((x * 600) / 2048)
 
@@ -43,4 +44,5 @@ private:
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
   Hood hood;
+  Turret turret;
 };

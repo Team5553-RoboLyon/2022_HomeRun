@@ -12,6 +12,7 @@ void Robot::RobotInit()
 {
   m_speedShooter = 0.0;
   hood.ResetEncoders();
+  // turret.ResetEncoder();
 }
 
 /**
@@ -26,6 +27,7 @@ void Robot::RobotPeriodic()
 {
   frc2::CommandScheduler::GetInstance().Run();
   frc::SmartDashboard::PutNumber("encodeur Hood", hood.GetEncoder());
+  frc::SmartDashboard::PutNumber("encodeur Turret", turret.GetEncoder());
 }
 
 /**
@@ -56,7 +58,10 @@ void Robot::TeleopInit()
   m_ShooterMotorLeft.ConfigVoltageCompSaturation(11);
   m_ShooterMotorRight.ConfigVoltageCompSaturation(11);
 
-  frc::SmartDashboard::PutNumber("Setpoint", 0.0);
+  frc::SmartDashboard::PutNumber("Setpoint hood", 0.0);
+  frc::SmartDashboard::PutNumber("Setpoint turret", 0.0);
+
+  // turret.ResetEncoder();
 }
 
 void Robot::TeleopPeriodic()
@@ -70,8 +75,6 @@ void Robot::TeleopPeriodic()
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
 
-  frc::SmartDashboard::PutNumber("encodeur Turret", m_encoderTurret.GetDistance());
-
   if (m_Joystick.GetRawButton(1))
   {
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, joystick);
@@ -83,10 +86,18 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint", 0.0), 1.0, 57.0));
+  hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint hood", 0.0), 1.0, 57.0));
+  turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), 1.0, 57.0));
 
   // m_HoodMotor.Set(speedHood);
   m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
+
+  if (m_Joystick.GetRawButton(2))
+  {
+    spdlog::info("on resetera");
+    turret.ResetEncoder();
+  }
+  spdlog::info("boucle");
 }
 
 void Robot::TestPeriodic() {}

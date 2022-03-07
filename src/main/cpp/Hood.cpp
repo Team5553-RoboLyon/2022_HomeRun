@@ -41,7 +41,7 @@ void Hood::UseOutput(double output, double setpoint)
 {
 
   m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
-  frc::SmartDashboard::PutNumber("output", output);
+  frc::SmartDashboard::PutNumber("outputHood", output);
 }
 
 double Hood::GetEncoder()
