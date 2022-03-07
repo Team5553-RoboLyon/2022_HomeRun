@@ -15,14 +15,6 @@ void Robot::RobotInit()
   turret.ResetEncoder();
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want to run during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic()
 {
   frc2::CommandScheduler::GetInstance().Run();
@@ -30,11 +22,6 @@ void Robot::RobotPeriodic()
   frc::SmartDashboard::PutNumber("encodeur Turret", turret.GetMeasurement());
 }
 
-/**
- * This function is called once each time the robot enters Disabled mode. You
- * can use it to reset any subsystem information you want to clear when the
- * robot is disabled.
- */
 void Robot::DisabledInit()
 {
 }
@@ -69,11 +56,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
   double joystick = m_Joystick.GetThrottle();
-  // double speedHood = m_Joystick.GetY() * 0.1;
-  // double speedTurret = m_Joystick.GetZ() * 0.3;
   frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
-  // frc::SmartDashboard::PutNumber("vitesse hood", speedHood);
-  // frc::SmartDashboard::PutNumber("vitesse turret", speedTurret);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
 
@@ -90,8 +73,6 @@ void Robot::TeleopPeriodic()
   // a mettre dans le useoutput de turret et hood
   hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint hood", 0.0), 1.0, 57.0));
   turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), -45.0, 45.0));
-
-  // m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
 }
 
 void Robot::TestPeriodic() {}

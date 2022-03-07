@@ -39,8 +39,6 @@ public:
 private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{2};
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{3};
-  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
-  frc::DutyCycleEncoder m_encoderTurret{11};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
   Hood hood;
