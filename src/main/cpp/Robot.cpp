@@ -12,7 +12,7 @@ void Robot::RobotInit()
 {
   m_speedShooter = 0.0;
   hood.ResetEncoders();
-  // turret.ResetEncoder();
+  turret.ResetEncoder();
 }
 
 /**
@@ -27,7 +27,7 @@ void Robot::RobotPeriodic()
 {
   frc2::CommandScheduler::GetInstance().Run();
   frc::SmartDashboard::PutNumber("encodeur Hood", hood.GetEncoder());
-  frc::SmartDashboard::PutNumber("encodeur Turret", turret.GetEncoder());
+  frc::SmartDashboard::PutNumber("encodeur Turret", turret.GetMeasurement());
 }
 
 /**
@@ -61,7 +61,7 @@ void Robot::TeleopInit()
   frc::SmartDashboard::PutNumber("Setpoint hood", 0.0);
   frc::SmartDashboard::PutNumber("Setpoint turret", 0.0);
 
-  // turret.ResetEncoder();
+  turret.ResetEncoder();
 }
 
 void Robot::TeleopPeriodic()
@@ -87,17 +87,9 @@ void Robot::TeleopPeriodic()
   }
 
   hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint hood", 0.0), 1.0, 57.0));
-  turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), 1.0, 57.0));
+  turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint turret", 0.0), -45.0, 45.0));
 
-  // m_HoodMotor.Set(speedHood);
   m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speedTurret);
-
-  if (m_Joystick.GetRawButton(2))
-  {
-    spdlog::info("on resetera");
-    turret.ResetEncoder();
-  }
-  spdlog::info("boucle");
 }
 
 void Robot::TestPeriodic() {}

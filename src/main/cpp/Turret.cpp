@@ -6,38 +6,31 @@
 #include <spdlog/spdlog.h>
 
 Turret::Turret()
-    : PIDSubsystem(frc2::PIDController(0.001, 0, 0)) {}
+    : PIDSubsystem(frc2::PIDController(0.065, 0.001, 0.006))
+{
+  SetSetpoint(0.0);
+  GetController().SetIntegratorRange(-5, 5);
+  GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
+  m_encoderTurret.SetDistancePerRotation(90.000 / 2.577);
+  Enable();
+}
 
 void Turret::UseOutput(double output, double setpoint)
 {
-  m_encoderTurret.SetDistancePerRotation(1.0);
-  SetSetpoint(0.0);
-  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
+  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6));
   frc::SmartDashboard::PutNumber("outputTurret", output);
-  GetController().SetIntegratorRange(-10, 10);
-  Disable();
 }
 
 double Turret::GetMeasurement()
 {
-  return GetEncoder();
+  return m_encoderTurret.GetDistance();
 }
 
 void Turret::ResetEncoder()
 {
-  while (!m_encoderTurret.IsConnected())
-  {
-    spdlog::info("ENCODER TURRET NOT RESETTED");
-  }
-  spdlog::info("RESETTING ENCODEUR");
+  spdlog::info("RESETING TURRET ENCODEUR");
   m_encoderTurret.Reset();
-  spdlog::info("RESETTED ENCODEUR");
-  spdlog::info(m_encoderTurret.IsConnected());
-}
-
-double Turret::GetEncoder()
-{
-  return m_encoderTurret.GetDistance();
+  spdlog::info("RESETTED TURRET ENCODEUR");
 }
 
 void Turret::SetPID(double p, double i, double d)

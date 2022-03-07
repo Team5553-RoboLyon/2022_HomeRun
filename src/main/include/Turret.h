@@ -16,7 +16,6 @@ public:
   void UseOutput(double output, double setpoint) override;
   double GetMeasurement() override;
   void ResetEncoder();
-  double GetEncoder();
   void SetPID(double p, double i, double d);
 
 private:

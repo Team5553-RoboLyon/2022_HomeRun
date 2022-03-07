@@ -26,7 +26,6 @@ void Hood::ResetEncoders()
 {
   while (!m_encoderHood.IsConnected())
   {
-    spdlog::info("ENCODER NOT RESETTED");
   }
   m_encoderHood.Reset();
   m_HoodMotor.GetEncoder().SetPosition(0.0);
