@@ -62,6 +62,7 @@ void Robot::TeleopInit()
   frc::SmartDashboard::PutNumber("Setpoint turret", 0.0);
 
   turret.ResetEncoder();
+  turret.Enable();
 }
 
 void Robot::TeleopPeriodic()

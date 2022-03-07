@@ -12,7 +12,7 @@ Turret::Turret()
   GetController().SetIntegratorRange(-5, 5);
   GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
   m_encoderTurret.SetDistancePerRotation(90.000 / 2.577);
-  Enable();
+  Disable();
 }
 
 void Turret::UseOutput(double output, double setpoint)

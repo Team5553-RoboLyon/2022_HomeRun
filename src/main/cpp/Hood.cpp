@@ -14,8 +14,8 @@ Hood::Hood()
 {
   m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
-  this->Enable();
-  this->SetSetpoint(0.0);
+  Enable();
+  SetSetpoint(0.0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetInverted(true);
