@@ -21,11 +21,19 @@ public:
   bool MagnetDetected();
   void SetPID(double p, double i, double d);
 
+  double m_DeltaPosition;
+  double m_Position;
+  double m_PositionBefore;
+
 private:
   enum state
   {
     Init,
-    Ready,
+    haut_Direction,
+    bas_Direction,
+    bh_Direction,
+    StopSecure
+    // Ready,
   };
   frc::DutyCycleEncoder m_encoderHood{0};
   frc::DigitalInput m_SensorHall{8};
