@@ -23,15 +23,14 @@ public:
   void ResetTurretState();
 
 private:
+  enum TurretState
+  {
+    unknownPosition,
+    goTo0,
+    ready,
+  };
   ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
-  frc::Encoder m_encoderTurret{1, 2};
+  frc::Encoder m_encoderTurret{10, 11};
   frc::DigitalInput m_SensorHall{7};
-  TurretState m_state = TurretState::unknownPosition;
-};
-
-enum TurretState
-{
-  unknownPosition,
-  goTo0,
-  ready,
+  TurretState m_state = Turret::TurretState::unknownPosition;
 };

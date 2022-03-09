@@ -20,36 +20,49 @@ bool Turret::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Turret::UseOutput(double output, double setpoint)
 {
-  switch (m_state)
+  switch (Turret::m_state)
   {
-  case TurretState::unknownPosition:
-    SetSetpoint(45);
+  case Turret::TurretState::unknownPosition:
+    SetSetpoint(-140);
     if (MagnetDetected())
     {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
       m_state = TurretState::goTo0;
       ResetEncoder();
       Enable();
-      SetSetpoint(-25);
+      SetSetpoint(64);
     }
-
-    break;
-  case TurretState::goTo0:
-    if (GetMeasurement() < -24 && GetMeasurement() > -26)
+    else
     {
-      m_state = TurretState::ready;
-      SetSetpoint(0);
-      ResetEncoder();
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.2, 0.2)); // TODO remettre le clamp a 0.6
     }
     break;
-  case TurretState::ready:
+  case Turret::TurretState::goTo0:
+    if (GetMeasurement() < 66 && GetMeasurement() > 62)
+    {
+      spdlog::info(GetMeasurement());
+      spdlog::info("on passe en ready");
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+      ResetEncoder();
+      SetSetpoint(0);
+      m_state = TurretState::ready;
+    }
+    else
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.4, 0.4)); // TODO remettre le clamp a 0.6
+    }
     break;
+  case Turret::TurretState::ready:
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
 
     break;
+
   default:
     break;
   }
-  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6));
+
   frc::SmartDashboard::PutNumber("outputTurret", output);
+  frc::SmartDashboard::PutNumber("out setpoint", setpoint);
 }
 
 double Turret::GetMeasurement()

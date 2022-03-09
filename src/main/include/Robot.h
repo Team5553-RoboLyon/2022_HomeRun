@@ -41,6 +41,6 @@ private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{3};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
-  Hood hood;
-  Turret turret;
+  Hood m_hood;
+  Turret m_turret;
 };
