@@ -14,8 +14,8 @@ Hood::Hood()
 {
   m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
-  Enable();
-  SetSetpoint(-60.0);
+  Disable();
+  SetSetpoint(0.0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetInverted(true);
@@ -54,7 +54,16 @@ void Hood::UseOutput(double output, double setpoint)
       ResetEncoders();
       SetSetpoint(0.0);
     }
+    else
+    {
+      SetSetpoint(-60.0);
+      m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
+    }
     break;
+  case Hood::state::Ready:
+    m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+    break;
+<<<<<<< HEAD
   case Hood::state::bas_Direction:
     std::cout << "Hood::state::bas_Direction" << std::endl;
     if (output < 0)
@@ -128,6 +137,12 @@ void Hood::UseOutput(double output, double setpoint)
   default:
     break;
   }
+=======
+  default:
+    break;
+  }
+
+>>>>>>> f21e84f3086e9e46477ca99b34b9d1991d7cf336
   frc::SmartDashboard::PutNumber("outputHood", output);
 }
 
