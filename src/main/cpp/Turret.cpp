@@ -13,11 +13,41 @@ Turret::Turret()
   GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
   m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
   m_encoderTurret.SetReverseDirection(true);
+  ResetEncoder();
   Disable();
 }
+bool Turret::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Turret::UseOutput(double output, double setpoint)
 {
+  switch (m_state)
+  {
+  case TurretState::unknownPosition:
+    SetSetpoint(45);
+    if (MagnetDetected())
+    {
+      m_state = TurretState::goTo0;
+      ResetEncoder();
+      Enable();
+      SetSetpoint(-25);
+    }
+
+    break;
+  case TurretState::goTo0:
+    if (GetMeasurement() < -24 && GetMeasurement() > -26)
+    {
+      m_state = TurretState::ready;
+      SetSetpoint(0);
+      ResetEncoder();
+    }
+    break;
+  case TurretState::ready:
+    break;
+
+    break;
+  default:
+    break;
+  }
   m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6));
   frc::SmartDashboard::PutNumber("outputTurret", output);
 }
