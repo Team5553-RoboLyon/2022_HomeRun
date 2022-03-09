@@ -60,10 +60,6 @@ void Hood::UseOutput(double output, double setpoint)
       m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
     }
     break;
-  case Hood::state::Ready:
-    m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
-    break;
-<<<<<<< HEAD
   case Hood::state::bas_Direction:
     std::cout << "Hood::state::bas_Direction" << std::endl;
     if (output < 0)
@@ -137,12 +133,6 @@ void Hood::UseOutput(double output, double setpoint)
   default:
     break;
   }
-=======
-  default:
-    break;
-  }
-
->>>>>>> f21e84f3086e9e46477ca99b34b9d1991d7cf336
   frc::SmartDashboard::PutNumber("outputHood", output);
 }
 
