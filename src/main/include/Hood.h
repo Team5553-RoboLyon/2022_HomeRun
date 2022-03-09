@@ -8,6 +8,7 @@
 #include <frc/DutyCycleEncoder.h>
 #include <rev/CANSparkMax.h>
 #include <iostream>
+#include <frc/DigitalInput.h>
 
 class Hood : public frc2::PIDSubsystem
 {
@@ -17,9 +18,18 @@ public:
   void UseOutput(double output, double setpoint) override;
   double GetEncoder();
   void ResetEncoders();
+  bool MagnetDetected();
   void SetPID(double p, double i, double d);
 
 private:
+  enum state
+  {
+    Init,
+    Ready,
+  };
   frc::DutyCycleEncoder m_encoderHood{0};
+  frc::DigitalInput m_SensorHall{8};
+
   rev::CANSparkMax m_HoodMotor{5, rev::CANSparkMax::MotorType::kBrushless};
+  Hood::state m_state = Hood::state::Init;
 };

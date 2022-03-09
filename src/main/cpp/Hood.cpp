@@ -15,12 +15,13 @@ Hood::Hood()
   m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
   Enable();
-  SetSetpoint(0.0);
+  SetSetpoint(-60.0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetInverted(true);
   GetController().SetIntegratorRange(-5, 5);
 }
+bool Hood::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Hood::ResetEncoders()
 {
@@ -38,7 +39,20 @@ double Hood::GetMeasurement()
 
 void Hood::UseOutput(double output, double setpoint)
 {
+  switch (m_state)
+  {
+  case Hood::state::Init:
+    if (MagnetDetected())
+    {
+      m_state = Hood::state::Ready;
+      ResetEncoders();
+      SetSetpoint(0.0);
+    }
+    break;
 
+  default:
+    break;
+  }
   m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
   frc::SmartDashboard::PutNumber("outputHood", output);
 }
