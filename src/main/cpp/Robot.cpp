@@ -68,16 +68,16 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
   // a mettre dans le useoutput de m_turret et m_hood
-  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
+  // m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
   // m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
 
   if (m_Joystick.GetRawButton(2))
   {
-    m_turret.Enable();
+    m_hood.Enable();
   }
   else
   {
-    m_turret.Disable();
+    m_hood.Disable();
   }
 }
 

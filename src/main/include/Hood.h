@@ -30,6 +30,6 @@ private:
   frc::DutyCycleEncoder m_encoderHood{0};
   frc::DigitalInput m_SensorHall{8};
 
-  rev::CANSparkMax m_HoodMotor{5, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
   Hood::state m_state = Hood::state::Init;
 };
