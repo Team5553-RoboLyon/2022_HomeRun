@@ -53,6 +53,7 @@ void Turret::UseOutput(double output, double setpoint)
     }
     break;
   case Turret::TurretState::ready:
+    SetSetpoint(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
     m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
 
     break;

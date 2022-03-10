@@ -14,7 +14,7 @@ Hood::Hood()
 {
   m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
-  Disable();
+  Enable();
   SetSetpoint(0.0);
 
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
@@ -64,7 +64,8 @@ void Hood::UseOutput(double output, double setpoint)
     std::cout << "Hood::state::bas_Direction" << std::endl;
     if (output < 0)
     { // si le pid renvoie <0 mettre moteur vitesse normal
-      m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+      // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
+      m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
     }
     else
     { // sinon mettre le hood a 0.0
@@ -80,7 +81,8 @@ void Hood::UseOutput(double output, double setpoint)
     std::cout << "AdjustableHood::state::haut_Direction" << std::endl;
     if (output > 0)
     { // si le pid renvoie >0 mettre moteur vitesse normal
-      m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+      // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
+      m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
     }
     else
     { // sinon mettre vitesse à 0
@@ -101,7 +103,8 @@ void Hood::UseOutput(double output, double setpoint)
       { // si on va en bas
         if (output > 0)
         { // si joystick renvoie >0 mettre moteur vitesse normal
-          m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+          // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
+          m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
         }
         else
         { // sinon mettre le poid du Hood
@@ -114,18 +117,20 @@ void Hood::UseOutput(double output, double setpoint)
       { // sinon si on vas en haut
         if (output < 0)
         { // si joystick renvoie <0 mettre moteur vitesse normal
-          m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+          // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
+          m_HoodMotor.Set(0.0);
         }
         else
         { // sinon mettre le poid du Hood
-          m_HoodMotor.Set(0.0);
+          m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
         }
         m_state = Hood::state::bas_Direction; // mettre state à bas
       }
     }
     else
     { // sinon pas d'aimant mettre vitesse normal
-      m_HoodMotor.Set(std::clamp(output, -0.4, 0.4));
+      // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
+      m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
     }
 
     break;

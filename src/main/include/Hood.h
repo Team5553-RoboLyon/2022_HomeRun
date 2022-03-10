@@ -25,7 +25,6 @@ public:
   double m_Position;
   double m_PositionBefore;
 
-private:
   enum state
   {
     Init,
@@ -35,9 +34,11 @@ private:
     StopSecure
     // Ready,
   };
+  Hood::state m_state = Hood::state::Init;
+
+private:
   frc::DutyCycleEncoder m_encoderHood{0};
   frc::DigitalInput m_SensorHall{8};
 
   rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  Hood::state m_state = Hood::state::Init;
 };

@@ -35,6 +35,7 @@ public:
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+  void TestInit() override;
 
 private:
   ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{2};
