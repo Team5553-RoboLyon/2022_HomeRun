@@ -27,6 +27,7 @@ public:
 
     enum state
     {
+        encodeurReset,
         Init,
         haut_Direction,
         bas_Direction,
@@ -34,7 +35,7 @@ public:
         StopSecure
         // Ready,
     };
-    Hood::state m_state = Hood::state::bh_Direction;
+    Hood::state m_state = Hood::state::encodeurReset;
 
 private:
     frc::DutyCycleEncoder m_encoderHood{0};

@@ -35,10 +35,10 @@ private:
   rev::CANSparkMax m_rightMotorFollower{6, rev::CANSparkMax::MotorType::kBrushless};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
-  frc::DutyCycleEncoder m_encoderRotatingArms{0};
+  // frc::DutyCycleEncoder m_encoderRotatingArms{0};
   frc::DutyCycleEncoder m_encoderClimber{1};
-  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 1, 0};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 3, 2};
+  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 0, 1};
+  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 2, 3};
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
   double time = 0;
 

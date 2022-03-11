@@ -12,6 +12,7 @@
 Hood::Hood()
     : PIDSubsystem(frc2::PIDController{0.035, 0.008, 0.0004})
 {
+    spdlog::info("constructeur hood");
     m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
     Enable();
@@ -24,28 +25,41 @@ Hood::Hood()
 bool Hood::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Hood::ResetEncoders()
-{
-    while (!m_encoderHood.IsConnected())
-    {
-    }
+{ /*
+     while (!m_encoderHood.IsConnected())
+     {
+     }*/
     m_encoderHood.Reset();
-    m_HoodMotor.GetEncoder().SetPosition(0.0);
+    // m_HoodMotor.GetEncoder().SetPosition(0.0);
 }
 
 double Hood::GetMeasurement()
 {
+    frc::SmartDashboard::PutNumber("distance hood", m_encoderHood.GetDistance());
+    return m_encoderHood.GetDistance();
     return GetEncoder();
 }
 
 void Hood::UseOutput(double output, double setpoint)
 {
+    spdlog::info(output);
+    spdlog::info(setpoint);
     m_Position = GetMeasurement();
     m_DeltaPosition = m_Position - m_PositionBefore;
     if (m_DeltaPosition > -0.3 && m_DeltaPosition < 0.3)
         m_DeltaPosition = 0;
     m_PositionBefore = m_Position;
+
     switch (m_state)
     {
+    case Hood::state::encodeurReset:
+        if (m_encoderHood.IsConnected())
+        {
+            ResetEncoders();
+            m_state = Hood::state::bh_Direction;
+        }
+        break;
+
     case Hood::state::Init:
         m_Position = m_PositionBefore = GetMeasurement();
         if (MagnetDetected())
@@ -139,10 +153,14 @@ void Hood::UseOutput(double output, double setpoint)
         break;
     }
     frc::SmartDashboard::PutNumber("outputHood", output);
+    m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
+    frc::SmartDashboard::PutNumber("setPointfromcontroller", GetSetpoint());
 }
 
 double Hood::GetEncoder()
 {
+
+    frc::SmartDashboard::PutNumber("distance hood", m_encoderHood.GetDistance());
     return m_encoderHood.GetDistance();
 }
 

@@ -127,6 +127,14 @@ void Robot::TeleopPeriodic()
   {
     m_shooter.Set(0.0);
   }
+  if (m_joystickRight.GetRawButton(5))
+  {
+    m_hood.Enable();
+  }
+  else
+  {
+    m_hood.Disable();
+  }
 
   m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
   m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
