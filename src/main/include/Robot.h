@@ -12,6 +12,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/Compressor.h>
+#include "subsystem/Hood.h"
+#include "subsystem/Turret.h"
+#include "subsystem/Shooter.h"
 
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
@@ -39,14 +42,7 @@ private:
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
   double time = 0;
 
-  double m_speedPID;
-  double m_speedCoef;
-  double m_setpoint;
-  double m_lastError;
-  double m_error;
-  double m_integrative;
-  double m_derivative;
-  double kP = 0.1;
-  double kI = 0.0001;
-  double kD = 0.001;
+  Hood m_hood;
+  Turret m_turret;
+  Shooter m_shooter;
 };

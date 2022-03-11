@@ -29,15 +29,6 @@ namespace utils
 
 void Robot::RobotInit()
 {
-#if IS_CLIMBER_PID
-  m_setpoint = 0.0;
-  m_encoderClimber.Reset();
-  m_integrative = 0.0;
-  m_lastError = 0.0;
-  frc::SmartDashboard::PutNumber("setpoint", 0.0);
-  frc::SmartDashboard::PutNumber("speedCoef", 0.0);
-#endif
-
   m_leftMotor.RestoreFactoryDefaults();
   m_leftMotorFollower.RestoreFactoryDefaults();
   m_rightMotor.RestoreFactoryDefaults();
@@ -50,6 +41,11 @@ void Robot::RobotInit()
   m_leftMotorFollower.SetInverted(true);
   m_rightMotor.SetInverted(false);
   m_rightMotorFollower.SetInverted(false);
+
+  m_shooter.Init();
+
+  m_turret.ResetEncoder();
+  m_hood.ResetEncoders();
 }
 
 void Robot::RobotPeriodic()
@@ -60,6 +56,11 @@ void Robot::TeleopInit()
 {
   m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
   m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
+  m_hood.Enable();
+  m_turret.Enable();
+  // a mettre dans init de m_hood et m_turret
+  frc::SmartDashboard::PutNumber("Setpoint m_turret", frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
+  frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0));
 }
 
 /**
@@ -67,8 +68,6 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  double offset = m_joystickLeft.GetThrottle() + m_joystickRight.GetThrottle() * 0.1;
-  frc::SmartDashboard::PutNumber("Offset", offset);
   bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ||
                          m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
 
@@ -105,7 +104,7 @@ void Robot::TeleopPeriodic()
 
   if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
   {
-    m_leftMotor.Set(speedLeft + offset);
+    m_leftMotor.Set(speedLeft);
   }
 
   if (m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse)
@@ -119,20 +118,18 @@ void Robot::TeleopPeriodic()
     m_rightMotor.Set(speedRight);
   }
 
-#if IS_CLIMBER_PID
-  frc::SmartDashboard::PutNumber("encodeur climber", m_encoderClimber.Get().value());
-  frc::SmartDashboard::PutNumber("error", m_error);
-  frc::SmartDashboard::PutNumber("integrative", m_integrative);
-  frc::SmartDashboard::PutNumber("derivative", m_derivative);
-  frc::SmartDashboard::PutNumber("speedClimber_PID", m_speedPID);
-  m_speedCoef = frc::SmartDashboard::GetNumber("speedCoef", 0.0);
-  m_setpoint = frc::SmartDashboard::GetNumber("setpoint", 0.0);
-  m_error = m_setpoint - m_encoderClimber.Get().value();
-  m_integrative += (m_error * 0.02);
-  m_derivative = (m_error - m_lastError) / .02;
-  m_lastError = m_error;
-  m_speedPID = std::abs(m_speedCoef) * std::clamp(kP * m_error + kI * m_integrative + kD * m_derivative, -1.0, 1.0);
-#endif
+  frc::SmartDashboard::PutNumber("shooter output", m_joystickLeft.GetThrottle());
+  if (m_joystickLeft.GetRawButton(2))
+  {
+    m_shooter.Set(m_joystickLeft.GetThrottle());
+  }
+  else
+  {
+    m_shooter.Set(0.0);
+  }
+
+  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
+  m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
 }
 
 /**
