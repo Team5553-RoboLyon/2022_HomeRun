@@ -11,8 +11,21 @@
 
 void Robot::RobotInit()
 {
-  auto logger = spdlog::stdout_logger_mt("LOGGER");
-  spdlog::set_default_logger(logger);
+  std::vector<spdlog::sink_ptr> sinks;
+  sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_st>());
+
+  // Get timestamp
+  auto now = std::chrono::system_clock::now();
+  auto in_time_t = std::chrono::system_clock::to_time_t(now);
+  std::stringstream ss;
+  ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d_%H-%M-%S");
+  std::string time_stamp = ss.str();
+  std::string log_file_name = "/home/lvuser/logs/" + time_stamp + ".log";
+
+  sinks.push_back(std::make_shared<spdlog::sinks::basic_file_sink_st>(log_file_name));
+  auto combined_logger = std::make_shared<spdlog::logger>("LOGGER", begin(sinks), end(sinks));
+
+  spdlog::set_default_logger(combined_logger);
 
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
   spdlog::set_level(spdlog::level::debug);
