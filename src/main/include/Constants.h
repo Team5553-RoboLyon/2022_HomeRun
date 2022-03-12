@@ -4,6 +4,8 @@
 
 #define IS_DRIVETRAIN_OMNIBASE true
 
+#define SHUFFLEBOARD_DEBUG false
+
 #define CONFIG_FILE_PATH "/home/admin/config.json"
 
 #define ROBOT_LOOP_TIME 0.02
@@ -65,11 +67,12 @@
 #define CLIMBER_ENCODER_CONVERSION_FACTOR 1 / 56.4
 
 // Hood PID
-#define HOOD_PID_P 0.1
-#define HOOD_PID_I 0.0
-#define HOOD_PID_D 0.0
-#define HOOD_ENCODER_CONVERSION_FACTOR 1 / 56.4
+#define HOOD_PID_P 0.035
+#define HOOD_PID_I 0.008
+#define HOOD_PID_D 0.0004
+#define HOOD_ENCODER_CONVERSION_FACTOR -(58 / 4.2)
 #define HOOD_PID_TOLERANCE 0
+#define HOOD_PID_INTEGRATOR_RANGE 5
 
 #define DRIVETRAIN_TEST_SPEED 0.1
 #define DRIVETRAIN_TEST_DURATION 0.5
@@ -78,3 +81,9 @@
 #define DRIVETRAIN_SOLENOID_CLIMBER_ID_REVERSE 3
 #define DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD 1
 #define DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE 0
+
+// ######### Encoder IDs #########
+#define HOOD_ENCODER_ID 0
+
+// ######### Digital input IDs #########
+#define HOOD_SENSOR_HALL_ID 8
