@@ -66,31 +66,38 @@ void Robot::TeleopPeriodic()
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
     m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
+  // if (m_hood.m_state != Hood::state::Init)
+  // {
+  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
+  // }
+  m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
 
-  // frc::SmartDashboard::PutNumber("");
-  // a mettre dans le useoutput de m_turret et m_hood
-  if (m_hood.m_state != Hood::state::Init)
-  {
-    m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
-  }
-  // m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
-
-  if (m_Joystick.GetRawButton(2))
-  {
-    m_hood.Disable();
-  }
-  else
-  {
-    m_hood.Enable();
-  }
+  // if (m_Joystick.GetRawButton(2))
+  // {
+  //   m_hood.Disable();
+  // }
+  // else
+  // {
+  //   m_hood.Enable();
+  // }
 }
 void Robot::TestInit()
 {
+  frc::LiveWindow::SetEnabled(false);
   spdlog::info("testinit");
   // m_hood.Enable();
 }
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic()
+{
+  spdlog::info("TestPeriodic");
+
+  // spdlog::info(m_hood.MagnetDetected());
+  if (m_hood.m_state != Hood::state::Init)
+  {
+    m_hood.Disable();
+  }
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main()

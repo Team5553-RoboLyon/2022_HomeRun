@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <frc/livewindow/LiveWindow.h>
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/PIDSubsystem.h>

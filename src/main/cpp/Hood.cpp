@@ -29,7 +29,6 @@ void Hood::ResetEncoders()
   {
   }
   m_encoderHood.Reset();
-  m_HoodMotor.GetEncoder().SetPosition(0.0);
 }
 
 double Hood::GetMeasurement()
@@ -40,7 +39,7 @@ double Hood::GetMeasurement()
 void Hood::UseOutput(double output, double setpoint)
 {
   m_Position = GetMeasurement();
-  m_DeltaPosition = m_Position - m_PositionBefore;
+  m_DeltaPosition = m_Position - m_PositionBefore; // positif si on monte négatif si on descend
   if (m_DeltaPosition > -0.3 && m_DeltaPosition < 0.3)
     m_DeltaPosition = 0;
   m_PositionBefore = m_Position;
@@ -81,7 +80,6 @@ void Hood::UseOutput(double output, double setpoint)
     std::cout << "AdjustableHood::state::haut_Direction" << std::endl;
     if (output > 0)
     { // si le pid renvoie >0 mettre moteur vitesse normal
-      // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
       m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
     }
     else
@@ -103,13 +101,11 @@ void Hood::UseOutput(double output, double setpoint)
       { // si on va en bas
         if (output > 0)
         { // si joystick renvoie >0 mettre moteur vitesse normal
-          // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
           m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
         }
         else
         { // sinon mettre le poid du Hood
           m_HoodMotor.Set(0.0);
-          // est ce que le hood a une barre qui le maintien (mettre a O ?)
         }
         m_state = Hood::state::haut_Direction; // mettre state à haut
       }
@@ -117,12 +113,13 @@ void Hood::UseOutput(double output, double setpoint)
       { // sinon si on vas en haut
         if (output < 0)
         { // si joystick renvoie <0 mettre moteur vitesse normal
-          // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-          m_HoodMotor.Set(0.0);
+          m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
+          // m_HoodMotor.Set(0.0);
         }
         else
         { // sinon mettre le poid du Hood
-          m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
+          // m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
+          m_HoodMotor.Set(0.0);
         }
         m_state = Hood::state::bas_Direction; // mettre state à bas
       }
