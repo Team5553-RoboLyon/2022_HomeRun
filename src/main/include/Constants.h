@@ -4,7 +4,8 @@
 
 #define IS_DRIVETRAIN_OMNIBASE true
 
-#define SHUFFLEBOARD_DEBUG false
+#define SHUFFLEBOARD_DEBUG true
+#define LOG_IN_FILE false
 
 #define CONFIG_FILE_PATH "/home/admin/config.json"
 
