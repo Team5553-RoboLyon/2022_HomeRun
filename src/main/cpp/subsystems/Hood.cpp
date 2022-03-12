@@ -139,7 +139,16 @@ double Hood::GetEncoderDistance()
 
 void Hood::Periodic()
 {
-    UseOutput(m_pidController.Calculate(GetEncoderDistance()), m_pidController.GetSetpoint());
+    double output = m_pidController.Calculate(GetEncoderDistance());
+    if (SHUFFLEBOARD_DEBUG)
+    {
+        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Position", GetEncoderDistance());
+        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Setpoint", m_pidController.GetSetpoint());
+        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Error", m_pidController.GetPositionError());
+        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Output", output);
+        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood State", m_state);
+    }
+    UseOutput(output, m_pidController.GetSetpoint());
 }
 
 void Hood::SetSetpoint(double setpoint)
