@@ -40,7 +40,6 @@ Drivetrain::Drivetrain()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-#if IS_DRIVETRAIN_OMNIBASE
     m_FalconMotor.ConfigFactoryDefault();
     m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
     m_FalconMotor.SetInverted(false);
@@ -48,7 +47,7 @@ Drivetrain::Drivetrain()
     m_FalconMotor.ConfigOpenloopRamp(0.7);
     m_FalconMotor.EnableVoltageCompensation(true);
     m_FalconMotor.ConfigVoltageCompSaturation(10);
-#endif
+
     m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
     m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
 }
@@ -64,12 +63,9 @@ void Drivetrain::Stop()
     m_NeoMotorLeft.StopMotor();
     m_NeoMotorRight.StopMotor();
 
-#if IS_DRIVETRAIN_OMNIBASE
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-#endif
 }
 
-#if IS_DRIVETRAIN_OMNIBASE
 /**
  * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
  * @warning  Does not work if the robot is TANK_BASE
@@ -78,14 +74,9 @@ void Drivetrain::Stop()
  * @param left Left wheels pourcentage
  * @param lateral Lateral pourcentage
  */
-void Drivetrain::Drive(double right, double left, double lateral)
+void Drivetrain::Drive(double right, double left, double lateral, bool isItAClimbingRequest)
 {
-    spdlog::trace("Drive({}, {}, {})", right, left, lateral);
-
-    if (!IS_DRIVETRAIN_OMNIBASE)
-    {
-        throw RobotError::RobotCriticalError("Drivetrain::Drive(double right, double left, double lateral) : Cannot use this function for TANK_BASE");
-    }
+    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, isItAClimbingRequest);
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
@@ -110,36 +101,3 @@ double Drivetrain::GetFalconSimulatedOutput()
     spdlog::trace("Drivetrain::GetFalconSimulatedOutput()");
     return m_FalconMotor.GetSimCollection().GetMotorOutputLeadVoltage();
 }
-#else
-/**
- * @brief Sets the speed of the left and right motors for TANK_BASE
- * @warning  Does not work if the robot is OMNI_BASE
- *
- * @param right Right wheels pourcentage
- * @param left Left wheels pourcentage
- */
-void Drivetrain::Drive(double right, double left)
-{
-    spdlog::trace("Drive({}, {})", right, left);
-
-    if (IS_DRIVETRAIN_OMNIBASE)
-    {
-        throw RobotError::RobotCriticalError("Drivetrain::Drive(double right, double left) : Cannot use this function for OMNI_BASE");
-    }
-    m_NeoMotorLeft.Set(left);
-    m_NeoMotorRight.Set(right);
-}
-
-/**
- * @brief Gets the encoder values of the left and right motors for TANK_BASE
- * @warning  Does not work if the robot is OMNI_BASE
- *
- * @param encoderValues Array of 2 doubles where the encoder values will be stored
- */
-void Drivetrain::GetEncoderValues(double (&encoderValues)[2])
-{
-    spdlog::trace("Drivetrain::GetEncoderValues()");
-    encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
-    encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
-}
-#endif

@@ -19,23 +19,18 @@ public:
   Drivetrain();
   void Periodic() override;
   void Stop();
-#if IS_DRIVETRAIN_OMNIBASE
-  void Drive(double right, double left, double lateral);
+  void Drive(double right, double left, double lateral, bool isItAClimbingRequest);
   void GetEncoderValues(double (&encoderValues)[3]);
   double GetFalconSimulatedOutput();
-#else
-  void Drive(double right, double left);
-  void GetEncoderValues(double (&encoderValues)[2])
-#endif
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
   CANSparkMaxWrapper m_NeoMotorRightFollower{DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
   CANSparkMaxWrapper m_NeoMotorLeft{DRIVETRAIN_NEO_MOTOR_LEFT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
   CANSparkMaxWrapper m_NeoMotorLeftFollower{DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-#if IS_DRIVETRAIN_OMNIBASE
+
   ctre::phoenix::motorcontrol::can::TalonFX m_FalconMotor{DRIVETRAIN_FALCON_MOTOR_OMNI_ID};
-#endif
+
   frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE};
   frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_CLIMBER_ID_FORWARD, DRIVETRAIN_SOLENOID_CLIMBER_ID_REVERSE};
 };

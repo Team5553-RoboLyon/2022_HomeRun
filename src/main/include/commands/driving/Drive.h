@@ -16,11 +16,7 @@ class Drive
     : public frc2::CommandHelper<frc2::CommandBase, Drive>
 {
 public:
-#if IS_DRIVETRAIN_OMNIBASE
   Drive(std::function<double()> forward, std::function<double()> turn, std::function<double()> lateral, Drivetrain *pdrivetrain);
-#else
-  Drive(std::function<double()> forward, std::function<double()> turn, Drivetrain *pdrivetrain);
-#endif
 
   void Initialize() override;
 
@@ -33,9 +29,7 @@ public:
 private:
   std::function<double()> m_Forward;
   std::function<double()> m_Turn;
-#if IS_DRIVETRAIN_OMNIBASE
   std::function<double()> m_Lateral;
-#endif
 
   Drivetrain *m_pDrivetrain;
 };

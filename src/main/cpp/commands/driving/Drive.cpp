@@ -19,19 +19,11 @@
 #define NMAX(a, b) (((a) > (b)) ? (a) : (b)) // Max
 #define NMIN(a, b) (((a) < (b)) ? (a) : (b)) // Min
 
-#if IS_DRIVETRAIN_OMNIBASE
 Drive::Drive(std::function<double()> forward, std::function<double()> turn, std::function<double()> lateral, Drivetrain *pdrivetrain)
     : m_Forward(forward), m_Turn(turn), m_Lateral(lateral), m_pDrivetrain(pdrivetrain)
 {
   AddRequirements(m_pDrivetrain);
 }
-#else
-Drive::Drive(std::function<double()> forward, std::function<double()> turn, Drivetrain *pdrivetrain)
-    : m_Forward(forward), m_Turn(turn), m_pDrivetrain(pdrivetrain)
-{
-  AddRequirements(m_pDrivetrain);
-}
-#endif
 
 void Drive::Initialize()
 {
@@ -63,11 +55,7 @@ void Drive::Execute()
   left_wheel *= k;
   right_wheel *= k;
 
-#if IS_DRIVETRAIN_OMNIBASE
   m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()));
-#else
-  m_pDrivetrain->Drive(right_wheel, left_wheel);
-#endif
 }
 
 void Drive::End(bool interrupted) {}

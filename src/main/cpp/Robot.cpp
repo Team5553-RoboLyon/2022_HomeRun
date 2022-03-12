@@ -36,7 +36,6 @@ void Robot::RobotInit()
   // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
   spdlog::trace("RobotInit()");
 
-  spdlog::debug("OMNIBASE : {}", IS_DRIVETRAIN_OMNIBASE);
   planetaryencoder.Reset();
 }
 

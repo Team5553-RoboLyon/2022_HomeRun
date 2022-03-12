@@ -13,10 +13,8 @@
 
 #include "Constants.h"
 #include "subsystems/Drivetrain.h"
-#include "subsystems/Climber.h"
 #include "subsystems/Intake.h"
 #include "commands/driving/Drive.h"
-#include "commands/Climber/ClimberActiveMotor.h"
 #include "lib/JsonConfig.h"
 
 #include "commands/tests/DrivetrainDirectionTest.h"
@@ -31,7 +29,6 @@ private:
   void ConfigureButtonBindings();
 
   Drivetrain m_Drivetrain;
-  Climber m_Climber;
   Intake m_Intake;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};

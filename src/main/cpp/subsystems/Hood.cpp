@@ -62,7 +62,6 @@ void Hood::UseOutput(double output, double setpoint)
         }
         break;
     case Hood::state::bas_Direction:
-        std::cout << "Hood::state::bas_Direction" << std::endl;
         if (output < 0) // si le pid renvoie <0 mettre moteur vitesse normal
         {
             // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
@@ -79,7 +78,6 @@ void Hood::UseOutput(double output, double setpoint)
         break;
 
     case Hood::state::haut_Direction:
-        std::cout << "AdjustableHood::state::haut_Direction" << std::endl;
         if (output > 0) // si le pid renvoie >0 mettre moteur vitesse normal
         {
             // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
@@ -97,7 +95,6 @@ void Hood::UseOutput(double output, double setpoint)
         break;
 
     case Hood::state::bh_Direction:
-        std::cout << "AdjustableHood::state::bh_Direction" << std::endl;
         if (MagnetDetected())
         { // si on détecte un aimant
             if (m_DeltaPosition < 0)
