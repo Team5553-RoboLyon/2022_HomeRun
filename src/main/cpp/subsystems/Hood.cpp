@@ -18,6 +18,16 @@ Hood::Hood()
     m_HoodMotor.SetInverted(true);
     m_pidController.SetIntegratorRange(-HOOD_PID_INTEGRATOR_RANGE, HOOD_PID_INTEGRATOR_RANGE);
     m_pidController.SetTolerance(HOOD_PID_TOLERANCE);
+
+    ResetEncoders();
+
+#if SHUFFLEBOARD_DEBUG
+    m_entry_HoodPosition = frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Position", GetEncoderDistance()).GetEntry();
+    m_entry_HoodSetpoint = frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Setpoint", m_pidController.GetSetpoint()).GetEntry();
+    m_entry_HoodError = frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Error", m_pidController.GetPositionError()).GetEntry();
+    m_entry_HoodOutput = frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Output", 0.0).GetEntry();
+    m_entry_HoodState = frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood State", StateToString(m_state)).GetEntry();
+#endif
 }
 
 bool Hood::MagnetDetected() { return !m_SensorHall.Get(); }
@@ -53,8 +63,8 @@ void Hood::UseOutput(double output, double setpoint)
         break;
     case Hood::state::bas_Direction:
         std::cout << "Hood::state::bas_Direction" << std::endl;
-        if (output < 0)
-        { // si le pid renvoie <0 mettre moteur vitesse normal
+        if (output < 0) // si le pid renvoie <0 mettre moteur vitesse normal
+        {
             // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
             m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
         }
@@ -70,8 +80,8 @@ void Hood::UseOutput(double output, double setpoint)
 
     case Hood::state::haut_Direction:
         std::cout << "AdjustableHood::state::haut_Direction" << std::endl;
-        if (output > 0)
-        { // si le pid renvoie >0 mettre moteur vitesse normal
+        if (output > 0) // si le pid renvoie >0 mettre moteur vitesse normal
+        {
             // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
             m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
         }
@@ -129,7 +139,6 @@ void Hood::UseOutput(double output, double setpoint)
     default:
         break;
     }
-    frc::SmartDashboard::PutNumber("outputHood", output);
 }
 
 double Hood::GetEncoderDistance()
@@ -140,18 +149,38 @@ double Hood::GetEncoderDistance()
 void Hood::Periodic()
 {
     double output = m_pidController.Calculate(GetEncoderDistance());
-    if (SHUFFLEBOARD_DEBUG)
-    {
-        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Position", GetEncoderDistance());
-        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Setpoint", m_pidController.GetSetpoint());
-        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Error", m_pidController.GetPositionError());
-        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood Output", output);
-        frc::Shuffleboard::GetTab("Hood DEBUG").Add("Hood State", m_state);
-    }
     UseOutput(output, m_pidController.GetSetpoint());
+
+#if SHUFFLEBOARD_DEBUG
+    m_entry_HoodPosition.SetDouble(GetEncoderDistance());
+    m_entry_HoodSetpoint.SetDouble(m_pidController.GetSetpoint());
+    m_entry_HoodError.SetDouble(m_pidController.GetPositionError());
+    m_entry_HoodOutput.SetDouble(output);
+    m_entry_HoodState.SetString(StateToString(m_state));
+#endif
 }
 
 void Hood::SetSetpoint(double setpoint)
 {
     m_pidController.SetSetpoint(setpoint);
+}
+
+// Convert state number to name
+std::string Hood::StateToString(int state)
+{
+    switch (state)
+    {
+    case 0:
+        return "Init";
+    case 1:
+        return "haut_Direction";
+    case 2:
+        return "bas_Direction";
+    case 3:
+        return "bh_Direction";
+    case 4:
+        return "StopSecure";
+    default:
+        return "Unknown";
+    }
 }

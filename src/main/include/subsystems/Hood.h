@@ -11,6 +11,7 @@
 #include <iostream>
 #include <frc/DigitalInput.h>
 #include "Constants.h"
+#include <networktables/NetworkTableEntry.h>
 
 class Hood : public frc2::SubsystemBase
 {
@@ -21,6 +22,7 @@ public:
   bool MagnetDetected();
   void SetSetpoint(double setpoint);
   void Periodic();
+  std::string StateToString(int state);
 
   double m_DeltaPosition;
   double m_Position;
@@ -44,4 +46,12 @@ private:
 
   rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
   frc2::PIDController m_pidController{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};
+
+#if SHUFFLEBOARD_DEBUG
+  nt::NetworkTableEntry m_entry_HoodPosition;
+  nt::NetworkTableEntry m_entry_HoodSetpoint;
+  nt::NetworkTableEntry m_entry_HoodError;
+  nt::NetworkTableEntry m_entry_HoodOutput;
+  nt::NetworkTableEntry m_entry_HoodState;
+#endif
 };
