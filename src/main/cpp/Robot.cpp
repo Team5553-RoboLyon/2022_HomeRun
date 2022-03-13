@@ -39,10 +39,10 @@ void Robot::TeleopInit()
   m_ShooterMotorLeftFollower.ConfigFactoryDefault();
   m_ShooterMotorRightFollower.ConfigFactoryDefault();
 
-  m_ShooterMotorLeft.SetInverted(true);
-  m_ShooterMotorRight.SetInverted(false);
-  m_ShooterMotorRightFollower.SetInverted(false);
-  m_ShooterMotorLeftFollower.SetInverted(true);
+  m_ShooterMotorLeft.SetInverted(false);
+  m_ShooterMotorRight.SetInverted(true);
+  m_ShooterMotorRightFollower.SetInverted(true);
+  m_ShooterMotorLeftFollower.SetInverted(false);
 
   m_ShooterMotorLeft.ConfigVoltageCompSaturation(11);
   m_ShooterMotorRight.ConfigVoltageCompSaturation(11);
@@ -55,15 +55,14 @@ void Robot::TeleopInit()
 
   // a mettre dans init de m_hood et m_turret
   frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0));
-
+  frc::SmartDashboard::PutNumber("vitesse shooter", 0.0);
   m_hood.ResetEncoders();
   m_hoodcopy.ResetEncoders();
 }
 
 void Robot::TeleopPeriodic()
 {
-  double joystick = m_Joystick.GetThrottle();
-  frc::SmartDashboard::PutNumber("vitesse shooter", joystick);
+  double joystick = frc::SmartDashboard::GetNumber("vitesse shooter", 0.0);
   frc::SmartDashboard::PutNumber("encodeur 1", SPEED_TO_RPM(m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity()));
   frc::SmartDashboard::PutNumber("encodeur 2", SPEED_TO_RPM(-m_ShooterMotorLeft.GetSensorCollection().GetIntegratedSensorVelocity()));
 
