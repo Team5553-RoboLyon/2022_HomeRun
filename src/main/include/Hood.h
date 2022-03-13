@@ -12,6 +12,8 @@
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <units/voltage.h>
 
+#include "HallSecurity.h"
+
 
 class Hood : public frc2::PIDSubsystem {
 public:
@@ -25,27 +27,16 @@ public:
 
     void ResetEncoders();
 
-    bool MagnetDetected();
-
     void SetPID(double p, double i, double d);
-
-    double m_DeltaPosition;
-    double m_Position;
-    double m_PositionBefore;
 
     enum state {
         Init,
-        haut_Direction,
-        bas_Direction,
-        bh_Direction,
-        StopSecure
-        // Ready,
+        Ready
     };
     Hood::state m_state = Hood::state::Init;
 
 private:
     frc::DutyCycleEncoder m_encoderHood{0};
-    frc::DigitalInput m_SensorHall{8};
     units::volt_t kS{0.46};
     units::unit_t <frc::SimpleMotorFeedforward<units::meter>::kv_unit> kV{3.62};
     units::unit_t <frc::SimpleMotorFeedforward<units::meter>::ka_unit> kA{0.05};
@@ -58,4 +49,6 @@ private:
 
 
     rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
+    HallSecurity m_hallSecurity{8, 0.3};
+
 };
