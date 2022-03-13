@@ -41,15 +41,16 @@ void Hood::UseOutput(double output, double setpoint) {
                 SetSetpoint(0.0);
             } else {
                 SetSetpoint(-60.0);
-                if (!m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)){
-                m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
-            } else {
-                m_HoodMotor.Set(0.0);
+                if (!m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output))) {
+                    m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
+                } else {
+                    m_HoodMotor.Set(0.0);
+                }
             }
             break;
 
         case Hood::state::Ready:
-            if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)) {
+            if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output))) {
                 m_HoodMotor.SetVoltage(units::volt_t(output) + feedforward.Calculate(10_mps, 20_mps_sq));
             } else {
                 m_HoodMotor.Set(0.0);
