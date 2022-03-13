@@ -74,9 +74,13 @@ void Drivetrain::Stop()
  * @param left Left wheels pourcentage
  * @param lateral Lateral pourcentage
  */
-void Drivetrain::Drive(double right, double left, double lateral, bool isItAClimbingRequest)
+void Drivetrain::Drive(double right, double left, double lateral, PTOConfiguration ptoConfigurationRequired)
 {
-    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, isItAClimbingRequest);
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Drivetrain::Drive() Asked to move with PTO {} while current state is {}", ptoConfigurationRequired, m_ptoState);
+    }
+    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, ptoConfigurationRequired);
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
@@ -100,4 +104,17 @@ double Drivetrain::GetFalconSimulatedOutput()
 {
     spdlog::trace("Drivetrain::GetFalconSimulatedOutput()");
     return m_FalconMotor.GetSimCollection().GetMotorOutputLeadVoltage();
+}
+
+std::string Drivetrain::PTOConfigurationIndexToString(PTOConfiguration ptoConfiguration)
+{
+    switch (ptoConfiguration)
+    {
+    case PTOConfiguration::Driving:
+        return "Driving";
+    case PTOConfiguration::Climbing:
+        return "Climbing";
+    default:
+        return "None";
+    }
 }

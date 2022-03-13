@@ -16,12 +16,20 @@
 class Drivetrain : public frc2::SubsystemBase
 {
 public:
+  enum class PTOConfiguration
+  {
+    Climbing,
+    Driving,
+    None
+  };
+
   Drivetrain();
   void Periodic() override;
   void Stop();
-  void Drive(double right, double left, double lateral, bool isItAClimbingRequest);
+  void Drive(double right, double left, double lateral, PTOConfiguration ptoConfigurationRequired);
   void GetEncoderValues(double (&encoderValues)[3]);
   double GetFalconSimulatedOutput();
+  std::string PTOConfigurationIndexToString(PTOConfiguration ptoConfiguration);
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
@@ -33,4 +41,5 @@ private:
 
   frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE};
   frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_CLIMBER_ID_FORWARD, DRIVETRAIN_SOLENOID_CLIMBER_ID_REVERSE};
+  PTOConfiguration m_ptoState = PTOConfiguration::None;
 };
