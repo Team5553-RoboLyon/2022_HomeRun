@@ -126,7 +126,8 @@ void Hood::UseOutput(double output, double setpoint)
     else
     { // sinon pas d'aimant mettre vitesse normal
       // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-      m_HoodMotor.Set(std::clamp(output + feedforward.Calculate(10_mps, 20_mps_sq), -0.3, 0.3));
+//      m_HoodMotor.Set(std::clamp(output), -0.3, 0.3));
+      m_HoodMotor.SetVoltage(units::volt_t(output) + feedforward.Calculate(10_mps, 20_mps_sq));
     }
 
     break;
