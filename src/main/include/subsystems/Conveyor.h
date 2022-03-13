@@ -15,15 +15,12 @@ class Conveyor : public frc2::SubsystemBase
 public:
     Conveyor();
     void StopAllMotors();
-    void ActiveEntryMotor(double speed);
-    void ActiveExitMotor(double speed);
+    void ActiveFeedingMotor(double speed);
     void ActiveConveyorMotor(double speed);
-    void StopEntryMotor();
-    void StopExitMotor();
+    void StopFeedingMotor();
     void StopConveyorMotor();
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorEntryMotor{CONVEYOR_MOTOR_ID};
-    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorExitMotor{CONVEYOR_EXIT_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorFeedingMotor{CONVEYOR_MOTOR_ID};
     rev::CANSparkMax m_ConveyorMotor{CONVEYOR_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
 };
