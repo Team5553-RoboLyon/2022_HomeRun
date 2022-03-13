@@ -74,7 +74,7 @@ void Drivetrain::Stop()
  * @param left Left wheels pourcentage
  * @param lateral Lateral pourcentage
  */
-void Drivetrain::Drive(double right, double left, double lateral, PTOConfiguration ptoConfigurationRequired)
+void Drivetrain::Drive(double right, double left, double lateral, PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
@@ -106,15 +106,20 @@ double Drivetrain::GetFalconSimulatedOutput()
     return m_FalconMotor.GetSimCollection().GetMotorOutputLeadVoltage();
 }
 
-std::string Drivetrain::PTOConfigurationIndexToString(PTOConfiguration ptoConfiguration)
+std::string Drivetrain::PTOStateIndexToString(PTOState ptoConfiguration)
 {
     switch (ptoConfiguration)
     {
-    case PTOConfiguration::Driving:
+    case PTOState::Driving:
         return "Driving";
-    case PTOConfiguration::Climbing:
+    case PTOState::Climbing:
         return "Climbing";
     default:
         return "None";
     }
+}
+
+Drivetrain::PTOState Drivetrain::GetPTOState()
+{
+    return m_ptoState;
 }

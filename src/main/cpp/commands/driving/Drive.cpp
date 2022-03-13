@@ -55,7 +55,7 @@ void Drive::Execute()
   left_wheel *= k;
   right_wheel *= k;
 
-  m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()), Drivetrain::PTOConfiguration::Driving);
+  m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()), Drivetrain::PTOState::Driving);
 }
 
 void Drive::End(bool interrupted) {}

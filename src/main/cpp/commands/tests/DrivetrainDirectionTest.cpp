@@ -14,7 +14,7 @@ void DrivetrainDirectionTest::Initialize()
 {
   m_IsFinished = false;
   m_testDuration = 0.0;
-  m_pDrivetrain->Drive(DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, Drivetrain::PTOConfiguration::Driving);
+  m_pDrivetrain->Drive(DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, Drivetrain::PTOState::Driving);
 }
 
 void DrivetrainDirectionTest::Execute()
