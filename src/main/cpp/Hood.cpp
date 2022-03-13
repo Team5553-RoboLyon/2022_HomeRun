@@ -4,10 +4,8 @@
 
 #include "Hood.h"
 
-#include <frc/livewindow/LiveWindow.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
-#include <spdlog/spdlog.h>
 
 Hood::Hood()
     : PIDSubsystem(frc2::PIDController{0.035, 0.008, 0.0004})
@@ -20,6 +18,7 @@ Hood::Hood()
   m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_HoodMotor.SetInverted(true);
   GetController().SetIntegratorRange(-5, 5);
+
 }
 bool Hood::MagnetDetected() { return !m_SensorHall.Get(); }
 
@@ -127,7 +126,7 @@ void Hood::UseOutput(double output, double setpoint)
     else
     { // sinon pas d'aimant mettre vitesse normal
       // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-      m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
+      m_HoodMotor.Set(std::clamp(output + feedforward.Calculate(10_mps, 20_mps_sq), -0.3, 0.3));
     }
 
     break;

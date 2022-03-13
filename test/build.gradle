@@ -1,7 +1,7 @@
 plugins {
     id "cpp"
     id "google-test-test-suite"
-    id "edu.wpi.first.GradleRIO" version "2022.3.1"
+    id "edu.wpi.first.GradleRIO" version "2022.4.1"
 }
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -42,44 +42,12 @@ def includeDesktopSupport = false
 wpi.cpp.debugSimulation = false
 
 // Default enable simgui
-wpi.sim.addGui().defaultEnabled = false
+wpi.sim.addGui().defaultEnabled = true
 // Enable DS but not by default
 wpi.sim.addDriverstation()
 
 model {
     components {
-        spdlog(NativeLibrarySpec) {
-            targetPlatform wpi.platforms.roborio
-            if (includeDesktopSupport) {
-                targetPlatform wpi.platforms.desktop
-            }
-
-            sources.cpp {
-                source {
-                    srcDir './third_party/spdlog-1.9.2/src'
-                    include '**/*.cpp'
-                }
-                exportedHeaders {
-                    srcDir './third_party/spdlog-1.9.2/include'
-                }
-            }
-            
-            binaries.all {
-                if (targetPlatform.operatingSystem.isWindows()) {
-                    cppCompiler.args << '/std:c++17'
-                } else {
-                    cppCompiler.args << '-std=c++17'
-                }
-                cppCompiler.define 'SPDLOG_COMPILED_LIB'
-                cppCompiler.define 'SPDLOG_FMT_EXTERNAL'
-            }
-
-            binaries.withType(SharedLibraryBinarySpec) {
-                buildable = false
-            }
-
-            wpi.cpp.deps.wpilib(it)
-        }
         frcUserProgram(NativeExecutableSpec) {
             targetPlatform wpi.platforms.roborio
             if (includeDesktopSupport) {
@@ -94,12 +62,6 @@ model {
                 exportedHeaders {
                     srcDir 'src/main/include'
                 }
-        	    lib library: 'spdlog', linkage: 'static'
-            }
-
-            binaries.all {
-                cppCompiler.define 'SPDLOG_COMPILED_LIB'
-                cppCompiler.define 'SPDLOG_FMT_EXTERNAL'
             }
 
             // Set deploy task to deploy this component
@@ -126,27 +88,12 @@ model {
                 }
             }
 
-            sources.cpp {
-                source {
-                    srcDir './third_party/spdlog-1.9.2/src'
-                    include '**/*.cpp'
-                }
-                exportedHeaders {
-                    srcDir './third_party/spdlog-1.9.2/include'
-                }
-            }
-
             // Enable run tasks for this component
             wpi.cpp.enableExternalTasks(it)
 
             wpi.cpp.vendor.cpp(it)
             wpi.cpp.deps.wpilib(it)
             wpi.cpp.deps.googleTest(it)
-
-            binaries.all {
-                cppCompiler.define 'SPDLOG_COMPILED_LIB'
-                cppCompiler.define 'SPDLOG_FMT_EXTERNAL'
-            }
         }
     }
 }
