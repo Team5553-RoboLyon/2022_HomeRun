@@ -34,11 +34,11 @@ public:
     StopSecure
     // Ready,
   };
-  Hood::state m_state = Hood::state::bh_Direction;
+  Hood::state m_state = Hood::state::Init;
 
 private:
   frc::DutyCycleEncoder m_encoderHood{0};
   frc::DigitalInput m_SensorHall{8};
 
-  rev::CANSparkMax m_HoodMotor{6, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
 };

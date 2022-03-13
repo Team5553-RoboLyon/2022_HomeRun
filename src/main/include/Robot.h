@@ -20,7 +20,8 @@
 #include <rev/CANSparkMax.h>
 #include <frc/DutyCycleEncoder.h>
 #include "Hood.h"
-#include "Hood copy.h"
+#include "Turret.h"
+
 #define SPEED_TO_RPM(x) ((x * 600) / 2048)
 
 class Robot : public frc::TimedRobot
@@ -38,12 +39,10 @@ public:
   void TestInit() override;
 
 private:
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{1};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{2};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeftFollower{3};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRightFollower{4};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{2};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{3};
   frc::Joystick m_Joystick{0};
   double m_speedShooter;
   Hood m_hood;
-  HoodCopy m_hoodcopy;
+  Turret m_turret;
 };

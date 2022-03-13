@@ -11,13 +11,14 @@
 void Robot::RobotInit()
 {
   m_speedShooter = 0.0;
+  m_turret.ResetEncoder();
 }
 
 void Robot::RobotPeriodic()
 {
   frc2::CommandScheduler::GetInstance().Run();
   frc::SmartDashboard::PutNumber("encodeur Hood", m_hood.GetEncoder());
-  frc::SmartDashboard::PutNumber("encoderu hood copy", m_hoodcopy.GetEncoder());
+  frc::SmartDashboard::PutNumber("encodeur Turret", m_turret.GetMeasurement());
 }
 
 void Robot::DisabledInit()
@@ -36,28 +37,16 @@ void Robot::TeleopInit()
 {
   m_ShooterMotorLeft.ConfigFactoryDefault();
   m_ShooterMotorRight.ConfigFactoryDefault();
-  m_ShooterMotorLeftFollower.ConfigFactoryDefault();
-  m_ShooterMotorRightFollower.ConfigFactoryDefault();
 
   m_ShooterMotorLeft.SetInverted(true);
   m_ShooterMotorRight.SetInverted(false);
-  m_ShooterMotorRightFollower.SetInverted(false);
-  m_ShooterMotorLeftFollower.SetInverted(true);
 
   m_ShooterMotorLeft.ConfigVoltageCompSaturation(11);
   m_ShooterMotorRight.ConfigVoltageCompSaturation(11);
-  m_ShooterMotorLeftFollower.ConfigVoltageCompSaturation(11);
-  m_ShooterMotorRightFollower.ConfigVoltageCompSaturation(11);
-
-  m_ShooterMotorLeft.Follow(m_ShooterMotorRight);
-  m_ShooterMotorLeftFollower.Follow(m_ShooterMotorRight);
-  m_ShooterMotorRightFollower.Follow(m_ShooterMotorRight);
 
   // a mettre dans init de m_hood et m_turret
+  frc::SmartDashboard::PutNumber("Setpoint m_turret", 0.0);
   frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0));
-
-  m_hood.ResetEncoders();
-  m_hoodcopy.ResetEncoders();
 }
 
 void Robot::TeleopPeriodic()
@@ -70,13 +59,18 @@ void Robot::TeleopPeriodic()
   if (m_Joystick.GetRawButton(1))
   {
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, joystick);
+    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, joystick);
   }
   else
   {
     m_ShooterMotorRight.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+    m_ShooterMotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
+  // if (m_hood.m_state != Hood::state::Init)
+  // {
   m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
-  m_hoodcopy.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
+  // }
+  m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
 
   // if (m_Joystick.GetRawButton(2))
   // {
