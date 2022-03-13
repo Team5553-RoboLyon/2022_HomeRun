@@ -10,35 +10,17 @@
 #include <iostream>
 #include <frc/DigitalInput.h>
 
-class Hood : public frc2::PIDSubsystem
+class HoodCopy : public frc2::PIDSubsystem
 {
 public:
-  Hood();
+  HoodCopy();
   double GetMeasurement() override;
   void UseOutput(double output, double setpoint) override;
   double GetEncoder();
   void ResetEncoders();
-  bool MagnetDetected();
   void SetPID(double p, double i, double d);
 
-  double m_DeltaPosition;
-  double m_Position;
-  double m_PositionBefore;
-
-  enum state
-  {
-    Init,
-    haut_Direction,
-    bas_Direction,
-    bh_Direction,
-    StopSecure
-    // Ready,
-  };
-  Hood::state m_state = Hood::state::bh_Direction;
-
 private:
-  frc::DutyCycleEncoder m_encoderHood{0};
-  frc::DigitalInput m_SensorHall{8};
-
-  rev::CANSparkMax m_HoodMotor{6, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_HoodMotor{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::SparkMaxRelativeEncoder *m_encoderhood;
 };
