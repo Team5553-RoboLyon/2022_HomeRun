@@ -48,8 +48,7 @@ Drivetrain::Drivetrain()
     m_FalconMotor.EnableVoltageCompensation(true);
     m_FalconMotor.ConfigVoltageCompSaturation(10);
 
-    m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
-    m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
+    m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void Drivetrain::Periodic()

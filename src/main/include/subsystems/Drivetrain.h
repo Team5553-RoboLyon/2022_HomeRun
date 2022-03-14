@@ -29,7 +29,7 @@ public:
   void Drive(double right, double left, double lateral, PTOState ptoConfigurationRequired);
   void GetEncoderValues(double (&encoderValues)[3]);
   double GetFalconSimulatedOutput();
-  std::string PTOStateIndexToString(PTOState ptoConfiguration);
+  static std::string PTOStateIndexToString(PTOState ptoConfiguration);
   PTOState GetPTOState();
 
 private:
@@ -40,7 +40,6 @@ private:
 
   ctre::phoenix::motorcontrol::can::TalonFX m_FalconMotor{DRIVETRAIN_FALCON_MOTOR_OMNI_ID};
 
-  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD, DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_CLIMBER_ID_FORWARD, DRIVETRAIN_SOLENOID_CLIMBER_ID_REVERSE};
+  frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD, DRIVETRAIN_SOLENOID_ID_REVERSE};
   PTOState m_ptoState = PTOState::None;
 };
