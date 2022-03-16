@@ -51,7 +51,7 @@ void Robot::RobotPeriodic()
 void Robot::TeleopInit()
 {
   m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
+  m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 /**
@@ -62,10 +62,10 @@ void Robot::TeleopPeriodic()
   double offset = m_joystickLeft.GetThrottle() + m_joystickRight.GetThrottle() * 0.1;
   frc::SmartDashboard::PutNumber("Offset", offset);
   bool isAnyPTOEnabled = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kReverse ||
-                         m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
+                         m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse;
 
   double speedCoefficientLeft = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.4 : 0.2;
-  double speedCoefficientRight = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
+  double speedCoefficientRight = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
   double speedCoefficientOmni = 1;
   double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficientRight;
   double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficientLeft;
@@ -80,8 +80,8 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickRight.GetRawButtonPressed(1))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidRotatingArms.Set(value);
+    frc::DoubleSolenoid::Value value = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
+    m_solenoidClimber.Set(value);
   }
 
   if (m_joystickRight.GetRawButtonPressed(2))
@@ -101,7 +101,7 @@ void Robot::TeleopPeriodic()
     m_leftMotor.Set(speedLeft + offset);
   }
 
-  if (m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse)
+  if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
   {
     m_rightMotor.Set(-speedRight);
   }
@@ -112,9 +112,9 @@ void Robot::TeleopPeriodic()
     m_rightMotor.Set(speedRight);
   }
 
-  m_
+  m_OmniMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_joystickLeft.GetX());
 
-      if (m_joystickLeft.GetRawButtonPressed(2))
+  if (m_joystickLeft.GetRawButtonPressed(2))
   {
     frc::DoubleSolenoid::Value value = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
     m_solenoidIntake.Set(value);
