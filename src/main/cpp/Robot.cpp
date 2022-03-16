@@ -29,14 +29,6 @@ namespace utils
 
 void Robot::RobotInit()
 {
-#if IS_CLIMBER_PID
-  m_setpoint = 0.0;
-  m_encoderClimber.Reset();
-  m_integrative = 0.0;
-  m_lastError = 0.0;
-  frc::SmartDashboard::PutNumber("setpoint", 0.0);
-  frc::SmartDashboard::PutNumber("speedCoef", 0.0);
-#endif
 
   m_leftMotor.RestoreFactoryDefaults();
   m_leftMotorFollower.RestoreFactoryDefaults();
@@ -58,7 +50,7 @@ void Robot::RobotPeriodic()
 
 void Robot::TeleopInit()
 {
-  m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
+  m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
   m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
@@ -69,11 +61,12 @@ void Robot::TeleopPeriodic()
 {
   double offset = m_joystickLeft.GetThrottle() + m_joystickRight.GetThrottle() * 0.1;
   frc::SmartDashboard::PutNumber("Offset", offset);
-  bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ||
+  bool isAnyPTOEnabled = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kReverse ||
                          m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
 
-  double speedCoefficientLeft = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.4 : 0.2;
+  double speedCoefficientLeft = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.4 : 0.2;
   double speedCoefficientRight = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
+  double speedCoefficientOmni = 1;
   double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficientRight;
   double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficientLeft;
   frc::SmartDashboard::PutNumber("speedRight", speedRight);
@@ -81,8 +74,8 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickLeft.GetRawButtonPressed(1))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidClimber.Set(value);
+    frc::DoubleSolenoid::Value value = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
+    m_solenoidIntake.Set(value);
   }
 
   if (m_joystickRight.GetRawButtonPressed(1))
@@ -103,7 +96,7 @@ void Robot::TeleopPeriodic()
     }
   }
 
-  if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
+  if (m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kReverse)
   {
     m_leftMotor.Set(speedLeft + offset);
   }
@@ -119,20 +112,13 @@ void Robot::TeleopPeriodic()
     m_rightMotor.Set(speedRight);
   }
 
-#if IS_CLIMBER_PID
-  frc::SmartDashboard::PutNumber("encodeur climber", m_encoderClimber.Get().value());
-  frc::SmartDashboard::PutNumber("error", m_error);
-  frc::SmartDashboard::PutNumber("integrative", m_integrative);
-  frc::SmartDashboard::PutNumber("derivative", m_derivative);
-  frc::SmartDashboard::PutNumber("speedClimber_PID", m_speedPID);
-  m_speedCoef = frc::SmartDashboard::GetNumber("speedCoef", 0.0);
-  m_setpoint = frc::SmartDashboard::GetNumber("setpoint", 0.0);
-  m_error = m_setpoint - m_encoderClimber.Get().value();
-  m_integrative += (m_error * 0.02);
-  m_derivative = (m_error - m_lastError) / .02;
-  m_lastError = m_error;
-  m_speedPID = std::abs(m_speedCoef) * std::clamp(kP * m_error + kI * m_integrative + kD * m_derivative, -1.0, 1.0);
-#endif
+  m_
+
+      if (m_joystickLeft.GetRawButtonPressed(2))
+  {
+    frc::DoubleSolenoid::Value value = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
+    m_solenoidIntake.Set(value);
+  }
 }
 
 /**

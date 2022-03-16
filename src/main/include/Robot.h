@@ -12,6 +12,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/Compressor.h>
+#include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
@@ -30,12 +31,13 @@ private:
   rev::CANSparkMax m_leftMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax m_rightMotor{7, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax m_rightMotorFollower{6, rev::CANSparkMax::MotorType::kBrushless};
+  ctre::phoenix::motorcontrol::can::TalonFX m_OmniMotor{5};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
   frc::DutyCycleEncoder m_encoderRotatingArms{0};
   frc::DutyCycleEncoder m_encoderClimber{1};
   frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 1, 0};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 3, 2};
+  frc::DoubleSolenoid m_solenoidIntake{frc::PneumaticsModuleType::CTREPCM, 3, 2};
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
   double time = 0;
 
