@@ -22,7 +22,7 @@ public:
   bool MagnetDetected();
   void SetSetpoint(double setpoint);
   void Periodic();
-  std::string StateToString(int state);
+  static std::string StateToString(int state);
 
   double m_DeltaPosition;
   double m_Position;
