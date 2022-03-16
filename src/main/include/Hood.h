@@ -4,51 +4,54 @@
 
 #pragma once
 
-#include <frc2/command/PIDSubsystem.h>
+#include <frc2/command/SubsystemBase.h>
+#include <frc2/command/ProfiledPIDCommand.h>
 #include <frc/DutyCycleEncoder.h>
 #include <rev/CANSparkMax.h>
 #include <iostream>
 #include <frc/DigitalInput.h>
-#include <frc/controller/SimpleMotorFeedforward.h>
-#include <units/voltage.h>
+#include <units/angle.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/shuffleboard/Shuffleboard.h>
 
 #include "HallSecurity.h"
 
 
-class Hood : public frc2::PIDSubsystem {
+class Hood : public frc2::SubsystemBase {
 public:
     Hood();
 
-    double GetMeasurement() override;
+    double GetMeasurement();
 
-    void UseOutput(double output, double setpoint) override;
+    void Periodic() override;
 
-    double GetEncoder();
+    void SetSetpoint(double setpoint);
+
+    void Enable();
+
+    void Disable();
 
     void ResetEncoders();
 
-    void SetPID(double p, double i, double d);
-
-    enum state {
-        Init,
-        Ready
-    };
-    Hood::state m_state = Hood::state::Init;
-
 private:
-    frc::DutyCycleEncoder m_encoderHood{0};
-    units::volt_t kS{0.46};
-    units::unit_t <frc::SimpleMotorFeedforward<units::meter>::kv_unit> kV{3.62};
-    units::unit_t <frc::SimpleMotorFeedforward<units::meter>::ka_unit> kA{0.05};
-
-    frc::SimpleMotorFeedforward <units::meter> feedforward{
-            0.46_V,
-            (3.62_V * 1_s) / 1_m,
-            (0.05_V * (1_s * 1_s)) / 1_m
+    enum state {
+        WaitingEncoder,
+        Init,
+        Enabled,
+        Disabled
     };
+    Hood::state m_state = Hood::state::WaitingEncoder;
+
+
+    frc::ProfiledPIDController <units::degree> m_controller{
+            0.035, 0.008, 0.0004,
+            frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+    frc::DutyCycleEncoder m_encoderHood{0};
 
 
     rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
     HallSecurity m_hallSecurity{8, 0.3};
+
+    double m_setPoint = 0;
 
 };

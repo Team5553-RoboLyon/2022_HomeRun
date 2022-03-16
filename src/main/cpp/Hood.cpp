@@ -4,11 +4,7 @@
 
 #include "Hood.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/shuffleboard/Shuffleboard.h>
-
-Hood::Hood()
-        : PIDSubsystem(frc2::PIDController{0.035, 0.008, 0.0004}) {
+Hood::Hood() {
     m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
     Enable();
@@ -16,27 +12,44 @@ Hood::Hood()
 
     m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_HoodMotor.SetInverted(true);
-    GetController().SetIntegratorRange(-5, 5);
+    m_controller.SetIntegratorRange(-5, 5);
 
     m_hallSecurity.setInverted(true);//TODO verifier ca mais je pense que c'est vrai
+}
 
+void Hood::Enable() {
+    m_state = Hood::state::Enabled;
+}
+
+void Hood::Disable() {
+    m_state = Hood::state::Disabled;
+}
+
+void Hood::SetSetpoint(double setpoint) {
+    m_setPoint = setpoint;
 }
 
 void Hood::ResetEncoders() {
-    while (!m_encoderHood.IsConnected()) {
-    }
     m_encoderHood.Reset();
 }
 
 double Hood::GetMeasurement() {
-    return GetEncoder();
+    return m_encoderHood.GetDistance();
 }
 
-void Hood::UseOutput(double output, double setpoint) {
+void Hood::Periodic() {
+    double output = m_controller.Calculate(units::degree_t{GetMeasurement()}, units::degree_t{m_setPoint});
+
     switch (m_state) {
+        case Hood::state::WaitingEncoder:
+            if (m_encoderHood.IsConnected()) {
+                ResetEncoders();
+                m_state = Hood::state::Init;
+            }
+            break;
         case Hood::state::Init:
             if (m_hallSecurity.MagnetDetected()) {
-                m_state = Hood::state::Ready;
+                m_state = Hood::state::Disabled;
                 ResetEncoders();
                 SetSetpoint(0.0);
             } else {
@@ -49,25 +62,18 @@ void Hood::UseOutput(double output, double setpoint) {
             }
             break;
 
-        case Hood::state::Ready:
+        case Hood::state::Enabled:
             if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output))) {
-                m_HoodMotor.SetVoltage(units::volt_t(output) + feedforward.Calculate(10_mps, 20_mps_sq));
+                m_HoodMotor.Set(output);
             } else {
                 m_HoodMotor.Set(0.0);
             }
+            break;
+        case Hood::state::Disabled:
+            m_HoodMotor.Set(0.0);
             break;
         default:
             break;
     }
     frc::SmartDashboard::PutNumber("outputHood", output);
-}
-
-double Hood::GetEncoder() {
-    return m_encoderHood.GetDistance();
-}
-
-void Hood::SetPID(double p, double i, double d) {
-    this->GetController().SetP(p);
-    this->GetController().SetI(i);
-    this->GetController().SetD(d);
 }
