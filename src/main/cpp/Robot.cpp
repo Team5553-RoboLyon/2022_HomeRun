@@ -90,7 +90,7 @@ void Robot::TeleopPeriodic()
   m_leftMotor.Set(speedLeft);
   m_rightMotor.Set(speedRight);
 
-  m_OmniMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, m_joystickLeft.GetX());
+  m_OmniMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, utils::Deadband(m_joystickLeft.GetX()));
 
   if (m_joystickLeft.GetRawButtonPressed(2))
   {
