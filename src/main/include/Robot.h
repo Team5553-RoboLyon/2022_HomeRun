@@ -36,7 +36,7 @@ private:
   frc::Joystick m_joystickLeft{1};
   frc::DutyCycleEncoder m_encoderRotatingArms{0};
   frc::DutyCycleEncoder m_encoderClimber{1};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 1, 0};
+  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 0, 1};
   frc::DoubleSolenoid m_solenoidIntake{frc::PneumaticsModuleType::CTREPCM, 3, 2};
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
   double time = 0;
