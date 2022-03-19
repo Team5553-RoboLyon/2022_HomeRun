@@ -25,13 +25,13 @@ void callbackt(const char *valueName, HAL_SimValueHandle handle, int value, cons
 }
 TEST_F(DrivetrainTest, MotorRightFollowerTest)
 {
-    drivetrain.Drive(0.76, 0.5, 0.2);
+    drivetrain.Drive(0.76, 0.5, 0.2, Drivetrain::PTOState::Driving);
     EXPECT_EQ(RightMotorFollower.GetDouble("Setpoint").Get(), RightMotor.GetDouble("Setpoint").Get()); // Motor must be at speed
 }
 
 TEST_F(DrivetrainTest, MotorLeftFollowerTest)
 {
-    drivetrain.Drive(0.76, 0.5, 0.2);
+    drivetrain.Drive(0.76, 0.5, 0.2, Drivetrain::PTOState::Driving);
     EXPECT_EQ(LeftMotorFollower.GetDouble("Setpoint").Get(), LeftMotor.GetDouble("Setpoint").Get()); // Motor must be at speed
 }
 

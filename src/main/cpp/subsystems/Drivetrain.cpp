@@ -77,9 +77,9 @@ void Drivetrain::Drive(double right, double left, double lateral, PTOState ptoCo
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO {} while current state is {}", ptoConfigurationRequired, m_ptoState);
+        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
-    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, ptoConfigurationRequired);
+    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, PTOStateIndexToString(ptoConfigurationRequired));
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
