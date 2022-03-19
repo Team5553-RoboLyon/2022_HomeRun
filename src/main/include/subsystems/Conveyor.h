@@ -21,6 +21,6 @@ public:
     void StopConveyorMotor();
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorFeedingMotor{CONVEYOR_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
     rev::CANSparkMax m_ConveyorMotor{CONVEYOR_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
 };

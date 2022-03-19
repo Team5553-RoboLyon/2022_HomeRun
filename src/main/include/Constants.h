@@ -39,9 +39,8 @@
 #define SHOOTER_FALCON_MOTOR_FOLLOWER_ID 12
 
 // Conveyor
-#define CONVEYOR_ENTRY_MOTOR_ID 13
+#define FEEDER_MOTOR_ID 13
 #define CONVEYOR_MOTOR_ID 14
-#define CONVEYOR_EXIT_MOTOR_ID 15
 
 // ######### Joystick IDs #########
 
