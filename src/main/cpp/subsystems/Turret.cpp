@@ -23,13 +23,13 @@ void Turret::UseOutput(double output, double setpoint)
     switch (Turret::m_State)
     {
     case Turret::State::unknownPosition:
-        SetSetpoint(-140);
+        m_pidController.SetSetpoint(-140);
         if (MagnetDetected())
         {
             m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
             m_State = State::goTo0;
             ResetEncoder();
-            SetSetpoint(64);
+            m_pidController.SetSetpoint(64);
         }
         else
         {
@@ -43,7 +43,7 @@ void Turret::UseOutput(double output, double setpoint)
             spdlog::info("on passe en ready");
             m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
             ResetEncoder();
-            SetSetpoint(0);
+            m_pidController.SetSetpoint(0);
             m_State = State::ready;
         }
         else
@@ -144,13 +144,14 @@ void Turret::UseOutput(double output, double setpoint)
     default:
         break;
     }
+}
 
-    double Turret::GetEncoderDistance()
-    {
-        return m_encoderTurret.GetDistance();
-    }
+double Turret::GetEncoderDistance()
+{
+    return m_encoderTurret.GetDistance();
+}
 
-    void Turret::ResetEncoder()
-    {
-        m_encoderTurret.Reset();
-    }
+void Turret::ResetEncoder()
+{
+    m_encoderTurret.Reset();
+}

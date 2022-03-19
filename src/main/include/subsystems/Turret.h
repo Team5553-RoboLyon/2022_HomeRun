@@ -45,5 +45,5 @@ private:
     frc::DigitalInput m_SensorHall{7};
     State m_State = Turret::State::unknownPosition;
     frc::Timer m_Timer;
-    frc::PIDController m_pidController;
+    frc::PIDController m_pidController{0.04, 0.02, 0.002};
 };
