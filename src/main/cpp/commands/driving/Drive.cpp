@@ -27,6 +27,10 @@ Drive::Drive(std::function<double()> forward, std::function<double()> turn, std:
 
 void Drive::Initialize()
 {
+  if (m_pDrivetrain->GetPTOState() != Drivetrain::PTOState::Driving)
+  {
+    this->Cancel();
+  }
 }
 
 void Drive::Execute()

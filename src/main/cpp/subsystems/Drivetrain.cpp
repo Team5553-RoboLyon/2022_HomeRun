@@ -122,3 +122,19 @@ Drivetrain::PTOState Drivetrain::GetPTOState()
 {
     return m_ptoState;
 }
+
+void Drivetrain::SetPTOState(PTOState ptoState)
+{
+    switch (ptoState)
+    {
+    case PTOState::Driving:
+        m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
+        break;
+    case PTOState::Climbing:
+        m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+        break;
+    default:
+        m_solenoid.Set(frc::DoubleSolenoid::Value::kOff);
+        break;
+    }
+}

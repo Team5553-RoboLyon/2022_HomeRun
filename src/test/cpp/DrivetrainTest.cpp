@@ -19,10 +19,6 @@ protected:
     frc::sim::SimDeviceSim LeftMotorFollower{("WRAPPER::SPARK MAX [" + std::to_string(DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID) + "]").c_str()};
 };
 
-void callbackt(const char *valueName, HAL_SimValueHandle handle, int value, const HAL_Value *HALValue)
-{
-    spdlog::debug("{} = {}", valueName, value);
-}
 TEST_F(DrivetrainTest, MotorRightFollowerTest)
 {
     drivetrain.Drive(0.76, 0.5, 0.2, Drivetrain::PTOState::Driving);

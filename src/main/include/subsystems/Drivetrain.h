@@ -31,6 +31,7 @@ public:
   double GetFalconSimulatedOutput();
   static std::string PTOStateIndexToString(PTOState ptoConfiguration);
   PTOState GetPTOState();
+  void SetPTOState(PTOState ptoConfiguration);
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
