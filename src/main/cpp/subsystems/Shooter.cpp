@@ -18,3 +18,8 @@ void Shooter::Shoot(double speed)
 {
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
 }
+
+void Shooter::StopMotors()
+{
+    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+}
