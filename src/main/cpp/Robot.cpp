@@ -29,19 +29,10 @@ namespace utils
 
 void Robot::RobotInit()
 {
+  m_ShooterMotor.SetInverted(false);
+  m_ShooterMotor.SetInverted(true);
 
-  m_leftMotor.RestoreFactoryDefaults();
-  m_leftMotorFollower.RestoreFactoryDefaults();
-  m_rightMotor.RestoreFactoryDefaults();
-  m_rightMotorFollower.RestoreFactoryDefaults();
-
-  m_leftMotorFollower.Follow(m_leftMotor);
-  m_rightMotorFollower.Follow(m_rightMotor);
-
-  m_leftMotor.SetInverted(true);
-  m_leftMotorFollower.SetInverted(true);
-  m_rightMotor.SetInverted(false);
-  m_rightMotorFollower.SetInverted(false);
+  m_intakeMotor.SetInverted(true);
 }
 
 void Robot::RobotPeriodic()
@@ -51,7 +42,6 @@ void Robot::RobotPeriodic()
 void Robot::TeleopInit()
 {
   m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 /**
@@ -59,43 +49,47 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  double offset = 0.035;
-  frc::SmartDashboard::PutNumber("Offset", offset);
-  bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse;
-
-  double speedCoefficient = isAnyPTOEnabled ? 0.4 : 0.2;
-  double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficient;
-  double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficient;
-  frc::SmartDashboard::PutNumber("speedRight", speedRight);
-  frc::SmartDashboard::PutNumber("speedLeft", speedLeft);
-
-  if (m_joystickLeft.GetRawButtonPressed(1))
+  if (m_joystickRight.GetRawButton(1))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidIntake.Set(value);
+    m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    m_ShooterMotorFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+  }
+  else
+  {
+    m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+    m_ShooterMotorFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
   if (m_joystickRight.GetRawButtonPressed(2))
   {
-    if (m_compressor.Enabled())
-    {
-      m_compressor.Disable();
-    }
-    else
-    {
-      m_compressor.EnableDigital();
-    }
+    m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kReverse) : m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
   }
 
-  m_leftMotor.Set(speedLeft);
-  m_rightMotor.Set(speedRight);
-
-  m_OmniMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, utils::Deadband(m_joystickLeft.GetX()));
-
-  if (m_joystickLeft.GetRawButtonPressed(2))
+  if (m_joystickRight.GetRawButton(3))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidClimber.Set(value);
+    m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+  }
+  else
+  {
+    m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  }
+
+  if (m_joystickRight.GetRawButton(4))
+  {
+    m_conveyorMotor.Set(0.5);
+  }
+  else
+  {
+    m_conveyorMotor.Set(0.0);
+  }
+
+  if (m_joystickRight.GetRawButton(5))
+  {
+    m_feederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+  }
+  else
+  {
+    m_feederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 }
 

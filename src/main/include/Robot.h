@@ -13,6 +13,7 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc/Compressor.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
@@ -27,28 +28,13 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_leftMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotor{3, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotorFollower{4, rev::CANSparkMax::MotorType::kBrushless};
-  ctre::phoenix::motorcontrol::can::TalonFX m_OmniMotor{5};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_feederMotor{6};
+  rev::CANSparkMax m_conveyorMotor{7, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_intakeMotor{8};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotor{9};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorFollower{10};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
-  frc::DutyCycleEncoder m_encoderRotatingArms{0};
-  frc::DutyCycleEncoder m_encoderClimber{1};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 0, 1};
   frc::DoubleSolenoid m_solenoidIntake{frc::PneumaticsModuleType::CTREPCM, 3, 2};
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
-  double time = 0;
-
-  double m_speedPID;
-  double m_speedCoef;
-  double m_setpoint;
-  double m_lastError;
-  double m_error;
-  double m_integrative;
-  double m_derivative;
-  double kP = 0.1;
-  double kI = 0.0001;
-  double kD = 0.001;
 };
