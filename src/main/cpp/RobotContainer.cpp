@@ -29,6 +29,12 @@ void RobotContainer::ConfigureButtonBindings()
 {
   frc2::CommandScheduler::GetInstance().ClearButtons();
   spdlog::trace("RobotContainer::ConfigureButtonBindings()");
+
+  frc2::JoystickButton m_button = frc2::JoystickButton(&m_DriverRightJoystick, 1);
+  m_button.WhenActive(frc2::InstantCommand([this]
+                                           {
+                                             Drivetrain::PTOState newPTOState = m_Drivetrain.GetPTOState() == Drivetrain::PTOState::Driving ? Drivetrain::PTOState::Climbing : Drivetrain::PTOState::Driving;
+                                             m_Drivetrain.SetPTOState(newPTOState); }));
 }
 
 void RobotContainer::StartTests()

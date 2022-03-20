@@ -14,10 +14,11 @@
 #include "Constants.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Intake.h"
-#include "commands/driving/Drive.h"
+#include "commands/drivetrain/Drive.h"
 #include "lib/JsonConfig.h"
 
 #include "commands/tests/DrivetrainDirectionTest.h"
+#include <frc2/command/InstantCommand.h>
 
 class RobotContainer
 {
