@@ -11,7 +11,7 @@ class Shooter : public frc2::SubsystemBase
 {
 public:
     Shooter();
-    void Shoot();
+    void Shoot(double speed);
 
 private:
     ctre::phoenix::motorcontrol::can::TalonFX m_FalconMotor{SHOOTER_FALCON_MOTOR_ID};
