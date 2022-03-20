@@ -42,15 +42,10 @@ void Robot::RobotInit()
   m_leftMotorFollower.SetInverted(true);
   m_rightMotor.SetInverted(false);
   m_rightMotorFollower.SetInverted(false);
-
-  // Initialize a file for writing operations
-  m_file = std::make_unique<std::ofstream>("/home/lvuser/log.csv");
 }
 
 void Robot::RobotPeriodic()
 {
-  // Write to the file
-  *m_file << time << "," << m_encoderRotatingArms.Get() << "," << m_encoderClimber.Get() << std::endl;
 }
 
 void Robot::TeleopInit()
