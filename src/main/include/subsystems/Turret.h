@@ -13,37 +13,39 @@
 #include <spdlog/spdlog.h>
 #include "Constants.h"
 #include <frc/controller/PIDController.h>
+#include "lib/HallSecurity.h"
 
 class Turret : public frc2::SubsystemBase
 {
 public:
     Turret();
     void UseOutput(double output, double setpoint);
-    double GetEncoderDistance();
+    double GetMeasurement();
     void ResetEncoder();
     void SetPID(double p, double i, double d);
-    bool MagnetDetected();
     void ResetTurretState();
-    double m_TDeltaPosition;
-    double m_TPosition;
-    double m_TPositionBefore;
-    double m_TSpeedConsigne;
+    void Periodic() override;
+    void SetSetpoint(double setpoint);
+
+    double GetSetpoint();
+
+    void Enable();
+
+    void Disable();
 
 private:
     enum State
     {
         unknownPosition,
         goTo0,
-        ready,
-        d_Direction,
-        g_Direction,
-        dg_Direction,
-        StopSecure
+        enable,
+        disable,
     };
     ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
     frc::Encoder m_encoderTurret{10, 11};
-    frc::DigitalInput m_SensorHall{7};
+    HallSecurity m_SensorHall{7};
     State m_State = Turret::State::unknownPosition;
     frc::Timer m_Timer;
     frc::PIDController m_pidController{0.04, 0.02, 0.002};
+    double m_setPoint = 0.0;
 };
