@@ -9,6 +9,8 @@
 #include <spdlog/spdlog.h>
 #include "lib/wrappers/CANSparkMaxWrapper.h"
 #include <frc/DoubleSolenoid.h>
+#include <frc/Encoder.h>
+#include "lib/HallSecurity.h"
 
 #include "lib/RobotError.h"
 #include "Constants.h"
@@ -32,6 +34,10 @@ public:
   static std::string PTOStateIndexToString(PTOState ptoConfiguration);
   PTOState GetPTOState();
   void SetPTOState(PTOState ptoConfiguration);
+  double GetMeasurement();
+  void ResetEncoderClimber();
+  void Enable();
+  void Disable();
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
@@ -43,4 +49,16 @@ private:
 
   frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD, DRIVETRAIN_SOLENOID_ID_REVERSE};
   PTOState m_ptoState = PTOState::None;
+
+  enum state_Climber
+  {
+    init,
+    goTo0,
+    enable,
+    disable,
+  };
+  state_Climber m_state_Climber = Drivetrain::state_Climber::init;
+
+  frc::Encoder m_encoderClimber{10, 11};
+  HallSecurity m_HallSensorClimber{4};
 };

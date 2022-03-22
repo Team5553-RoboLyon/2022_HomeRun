@@ -51,9 +51,66 @@ Drivetrain::Drivetrain()
     m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
+double Drivetrain::GetMeasurement()
+{
+    return m_encoderClimber.GetDistance();
+}
+
+void Drivetrain::ResetEncoderClimber()
+{
+    m_encoderClimber.Reset();
+}
+
+void Drivetrain::Enable()
+{
+    m_state_Climber = Drivetrain::state_Climber::enable;
+}
+
+void Drivetrain::Disable()
+{
+    m_state_Climber = Drivetrain::state_Climber::disable;
+}
+
 void Drivetrain::Periodic()
 {
     spdlog::trace("Drivetrain::Periodic()");
+    switch (m_state_Climber)
+    {
+    case Drivetrain::state_Climber::init:
+        if (m_HallSensorClimber.MagnetDetected())
+        {
+            m_state_Climber = Drivetrain::state_Climber::disable;
+            ResetEncoderClimber();
+        }
+        else
+        {
+            if (!m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
+            {
+                m_NeoMotorLeft.Set(-0.1);
+            }
+            else
+            {
+                m_NeoMotorLeft.Set(0.0);
+            }
+        }
+        break;
+
+    case Drivetrain::state_Climber::enable:
+        if (m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
+        {
+            m_NeoMotorLeft.Set(0.1);
+        }
+        else
+        {
+            m_NeoMotorLeft.Set(0.0);
+        }
+        break;
+    case Drivetrain::state_Climber::disable:
+        m_NeoMotorLeft.Set(0.0);
+        break;
+    default:
+        break;
+    }
 }
 
 void Drivetrain::Stop()
