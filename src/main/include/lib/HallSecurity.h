@@ -11,6 +11,8 @@ class HallSecurity
 public:
     HallSecurity(int hallDIO);
 
+    HallSecurity(int hallDIORight, int hallDIOLeft);
+
     HallSecurity(int hallDIO, double tolerance);
 
     ~HallSecurity();
@@ -20,6 +22,12 @@ public:
     bool ShouldIStop(double currentPosition, int outputSigne);
 
     bool MagnetDetected();
+
+    bool MagnetDetectedRight();
+
+    bool MagnetDetectedLeft();
+
+    bool ShouldIStopTwo(int outputSigne);
 
 private:
     enum state
@@ -32,6 +40,9 @@ private:
     std::string stateToString(state state);
 
     frc::DigitalInput *m_SensorHall;
+    frc::DigitalInput *m_SensorHallRight;
+    frc::DigitalInput *m_SensorHallLeft;
+
     double m_DeltaPosition = 0.0;
     double m_PositionBefore = 0.0;
     double m_tolerance;

@@ -11,6 +11,7 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc/Encoder.h>
 #include "lib/HallSecurity.h"
+#include <frc/DigitalInput.h>
 
 #include "lib/RobotError.h"
 #include "Constants.h"
@@ -36,8 +37,10 @@ public:
   void SetPTOState(PTOState ptoConfiguration);
   double GetMeasurement();
   void ResetEncoderClimber();
-  void Enable();
-  void Disable();
+  void EnableClimber();
+  void DisableClimber();
+  void EnableRotatingArms();
+  void DisableRotatingArms();
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
@@ -57,8 +60,21 @@ private:
     enable,
     disable,
   };
+
+  enum state_RotatingArms
+  {
+    init,
+    goTo0,
+    enable,
+    disable,
+  };
   state_Climber m_state_Climber = Drivetrain::state_Climber::init;
+  state_RotatingArms m_state_RotatingArms = Drivetrain::state_RotatingArms::init;
 
   frc::Encoder m_encoderClimber{10, 11};
   HallSecurity m_HallSensorClimber{4};
+
+  frc::Encoder m_encoderRotatingArms{11, 12};
+  frc::DigitalInput m_HallSensorRotatingArmRight{1};
+  frc::DigitalInput m_HallSensorRotatingArmLeft{2};
 };

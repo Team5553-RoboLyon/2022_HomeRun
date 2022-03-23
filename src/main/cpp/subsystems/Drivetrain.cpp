@@ -61,14 +61,24 @@ void Drivetrain::ResetEncoderClimber()
     m_encoderClimber.Reset();
 }
 
-void Drivetrain::Enable()
+void Drivetrain::EnableClimber()
 {
     m_state_Climber = Drivetrain::state_Climber::enable;
 }
 
-void Drivetrain::Disable()
+void Drivetrain::DisableClimber()
 {
     m_state_Climber = Drivetrain::state_Climber::disable;
+}
+
+void Drivetrain::EnableRotatingArms()
+{
+    m_state_RotatingArms = Drivetrain::state_RotatingArms::enable;
+}
+
+void Drivetrain::DisableRotatingArms()
+{
+    m_state_RotatingArms = Drivetrain::state_RotatingArms::disable;
 }
 
 void Drivetrain::Periodic()
@@ -86,17 +96,39 @@ void Drivetrain::Periodic()
         {
             if (!m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
             {
-                m_NeoMotorLeft.Set(-0.1);
+                m_NeoMotorRight.Set(-0.1);
             }
             else
             {
-                m_NeoMotorLeft.Set(0.0);
+                m_NeoMotorRight.Set(0.0);
             }
         }
         break;
 
     case Drivetrain::state_Climber::enable:
         if (m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
+        {
+            m_NeoMotorRight.Set(0.1);
+        }
+        else
+        {
+            m_NeoMotorRight.Set(0.0);
+        }
+        break;
+    case Drivetrain::state_Climber::disable:
+        m_NeoMotorRight.Set(0.0);
+        break;
+    default:
+        break;
+    }
+
+    switch (m_state_RotatingArms)
+    {
+    case Drivetrain::state_RotatingArms::init:
+        /* code */
+        break;
+    case Drivetrain::state_Climber::enable:
+        if (m_HallSensorClimber.ShouldIStopTwo(wpi::sgn(0.1)))
         {
             m_NeoMotorLeft.Set(0.1);
         }
