@@ -63,13 +63,13 @@ private:
 
   enum state_RotatingArms
   {
-    init,
-    goTo0,
-    enable,
-    disable,
+    initRotate,
+    goTo0Rotate,
+    enableRotate,
+    disableRotate,
   };
   state_Climber m_state_Climber = Drivetrain::state_Climber::init;
-  state_RotatingArms m_state_RotatingArms = Drivetrain::state_RotatingArms::init;
+  state_RotatingArms m_state_RotatingArms = Drivetrain::state_RotatingArms::initRotate;
 
   frc::Encoder m_encoderClimber{10, 11};
   HallSecurity m_HallSensorClimber{4};

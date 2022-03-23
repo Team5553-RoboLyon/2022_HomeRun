@@ -73,12 +73,12 @@ void Drivetrain::DisableClimber()
 
 void Drivetrain::EnableRotatingArms()
 {
-    m_state_RotatingArms = Drivetrain::state_RotatingArms::enable;
+    m_state_RotatingArms = Drivetrain::state_RotatingArms::enableRotate;
 }
 
 void Drivetrain::DisableRotatingArms()
 {
-    m_state_RotatingArms = Drivetrain::state_RotatingArms::disable;
+    m_state_RotatingArms = Drivetrain::state_RotatingArms::disableRotate;
 }
 
 void Drivetrain::Periodic()
@@ -124,10 +124,10 @@ void Drivetrain::Periodic()
 
     switch (m_state_RotatingArms)
     {
-    case Drivetrain::state_RotatingArms::init:
+    case Drivetrain::state_RotatingArms::initRotate:
         /* code */
         break;
-    case Drivetrain::state_Climber::enable:
+    case Drivetrain::state_RotatingArms::enableRotate:
         if (m_HallSensorClimber.ShouldIStopTwo(wpi::sgn(0.1)))
         {
             m_NeoMotorLeft.Set(0.1);
@@ -137,7 +137,7 @@ void Drivetrain::Periodic()
             m_NeoMotorLeft.Set(0.0);
         }
         break;
-    case Drivetrain::state_Climber::disable:
+    case Drivetrain::state_RotatingArms::disableRotate:
         m_NeoMotorLeft.Set(0.0);
         break;
     default:
