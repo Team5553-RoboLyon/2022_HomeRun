@@ -18,14 +18,24 @@ void Conveyor::StopAllMotors()
     m_ConveyorMotor.Set(0);
 }
 
-void Conveyor::ActiveFeedingMotor(double speed)
+void Conveyor::ActiveFeedingMotor()
 {
-    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -FEEDER_MOTOR_SPEED);
 }
 
-void Conveyor::ActiveConveyorMotor(double speed)
+void Conveyor::UnblockConveyorMotor()
 {
-    m_ConveyorMotor.Set(speed);
+    m_ConveyorMotor.Set(CONVEYOR_MOTOR_SPEED);
+}
+
+void Conveyor::UnblockFeedingMotor()
+{
+    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -FEEDER_MOTOR_SPEED);
+}
+
+void Conveyor::ActiveConveyorMotor()
+{
+    m_ConveyorMotor.Set(CONVEYOR_MOTOR_SPEED);
 }
 
 void Conveyor::StopFeedingMotor()

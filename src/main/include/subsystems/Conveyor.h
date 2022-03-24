@@ -15,8 +15,10 @@ class Conveyor : public frc2::SubsystemBase
 public:
     Conveyor();
     void StopAllMotors();
-    void ActiveFeedingMotor(double speed);
-    void ActiveConveyorMotor(double speed);
+    void ActiveFeedingMotor();
+    void ActiveConveyorMotor();
+    void UnblockFeedingMotor();
+    void UnblockConveyorMotor();
     void StopFeedingMotor();
     void StopConveyorMotor();
 

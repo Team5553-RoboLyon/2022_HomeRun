@@ -14,10 +14,14 @@ ActiveConveyorMotor::ActiveConveyorMotor(Conveyor *pconveyor)
 void ActiveConveyorMotor::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ActiveConveyorMotor::Execute() {}
+void ActiveConveyorMotor::Execute()
+{
+  m_pConveyor->ActiveConveyorMotor();
+}
 
 // Called once the command ends or is interrupted.
-void ActiveConveyorMotor::End(bool interrupted) {
+void ActiveConveyorMotor::End(bool interrupted)
+{
   m_pConveyor->StopConveyorMotor();
 }
 

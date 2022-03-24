@@ -15,10 +15,16 @@ UnblockConveyorMotor::UnblockConveyorMotor(Conveyor *pconveyor)
 void UnblockConveyorMotor::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void UnblockConveyorMotor::Execute() {}
+void UnblockConveyorMotor::Execute()
+{
+  m_pConveyor->UnblockConveyorMotor();
+}
 
 // Called once the command ends or is interrupted.
-void UnblockConveyorMotor::End(bool interrupted) {}
+void UnblockConveyorMotor::End(bool interrupted)
+{
+  m_pConveyor->StopConveyorMotor();
+}
 
 // Returns true when the command should end.
 bool UnblockConveyorMotor::IsFinished()

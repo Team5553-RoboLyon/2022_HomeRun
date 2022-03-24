@@ -15,10 +15,16 @@ ActiveFeederMotor::ActiveFeederMotor(Conveyor *pconveyor)
 void ActiveFeederMotor::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ActiveFeederMotor::Execute() {}
+void ActiveFeederMotor::Execute()
+{
+  m_pConveyor->ActiveFeedingMotor();
+}
 
 // Called once the command ends or is interrupted.
-void ActiveFeederMotor::End(bool interrupted) {}
+void ActiveFeederMotor::End(bool interrupted)
+{
+  m_pConveyor->StopFeedingMotor();
+}
 
 // Returns true when the command should end.
 bool ActiveFeederMotor::IsFinished()
