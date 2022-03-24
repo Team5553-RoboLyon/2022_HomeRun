@@ -4,6 +4,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc2/command/ProfiledPIDCommand.h>
 #include <rev/CANSparkMax.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 #include <spdlog/spdlog.h>
@@ -15,6 +16,7 @@
 
 #include "lib/RobotError.h"
 #include "Constants.h"
+#include <units/angle.h>
 
 class Drivetrain : public frc2::SubsystemBase
 {
@@ -35,12 +37,17 @@ public:
   static std::string PTOStateIndexToString(PTOState ptoConfiguration);
   PTOState GetPTOState();
   void SetPTOState(PTOState ptoConfiguration);
-  double GetMeasurement();
   void ResetEncoderClimber();
   void EnableClimber();
   void DisableClimber();
+
   void EnableRotatingArms();
   void DisableRotatingArms();
+
+  void UseOutputClimber(double outputClimber, double setpointClimber);
+  double GetMeasurementClimber();
+  void SetSetpointClimber(double setpointClimber);
+  double GetSetpointClimber();
 
 private:
   CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
@@ -71,8 +78,12 @@ private:
   state_Climber m_state_Climber = Drivetrain::state_Climber::init;
   state_RotatingArms m_state_RotatingArms = Drivetrain::state_RotatingArms::initRotate;
 
+  frc::ProfiledPIDController<units::degree> m_pidcontroller{
+      CLIMBER_PID_P, CLIMBER_PID_I, CLIMBER_PID_D,
+      frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
   frc::Encoder m_encoderClimber{10, 11};
   HallSecurity m_HallSensorClimber{4};
+  double m_setPointClimber = 0.0;
 
   frc::Encoder m_encoderRotatingArms{11, 12};
   frc::DigitalInput m_HallSensorRotatingArmRight{1};

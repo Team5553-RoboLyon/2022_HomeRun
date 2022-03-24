@@ -17,7 +17,9 @@ void ActiveConveyorMotor::Initialize() {}
 void ActiveConveyorMotor::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ActiveConveyorMotor::End(bool interrupted) {}
+void ActiveConveyorMotor::End(bool interrupted) {
+  m_pConveyor->StopConveyorMotor();
+}
 
 // Returns true when the command should end.
 bool ActiveConveyorMotor::IsFinished()

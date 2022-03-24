@@ -51,98 +51,125 @@ Drivetrain::Drivetrain()
     m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
-double Drivetrain::GetMeasurement()
+double Drivetrain::GetMeasurementClimber()
 {
+    spdlog::trace("Drivetrain::GetMeasurementClimber()");
     return m_encoderClimber.GetDistance();
+}
+
+void Drivetrain::SetSetpointClimber(double setpointClimber)
+{
+    spdlog::trace("Drivetrain::SetSetpointClimber(double setpointClimber)");
+    m_setPointClimber = setpointClimber;
+}
+
+double Drivetrain::GetSetpointClimber()
+{
+    spdlog::trace("Drivetrain::GetSetpointClimber()");
+    return m_setPointClimber;
 }
 
 void Drivetrain::ResetEncoderClimber()
 {
+    spdlog::trace("Drivetrain::ResetEncoderClimber()");
     m_encoderClimber.Reset();
 }
 
 void Drivetrain::EnableClimber()
 {
+    spdlog::trace("Drivetrain::EnableClimber()");
     m_state_Climber = Drivetrain::state_Climber::enable;
 }
 
 void Drivetrain::DisableClimber()
 {
+    spdlog::trace("Drivetrain::DisableClimber()");
     m_state_Climber = Drivetrain::state_Climber::disable;
 }
 
 void Drivetrain::EnableRotatingArms()
 {
+    spdlog::trace("Drivetrain::EnableRotatingArms()");
     m_state_RotatingArms = Drivetrain::state_RotatingArms::enableRotate;
 }
 
 void Drivetrain::DisableRotatingArms()
 {
+    spdlog::trace("Drivetrain::DisableRotatingArms()");
     m_state_RotatingArms = Drivetrain::state_RotatingArms::disableRotate;
 }
-
-void Drivetrain::Periodic()
+void Drivetrain::UseOutputClimber(double outputClimber, double setpoint)
 {
-    spdlog::trace("Drivetrain::Periodic()");
-    switch (m_state_Climber)
+    spdlog::trace("Drivetrain::UseOutput()");
+    if (GetPTOState() == Drivetrain::PTOState::Climbing)
     {
-    case Drivetrain::state_Climber::init:
-        if (m_HallSensorClimber.MagnetDetected())
+        switch (m_state_Climber)
         {
-            m_state_Climber = Drivetrain::state_Climber::disable;
-            ResetEncoderClimber();
-        }
-        else
-        {
-            if (!m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
+        case Drivetrain::state_Climber::init:
+            if (m_HallSensorClimber.MagnetDetected())
             {
-                m_NeoMotorRight.Set(-0.1);
+                m_state_Climber = Drivetrain::state_Climber::disable;
+                ResetEncoderClimber();
+            }
+            else
+            {
+                if (!m_HallSensorClimber.ShouldIStop(GetMeasurementClimber(), wpi::sgn(outputClimber)))
+                {
+                    m_NeoMotorRight.Set(outputClimber);
+                }
+                else
+                {
+                    m_NeoMotorRight.Set(0.0);
+                }
+            }
+            break;
+
+        case Drivetrain::state_Climber::enable:
+            if (m_HallSensorClimber.ShouldIStop(GetMeasurementClimber(), wpi::sgn(outputClimber)))
+            {
+                m_NeoMotorRight.Set(outputClimber);
             }
             else
             {
                 m_NeoMotorRight.Set(0.0);
             }
-        }
-        break;
-
-    case Drivetrain::state_Climber::enable:
-        if (m_HallSensorClimber.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
-        {
-            m_NeoMotorRight.Set(0.1);
-        }
-        else
-        {
+            break;
+        case Drivetrain::state_Climber::disable:
             m_NeoMotorRight.Set(0.0);
+            break;
+        default:
+            break;
         }
-        break;
-    case Drivetrain::state_Climber::disable:
-        m_NeoMotorRight.Set(0.0);
-        break;
-    default:
-        break;
-    }
 
-    switch (m_state_RotatingArms)
-    {
-    case Drivetrain::state_RotatingArms::initRotate:
-        /* code */
-        break;
-    case Drivetrain::state_RotatingArms::enableRotate:
-        if (m_HallSensorClimber.ShouldIStopTwo(wpi::sgn(0.1)))
+        switch (m_state_RotatingArms)
         {
-            m_NeoMotorLeft.Set(0.1);
-        }
-        else
-        {
+        case Drivetrain::state_RotatingArms::initRotate:
+            /* code */
+            break;
+        case Drivetrain::state_RotatingArms::enableRotate:
+            if (m_HallSensorClimber.ShouldIStopTwo(wpi::sgn(0.1)))
+            {
+                m_NeoMotorLeft.Set(0.1);
+            }
+            else
+            {
+                m_NeoMotorLeft.Set(0.0);
+            }
+            break;
+        case Drivetrain::state_RotatingArms::disableRotate:
             m_NeoMotorLeft.Set(0.0);
+            break;
+        default:
+            break;
         }
-        break;
-    case Drivetrain::state_RotatingArms::disableRotate:
-        m_NeoMotorLeft.Set(0.0);
-        break;
-    default:
-        break;
     }
+}
+
+void Drivetrain::Periodic()
+{
+    double outputClimber = m_pidcontroller.Calculate(units::degree_t{GetMeasurementClimber()}, units::degree_t{m_setPointClimber});
+    UseOutputClimber(outputClimber, GetSetpointClimber());
+    spdlog::trace("Drivetrain::Periodic()");
 }
 
 void Drivetrain::Stop()
