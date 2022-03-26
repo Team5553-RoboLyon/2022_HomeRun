@@ -27,7 +27,7 @@ Drive::Drive(std::function<double()> forward, std::function<double()> turn, std:
 
 void Drive::Initialize()
 {
-  if (m_pDrivetrain->GetPTOState() != Drivetrain::PTOState::Driving)
+  if (!m_pDrivetrain->GetEnabled())
   {
     this->Cancel();
   }
@@ -59,7 +59,7 @@ void Drive::Execute()
   left_wheel *= k;
   right_wheel *= k;
 
-  m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()), Drivetrain::PTOState::Driving);
+  m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()));
 }
 
 void Drive::End(bool interrupted) {}

@@ -14,14 +14,14 @@ void DrivetrainDirectionTest::Initialize()
 {
   m_IsFinished = false;
   m_testDuration = 0.0;
-  m_pDrivetrain->Drive(DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, Drivetrain::PTOState::Driving);
+  m_pDrivetrain->Drive(DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED, DRIVETRAIN_TEST_SPEED);
 }
 
 void DrivetrainDirectionTest::Execute()
 {
   double m_encoderValues[3];
 
-  m_pDrivetrain->GetEncoderValues(m_encoderValues);
+  m_pDrivetrain->GetGearbox()->GetEncoderValues(m_encoderValues);
   bool isValueSupposedToBePositive = DRIVETRAIN_TEST_SPEED > 0;
 
   bool isValuePositive = m_encoderValues[0] > 0 && m_encoderValues[1] > 0 && m_encoderValues[2] > 0;

@@ -12,6 +12,8 @@
 #include "lib/RobotError.h"
 
 #include "Constants.h"
+#include "subsystems/Gearbox.h"
+#include "subsystems/Climber.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Intake.h"
 #include "commands/drivetrain/Drive.h"
@@ -29,7 +31,9 @@ public:
 private:
   void ConfigureButtonBindings();
 
-  Drivetrain m_Drivetrain;
+  Gearbox m_gearbox;
+  Climber m_climber{&m_gearbox};
+  Drivetrain m_Drivetrain{&m_gearbox};
   Intake m_Intake;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};

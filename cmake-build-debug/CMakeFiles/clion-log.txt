@@ -1,16 +1,13 @@
 /usr/share/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/share/clion/bin/ninja/linux/ninja -G Ninja /home/eymeric/code_bidouille/projets/robolyon/2022_Robot
--- The C compiler identification is GNU 11.2.1
--- The CXX compiler identification is GNU 11.2.1
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- Configuring done
--- Generating done
--- Build files have been written to: /home/eymeric/code_bidouille/projets/robolyon/2022_Robot/cmake-build-debug
+CMake Error at CMakeLists.txt:30 (add_executable):
+  Cannot find source file:
+
+    src/main/cpp/lib/Hallsecurity.cpp
+
+
+CMake Error at CMakeLists.txt:30 (add_executable):
+  No SOURCES given to target: 2022_Robot
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
