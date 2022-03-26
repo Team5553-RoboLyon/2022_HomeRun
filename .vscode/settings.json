@@ -80,7 +80,8 @@
     "typeinfo": "cpp",
     "regex": "cpp",
     "bitset": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "*.inc": "cpp"
   },
   "cmake.configureOnOpen": false,
   "wpilib.skipTests": false

@@ -14,8 +14,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include "Constants.h"
-
-#include "lib/HallSecurity.h"
+#include <robolyon/HallSecurity.h>
 
 class Hood : public frc2::SubsystemBase
 {

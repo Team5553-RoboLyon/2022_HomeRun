@@ -1,0 +1,381 @@
+[
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "/home/eymeric/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-g++",
+    "cPath": "/home/eymeric/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-gcc",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+      "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/",
+      "/home/eymeric/.gradle/caches/transforms-3/d2bc756fc8952566501d4baecc77394f/transformed/wpilibNewCommands-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/dfb6d10f845830663e18abe1825f5611/transformed/wpilibc-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/32905cbda59e8f99eb31e08135a4e4bd/transformed/ntcore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/64d14a7d471e2e0ba0cfc5d02cc57f60/transformed/hal-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/360c371939ae2c7052ce2372984bdcb6/transformed/wpimath-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/b7e1897a1a74d329e6a5d58cb31d310a/transformed/wpiutil-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/c9c8828ef6e1f26c09a7623632fa91fe/transformed/cameraserver-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/8c4e18e7892b2427a7ed6a6c57f20314/transformed/cscore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/a66e92f625732e9142e6716f3914753c/transformed/opencv-cpp-4.5.2-1-sources/"
+    ],
+    "allLibSources": [
+      "/home/eymeric/.gradle/caches/transforms-3/d2bc756fc8952566501d4baecc77394f/transformed/wpilibNewCommands-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/dfb6d10f845830663e18abe1825f5611/transformed/wpilibc-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/32905cbda59e8f99eb31e08135a4e4bd/transformed/ntcore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/64d14a7d471e2e0ba0cfc5d02cc57f60/transformed/hal-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/360c371939ae2c7052ce2372984bdcb6/transformed/wpimath-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/b7e1897a1a74d329e6a5d58cb31d310a/transformed/wpiutil-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/c9c8828ef6e1f26c09a7623632fa91fe/transformed/cameraserver-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/8c4e18e7892b2427a7ed6a6c57f20314/transformed/cscore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/a66e92f625732e9142e6716f3914753c/transformed/opencv-cpp-4.5.2-1-sources/"
+    ],
+    "allLibHeaders": [
+      "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+      "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/cpp/"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-Og",
+              "-g"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+          "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/cpp/"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "/home/eymeric/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-g++",
+    "cPath": "/home/eymeric/wpilib/2022/roborio/bin/arm-frc2022-linux-gnueabi-gcc",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+      "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/",
+      "/home/eymeric/.gradle/caches/transforms-3/d2bc756fc8952566501d4baecc77394f/transformed/wpilibNewCommands-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/dfb6d10f845830663e18abe1825f5611/transformed/wpilibc-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/32905cbda59e8f99eb31e08135a4e4bd/transformed/ntcore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/64d14a7d471e2e0ba0cfc5d02cc57f60/transformed/hal-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/360c371939ae2c7052ce2372984bdcb6/transformed/wpimath-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/b7e1897a1a74d329e6a5d58cb31d310a/transformed/wpiutil-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/c9c8828ef6e1f26c09a7623632fa91fe/transformed/cameraserver-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/8c4e18e7892b2427a7ed6a6c57f20314/transformed/cscore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/a66e92f625732e9142e6716f3914753c/transformed/opencv-cpp-4.5.2-1-sources/"
+    ],
+    "allLibSources": [
+      "/home/eymeric/.gradle/caches/transforms-3/d2bc756fc8952566501d4baecc77394f/transformed/wpilibNewCommands-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/dfb6d10f845830663e18abe1825f5611/transformed/wpilibc-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/32905cbda59e8f99eb31e08135a4e4bd/transformed/ntcore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/64d14a7d471e2e0ba0cfc5d02cc57f60/transformed/hal-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/360c371939ae2c7052ce2372984bdcb6/transformed/wpimath-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/b7e1897a1a74d329e6a5d58cb31d310a/transformed/wpiutil-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/c9c8828ef6e1f26c09a7623632fa91fe/transformed/cameraserver-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/8c4e18e7892b2427a7ed6a6c57f20314/transformed/cscore-cpp-2022.4.1-sources/",
+      "/home/eymeric/.gradle/caches/transforms-3/a66e92f625732e9142e6716f3914753c/transformed/opencv-cpp-4.5.2-1-sources/"
+    ],
+    "allLibHeaders": [
+      "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+      "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+      "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/cpp/"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "/home/eymeric/.gradle/caches/transforms-3/d3953129cd1aca973c62969b41c54f66/transformed/wpilibNewCommands-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/5f18664e4897210dc337532dff38c62a/transformed/ntcore-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/d0fcbe7d74b116bc1205773a477f1fd0/transformed/hal-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/f2df1a41e0157b5cc7eb38a7d3ecfb70/transformed/wpimath-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/e4335e68e4688282109ebc0eb3a2598b/transformed/wpiutil-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/241d21eb10aed3896fa9e888ea7118f4/transformed/netcomm-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/a67fd95f122ad9db2a16d3ea8a9ca027/transformed/chipobject-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/b3cef2949fd27ec7044e894b7b6861dd/transformed/visa-2022.4.0-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/6d020795b5f5f1d13c31a008d3050117/transformed/cameraserver-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/7e3f21b212027b3a0f3b0facf49d993e/transformed/cscore-cpp-2022.4.1-headers/",
+          "/home/eymeric/.gradle/caches/transforms-3/1af2016c56e575518f393c961b4dc653/transformed/opencv-cpp-4.5.2-1-headers/",
+          "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/cpp/"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  }
+]

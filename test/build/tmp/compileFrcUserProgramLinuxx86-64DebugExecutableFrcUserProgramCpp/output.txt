@@ -1,0 +1,10 @@
+See file:///home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/build/tmp/compileFrcUserProgramLinuxx86-64DebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramLinuxx86-64DebugExecutableFrcUserProgramCpp.
+compiling Robot.cpp failed.
+Dans le fichier inclus depuis /home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/include/Robot.h:7,
+                 depuis /home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/src/main/cpp/Robot.cpp:5:
+/home/eymeric/.gradle/caches/transforms-3/8376de58ab6df29a71a333e94c57b581/transformed/wpilibc-cpp-2022.4.1-headers/frc/TimedRobot.h:7:10: erreur fatale: functional : Aucun fichier ou dossier de ce type
+    7 | #include <functional>
+      |          ^~~~~~~~~~~~
+compilation terminée.
+
+Finished compileFrcUserProgramLinuxx86-64DebugExecutableFrcUserProgramCpp, see full log file:///home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/build/tmp/compileFrcUserProgramLinuxx86-64DebugExecutableFrcUserProgramCpp/output.txt.

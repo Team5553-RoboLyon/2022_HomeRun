@@ -13,7 +13,8 @@
 #include <spdlog/spdlog.h>
 #include "Constants.h"
 #include <frc/controller/PIDController.h>
-#include "lib/HallSecurity.h"
+#include <robolyon/HallSecurity.h>
+// #include "lib/HallSecurity.h"
 
 class Turret : public frc2::SubsystemBase
 {
