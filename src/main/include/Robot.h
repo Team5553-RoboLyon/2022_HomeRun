@@ -28,13 +28,11 @@ public:
   void TestPeriodic() override;
 
 private:
-  ctre::phoenix::motorcontrol::can::VictorSPX m_feederMotor{6};
-  rev::CANSparkMax m_conveyorMotor{7, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_feederMotor{9};
+  rev::CANSparkMax m_conveyorMotor{15, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
   ctre::phoenix::motorcontrol::can::VictorSPX m_intakeMotor{8};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotor{9};
-  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorFollower{10};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotor{1};
+  ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorFollower{2};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
-  frc::DoubleSolenoid m_solenoidIntake{frc::PneumaticsModuleType::CTREPCM, 3, 2};
-  frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
 };
