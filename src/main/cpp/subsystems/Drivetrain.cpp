@@ -147,7 +147,7 @@ void Drivetrain::UseOutputClimber(double outputClimber, double setpoint)
             /* code */
             break;
         case Drivetrain::state_RotatingArms::enableRotate:
-            if (m_HallSensorClimber.ShouldIStopTwo(wpi::sgn(0.1)))
+            if (m_HallSensorClimber.ShouldIStop(GetMeasurementClimber(), wpi::sgn(0.1)))
             {
                 m_NeoMotorLeft.Set(0.1);
             }

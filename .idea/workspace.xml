@@ -15,13 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="implementation de trapezoide !">
-      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/third_party/robolyon_lib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Drivetrain.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Drivetrain.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Hood.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Hood.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Turret.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Turret.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib" beforeDir="false" afterPath="$PROJECT_DIR$/third_party/robolyon_lib" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib/security/HallSecurity.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib/security/Hallsecurity.cpp" beforeDir="false" />
     </list>
@@ -100,7 +95,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/compile_commands.json" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../robolyon_lib" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -116,11 +111,6 @@
   </component>
   <component name="RunManager" selected="Gradle.2022_Robot [build]">
     <configuration name="2022_Robot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="2022_Robot" TARGET_NAME="2022_Robot" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="2022_Robot" RUN_TARGET_NAME="2022_Robot">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -172,6 +162,7 @@
       <workItem from="1648192762841" duration="856000" />
       <workItem from="1648282454000" duration="1742000" />
       <workItem from="1648286003160" duration="283000" />
+      <workItem from="1648287842704" duration="27000" />
     </task>
     <task id="LOCAL-00001" summary="faut tenter des truc en feed forward mais c'est pas fini">
       <created>1647207401696</created>
