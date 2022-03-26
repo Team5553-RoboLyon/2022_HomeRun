@@ -3,6 +3,7 @@
 //
 
 #include <robolyon/HallSecurity.h>
+//ma petit modif dans le gros repo
 
 HallSecurity::HallSecurity(int hallDIO, double tolerance)
 {
