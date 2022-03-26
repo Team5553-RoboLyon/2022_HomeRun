@@ -30,7 +30,9 @@ namespace utils
 void Robot::RobotInit()
 {
   m_ShooterMotor.SetInverted(false);
-  m_ShooterMotor.SetInverted(true);
+  m_ShooterMotorFollower.SetInverted(true);
+
+  m_ShooterMotorFollower.Follow(m_ShooterMotor);
 
   m_intakeMotor.SetInverted(true);
 }
@@ -42,6 +44,10 @@ void Robot::RobotPeriodic()
 void Robot::TeleopInit()
 {
   m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
+  frc::SmartDashboard::PutNumber("speed_Feeder", 0.0);
+  frc::SmartDashboard::PutNumber("speed_Conveyor", 0.0);
+  frc::SmartDashboard::PutNumber("speed_Shooter", 0.0);
+  frc::SmartDashboard::PutNumber("speed_Intake", 0.0);
 }
 
 /**
@@ -51,13 +57,11 @@ void Robot::TeleopPeriodic()
 {
   if (m_joystickRight.GetRawButton(1))
   {
-    m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
-    m_ShooterMotorFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Shooter", 0.0));
   }
   else
   {
     m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-    m_ShooterMotorFollower.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
   if (m_joystickRight.GetRawButtonPressed(2))
@@ -67,7 +71,7 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickRight.GetRawButton(3))
   {
-    m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Intake", 0.0));
   }
   else
   {
@@ -76,7 +80,7 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickRight.GetRawButton(4))
   {
-    m_conveyorMotor.Set(0.5);
+    m_conveyorMotor.Set(frc::SmartDashboard::GetNumber("speed_Conveyor", 0.0));
   }
   else
   {
@@ -85,7 +89,7 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickRight.GetRawButton(5))
   {
-    m_feederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    m_feederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Feeder", 0.0));
   }
   else
   {
