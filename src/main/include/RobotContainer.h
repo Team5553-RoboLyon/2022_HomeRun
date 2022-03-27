@@ -18,7 +18,6 @@
 #include "subsystems/Intake.h"
 #include "subsystems/Conveyor.h"
 #include "subsystems/Shooter.h"
-#include "subsystems/Hood.h"
 #include "commands/drivetrain/Drive.h"
 #include "commands/Intake/ChangeIntakePosition.h"
 #include "commands/Intake/ActiveIntakeMotor.h"
@@ -28,8 +27,6 @@
 #include "commands/Conveyor/ActiveFeederMotor.h"
 #include "commands/Conveyor/UnblockFeederMotor.h"
 #include "commands/Shoot/ActiveShooter.h"
-#include "commands/Shoot/TurnHood.h"
-#include "commands/Shoot/TurnHoodBas.h"
 #include "lib/JsonConfig.h"
 
 #include "commands/tests/DrivetrainDirectionTest.h"
@@ -44,11 +41,12 @@ public:
 private:
   void ConfigureButtonBindings();
 
-  Drivetrain m_Drivetrain;
+  Gearbox m_Gearbox;
+  Climber m_Climber{&m_Gearbox};
+  Drivetrain m_Drivetrain{&m_Gearbox};
   Intake m_Intake;
   Conveyor m_Conveyor;
   Shooter m_Shooter;
-  Hood m_Hood;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};

@@ -31,9 +31,9 @@ void RobotContainer::ConfigureButtonBindings()
   spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
   frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
 
-  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
   frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 2);
 
@@ -43,12 +43,9 @@ void RobotContainer::ConfigureButtonBindings()
 
   frc2::JoystickButton m_buttonShooterActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
 
-  frc2::JoystickButton m_buttonHoodUpMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 8);
-  frc2::JoystickButton m_buttonHoodLowMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 9);
-
-  // frc2::JoystickButton m_buttonIntakeOpen = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
-                                                         { m_Drivetrain.ChangeDrivePosition(); }));
+                                                         { Gearbox::PTOState newPTOState = m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
+                                             m_Gearbox.SetPTOState(newPTOState); }));
 
   m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
 
@@ -61,9 +58,6 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonIntakeUnblockMotor.WhileActiveContinous(UnblockIntakeMotor(&m_Intake));
 
   m_buttonShooterActiveMotor.WhileActiveContinous(ActiveShooter(&m_Shooter));
-
-  m_buttonHoodUpMotor.WhileActiveContinous(TurnHood(&m_Hood));
-  m_buttonHoodLowMotor.WhileActiveContinous(TurnHoodBas(&m_Hood));
 }
 
 // void RobotContainer::StartTests()

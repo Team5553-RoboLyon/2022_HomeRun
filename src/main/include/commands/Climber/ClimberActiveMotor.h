@@ -6,8 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Hood.h"
-
+#include "subsystems/Climber.h"
 /**
  * An example command.
  *
@@ -15,11 +14,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class TurnHood
-    : public frc2::CommandHelper<frc2::CommandBase, TurnHood>
+class ClimberActiveMotor
+    : public frc2::CommandHelper<frc2::CommandBase, ClimberActiveMotor>
 {
 public:
-  TurnHood(Hood *phood);
+  ClimberActiveMotor(std::function<double()> joystickInput, Climber *pclimber);
 
   void Initialize() override;
 
@@ -30,5 +29,6 @@ public:
   bool IsFinished() override;
 
 private:
-  Hood *m_pHood;
+  Climber *m_pClimber;
+  std::function<double()> m_joystickInput;
 };
