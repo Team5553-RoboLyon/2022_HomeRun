@@ -35,8 +35,6 @@ void Robot::RobotInit()
 
   // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
   spdlog::trace("RobotInit()");
-
-  planetaryencoder.Reset();
 }
 
 void Robot::RobotPeriodic()
