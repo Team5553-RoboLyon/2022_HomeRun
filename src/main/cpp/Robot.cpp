@@ -68,6 +68,7 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit()
 {
   spdlog::trace("TeleopInit()");
+  // m_container.m_Intake.Close();
 }
 
 void Robot::TeleopPeriodic()

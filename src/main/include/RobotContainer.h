@@ -14,7 +14,15 @@
 #include "Constants.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Intake.h"
+#include "subsystems/Conveyor.h"
 #include "commands/drivetrain/Drive.h"
+#include "commands/Intake/ChangeIntakePosition.h"
+#include "commands/Intake/ActiveIntakeMotor.h"
+#include "commands/Intake/UnblockIntakeMotor.h"
+#include "commands/Conveyor/ActiveConveyorMotor.h"
+#include "commands/Conveyor/UnblockConveyorMotor.h"
+#include "commands/Conveyor/ActiveFeederMotor.h"
+#include "commands/Conveyor/UnblockFeederMotor.h"
 #include "lib/JsonConfig.h"
 
 #include "commands/tests/DrivetrainDirectionTest.h"
@@ -31,6 +39,7 @@ private:
 
   Drivetrain m_Drivetrain;
   Intake m_Intake;
+  Conveyor m_Conveyor;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};

@@ -20,16 +20,12 @@
 #define DRIVETRAIN_FALCON_MOTOR_OMNI_ID 5
 
 // Turret
-#define TURRET_MOTOR_ID 6
+#define TURRET_MOTOR_ID 9
 
 // Intake
-#define INTAKE_MOTOR_ID 7
-#define INTAKE_SOLENOID_1_ID 5
-#define INTAKE_SOLENOID_2_ID 6
-
-// Climber
-#define CLIMBER_NEO_MOTOR_ID 8
-#define CLIMBER_NEO_MOTOR_FOLLOWER_ID 9
+#define INTAKE_MOTOR_ID 6
+#define INTAKE_SOLENOID_1_ID 3 // 3
+#define INTAKE_SOLENOID_2_ID 2 // 2
 
 // Hood
 #define HOOD_MOTOR_ID 10
@@ -39,8 +35,8 @@
 #define SHOOTER_FALCON_MOTOR_FOLLOWER_ID 12
 
 // Conveyor
-#define FEEDER_MOTOR_ID 13
-#define CONVEYOR_MOTOR_ID 14
+#define FEEDER_MOTOR_ID 8
+#define CONVEYOR_MOTOR_ID 7
 
 // ######### Joystick IDs #########
 
@@ -50,13 +46,13 @@
 // ######### speed #########
 
 // Intake
-#define INTAKE_MOTOR_SPEED 0.5
+#define INTAKE_MOTOR_SPEED 0.95
 
 // Feeder
-#define FEEDER_MOTOR_SPEED 0.5
+#define FEEDER_MOTOR_SPEED 1.0
 
 // Conveyor
-#define CONVEYOR_MOTOR_SPEED 0.5
+#define CONVEYOR_MOTOR_SPEED 0.8
 
 // Climber PID
 #define CLIMBER_PID_P 0.1
@@ -77,10 +73,8 @@
 #define DRIVETRAIN_TEST_SPEED 0.1
 #define DRIVETRAIN_TEST_DURATION 0.5
 
-#define DRIVETRAIN_SOLENOID_ID_FORWARD 2
-#define DRIVETRAIN_SOLENOID_ID_REVERSE 3
-#define DRIVETRAIN_SOLENOID_ROTATINGARM_ID_FORWARD 1
-#define DRIVETRAIN_SOLENOID_ROTATINGARM_ID_REVERSE 0
+#define DRIVETRAIN_SOLENOID_ID_FORWARD 1
+#define DRIVETRAIN_SOLENOID_ID_REVERSE 0
 
 // ######### Encoder IDs #########
 #define HOOD_ENCODER_ID 0

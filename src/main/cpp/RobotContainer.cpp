@@ -28,13 +28,30 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings()
 {
   frc2::CommandScheduler::GetInstance().ClearButtons();
-  spdlog::trace("RobotContainer::ConfigureButtonBindings()");
+  spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
-  frc2::JoystickButton m_button = frc2::JoystickButton(&m_DriverRightJoystick, 1);
+  frc2::JoystickButton m_button = frc2::JoystickButton(&m_DriverRightJoystick, 3);
+  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
+  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
+  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 2);
+  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+
+  frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
+  frc2::JoystickButton m_buttonFeederUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 12);
+  frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 11);
+
+  // frc2::JoystickButton m_buttonIntakeOpen = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   m_button.WhenActive(frc2::InstantCommand([this]
-                                           {
-                                             Drivetrain::PTOState newPTOState = m_Drivetrain.GetPTOState() == Drivetrain::PTOState::Driving ? Drivetrain::PTOState::Climbing : Drivetrain::PTOState::Driving;
-                                             m_Drivetrain.SetPTOState(newPTOState); }));
+                                           { m_Drivetrain.ChangeDrivePosition(); }));
+
+  m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
+  m_buttonIntakeActiveMotor.WhileActiveContinous(ActiveIntakeMotor(&m_Intake));
+  m_buttonFeederActiveMotor.WhileActiveContinous(ActiveFeederMotor(&m_Conveyor));
+  m_buttonConveyorActiveMotor.WhileActiveContinous(ActiveConveyorMotor(&m_Conveyor));
+
+  m_buttonConveyorUnblockMotor.WhileActiveOnce(UnblockConveyorMotor(&m_Conveyor));
+  m_buttonFeederUnblockMotor.WhileActiveOnce(UnblockFeederMotor(&m_Conveyor));
+  m_buttonIntakeUnblockMotor.WhileActiveOnce(UnblockIntakeMotor(&m_Intake));
 }
 
 void RobotContainer::StartTests()

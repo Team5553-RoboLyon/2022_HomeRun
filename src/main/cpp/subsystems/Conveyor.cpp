@@ -8,7 +8,7 @@ Conveyor::Conveyor()
     m_FeederMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
     m_ConveyorMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
-    m_FeederMotor.SetInverted(false);
+    m_FeederMotor.SetInverted(true);
     m_ConveyorMotor.SetInverted(false);
 }
 
@@ -20,17 +20,17 @@ void Conveyor::StopAllMotors()
 
 void Conveyor::ActiveFeedingMotor()
 {
-    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -FEEDER_MOTOR_SPEED);
+    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, FEEDER_MOTOR_SPEED);
 }
 
 void Conveyor::UnblockConveyorMotor()
 {
-    m_ConveyorMotor.Set(CONVEYOR_MOTOR_SPEED);
+    m_ConveyorMotor.Set(-0.5);
 }
 
 void Conveyor::UnblockFeedingMotor()
 {
-    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -FEEDER_MOTOR_SPEED);
+    m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
 }
 
 void Conveyor::ActiveConveyorMotor()

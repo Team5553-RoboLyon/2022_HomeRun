@@ -52,7 +52,7 @@ private:
   frc::ProfiledPIDController<units::degree> m_pidcontroller{
       HOOD_PID_P, HOOD_PID_I, HOOD_PID_D,
       frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
-  frc::DutyCycleEncoder m_encoderHood{HOOD_ENCODER_ID};
+  frc::DutyCycleEncoder m_encoderHood{1};
 
   rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
   HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};

@@ -19,9 +19,11 @@
 #include "Constants.h"
 #include <units/angle.h>
 
-class Drivetrain : public frc2::SubsystemBase {
+class Drivetrain : public frc2::SubsystemBase
+{
 public:
-    enum class PTOState {
+    enum class PTOState
+    {
         Climbing,
         Driving,
         None
@@ -63,6 +65,9 @@ public:
 
     double GetSetpointClimber();
 
+    void ChangeDrivePosition();
+    bool DrivePosition = true;
+
 private:
     CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
     CANSparkMaxWrapper m_NeoMotorRightFollower{DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID,
@@ -77,14 +82,16 @@ private:
                                    DRIVETRAIN_SOLENOID_ID_REVERSE};
     PTOState m_ptoState = PTOState::None;
 
-    enum state_Climber {
+    enum state_Climber
+    {
         init,
         goTo0,
         enable,
         disable,
     };
 
-    enum state_RotatingArms {
+    enum state_RotatingArms
+    {
         initRotate,
         goTo0Rotate,
         enableRotate,
@@ -93,14 +100,14 @@ private:
     state_Climber m_state_Climber = Drivetrain::state_Climber::init;
     state_RotatingArms m_state_RotatingArms = Drivetrain::state_RotatingArms::initRotate;
 
-    frc::ProfiledPIDController <units::degree> m_pidcontroller{
-            CLIMBER_PID_P, CLIMBER_PID_I, CLIMBER_PID_D,
-            frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
-    frc::Encoder m_encoderClimber{10, 11};
+    frc::ProfiledPIDController<units::degree> m_pidcontroller{
+        CLIMBER_PID_P, CLIMBER_PID_I, CLIMBER_PID_D,
+        frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+    frc::Encoder m_encoderClimber{12, 13};
     HallSecurity m_HallSensorClimber{4};
     double m_setPointClimber = 0.0;
 
-    frc::Encoder m_encoderRotatingArms{11, 12};
-    frc::DigitalInput m_HallSensorRotatingArmRight{1};
+    frc::Encoder m_encoderRotatingArms{14, 15};
+    frc::DigitalInput m_HallSensorRotatingArmRight{19};
     frc::DigitalInput m_HallSensorRotatingArmLeft{2};
 };

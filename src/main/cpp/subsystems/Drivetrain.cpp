@@ -193,11 +193,12 @@ void Drivetrain::Drive(double right, double left, double lateral, PTOState ptoCo
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        // spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, PTOStateIndexToString(ptoConfigurationRequired));
     m_NeoMotorLeft.Set(left);
     m_NeoMotorRight.Set(right);
+    spdlog::debug(lateral);
     m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
 }
 
@@ -252,5 +253,19 @@ void Drivetrain::SetPTOState(PTOState ptoState)
     default:
         m_solenoid.Set(frc::DoubleSolenoid::Value::kOff);
         break;
+    }
+}
+
+void Drivetrain::ChangeDrivePosition()
+{
+    if (DrivePosition)
+    {
+        m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+        DrivePosition = false;
+    }
+    else
+    {
+        m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
+        DrivePosition = true;
     }
 }
