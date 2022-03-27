@@ -54,20 +54,20 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonIntakeUnblockMotor.WhileActiveOnce(UnblockIntakeMotor(&m_Intake));
 }
 
-void RobotContainer::StartTests()
-{
-  if (!frc::DriverStation::IsTest())
-    throw RobotError::RobotCriticalError("RobotContainer::StartTests() called when not in test mode");
+// void RobotContainer::StartTests()
+// {
+//   if (!frc::DriverStation::IsTest())
+//     throw RobotError::RobotCriticalError("RobotContainer::StartTests() called when not in test mode");
 
-  spdlog::trace("RobotContainer::StartTests()");
+//   spdlog::trace("RobotContainer::StartTests()");
 
-  try
-  {
-    DrivetrainDirectionTest command(&m_Drivetrain);
-    frc2::CommandScheduler::GetInstance().Schedule(&command);
-  }
-  catch (std::exception &e)
-  {
-    spdlog::error("DrivetrainTests failed: {}", e.what());
-  }
-}
+//   try
+//   {
+//     DrivetrainDirectionTest command(&m_Drivetrain);
+//     frc2::CommandScheduler::GetInstance().Schedule(&command);
+//   }
+//   catch (std::exception &e)
+//   {
+//     spdlog::error("DrivetrainTests failed: {}", e.what());
+//   }
+// }

@@ -12,6 +12,8 @@
 #include "lib/RobotError.h"
 
 #include "Constants.h"
+#include "subsystems/Gearbox.h"
+#include "subsystems/Climber.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Intake.h"
 #include "subsystems/Conveyor.h"
@@ -32,7 +34,7 @@ class RobotContainer
 {
 public:
   RobotContainer();
-  void StartTests();
+  // void StartTests();
 
 private:
   void ConfigureButtonBindings();

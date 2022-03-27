@@ -15,10 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="implementation de trapezoide !">
+      <change afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Climber.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Gearbox.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/include/subsystems/Climber.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/include/subsystems/Gearbox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib" beforeDir="false" afterPath="$PROJECT_DIR$/third_party/robolyon_lib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib/security/HallSecurity.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/third_party/robolyon_lib/security/Hallsecurity.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/compile_commands.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,12 +99,12 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../robolyon_lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/compile_commands.json" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -163,6 +167,8 @@
       <workItem from="1648282454000" duration="1742000" />
       <workItem from="1648286003160" duration="283000" />
       <workItem from="1648287842704" duration="27000" />
+      <workItem from="1648310739645" duration="18000" />
+      <workItem from="1648310813965" duration="25000" />
     </task>
     <task id="LOCAL-00001" summary="faut tenter des truc en feed forward mais c'est pas fini">
       <created>1647207401696</created>
@@ -244,6 +250,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/third_party/robolyon_lib" />
+    </ignored-roots>
     <MESSAGE value="faut tenter des truc en feed forward mais c'est pas fini" />
     <MESSAGE value="on avance doucement mais pas surement" />
     <MESSAGE value="une class hallSecurity toute belle et en bonus elle est implementé dans le hood c'est ti pas beau" />

@@ -79,7 +79,7 @@ void Robot::TeleopPeriodic()
 void Robot::TestInit()
 {
   spdlog::trace("TestInit()");
-  m_container.StartTests();
+  // m_container.StartTests();
 }
 
 void Robot::TestPeriodic()
