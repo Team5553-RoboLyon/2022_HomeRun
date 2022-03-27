@@ -66,6 +66,9 @@ public:
     double GetSetpointClimber();
 
     void ChangeDrivePosition();
+
+    bool GetPosition();
+
     bool DrivePosition = true;
 
 private:

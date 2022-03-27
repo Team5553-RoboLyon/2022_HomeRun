@@ -163,9 +163,9 @@ void Drivetrain::UseOutputClimber(double outputClimber, double setpoint)
 
 void Drivetrain::Periodic()
 {
-    double outputClimber = m_pidcontroller.Calculate(units::degree_t{GetMeasurementClimber()}, units::degree_t{m_setPointClimber});
-    UseOutputClimber(outputClimber, GetSetpointClimber());
-    spdlog::trace("Drivetrain::Periodic()");
+    // double outputClimber = m_pidcontroller.Calculate(units::degree_t{GetMeasurementClimber()}, units::degree_t{m_setPointClimber});
+    // UseOutputClimber(outputClimber, GetSetpointClimber());
+    // spdlog::trace("Drivetrain::Periodic()");
 }
 
 void Drivetrain::Stop()
@@ -264,4 +264,9 @@ void Drivetrain::ChangeDrivePosition()
         m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
         DrivePosition = true;
     }
+}
+
+bool Drivetrain::GetPosition()
+{
+    return DrivePosition;
 }

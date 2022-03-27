@@ -14,50 +14,56 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include "Constants.h"
-#include <robolyon/HallSecurity.h>
+// #include <robolyon/HallSecurity.h>
 
 class Hood : public frc2::SubsystemBase
 {
 public:
   Hood();
 
-  double GetMeasurement();
+  // double GetMeasurement();
 
-  void Periodic() override;
+  // void Periodic() override;
 
-  void SetSetpoint(double setpoint);
+  // void SetSetpoint(double setpoint);
 
-  double GetSetpoint();
+  // double GetSetpoint();
 
-  void Enable();
+  // void Enable();
 
-  void Disable();
+  // void Disable();
 
-  void ResetEncoders();
+  // void ResetEncoders();
 
-  void UseOutput(double output, double setpoint);
+  // void UseOutput(double output, double setpoint);
 
-  static std::string StateToString(int state);
+  // static std::string StateToString(int state);
+
+  void TurnHaut();
+
+  void TurnBas();
+
+  void StopMotor();
 
 private:
-  enum state
-  {
-    WaitingEncoder,
-    Init,
-    Enabled,
-    Disabled
-  };
-  Hood::state m_state = Hood::state::WaitingEncoder;
+  // enum state
+  // {
+  //   WaitingEncoder,
+  //   Init,
+  //   Enabled,
+  //   Disabled
+  // };
+  // Hood::state m_state = Hood::state::WaitingEncoder;
 
-  frc::ProfiledPIDController<units::degree> m_pidcontroller{
-      HOOD_PID_P, HOOD_PID_I, HOOD_PID_D,
-      frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
-  frc::DutyCycleEncoder m_encoderHood{1};
+  // frc::ProfiledPIDController<units::degree> m_pidcontroller{
+  //     HOOD_PID_P, HOOD_PID_I, HOOD_PID_D,
+  //     frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+  // frc::DutyCycleEncoder m_encoderHood{1};
 
   rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
+  //   HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
 
-  double m_setPoint = 0;
+  //   double m_setPoint = 0;
 
 #if SHUFFLEBOARD_DEBUG
   nt::NetworkTableEntry m_entry_HoodPosition;

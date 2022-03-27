@@ -14,9 +14,9 @@ Shooter::Shooter()
     m_FalconMotorFollower.Follow(m_FalconMotor);
 }
 
-void Shooter::Shoot(double speed)
+void Shooter::Shoot()
 {
-    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.7);
 }
 
 void Shooter::StopMotors()

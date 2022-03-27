@@ -11,7 +11,7 @@ class Shooter : public frc2::SubsystemBase
 {
 public:
     Shooter();
-    void Shoot(double speed);
+    void Shoot();
     void StopMotors();
 
 private:
