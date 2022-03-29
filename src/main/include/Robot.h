@@ -7,8 +7,8 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
 #include <rev/CANSparkMax.h>
-#include <frc/Joystick.h>
-#include <frc/DutyCycleEncoder.h>
+#include <frc/XboxController.h>
+#include <units/voltage.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -24,5 +24,11 @@ public:
   void TestPeriodic() override;
 
 private:
-  frc::DutyCycleEncoder planetaryencoder{1};
+  rev::CANSparkMax m_moteur{1, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_moteurFollower{2, rev::CANSparkMax::MotorType::kBrushless};
+
+  frc::XboxController m_driverController{0};
+
+  units::volt_t speed;
+  double value;
 };

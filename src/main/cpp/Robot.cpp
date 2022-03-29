@@ -42,6 +42,16 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
+  m_moteur.RestoreFactoryDefaults();
+  m_moteurFollower.RestoreFactoryDefaults();
+
+  m_moteur.SetInverted(true);
+  m_moteurFollower.SetInverted(true);
+
+  m_moteurFollower.Follow(m_moteur);
+
+  speed = units::voltage::volt_t{0.0};
+  value = 0.0;
 }
 
 /**
@@ -49,7 +59,27 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  spdlog::info(planetaryencoder.Get());
+  if (m_driverController.GetAButtonPressed())
+  {
+    speed = speed + units::voltage::volt_t{0.1};
+    value = value + 0.1;
+  }
+
+  if (m_driverController.GetBButtonPressed())
+  {
+    speed = speed - units::voltage::volt_t{-0.1};
+    value = value - 0.1;
+  }
+
+  if (m_driverController.GetXButtonPressed())
+  {
+    speed = units::voltage::volt_t{0.0};
+    value = 0.0;
+  }
+
+  m_moteur.SetVoltage(speed);
+
+  frc::SmartDashboard::PutNumber("voltage", value);
 }
 
 /**
