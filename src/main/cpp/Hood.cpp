@@ -4,7 +4,8 @@
 
 #include "Hood.h"
 
-Hood::Hood() {
+Hood::Hood()
+{
     m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
 
     Enable();
@@ -14,66 +15,83 @@ Hood::Hood() {
     m_HoodMotor.SetInverted(true);
     m_controller.SetIntegratorRange(-5, 5);
 
-    m_hallSecurity.setInverted(true);//TODO verifier ca mais je pense que c'est vrai
+    m_hallSecurity.setInverted(true); // TODO verifier ca mais je pense que c'est vrai
 }
 
-void Hood::Enable() {
+void Hood::Enable()
+{
     m_state = Hood::state::Enabled;
 }
 
-void Hood::Disable() {
+void Hood::Disable()
+{
     m_state = Hood::state::Disabled;
 }
 
-void Hood::SetSetpoint(double setpoint) {
+void Hood::SetSetpoint(double setpoint)
+{
     m_setPoint = setpoint;
 }
 
-void Hood::ResetEncoders() {
+void Hood::ResetEncoders()
+{
     m_encoderHood.Reset();
 }
 
-double Hood::GetMeasurement() {
+double Hood::GetMeasurement()
+{
     return m_encoderHood.GetDistance();
 }
 
-void Hood::Periodic() {
+void Hood::Periodic()
+{
     double output = m_controller.Calculate(units::degree_t{GetMeasurement()}, units::degree_t{m_setPoint});
 
-    switch (m_state) {
-        case Hood::state::WaitingEncoder:
-            if (m_encoderHood.IsConnected()) {
-                ResetEncoders();
-                m_state = Hood::state::Init;
+    switch (m_state)
+    {
+    case Hood::state::WaitingEncoder:
+        if (m_encoderHood.IsConnected())
+        {
+            ResetEncoders();
+            m_state = Hood::state::Enabled; // TODO attention on saute le mode init la !!!!!
+        }
+        break;
+    case Hood::state::Init:
+        if (m_hallSecurity.MagnetDetected())
+        {
+            m_state = Hood::state::Disabled;
+            ResetEncoders();
+            SetSetpoint(0.0);
+        }
+        else
+        {
+            SetSetpoint(-60.0);
+            if (!m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
+            {
+                m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
             }
-            break;
-        case Hood::state::Init:
-            if (m_hallSecurity.MagnetDetected()) {
-                m_state = Hood::state::Disabled;
-                ResetEncoders();
-                SetSetpoint(0.0);
-            } else {
-                SetSetpoint(-60.0);
-                if (!m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output))) {
-                    m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
-                } else {
-                    m_HoodMotor.Set(0.0);
-                }
-            }
-            break;
-
-        case Hood::state::Enabled:
-            if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output))) {
-                m_HoodMotor.Set(output);
-            } else {
+            else
+            {
                 m_HoodMotor.Set(0.0);
             }
-            break;
-        case Hood::state::Disabled:
+        }
+        break;
+
+    case Hood::state::Enabled:
+        if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
+        {
+            m_HoodMotor.Set(output);
+        }
+        else
+        {
             m_HoodMotor.Set(0.0);
-            break;
-        default:
-            break;
+        }
+        break;
+    case Hood::state::Disabled:
+        m_HoodMotor.Set(0.0);
+        break;
+    default:
+        break;
     }
     frc::SmartDashboard::PutNumber("outputHood", output);
 }
