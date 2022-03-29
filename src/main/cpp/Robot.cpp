@@ -65,7 +65,7 @@ void Robot::TeleopPeriodic()
 
   if (m_driverController.GetBButtonPressed())
   {
-    m_speed -= -0.1;
+    m_speed -= 0.1;
   }
 
   if (m_driverController.GetXButtonPressed())
@@ -74,8 +74,11 @@ void Robot::TeleopPeriodic()
   }
   m_speed = std::clamp(m_speed, -12.0, 12.0);
   m_moteur.SetVoltage(units::voltage::volt_t{m_speed});
-
+  int error = m_moteur.GetStickyFaults();
+  int errorFollow = m_moteurFollower.GetStickyFaults();
   frc::SmartDashboard::PutNumber("voltage", m_speed);
+  frc::SmartDashboard::PutNumber("error", error);
+  frc::SmartDashboard::PutNumber("errorFollower", errorFollow);
 }
 
 /**
