@@ -29,6 +29,5 @@ private:
 
   frc::XboxController m_driverController{0};
 
-  units::volt_t speed;
-  double value;
+  double m_speed;
 };

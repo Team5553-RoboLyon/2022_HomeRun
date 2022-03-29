@@ -50,8 +50,7 @@ void Robot::TeleopInit()
 
   m_moteurFollower.Follow(m_moteur);
 
-  speed = units::voltage::volt_t{0.0};
-  value = 0.0;
+  m_speed = 0.0;
 }
 
 /**
@@ -61,25 +60,22 @@ void Robot::TeleopPeriodic()
 {
   if (m_driverController.GetAButtonPressed())
   {
-    speed = speed + units::voltage::volt_t{0.1};
-    value = value + 0.1;
+    m_speed += 0.1;
   }
 
   if (m_driverController.GetBButtonPressed())
   {
-    speed = speed - units::voltage::volt_t{-0.1};
-    value = value - 0.1;
+    m_speed -= -0.1;
   }
 
   if (m_driverController.GetXButtonPressed())
   {
-    speed = units::voltage::volt_t{0.0};
-    value = 0.0;
+    m_speed = 0.0;
   }
+  m_speed = std::clamp(m_speed, -12.0, 12.0);
+  m_moteur.SetVoltage(units::voltage::volt_t{m_speed});
 
-  m_moteur.SetVoltage(speed);
-
-  frc::SmartDashboard::PutNumber("voltage", value);
+  frc::SmartDashboard::PutNumber("voltage", m_speed);
 }
 
 /**
