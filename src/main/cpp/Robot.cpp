@@ -34,7 +34,9 @@ void Robot::RobotInit()
 
   m_ShooterMotorFollower.Follow(m_ShooterMotor);
 
-  m_intakeMotor.SetInverted(true);
+  m_intakeMotor.SetInverted(false);
+  m_conveyorMotor.SetInverted(false);
+  m_feederMotor.SetInverted(true);
 }
 
 void Robot::RobotPeriodic()
@@ -55,7 +57,7 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  if (m_joystickRight.GetRawButton(1))
+  if (m_joystickLeft.GetRawButton(1))
   {
     m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Shooter", 0.0));
   }
@@ -64,12 +66,12 @@ void Robot::TeleopPeriodic()
     m_ShooterMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  if (m_joystickRight.GetRawButtonPressed(2))
+  if (m_joystickRight.GetRawButtonPressed(1))
   {
     m_solenoidIntake.Get() == frc::DoubleSolenoid::Value::kForward ? m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kReverse) : m_solenoidIntake.Set(frc::DoubleSolenoid::Value::kForward);
   }
 
-  if (m_joystickRight.GetRawButton(3))
+  if (m_joystickRight.GetRawButton(2))
   {
     m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Intake", 0.0));
   }
@@ -78,7 +80,7 @@ void Robot::TeleopPeriodic()
     m_intakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
   }
 
-  if (m_joystickRight.GetRawButton(4))
+  if (m_joystickLeft.GetRawButton(2))
   {
     m_conveyorMotor.Set(frc::SmartDashboard::GetNumber("speed_Conveyor", 0.0));
   }
@@ -87,7 +89,7 @@ void Robot::TeleopPeriodic()
     m_conveyorMotor.Set(0.0);
   }
 
-  if (m_joystickRight.GetRawButton(5))
+  if (m_joystickLeft.GetRawButton(3))
   {
     m_feederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, frc::SmartDashboard::GetNumber("speed_Feeder", 0.0));
   }
