@@ -5,8 +5,8 @@ Shooter::Shooter()
     m_FalconMotor.ConfigFactoryDefault();
     m_FalconMotorFollower.ConfigFactoryDefault();
 
-    m_FalconMotor.SetInverted(true);
-    m_FalconMotorFollower.SetInverted(false);
+    m_FalconMotor.SetInverted(false);
+    m_FalconMotorFollower.SetInverted(true);
 
     m_FalconMotor.ConfigVoltageCompSaturation(11);
     m_FalconMotorFollower.ConfigVoltageCompSaturation(11);

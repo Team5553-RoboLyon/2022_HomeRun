@@ -30,12 +30,12 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::CommandScheduler::GetInstance().ClearButtons();
   spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
-  frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+  // frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
+  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverRightJoystick, 2);
 
-  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
-  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
-  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 2);
+  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
+  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
 
   frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
   frc2::JoystickButton m_buttonFeederUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 12);
@@ -43,9 +43,9 @@ void RobotContainer::ConfigureButtonBindings()
 
   frc2::JoystickButton m_buttonShooterActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
 
-  m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
-                                                         { Gearbox::PTOState newPTOState = m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
-                                             m_Gearbox.SetPTOState(newPTOState); }));
+  // m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
+  //                                                        { Gearbox::PTOState newPTOState = m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
+  //                                            m_Gearbox.SetPTOState(newPTOState); }));
 
   m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
 

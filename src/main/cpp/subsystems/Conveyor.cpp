@@ -5,8 +5,16 @@ Conveyor::Conveyor()
     m_FeederMotor.ConfigFactoryDefault();
     m_ConveyorMotor.RestoreFactoryDefaults();
 
+    m_ConveyorMotor.SetSmartCurrentLimit(40);
+
     m_FeederMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
     m_ConveyorMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+
+    m_FeederMotor.ConfigClosedloopRamp(0.5);
+    m_ConveyorMotor.SetClosedLoopRampRate(0.5);
+
+    m_ConveyorMotor.EnableVoltageCompensation(10);
+    m_FeederMotor.EnableVoltageCompensation(10);
 
     m_FeederMotor.SetInverted(true);
     m_ConveyorMotor.SetInverted(false);

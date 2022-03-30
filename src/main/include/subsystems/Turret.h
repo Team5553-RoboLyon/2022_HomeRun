@@ -43,7 +43,7 @@ private:
         disable,
     };
     ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
-    frc::Encoder m_encoderTurret{10, 11};
+    frc::Encoder m_encoderTurret{17, 18};
     HallSecurity m_SensorHall{7};
     State m_State = Turret::State::unknownPosition;
     frc::Timer m_Timer;

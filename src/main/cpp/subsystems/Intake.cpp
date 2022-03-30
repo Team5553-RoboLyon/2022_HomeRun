@@ -3,6 +3,8 @@
 Intake::Intake()
 {
     m_IntakeMotor.SetInverted(false);
+    m_IntakeMotor.ConfigClosedloopRamp(0.5);
+    m_IntakeMotor.EnableVoltageCompensation(10);
     // m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
 }
 

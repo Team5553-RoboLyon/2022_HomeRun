@@ -46,13 +46,13 @@
 // ######### speed #########
 
 // Intake
-#define INTAKE_MOTOR_SPEED 0.95
+#define INTAKE_MOTOR_SPEED 0.7
 
 // Feeder
 #define FEEDER_MOTOR_SPEED 1.0
 
 // Conveyor
-#define CONVEYOR_MOTOR_SPEED 0.8
+#define CONVEYOR_MOTOR_SPEED 0.65
 
 // Climber PID
 #define CLIMBER_PID_P 0.1

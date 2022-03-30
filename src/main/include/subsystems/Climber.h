@@ -48,7 +48,7 @@ private:
 
     double m_setPoint = 0.0;
 
-    frc::Encoder m_encoderRotatingArms{11, 12};
-    frc::DigitalInput m_HallSensorRotatingArmRight{1};
+    frc::Encoder m_encoderRotatingArms{12, 13};
+    frc::DigitalInput m_HallSensorRotatingArmRight{19};
     frc::DigitalInput m_HallSensorRotatingArmLeft{2};
 };
