@@ -31,6 +31,7 @@
 
 #include "commands/tests/DrivetrainDirectionTest.h"
 #include <frc2/command/InstantCommand.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
 class RobotContainer
 {
