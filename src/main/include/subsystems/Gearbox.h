@@ -35,19 +35,15 @@ public:
 
     void Stop();
 
-    void SetEveryone(double right, double left, double lateral, PTOState ptoConfigurationRequired);
+    void SetEveryone(double right, double left, PTOState ptoConfigurationRequired);
     void SetLeft(double left, PTOState ptoConfigurationRequired);
     void SetRight(double right, PTOState ptoConfigurationRequired);
-    void SetLateral(double lateral, PTOState ptoConfigurationRequired);
 
     void StopEveryOne(PTOState ptoConfigurationRequired);
     void StopLeft(PTOState ptoConfigurationsRequired);
     void StopRight(PTOState ptoConfigurationRequired);
-    void StopLateral(PTOState ptoConfigurationRequired);
 
-    void GetEncoderValues(double (&encoderValues)[3]);
-
-    double GetFalconSimulatedOutput();
+    void GetEncoderValues(double (&encoderValues)[2]);
 
     static std::string PTOStateIndexToString(PTOState ptoConfiguration);
 
@@ -62,8 +58,6 @@ private:
     CANSparkMaxWrapper m_NeoMotorLeft{DRIVETRAIN_NEO_MOTOR_LEFT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
     CANSparkMaxWrapper m_NeoMotorLeftFollower{DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID,
                                               rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-
-    ctre::phoenix::motorcontrol::can::TalonFX m_FalconMotor{DRIVETRAIN_FALCON_MOTOR_OMNI_ID};
 
     frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD,
                                    DRIVETRAIN_SOLENOID_ID_REVERSE};

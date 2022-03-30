@@ -13,7 +13,7 @@ public:
     Drivetrain(Gearbox *gearbox);
     void Periodic() override;
     void Stop();
-    void Drive(double right, double left, double lateral);
+    void Drive(double right, double left);
     void Enable();
     void Disable();
     double GetEnabled();

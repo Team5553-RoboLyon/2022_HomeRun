@@ -6,7 +6,7 @@
 
 Gearbox::Gearbox()
 {
-    spdlog::trace("Drivetrain()");
+    spdlog::trace("Gearbox()");
     m_NeoMotorRight.RestoreFactoryDefaults();
     m_NeoMotorRightFollower.RestoreFactoryDefaults();
     m_NeoMotorLeft.RestoreFactoryDefaults();
@@ -45,29 +45,19 @@ Gearbox::Gearbox()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-    m_FalconMotor.ConfigFactoryDefault();
-    m_FalconMotor.SetNeutralMode(ctre::phoenix::motorcontrol::Brake);
-    m_FalconMotor.SetInverted(false);
-    m_FalconMotor.GetSensorCollection().SetIntegratedSensorPosition(0.0);
-    m_FalconMotor.ConfigOpenloopRamp(0.7);
-    m_FalconMotor.EnableVoltageCompensation(true);
-    m_FalconMotor.ConfigVoltageCompSaturation(10);
-
     m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
 }
 
 void Gearbox::Periodic()
 {
-    spdlog::trace("Drivetrain::Periodic()");
+    spdlog::trace("Gearbox::Periodic()");
 }
 
 void Gearbox::Stop()
 {
-    spdlog::trace("Drivetrain::Stop()");
+    spdlog::trace("Gearbox::Stop()");
     m_NeoMotorLeft.StopMotor();
     m_NeoMotorRight.StopMotor();
-
-    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
 }
 
 /**
@@ -78,18 +68,17 @@ void Gearbox::Stop()
  * @param left Left wheels pourcentage
  * @param lateral Lateral pourcentage
  */
-void Gearbox::SetEveryone(double right, double left, double lateral, PTOState ptoConfigurationRequired)
+void Gearbox::SetEveryone(double right, double left, PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        spdlog::warn("Gearbox::SetEveryone() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     else
     {
-        spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, PTOStateIndexToString(ptoConfigurationRequired));
+        spdlog::trace("Gearbox::SetEveryone({}, {}, {})", right, left, PTOStateIndexToString(ptoConfigurationRequired));
         m_NeoMotorLeft.Set(left);
         m_NeoMotorRight.Set(right);
-        m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
     }
 }
 
@@ -97,11 +86,11 @@ void Gearbox::SetLeft(double left, PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        spdlog::warn("Gearbox::SetLeft() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     else
     {
-        spdlog::trace("Drive({}, {}, {}, {})", 0.0, left, 0.0, PTOStateIndexToString(ptoConfigurationRequired));
+        spdlog::trace("Gearbox::SetLeft({}, {}, {})", 0.0, left, PTOStateIndexToString(ptoConfigurationRequired));
         m_NeoMotorLeft.Set(left);
     }
 }
@@ -109,29 +98,16 @@ void Gearbox::SetRight(double right, PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        spdlog::warn("Gearbox::SetRight() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     else
     {
-        spdlog::trace("Drive({}, {}, {}, {})", right, 0.0, 0.0, PTOStateIndexToString(ptoConfigurationRequired));
+        spdlog::trace("Gearbox::SetRight({}, {}, {})", right, 0.0, PTOStateIndexToString(ptoConfigurationRequired));
         m_NeoMotorRight.Set(right);
-    }
-}
-void Gearbox::SetLateral(double lateral, PTOState ptoConfigurationRequired)
-{
-    if (ptoConfigurationRequired != m_ptoState)
-    {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
-    }
-    else
-    {
-        spdlog::trace("Drive({}, {}, {}, {})", 0.0, 0.0, lateral, PTOStateIndexToString(ptoConfigurationRequired));
-        m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
     }
 }
 void Gearbox::StopEveryOne(PTOState ptoConfigurationRequired)
 {
-    StopLateral(ptoConfigurationRequired);
     StopLeft(ptoConfigurationRequired);
     StopRight(ptoConfigurationRequired);
 }
@@ -140,11 +116,11 @@ void Gearbox::StopLeft(PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        spdlog::warn("Gearbox::StopLeft() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     else
     {
-        spdlog::trace("Drivetrain::StopLeft()");
+        spdlog::trace("Gearbox::StopLeft()");
         m_NeoMotorLeft.StopMotor();
     }
 }
@@ -153,25 +129,12 @@ void Gearbox::StopRight(PTOState ptoConfigurationRequired)
 {
     if (ptoConfigurationRequired != m_ptoState)
     {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+        spdlog::warn("Gearbox::StopRight() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
     }
     else
     {
-        spdlog::trace("Drivetrain::StopRight()");
+        spdlog::trace("Gearbox::StopRight()");
         m_NeoMotorRight.StopMotor();
-    }
-}
-
-void Gearbox::StopLateral(PTOState ptoConfigurationRequired)
-{
-    if (ptoConfigurationRequired != m_ptoState)
-    {
-        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
-    }
-    else
-    {
-        spdlog::trace("Drivetrain::StopLateral()");
-        m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
     }
 }
 /**
@@ -180,18 +143,11 @@ void Gearbox::StopLateral(PTOState ptoConfigurationRequired)
  *
  * @param encoderValues Array of 3 doubles where the encoder values will be stored
  */
-void Gearbox::GetEncoderValues(double (&encoderValues)[3])
+void Gearbox::GetEncoderValues(double (&encoderValues)[2])
 {
-    spdlog::trace("Drivetrain::GetEncoderValues()");
+    spdlog::trace("Gearbox::GetEncoderValues()");
     encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
     encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
-    encoderValues[2] = m_FalconMotor.GetSensorCollection().GetIntegratedSensorPosition();
-}
-
-double Gearbox::GetFalconSimulatedOutput()
-{
-    spdlog::trace("Drivetrain::GetFalconSimulatedOutput()");
-    return m_FalconMotor.GetSimCollection().GetMotorOutputLeadVoltage();
 }
 
 std::string Gearbox::PTOStateIndexToString(PTOState ptoConfiguration)

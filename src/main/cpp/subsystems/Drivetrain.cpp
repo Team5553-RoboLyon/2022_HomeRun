@@ -42,7 +42,7 @@ Gearbox *Drivetrain::GetGearbox()
  * @param left Left wheels pourcentage
  * @param lateral Lateral pourcentage
  */
-void Drivetrain::Drive(double right, double left, double lateral)
+void Drivetrain::Drive(double right, double left)
 {
-    m_gearbox->SetEveryone(right, left, lateral, Gearbox::PTOState::Driving);
+    m_gearbox->SetEveryone(right, left, Gearbox::PTOState::Driving);
 }

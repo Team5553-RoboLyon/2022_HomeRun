@@ -19,8 +19,8 @@
 #define NMAX(a, b) (((a) > (b)) ? (a) : (b)) // Max
 #define NMIN(a, b) (((a) < (b)) ? (a) : (b)) // Min
 
-Drive::Drive(std::function<double()> forward, std::function<double()> turn, std::function<double()> lateral, Drivetrain *pdrivetrain)
-    : m_Forward(forward), m_Turn(turn), m_Lateral(lateral), m_pDrivetrain(pdrivetrain)
+Drive::Drive(std::function<double()> forward, std::function<double()> turn, Drivetrain *pdrivetrain)
+    : m_Forward(forward), m_Turn(turn), m_pDrivetrain(pdrivetrain)
 {
   AddRequirements(m_pDrivetrain);
 }
@@ -61,7 +61,7 @@ void Drive::Execute()
   left_wheel *= k;
   right_wheel *= k;
 
-  m_pDrivetrain->Drive(right_wheel, left_wheel, utils::Deadband(m_Lateral()));
+  m_pDrivetrain->Drive(right_wheel, left_wheel);
   // }
   // else
   // {

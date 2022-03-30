@@ -17,8 +17,6 @@ RobotContainer::RobotContainer()
                                        { return -m_DriverLeftJoystick.GetY(); },
                                        [=]
                                        { return m_DriverRightJoystick.GetZ(); },
-                                       [=]
-                                       { return m_DriverRightJoystick.GetX(); },
                                        &m_Drivetrain));
 
   // m_Climber.SetDefaultCommand(ClimberActiveMotor(&m_Climber, [=]
