@@ -9,7 +9,7 @@
 #include <frc/Joystick.h>
 #include <spdlog/spdlog.h>
 
-#include "Shooter.h"
+#include "subsystems/Shooter.h"
 
 #define SPEED_TO_RPM(x) ((x * 600) / 2048)
 

@@ -16,8 +16,8 @@
 
 #include "HallSecurity.h"
 
-
-class Hood : public frc2::SubsystemBase {
+class Hood : public frc2::SubsystemBase
+{
 public:
     Hood();
 
@@ -34,7 +34,8 @@ public:
     void ResetEncoders();
 
 private:
-    enum state {
+    enum state
+    {
         WaitingEncoder,
         Init,
         Enabled,
@@ -42,16 +43,13 @@ private:
     };
     Hood::state m_state = Hood::state::WaitingEncoder;
 
-
-    frc::ProfiledPIDController <units::degree> m_controller{
-            0.035, 0.008, 0.0004,
-            frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+    frc::ProfiledPIDController<units::degree> m_controller{
+        0.035, 0.008, 0.0004,
+        frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
     frc::DutyCycleEncoder m_encoderHood{0};
-
 
     rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
     HallSecurity m_hallSecurity{8, 0.3};
 
     double m_setPoint = 0;
-
 };

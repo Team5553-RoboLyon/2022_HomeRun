@@ -6,7 +6,7 @@
 
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/InstantCommand.h>
-#include "Shooter.h"
+#include "subsystems/Shooter.h"
 
 #define LERP(a, b, t) ((a) + ((b) - (a)) * (t))
 
