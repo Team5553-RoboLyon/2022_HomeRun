@@ -80,17 +80,17 @@ void Gearbox::Stop()
  */
 void Gearbox::SetEveryone(double right, double left, double lateral, PTOState ptoConfigurationRequired)
 {
-    // if (ptoConfigurationRequired != m_ptoState)
-    // {
-    // spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
-    // }
-    // else
-    // {
-    spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, PTOStateIndexToString(ptoConfigurationRequired));
-    m_NeoMotorLeft.Set(left);
-    m_NeoMotorRight.Set(right);
-    m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
-    // }
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Drivetrain::Drive() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Drive({}, {}, {}, {})", right, left, lateral, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorLeft.Set(left);
+        m_NeoMotorRight.Set(right);
+        m_FalconMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, lateral);
+    }
 }
 
 void Gearbox::SetLeft(double left, PTOState ptoConfigurationRequired)
@@ -218,12 +218,16 @@ void Gearbox::SetPTOState(PTOState ptoState)
     {
     case PTOState::Driving:
         m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
+        m_ptoState = ptoState;
         break;
     case PTOState::Climbing:
         m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+        m_ptoState = ptoState;
+
         break;
     default:
         m_solenoid.Set(frc::DoubleSolenoid::Value::kOff);
+        m_ptoState = PTOState::None;
         break;
     }
 }
