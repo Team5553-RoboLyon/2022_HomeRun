@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Shooter.h"
+#include "commands/Shoot/SetShooterAuto.h"
 
 /**
  * An example command.
@@ -32,4 +33,3 @@ public:
 private:
   Shooter *m_pShooter;
 };
-

@@ -13,63 +13,42 @@
 #include <units/angle.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
-#include "Constants.h"
-// #include <robolyon/HallSecurity.h>
+#include <robolyon/HallSecurity.h>
 
 class Hood : public frc2::SubsystemBase
 {
 public:
-  Hood();
+    Hood();
 
-  // double GetMeasurement();
+    double GetMeasurement();
 
-  // void Periodic() override;
+    void Periodic() override;
 
-  // void SetSetpoint(double setpoint);
+    void SetSetpoint(double setpoint);
 
-  // double GetSetpoint();
+    void Enable();
 
-  // void Enable();
+    void Disable();
 
-  // void Disable();
-
-  // void ResetEncoders();
-
-  // void UseOutput(double output, double setpoint);
-
-  // static std::string StateToString(int state);
-
-  void TurnHaut();
-
-  void TurnBas();
-
-  void StopMotor();
+    void ResetEncoders();
 
 private:
-  // enum state
-  // {
-  //   WaitingEncoder,
-  //   Init,
-  //   Enabled,
-  //   Disabled
-  // };
-  // Hood::state m_state = Hood::state::WaitingEncoder;
+    enum state
+    {
+        WaitingEncoder,
+        Init,
+        Enabled,
+        Disabled
+    };
+    Hood::state m_state = Hood::state::WaitingEncoder;
 
-  // frc::ProfiledPIDController<units::degree> m_pidcontroller{
-  //     HOOD_PID_P, HOOD_PID_I, HOOD_PID_D,
-  //     frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
-  // frc::DutyCycleEncoder m_encoderHood{1};
+    frc::ProfiledPIDController<units::degree> m_controller{
+        0.035, 0.008, 0.0004,
+        frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+    frc::DutyCycleEncoder m_encoderHood{0};
 
-  rev::CANSparkMax m_HoodMotor{3, rev::CANSparkMax::MotorType::kBrushless};
-  //   HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
+    rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
+    HallSecurity m_hallSecurity{8, 0.3};
 
-  //   double m_setPoint = 0;
-
-#if SHUFFLEBOARD_DEBUG
-  nt::NetworkTableEntry m_entry_HoodPosition;
-  nt::NetworkTableEntry m_entry_HoodSetpoint;
-  nt::NetworkTableEntry m_entry_HoodError;
-  nt::NetworkTableEntry m_entry_HoodOutput;
-  nt::NetworkTableEntry m_entry_HoodState;
-#endif
+    double m_setPoint = 0;
 };

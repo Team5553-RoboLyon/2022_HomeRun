@@ -3,100 +3,169 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/Turret.h"
+#include <spdlog/spdlog.h>
 
 Turret::Turret()
+    : PIDSubsystem(frc2::PIDController(0.04, 0.02, 0.002))
 {
-    SetSetpoint(0.0);
-    m_pidController.SetIntegratorRange(-5, 5);
-    m_pidController.SetTolerance(0.0, std::numeric_limits<double>::infinity());
-    m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
-    m_encoderTurret.SetReverseDirection(true);
-    ResetEncoder();
+  SetSetpoint(0.0);
+  GetController().SetIntegratorRange(-5, 5);
+  GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
+  m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
+  m_encoderTurret.SetReverseDirection(true);
+  ResetEncoder();
+  Disable();
 }
-
-void Turret::Enable()
-{
-    m_State = Turret::State::enable;
-}
-
-void Turret::Disable()
-{
-    m_State = Turret::State::disable;
-}
-
-void Turret::SetSetpoint(double setpoint)
-{
-    m_setPoint = setpoint;
-}
-
-double Turret::GetSetpoint()
-{
-    return m_setPoint;
-}
+bool Turret::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Turret::UseOutput(double output, double setpoint)
 {
-    switch (Turret::m_State)
+  m_TPosition = GetMeasurement();
+  m_TDeltaPosition = m_TPosition - m_TPositionBefore;
+  m_TPositionBefore = m_TPosition;
+  switch (Turret::m_State)
+  {
+  case Turret::State::unknownPosition:
+    SetSetpoint(-140);
+    if (MagnetDetected())
     {
-    case Turret::State::unknownPosition:
-        m_pidController.SetSetpoint(-140);
-        if (m_SensorHall.MagnetDetected())
-        {
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-            m_State = State::goTo0;
-            ResetEncoder();
-            SetSetpoint(64);
-        }
-        else
-        {
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.2, 0.2)); // TODO remettre le clamp a 0.6
-        }
-        break;
-    case Turret::State::goTo0:
-        if (GetMeasurement() < 66 && GetMeasurement() > 62)
-        {
-            spdlog::info(GetMeasurement());
-            spdlog::info("on passe en ready");
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-            ResetEncoder();
-            SetSetpoint(0);
-            m_State = State::enable;
-        }
-        else
-        {
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.4, 0.4)); // TODO remettre le clamp a 0.6
-        }
-        break;
-    case Turret::State::enable:
-        if (m_SensorHall.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
-        {
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.4, 0.4)); // TODO remettre le clamp a 0.6
-        }
-        else
-        {
-            m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-        }
-        break;
-    case Turret::State::disable:
-        m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-        break;
-
-    default:
-        break;
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+      m_State = State::goTo0;
+      ResetEncoder();
+      Enable();
+      SetSetpoint(64);
     }
+    else
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.2, 0.2)); // TODO remettre le clamp a 0.6
+    }
+    break;
+  case Turret::State::goTo0:
+    if (GetMeasurement() < 66 && GetMeasurement() > 62)
+    {
+      spdlog::info(GetMeasurement());
+      spdlog::info("on passe en ready");
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+      ResetEncoder();
+      SetSetpoint(0);
+      m_State = State::ready;
+    }
+    else
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.4, 0.4)); // TODO remettre le clamp a 0.6
+    }
+    break;
+  case Turret::State::ready:
+    m_TPosition = m_TPositionBefore = GetMeasurement();
+    m_TDeltaPosition = 0.0;
+    // si on détecte un aimant à l'init on stoppe tout
+    if (MagnetDetected())
+    {
+      m_State = StopSecure;
+    }
+    else
+    {
+      m_State = dg_Direction;
+    }
+
+    break;
+  case Turret::State::d_Direction:
+    // std::cout << "Turret::State::d_Direction:" << std::endl;
+    if (m_TSpeedConsigne < 0)
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
+    }
+    else
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+                        (0.0)); // m_State = Turret::State::Stop;
+    }
+    if (!MagnetDetected())
+    {
+      m_State = Turret::State::dg_Direction;
+    }
+    break;
+
+  case Turret::State::g_Direction:
+    // std::cout << "Turret::State::g_Direction:" << std::endl;
+    if (m_TSpeedConsigne > 0)
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
+    }
+    else
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+                        (0.0)); // m_State = Turret::State::Stop;
+    }
+    if (!MagnetDetected())
+    {
+      m_State = Turret::State::dg_Direction;
+    }
+    break;
+
+  case Turret::State::dg_Direction:
+    // std::cout << "Turret::State::dg_Direction:" << std::endl;
+    if (MagnetDetected()) // si on détecte un aimant
+    {
+      if (m_TDeltaPosition < 0) // on est a droite
+      {
+        if (m_TSpeedConsigne > 0)
+        {
+          m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
+        }
+        else
+        {
+          m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+                            (0.0)); // m_State = Turret::State::Stop;
+        }
+        m_State = Turret::State::g_Direction; // on va à gauche;
+      }
+      else if (m_TDeltaPosition > 0) // on est a gauche
+      {
+        if (m_TSpeedConsigne < 0)
+        {
+          m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
+        }
+        else
+        {
+          m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+                            (0.0)); // m_State = Turret::State::Stop;
+        }
+        m_State = Turret::State::d_Direction; // on va à droite;
+      }
+    }
+    else // si on ne détecte pas d'aimant
+    {
+      m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.6, 0.6)); // TODO remettre le clamp a 0.6
+    }
+
+    break;
+
+  case Turret::State::StopSecure:
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (0.0));
+    break;
+
+  default:
+    break;
+  }
+
+  frc::SmartDashboard::PutNumber("outputTurret", output);
+  frc::SmartDashboard::PutNumber("out setpoint", setpoint);
 }
 
-void Turret::Periodic()
-{
-    double output = m_pidController.Calculate(GetMeasurement());
-    UseOutput(output, GetSetpoint());
-}
 double Turret::GetMeasurement()
 {
-    return m_encoderTurret.GetDistance();
+  return m_encoderTurret.GetDistance();
 }
 
 void Turret::ResetEncoder()
 {
-    m_encoderTurret.Reset();
+  m_encoderTurret.Reset();
+}
+
+void Turret::SetPID(double p, double i, double d)
+{
+  GetController().SetP(p);
+  GetController().SetI(i);
+  GetController().SetD(d);
 }

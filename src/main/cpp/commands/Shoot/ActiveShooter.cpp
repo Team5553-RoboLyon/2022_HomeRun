@@ -16,13 +16,14 @@ void ActiveShooter::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ActiveShooter::Execute()
 {
-  m_pShooter->Shoot();
+  ActiveShooter(m_pShooter).Schedule();
+  // m_pShooter->Shoot();
 }
 
 // Called once the command ends or is interrupted.
 void ActiveShooter::End(bool interrupted)
 {
-  m_pShooter->StopMotors();
+  m_pShooter->SetSpeed(0.0);
 }
 
 // Returns true when the command should end.
