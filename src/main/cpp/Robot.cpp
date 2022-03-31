@@ -48,6 +48,9 @@ void Robot::TeleopInit()
   m_moteur.SetInverted(true);
   m_moteurFollower.SetInverted(true);
 
+  m_moteur.SetSmartCurrentLimit(40);
+  m_moteurFollower.SetSmartCurrentLimit(40);
+
   m_moteurFollower.Follow(m_moteur);
 
   m_speed = 0.0;

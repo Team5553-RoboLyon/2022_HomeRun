@@ -24,8 +24,8 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_moteur{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_moteurFollower{2, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_moteur{4, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_moteurFollower{3, rev::CANSparkMax::MotorType::kBrushless};
 
   frc::XboxController m_driverController{0};
 
