@@ -13,6 +13,7 @@ Hood::Hood()
 
     m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_HoodMotor.SetInverted(true);
+    m_HoodMotor.SetSmartCurrentLimit(20);
     m_controller.SetIntegratorRange(-5, 5);
 
     m_hallSecurity.setInverted(true); // TODO verifier ca mais je pense que c'est vrai
