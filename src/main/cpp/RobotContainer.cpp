@@ -28,36 +28,49 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::CommandScheduler::GetInstance().ClearButtons();
   spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
+#if GEARBOX
   frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverRightJoystick, 2);
-
-  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
-  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
-  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
-  frc2::JoystickButton m_buttonIntakeConvoyerActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 4);
-
-  frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
-  frc2::JoystickButton m_buttonFeederUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 12);
-  frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 11);
-
-  frc2::JoystickButton m_buttonShooterActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
-
   m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
                                                          { Gearbox::PTOState newPTOState =( m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving) ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
                                              m_Gearbox.SetPTOState(newPTOState); }));
+#endif
 
+#if INTAKE
+  frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverRightJoystick, 2);
   m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
+#endif
 
+#if INTAKE
+  frc2::JoystickButton m_buttonIntakeActiveMotor = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   m_buttonIntakeActiveMotor.WhileActiveContinous(ActiveIntakeMotor(&m_Intake));
-  m_buttonFeederActiveMotor.WhileActiveContinous(ActiveFeederMotor(&m_Conveyor));
-  m_buttonConveyorActiveMotor.WhileActiveContinous(ActiveConveyorMotor(&m_Conveyor));
-  m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), ActiveConveyorMotor(&m_Conveyor)));
 
-  m_buttonConveyorUnblockMotor.WhileActiveContinous(UnblockConveyorMotor(&m_Conveyor));
-  m_buttonFeederUnblockMotor.WhileActiveContinous(UnblockFeederMotor(&m_Conveyor));
+  frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 11);
   m_buttonIntakeUnblockMotor.WhileActiveContinous(UnblockIntakeMotor(&m_Intake));
+#endif
 
+#if CONVEYOR
+  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+  m_buttonConveyorActiveMotor.WhileActiveContinous(ActiveConveyorMotor(&m_Conveyor));
+
+  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  m_buttonFeederActiveMotor.WhileActiveContinous(ActiveFeederMotor(&m_Conveyor));
+
+  frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
+  m_buttonConveyorUnblockMotor.WhileActiveContinous(UnblockConveyorMotor(&m_Conveyor));
+
+  frc2::JoystickButton m_buttonFeederUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 12);
+  m_buttonFeederUnblockMotor.WhileActiveContinous(UnblockFeederMotor(&m_Conveyor));
+#endif
+
+#if INTAKE && CONVEYOR
+  frc2::JoystickButton m_buttonIntakeConvoyerActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 4);
+  m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), ActiveConveyorMotor(&m_Conveyor)));
+#endif
+
+#if SHOOTER
+  frc2::JoystickButton m_buttonShooterActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
   m_buttonShooterActiveMotor.WhileActiveContinous(ActiveShooter(&m_Shooter));
+#endif
 }
 
 // void RobotContainer::StartTests()

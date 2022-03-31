@@ -9,6 +9,16 @@
 
 #define ROBOT_LOOP_TIME 0.02
 
+// ######### SUBSYSTEM ACTIVATION #########
+
+#define DRIVETRAIN true
+#define CLIMBER true
+#define INTAKE true
+#define CONVEYOR true
+#define FEEDER true
+#define SHOOTER true
+#define GEARBOX true
+
 // ######### CAN IDs #########
 
 // Drivetrain
