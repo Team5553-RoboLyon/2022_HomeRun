@@ -6,13 +6,11 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
-#include "Hood.h"
 
 class Shooter : public frc2::SubsystemBase
 {
 public:
   Shooter();
-  Hood m_hood;
   void Periodic() override;
   void SetSpeed(double speed);
   double AppliedSpeed();

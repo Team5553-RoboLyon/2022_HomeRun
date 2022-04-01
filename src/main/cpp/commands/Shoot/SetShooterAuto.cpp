@@ -7,12 +7,11 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-SetShooterAuto::SetShooterAuto(Shooter *shooter)
+SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood)
+    : m_shooter(shooter), m_hood(hood)
 {
-  AddRequirements(shooter);
-  AddRequirements(&shooter->m_hood);
-
-  m_shooter = shooter;
+  AddRequirements(m_shooter);
+  AddRequirements(m_hood);
 }
 
 void SetShooterAuto::Initialize()
@@ -27,7 +26,7 @@ void SetShooterAuto::Initialize()
     std::cout << "distance calculated : " << LERP(shooterDataTable[index][0], shooterDataTable[index + 1][0], t) << std::endl;
     std::cout << "angle calculated : " << LERP(shooterDataTable[index][1], shooterDataTable[index + 1][1], t) << std::endl;
     std::cout << "speed calculated : " << LERP(shooterDataTable[index][2], shooterDataTable[index + 1][2], t) << std::endl;
-    m_shooter->m_hood.SetSetpoint(LERP(shooterDataTable[index][1], shooterDataTable[index + 1][1], t));
+    m_hood->SetSetpoint(LERP(shooterDataTable[index][1], shooterDataTable[index + 1][1], t));
     m_shooter->SetSpeed(LERP(shooterDataTable[index][2], shooterDataTable[index + 1][2], t));
   }
   else
@@ -37,7 +36,7 @@ void SetShooterAuto::Initialize()
     std::cout << "distance calculated : " << LERP(shooterDataTable[index - 1][0], shooterDataTable[index][0], t) << std::endl;
     std::cout << "angle calculated : " << LERP(shooterDataTable[index - 1][1], shooterDataTable[index][1], t) << std::endl;
     std::cout << "speed calculated : " << LERP(shooterDataTable[index - 1][2], shooterDataTable[index][2], t) << std::endl;
-    m_shooter->m_hood.SetSetpoint(LERP(shooterDataTable[index - 1][1], shooterDataTable[index][1], t));
+    m_hood->SetSetpoint(LERP(shooterDataTable[index - 1][1], shooterDataTable[index][1], t));
     m_shooter->SetSpeed(LERP(shooterDataTable[index - 1][2], shooterDataTable[index][2], t));
   }
 }
