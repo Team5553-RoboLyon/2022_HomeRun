@@ -20,12 +20,12 @@ public:
   void Initialize() override;
 
 private:
-  int getNearest(int x, int y, double target);
-  int getNearestElementId(double target);
+  int *getNearestElementId(double target);
   Shooter *m_shooter;
 
-  static constexpr double shooterDataTable[2][3] = {
+  static constexpr double shooterDataTable[3][3] = {
       {1.3, 1.4, 1.5},
       {1.6, 1.7, 1.8},
+      {1.9, 1.10, 1.11},
   };
 };
