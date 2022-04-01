@@ -47,7 +47,7 @@ private:
         frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
     frc::DutyCycleEncoder m_encoderHood{0};
 
-    rev::CANSparkMax m_HoodMotor{1, rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax m_HoodMotor{18, rev::CANSparkMax::MotorType::kBrushless};
     HallSecurity m_hallSecurity{8, 0.3};
 
     double m_setPoint = 0;

@@ -12,13 +12,15 @@ Shooter::Shooter()
     m_MotorLeft.SetInverted(true);
     m_MotorRight.SetInverted(false);
 
+    m_MotorRight.Follow(m_MotorLeft);
+
     m_MotorLeft.ConfigVoltageCompSaturation(11);
     m_MotorRight.ConfigVoltageCompSaturation(11);
 }
 
 void Shooter::SetSpeed(double speed)
 {
-    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::MotionProfile, speed); // TODO check les motionProfile controle
+    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed); // TODO check les motionProfile controle
 }
 
 double Shooter::AppliedSpeed()

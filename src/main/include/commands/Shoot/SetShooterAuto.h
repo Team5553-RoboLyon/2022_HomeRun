@@ -7,6 +7,7 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/InstantCommand.h>
 #include "subsystems/Shooter.h"
+#include "subsystems/Hood.h"
 
 #define LERP(a, b, t) ((a) + ((b) - (a)) * (t))
 
@@ -15,13 +16,14 @@ class SetShooterAuto
                                  SetShooterAuto>
 {
 public:
-  SetShooterAuto(Shooter *shooter);
+  SetShooterAuto(Shooter *shooter, Hood *hood);
 
   void Initialize() override;
 
 private:
   int *getNearestElementId(double target);
   Shooter *m_shooter;
+  Hood *m_hood;
 
   static constexpr double shooterDataTable[3][3] = {
       {1.3, 1.4, 1.5},
