@@ -59,7 +59,7 @@
 #define INTAKE_MOTOR_SPEED 0.7
 
 // Feeder
-#define FEEDER_MOTOR_SPEED 1.0
+#define FEEDER_MOTOR_SPEED 0.9
 
 // Conveyor
 #define CONVEYOR_MOTOR_SPEED 0.65

@@ -6,6 +6,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
+#include "Constants.h"
 
 class Shooter : public frc2::SubsystemBase
 {
@@ -16,6 +17,6 @@ public:
   double AppliedSpeed();
 
 private:
-  ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{2};
-  ctre::phoenix::motorcontrol::can::TalonFX m_MotorRight{3};
+  ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{SHOOTER_FALCON_MOTOR_ID};
+  ctre::phoenix::motorcontrol::can::TalonFX m_MotorRight{SHOOTER_FALCON_MOTOR_FOLLOWER_ID};
 };

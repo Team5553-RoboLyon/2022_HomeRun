@@ -9,8 +9,8 @@ Shooter::Shooter()
     m_MotorLeft.ConfigFactoryDefault();
     m_MotorRight.ConfigFactoryDefault();
 
-    m_MotorLeft.SetInverted(true);
-    m_MotorRight.SetInverted(false);
+    m_MotorLeft.SetInverted(false);
+    m_MotorRight.SetInverted(true);
 
     m_MotorRight.Follow(m_MotorLeft);
 

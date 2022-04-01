@@ -17,7 +17,7 @@ void ActiveShooter::Initialize() {}
 void ActiveShooter::Execute()
 {
   // ActiveShooter(m_pShooter).Schedule();
-  m_pShooter->SetSpeed(0.4);
+  m_pShooter->SetSpeed(0.6);
 }
 
 // Called once the command ends or is interrupted.

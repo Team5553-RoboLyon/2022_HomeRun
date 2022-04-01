@@ -49,11 +49,11 @@ void RobotContainer::ConfigureButtonBindings()
 #endif
 
 #if CONVEYOR
-  frc2::JoystickButton m_buttonConveyorActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
-  m_buttonConveyorActiveMotor.WhileActiveContinous(ActiveConveyorMotor(&m_Conveyor));
+  frc2::JoystickButton m_buttonConveyorFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
+  m_buttonConveyorFeederActiveMotor.WhileActiveContinous(ActiveConveyorFeederMotor(&m_Conveyor));
 
-  frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
-  m_buttonFeederActiveMotor.WhileActiveContinous(ActiveFeederMotor(&m_Conveyor));
+  // frc2::JoystickButton m_buttonFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  // m_buttonFeederActiveMotor.WhileActiveContinous(ActiveFeederMotor(&m_Conveyor));
 
   frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
   m_buttonConveyorUnblockMotor.WhileActiveContinous(UnblockConveyorMotor(&m_Conveyor));

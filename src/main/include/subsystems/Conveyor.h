@@ -21,6 +21,13 @@ public:
     void UnblockConveyorMotor();
     void StopFeedingMotor();
     void StopConveyorMotor();
+    int m_count;
+    enum state
+    {
+        _INIT,
+        _ENABLE
+    };
+    state m_state;
 
 private:
     ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
