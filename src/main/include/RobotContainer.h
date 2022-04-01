@@ -41,13 +41,16 @@
 #include "commands/Conveyor/UnblockConveyorMotor.h"
 #include "commands/Conveyor/ActiveFeederMotor.h"
 #include "commands/Conveyor/UnblockFeederMotor.h"
-
 #endif
 
 #if SHOOTER
 #include "subsystems/Shooter.h"
 #include "commands/Shoot/ActiveShooter.h"
 #include "commands/Shoot/SetShooterAuto.h"
+#endif
+
+#if HOOD
+#include "subsystems/Hood.h"
 #endif
 
 #include "lib/JsonConfig.h"
@@ -81,6 +84,9 @@ private:
 #endif
 #if SHOOTER
   Shooter m_Shooter;
+#endif
+#if HOOD
+  Hood m_Hood;
 #endif
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};

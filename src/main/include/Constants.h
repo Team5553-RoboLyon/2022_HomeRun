@@ -18,6 +18,7 @@
 #define FEEDER true
 #define SHOOTER true
 #define GEARBOX true
+#define HOOD true
 
 // ######### CAN IDs #########
 
