@@ -16,8 +16,8 @@ void ActiveShooter::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ActiveShooter::Execute()
 {
-  ActiveShooter(m_pShooter).Schedule();
-  // m_pShooter->Shoot();
+  // ActiveShooter(m_pShooter).Schedule();
+  m_pShooter->SetSpeed(0.4);
 }
 
 // Called once the command ends or is interrupted.
