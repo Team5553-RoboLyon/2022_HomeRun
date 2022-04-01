@@ -16,64 +16,68 @@ SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood)
 
 void SetShooterAuto::Initialize()
 {
-  double distance = 1.4f;
-  int index = getNearestElementId(distance);
-  std::cout << "nearest : " << index << std::endl;
-  if (shooterDataTable[index][0] <= distance)
-  {
-    double t = (distance - shooterDataTable[index][0]) / (shooterDataTable[index + 1][0] - shooterDataTable[index][0]);
-    std::cout << "t : " << t << std::endl;
-    std::cout << "distance calculated : " << LERP(shooterDataTable[index][0], shooterDataTable[index + 1][0], t) << std::endl;
-    std::cout << "angle calculated : " << LERP(shooterDataTable[index][1], shooterDataTable[index + 1][1], t) << std::endl;
-    std::cout << "speed calculated : " << LERP(shooterDataTable[index][2], shooterDataTable[index + 1][2], t) << std::endl;
-    m_hood->SetSetpoint(LERP(shooterDataTable[index][1], shooterDataTable[index + 1][1], t));
-    m_shooter->SetSpeed(LERP(shooterDataTable[index][2], shooterDataTable[index + 1][2], t));
-  }
-  else
-  {
-    double t = (distance - shooterDataTable[index - 1][0]) / (shooterDataTable[index][0] - shooterDataTable[index][0]);
-    std::cout << "t : " << t << std::endl;
-    std::cout << "distance calculated : " << LERP(shooterDataTable[index - 1][0], shooterDataTable[index][0], t) << std::endl;
-    std::cout << "angle calculated : " << LERP(shooterDataTable[index - 1][1], shooterDataTable[index][1], t) << std::endl;
-    std::cout << "speed calculated : " << LERP(shooterDataTable[index - 1][2], shooterDataTable[index][2], t) << std::endl;
-    m_hood->SetSetpoint(LERP(shooterDataTable[index - 1][1], shooterDataTable[index][1], t));
-    m_shooter->SetSpeed(LERP(shooterDataTable[index - 1][2], shooterDataTable[index][2], t));
-  }
+  double distance = 1.5f;
+  int *index = getNearestElementId(distance);
+  std::cout << "nearest : " << *(index) << " " << *(index + 1) << std::endl;
+
+  double t = (distance - shooterDataTable[*(index)][0]) / (shooterDataTable[*(index + 1)][0] - shooterDataTable[*(index)][0]);
+  std::cout << "t : " << t << std::endl;
+  std::cout << "distance calculated : " << LERP(shooterDataTable[*(index)][0], shooterDataTable[*(index + 1)][0], t) << std::endl;
+  std::cout << "angle calculated : " << LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
+  std::cout << "speed calculated : " << LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
+  m_hood->SetSetpoint(LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t));
+  m_shooter->SetSpeed(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
 }
 
-int SetShooterAuto::getNearest(int x, int y, double target)
-{
-  if (target - shooterDataTable[x][0] >= shooterDataTable[y][0] - target)
-    return y;
-  else
-    return x;
-}
-int SetShooterAuto::getNearestElementId(double target)
+int *SetShooterAuto::getNearestElementId(double target)
 {
   // fonction de recherche dichotomique de l"élément le plus proche
+  static int r[2];
   int n = sizeof(shooterDataTable) / sizeof(shooterDataTable[0]);
   if (target <= shooterDataTable[0][0])
-    return 0;
+  {
+    r[0] = 0;
+    r[1] = 1;
+    return r;
+  }
   if (target >= shooterDataTable[n - 1][0])
-    return n - 1;
+  {
+    r[0] = n - 1;
+    r[1] = n;
+    return r;
+  }
   int left = 0, right = n, mid = 0;
   while (left < right)
   {
     mid = (left + right) / 2;
     if (shooterDataTable[mid][0] == target)
-      return mid;
+    {
+      r[0] = mid;
+      r[1] = mid + 1;
+      return r;
+    }
     if (target < shooterDataTable[mid][0])
     {
       if (mid > 0 && target > shooterDataTable[mid - 1][0])
-        return getNearest(mid - 1, mid, target);
+      {
+        r[0] = mid - 1;
+        r[1] = mid;
+        return r;
+      }
       right = mid;
     }
     else
     {
       if (mid < n - 1 && target < shooterDataTable[mid + 1][0])
-        return getNearest(shooterDataTable[mid][0], shooterDataTable[mid + 1][0], target);
+      {
+        r[0] = mid;
+        r[1] = mid + 1;
+        return r;
+      }
       left = mid + 1;
     }
   }
-  return mid;
+  r[0] = mid;
+  r[1] = mid + 1;
+  return r;
 }
