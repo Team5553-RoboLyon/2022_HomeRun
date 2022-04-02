@@ -32,7 +32,6 @@ public:
 
     void ResetEncoders();
 
-private:
     enum state
     {
         WaitingEncoder,
@@ -40,7 +39,10 @@ private:
         Enabled,
         Disabled
     };
-    Hood::state m_state = Hood::state::WaitingEncoder;
+    Hood::state m_state = Hood::state::Disabled;
+
+private:
+    
 
     frc::ProfiledPIDController<units::degree> m_controller{
         0.035, 0.008, 0.0004,

@@ -31,7 +31,7 @@ void Hood::Disable()
 
 void Hood::SetSetpoint(double setpoint)
 {
-    m_setPoint = setpoint;
+    m_setPoint = frc::SmartDashboard::GetNumber("Hood Setpoint", 0.0);
 }
 
 void Hood::ResetEncoders()
@@ -95,4 +95,7 @@ void Hood::Periodic()
         break;
     }
     frc::SmartDashboard::PutNumber("outputHood", output);
+    frc::SmartDashboard::PutNumber("setpointHood",0.0);
+    frc::SmartDashboard::PutNumber("measurementHood", GetMeasurement());
+    frc::SmartDashboard::PutNumber("stateHood", m_state);
 }

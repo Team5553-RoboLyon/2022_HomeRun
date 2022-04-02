@@ -66,6 +66,7 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit()
 {
   spdlog::trace("TeleopInit()");
+  frc::SmartDashboard::PutNumber("Shooter Speed", 0.0);
 }
 
 void Robot::TeleopPeriodic()

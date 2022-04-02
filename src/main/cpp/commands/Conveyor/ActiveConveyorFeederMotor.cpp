@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/Conveyor/ActiveConveyorFeederMotor.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 ActiveConveyorFeederMotor::ActiveConveyorFeederMotor(Conveyor *pconveyor, Shooter *pshooter)
     : m_pConveyor(pconveyor), m_pShooter(pshooter)
@@ -23,7 +24,7 @@ void ActiveConveyorFeederMotor::Initialize()
 void ActiveConveyorFeederMotor::Execute()
 {
   m_pShooter->m_countShooter += 1;
-  m_pShooter->SetSpeed(0.53);
+  m_pShooter->SetSpeed(frc::SmartDashboard::GetNumber("Shooter Speed", 0.0));
   if (m_pShooter->m_countShooter >= 25)
   {
     switch (m_pConveyor->m_state)
