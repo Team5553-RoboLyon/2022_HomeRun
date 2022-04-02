@@ -23,10 +23,8 @@ void Camera::GetDistance()
 
     if (result.HasTargets())
     {
-        units::length::meter_t range = photonlib::PhotonUtils::CalculateDistanceToTarget(
-            units::length::meter_t{CAMERA_HEIGHT}, units::length::meter_t{TARGET_HEIGHT}, units::angle::radian_t{CAMERA_PITCH},
-            units::degree_t{result.GetBestTarget().GetPitch()});
+        units::degree_t range = units::degree_t{result.GetBestTarget().GetPitch()};
 
-        frc::SmartDashboard::PutNumber("distance cible", double{range});
+        frc::SmartDashboard::PutNumber("degré cible", double{range});
     }
 }
