@@ -23,7 +23,7 @@ void ActiveConveyorFeederMotor::Initialize()
 void ActiveConveyorFeederMotor::Execute()
 {
   m_pShooter->m_countShooter += 1;
-  m_pShooter->SetSpeed(0.5);
+  m_pShooter->SetSpeed(0.53);
   if (m_pShooter->m_countShooter >= 25)
   {
     switch (m_pConveyor->m_state)
@@ -50,8 +50,17 @@ void ActiveConveyorFeederMotor::Execute()
 
       break;
     case Conveyor::state::_ENABLE:
-      m_pConveyor->ActiveConveyorMotor();
-      m_pConveyor->ActiveFeedingMotor();
+      if (m_pConveyor->m_count >= 50)
+      {
+        m_pConveyor->m_count = 0;
+        m_pConveyor->m_state = Conveyor::state::_INIT;
+      }
+      else
+      {
+        m_pConveyor->ActiveConveyorMotor();
+        m_pConveyor->ActiveFeedingMotor();
+      }
+
       break;
 
     default:

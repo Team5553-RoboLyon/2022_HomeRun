@@ -12,20 +12,20 @@ Gearbox::Gearbox()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.7);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.7);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.7);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.7);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.6);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.6);
 
-    m_NeoMotorLeft.EnableVoltageCompensation(11);
-    m_NeoMotorRight.EnableVoltageCompensation(11);
-    m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
-    m_NeoMotorRightFollower.EnableVoltageCompensation(11);
+    // m_NeoMotorLeft.EnableVoltageCompensation(11);
+    // m_NeoMotorRight.EnableVoltageCompensation(11);
+    // m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
+    // m_NeoMotorRightFollower.EnableVoltageCompensation(11);
 
-    m_NeoMotorLeft.SetSmartCurrentLimit(40);
-    m_NeoMotorLeftFollower.SetSmartCurrentLimit(40);
-    m_NeoMotorRight.SetSmartCurrentLimit(40);
-    m_NeoMotorRightFollower.SetSmartCurrentLimit(40);
+    m_NeoMotorLeft.SetSmartCurrentLimit(45);
+    m_NeoMotorLeftFollower.SetSmartCurrentLimit(45);
+    m_NeoMotorRight.SetSmartCurrentLimit(45);
+    m_NeoMotorRightFollower.SetSmartCurrentLimit(45);
 
     m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
     m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);

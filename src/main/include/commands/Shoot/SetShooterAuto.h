@@ -8,6 +8,8 @@
 #include <frc2/command/InstantCommand.h>
 #include "subsystems/Shooter.h"
 #include "subsystems/Hood.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
 
 #define LERP(a, b, t) ((a) + ((b) - (a)) * (t))
 
