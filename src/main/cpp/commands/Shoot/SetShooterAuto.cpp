@@ -26,7 +26,7 @@ void SetShooterAuto::Initialize()
   std::cout << "angle calculated : " << LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
   std::cout << "speed calculated : " << LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
   m_hood->SetSetpoint(LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t));
-  m_shooter->SetSpeed(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
+  m_shooter->SetVelocity(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
 }
 
 int *SetShooterAuto::getNearestElementId(double target)
