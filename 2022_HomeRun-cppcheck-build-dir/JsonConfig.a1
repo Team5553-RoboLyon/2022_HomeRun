@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2878606006">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="close"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="fileName"/>
+    <functioncall functionName="fullFile"/>
+    <functioncall functionName="getline"/>
+    <functioncall functionName="good"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="in"/>
+    <functioncall functionName="is_open"/>
+    <functioncall functionName="nullptr"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="parse"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="tp"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

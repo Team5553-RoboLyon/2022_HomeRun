@@ -27,6 +27,7 @@ Gearbox::Gearbox()
     m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
     m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
     m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    
 
     m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);

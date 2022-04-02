@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4184353122">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="LERP"/>
+    <functioncall functionName="SetSetpoint"/>
+    <functioncall functionName="SetVelocity"/>
+    <functioncall functionName="distance"/>
+    <functioncall functionName="getNearestElementId"/>
+    <functioncall functionName="hood"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="index"/>
+    <functioncall functionName="m_hood"/>
+    <functioncall functionName="m_shooter"/>
+    <functioncall functionName="mid"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="right"/>
+    <functioncall functionName="shooter"/>
+    <functioncall functionName="shooterDataTable"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="t"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

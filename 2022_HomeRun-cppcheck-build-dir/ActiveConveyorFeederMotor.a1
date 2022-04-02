@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1126079366">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="ActiveConveyorMotor"/>
+    <functioncall functionName="ActiveFeedingMotor"/>
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="StopAllMotors"/>
+    <functioncall functionName="StopConveyorMotor"/>
+    <functioncall functionName="UnblockConveyorMotor"/>
+    <functioncall functionName="UnblockFeedingMotor"/>
+    <functioncall functionName="_ENABLE"/>
+    <functioncall functionName="_INIT"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="m_pConveyor"/>
+    <functioncall functionName="m_state"/>
+    <functioncall functionName="pconveyor"/>
+    <functioncall functionName="switch"/>
+  </FileInfo>
+</analyzerinfo>

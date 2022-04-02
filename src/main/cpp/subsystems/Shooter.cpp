@@ -21,9 +21,9 @@ Shooter::Shooter()
     m_MotorRight.EnableVoltageCompensation(0.5);
 }
 
-void Shooter::SetVelocity(double velocity)
+void Shooter::SetSpeed(double speed)
 {
-    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::MotionMagic, velocity);
+    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
     // m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed); // TODO check les motionProfile controle
 }
 

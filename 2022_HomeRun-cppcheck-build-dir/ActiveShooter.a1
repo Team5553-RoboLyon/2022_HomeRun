@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1890739469">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="SetVelocity"/>
+    <functioncall functionName="m_pShooter"/>
+    <functioncall functionName="pshooter"/>
+  </FileInfo>
+</analyzerinfo>

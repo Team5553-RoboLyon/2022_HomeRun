@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2727308727">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="Close"/>
+    <functioncall functionName="ConfigClosedloopRamp"/>
+    <functioncall functionName="EnableVoltageCompensation"/>
+    <functioncall functionName="INTAKE_MOTOR_SPEED"/>
+    <functioncall functionName="IntakePosition"/>
+    <functioncall functionName="Open"/>
+    <functioncall functionName="PercentOutput"/>
+    <functioncall functionName="Set"/>
+    <functioncall functionName="SetInverted"/>
+    <functioncall functionName="debug"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="kForward"/>
+    <functioncall functionName="kReverse"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

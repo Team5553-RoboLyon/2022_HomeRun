@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4280512160">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="Brake"/>
+    <functioncall functionName="CONVEYOR_MOTOR_SPEED"/>
+    <functioncall functionName="ConfigClosedloopRamp"/>
+    <functioncall functionName="ConfigFactoryDefault"/>
+    <functioncall functionName="EnableVoltageCompensation"/>
+    <functioncall functionName="FEEDER_MOTOR_SPEED"/>
+    <functioncall functionName="PercentOutput"/>
+    <functioncall functionName="RestoreFactoryDefaults"/>
+    <functioncall functionName="Set"/>
+    <functioncall functionName="SetClosedLoopRampRate"/>
+    <functioncall functionName="SetIdleMode"/>
+    <functioncall functionName="SetInverted"/>
+    <functioncall functionName="SetNeutralMode"/>
+    <functioncall functionName="SetSmartCurrentLimit"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="kBrake"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

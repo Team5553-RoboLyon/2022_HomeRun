@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3240690368">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="Calculate"/>
+    <functioncall functionName="Disabled"/>
+    <functioncall functionName="Enable"/>
+    <functioncall functionName="Enabled"/>
+    <functioncall functionName="GetDistance"/>
+    <functioncall functionName="GetMeasurement"/>
+    <functioncall functionName="IsConnected"/>
+    <functioncall functionName="MagnetDetected"/>
+    <functioncall functionName="PutNumber"/>
+    <functioncall functionName="Reset"/>
+    <functioncall functionName="ResetEncoders"/>
+    <functioncall functionName="Set"/>
+    <functioncall functionName="SetDistancePerRotation"/>
+    <functioncall functionName="SetIdleMode"/>
+    <functioncall functionName="SetIntegratorRange"/>
+    <functioncall functionName="SetInverted"/>
+    <functioncall functionName="SetSetpoint"/>
+    <functioncall functionName="SetSmartCurrentLimit"/>
+    <functioncall functionName="ShouldIStop"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="clamp"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="kBrake"/>
+    <functioncall functionName="m_setPoint"/>
+    <functioncall functionName="m_state"/>
+    <functioncall functionName="output"/>
+    <functioncall functionName="setInverted"/>
+    <functioncall functionName="setpoint"/>
+    <functioncall functionName="sgn"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

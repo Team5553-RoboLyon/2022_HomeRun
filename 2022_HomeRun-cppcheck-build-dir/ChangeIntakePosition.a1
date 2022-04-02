@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="4047977619">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="ChangePosition"/>
+    <functioncall functionName="debug"/>
+    <functioncall functionName="m_pIntake"/>
+    <functioncall functionName="pintake"/>
+    <functioncall functionName="trace"/>
+  </FileInfo>
+</analyzerinfo>

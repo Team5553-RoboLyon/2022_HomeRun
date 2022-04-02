@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3197476570">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="ConfigFactoryDefault"/>
+    <functioncall functionName="ConfigVoltageCompSaturation"/>
+    <functioncall functionName="Follow"/>
+    <functioncall functionName="GetSelectedSensorVelocity"/>
+    <functioncall functionName="MotionMagic"/>
+    <functioncall functionName="Set"/>
+    <functioncall functionName="SetInverted"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="m_MotorLeft"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="velocity"/>
+  </FileInfo>
+</analyzerinfo>

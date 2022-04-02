@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2694674552">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="Driving"/>
+    <functioncall functionName="SetEveryone"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="gearbox"/>
+    <functioncall functionName="left"/>
+    <functioncall functionName="right"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

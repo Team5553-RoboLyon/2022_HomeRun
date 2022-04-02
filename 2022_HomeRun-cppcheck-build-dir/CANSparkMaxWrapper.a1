@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3694699781">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="CANSparkMax"/>
+    <functioncall functionName="CreateDouble"/>
+    <functioncall functionName="Follow"/>
+    <functioncall functionName="Get"/>
+    <functioncall functionName="GetDeviceId"/>
+    <functioncall functionName="IsSimulation"/>
+    <functioncall functionName="RobotCriticalError"/>
+    <functioncall functionName="Set"/>
+    <functioncall functionName="SetAsFollowed"/>
+    <functioncall functionName="SimDevice"/>
+    <functioncall functionName="c_str"/>
+    <functioncall functionName="clamp"/>
+    <functioncall functionName="deviceId"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="invert"/>
+    <functioncall functionName="leader"/>
+    <functioncall functionName="m_isSimulated"/>
+    <functioncall functionName="m_setpoint"/>
+    <functioncall functionName="m_simDevice"/>
+    <functioncall functionName="motorType"/>
+    <functioncall functionName="simDevice"/>
+    <functioncall functionName="simSetpoint"/>
+    <functioncall functionName="speed"/>
+    <functioncall functionName="to_string"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="1409901721">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="StopFeedingMotor"/>
+    <functioncall functionName="UnblockFeedingMotor"/>
+    <functioncall functionName="m_pConveyor"/>
+    <functioncall functionName="pconveyor"/>
+  </FileInfo>
+</analyzerinfo>
