@@ -19,10 +19,29 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include <frc/DutyCycleEncoder.h>
 #include <frc/DigitalInput.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/CommandScheduler.h>
+#include <frc/ADIS16470_IMU.h>
+
+#include <ostream>
+
+#include "lib/N/NErrorHandling.h"
+#include "lib/NL/MotionControl/Characterization/NLCharacterizationTable.h"
+#include "lib/NL/MotionControl/NLDriveTrainSpecs.h"
+#include "lib/NL/MotionControl/NLRobotPose.h"
+#include "lib/NL/MotionControl/NLRamseteFollower.h"
+#include "lib/NL/MotionControl/Trajectory/NLTrajectoryPack.h"
 
 class Robot : public frc::TimedRobot
 {
 public:
+  enum STATE
+  {
+    PATH_ERROR = 0, ///< L'initialisation du path following a rencontr� un probl�me ( erreur au chargement tr�s probablement ). Le Robot ne peut-�tre en �tat PATH_FOLLOWING.
+    PATH_FOLLOWING, ///< Le robot est en �tat de suivit de chemin.
+    PATH_END        ///< La Vitesse  est en d�passement.
+  };
+
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
@@ -41,4 +60,23 @@ private:
   frc::DutyCycleEncoder planetaryencoder{1};
 
   RobotContainer m_container;
+  STATE m_state;
+
+  NLMOTOR_CHARACTERIZATION m_CrtzL1;
+  NLMOTOR_CHARACTERIZATION m_CrtzL2;
+  NLMOTOR_CHARACTERIZATION m_CrtzR1;
+  NLMOTOR_CHARACTERIZATION m_CrtzR2;
+
+  NLDRIVETRAINSPECS m_DriveTrainSpecs;
+
+  Nu32 m_flags;
+  Nf32 m_dsLeftWheel;
+  Nf32 m_dsRightWheel;
+
+  NLROBOTPOSE m_estimatedPose;
+  NLRAMSETEFOLLOWER m_ramsete;
+  NLTRAJECTORY_PACK m_TrajectoryStatePack;
+  NLTRAJECTORY_STATE m_currrentState;
+
+  frc::ADIS16470_IMU m_gyro;
 };

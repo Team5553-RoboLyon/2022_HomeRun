@@ -58,12 +58,22 @@
 
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <cameraserver/CameraServer.h>
+#include <frc/Compressor.h>
 
 class RobotContainer
 {
 public:
   RobotContainer();
   // void StartTests();
+
+#if GEARBOX
+  void GetDrivetrainEncoderValues(double (&encoderValues)[2]);
+  void SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2);
+  void SetPTOWhenAutonomous(Gearbox::PTOState ptoState);
+#endif
+
+  void InitTeleopPeriod();
 
 private:
   void ConfigureButtonBindings();
@@ -86,9 +96,11 @@ private:
 #if SHOOTER
   Shooter m_Shooter;
 #endif
+
 #if HOOD
   Hood m_Hood;
 #endif
+  cs::UsbCamera m_Camera;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};
@@ -96,4 +108,6 @@ private:
   frc2::JoystickButton m_ThrottleLeft{&m_DriverLeftJoystick, 1};
   // frc2::Trigger m_ThrottleLeft{[this]
   //                              { return m_DriverRightJoystick.GetThrottle(); }};
+
+  frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 };

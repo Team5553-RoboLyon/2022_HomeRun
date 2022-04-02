@@ -84,5 +84,6 @@
     "*.inc": "cpp"
   },
   "cmake.configureOnOpen": false,
-  "wpilib.skipTests": false
+  "wpilib.skipTests": false,
+  "C_Cpp.errorSquiggles": "Enabled"
 }

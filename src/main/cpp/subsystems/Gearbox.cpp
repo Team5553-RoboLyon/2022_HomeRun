@@ -6,29 +6,27 @@
 
 Gearbox::Gearbox()
 {
+    // TODO samrtcurent a 45 sans voltage compensation
     spdlog::trace("Gearbox()");
     m_NeoMotorRight.RestoreFactoryDefaults();
     m_NeoMotorRightFollower.RestoreFactoryDefaults();
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.3);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.3);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.6);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.6);
 
-    m_NeoMotorLeft.EnableVoltageCompensation(10);
-    m_NeoMotorRight.EnableVoltageCompensation(10);
-    m_NeoMotorLeftFollower.EnableVoltageCompensation(10);
-    m_NeoMotorRightFollower.EnableVoltageCompensation(10);
+    // m_NeoMotorLeft.EnableVoltageCompensation(11);
+    // m_NeoMotorRight.EnableVoltageCompensation(11);
+    // m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
+    // m_NeoMotorRightFollower.EnableVoltageCompensation(11);
 
-    m_NeoMotorLeft.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-
-    m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
-    m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
+    m_NeoMotorLeft.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
 
     m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
@@ -45,7 +43,7 @@ Gearbox::Gearbox()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-    m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+    m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void Gearbox::Periodic()
@@ -60,13 +58,18 @@ void Gearbox::Stop()
     m_NeoMotorRight.StopMotor();
 }
 
+void Gearbox::InitTeleopPeriod()
+{
+    m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
+    m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
+}
+
 /**
- * @brief Sets the speed of the left, right and lateral motors for OMNI_BASE
+ * @brief Sets the speed of the left, right and lateral motors for TANK_BASE
  * @warning  Does not work if the robot is TANK_BASE
  *
  * @param right Right wheels pourcentage
  * @param left Left wheels pourcentage
- * @param lateral Lateral pourcentage
  */
 void Gearbox::SetEveryone(double right, double left, PTOState ptoConfigurationRequired)
 {
@@ -106,6 +109,104 @@ void Gearbox::SetRight(double right, PTOState ptoConfigurationRequired)
         m_NeoMotorRight.Set(right);
     }
 }
+
+void Gearbox::SetVoltageEveryone(units::voltage::volt_t right, units::voltage::volt_t left, PTOState ptoConfigurationRequired)
+{
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageEveryone() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageEveryone({}, {}, {})", right, left, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorLeft.SetVoltage(left);
+        m_NeoMotorRight.SetVoltage(right);
+    }
+}
+
+void Gearbox::SetVoltageLeft(units::voltage::volt_t left, PTOState ptoConfigurationRequired)
+{
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageLeft() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageLeft({}, {}, {})", 0.0, left, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorLeft.SetVoltage(left);
+    }
+}
+void Gearbox::SetVoltageRight(units::voltage::volt_t right, PTOState ptoConfigurationRequired)
+{
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageRight() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageLeft({}, {}, {})", right, 0.0, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorRight.SetVoltage(right);
+    }
+}
+
+void Gearbox::SetVoltageEveryone(units::voltage::volt_t r1, units::voltage::volt_t r2, units::voltage::volt_t l1, units::voltage::volt_t l2, PTOState ptoConfigurationRequired)
+{
+    if (!frc::DriverStation::IsAutonomous())
+    {
+        spdlog::critical("Gearbox::SetVoltageEveryone() Robot is not in Autonomous mode !!!!");
+        return;
+    }
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageEveryone() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageEveryone({}, {}, {}, {}, {})", r1, r2, l1, l2, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorLeft.SetVoltage(l1);
+        m_NeoMotorLeftFollower.SetVoltage(l2);
+        m_NeoMotorRight.SetVoltage(r1);
+        m_NeoMotorRightFollower.SetVoltage(r2);
+    }
+}
+
+void Gearbox::SetVoltageLeft(units::voltage::volt_t l1, units::voltage::volt_t l2, PTOState ptoConfigurationRequired)
+{
+    if (!frc::DriverStation::IsAutonomous())
+    {
+        spdlog::critical("Gearbox::SetVoltageLeft() Robot is not in Autonomous mode !!!!");
+        return;
+    }
+
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageLeft() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageLeft({}, {}, {})", l1, l2, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorLeft.SetVoltage(l1);
+        m_NeoMotorLeftFollower.SetVoltage(l2);
+    }
+}
+void Gearbox::SetVoltageRight(units::voltage::volt_t r1, units::voltage::volt_t r2, PTOState ptoConfigurationRequired)
+{
+    if (!frc::DriverStation::IsAutonomous())
+    {
+        spdlog::critical("Gearbox::SetVoltageRight() Robot is not in Autonomous mode !!!!");
+        return;
+    }
+    if (ptoConfigurationRequired != m_ptoState)
+    {
+        spdlog::warn("Gearbox::SetVoltageRight() Asked to move with PTO in \"{}\" while current state is \"{}\"", PTOStateIndexToString(ptoConfigurationRequired), PTOStateIndexToString(m_ptoState));
+    }
+    else
+    {
+        spdlog::trace("Gearbox::SetVoltageLeft({}, {}, {})", r1, r2, PTOStateIndexToString(ptoConfigurationRequired));
+        m_NeoMotorRight.SetVoltage(r1);
+        m_NeoMotorRightFollower.SetVoltage(r2);
+    }
+}
 void Gearbox::StopEveryOne(PTOState ptoConfigurationRequired)
 {
     StopLeft(ptoConfigurationRequired);
@@ -138,16 +239,15 @@ void Gearbox::StopRight(PTOState ptoConfigurationRequired)
     }
 }
 /**
- * @brief Gets the encoder values of the left, right and lateral motors for OMNI_BASE
- * @warning  Does not work if the robot is TANK_BASE
+ * @brief Gets the encoder values of the left and right external encoders
  *
- * @param encoderValues Array of 3 doubles where the encoder values will be stored
+ * @param encoderValues Array of 2 doubles where the encoder values will be stored
  */
 void Gearbox::GetEncoderValues(double (&encoderValues)[2])
 {
     spdlog::trace("Gearbox::GetEncoderValues()");
-    encoderValues[0] = m_NeoMotorLeft.GetEncoder().GetPosition();
-    encoderValues[1] = m_NeoMotorRight.GetEncoder().GetPosition();
+    encoderValues[0] = m_encodeurExterneGauche.GetRaw();
+    encoderValues[1] = m_encodeurExterneDroite.GetRaw();
 }
 
 std::string Gearbox::PTOStateIndexToString(PTOState ptoConfiguration)
