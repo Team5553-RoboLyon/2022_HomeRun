@@ -5,7 +5,7 @@ Conveyor::Conveyor()
     m_FeederMotor.ConfigFactoryDefault();
     m_ConveyorMotor.RestoreFactoryDefaults();
 
-    m_ConveyorMotor.SetSmartCurrentLimit(40);
+    m_ConveyorMotor.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
 
     m_FeederMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
     m_ConveyorMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
