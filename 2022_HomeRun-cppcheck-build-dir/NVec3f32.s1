@@ -1,0 +1,2 @@
+NVec3Normalize call:[sqrt]
+NVec3FastNormalize call:[NFastSqrt]

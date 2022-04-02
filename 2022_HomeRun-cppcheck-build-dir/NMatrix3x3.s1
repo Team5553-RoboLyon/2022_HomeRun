@@ -1,0 +1,16 @@
+NIdentityMatrix3x3
+NMulMatrix3x3
+NScaleMatrix3x3f
+NScaleMatrix3x3
+NTransposeMatrix3x3O call:[NErrorIf]
+NTransposeMatrix3x3
+NMulVector3ByMatrix3x3O call:[NErrorIf]
+NMulVector3ByMatrix3x3
+NMulVector2ByMatrix3x3O call:[NErrorIf]
+NMulVector2ByMatrix3x3 call:[NErrorIf]
+NRotationMatrix3x3_AxisX call:[NCosSin]
+NFastRotationMatrix3x3_AxisX call:[NFastCosSin]
+NRotationMatrix3x3_AxisY call:[NCosSin]
+NFastRotationMatrix3x3_AxisY call:[NFastCosSin]
+NRotationMatrix3x3_AxisZ call:[NCosSin]
+NFastRotationMatrix3x3_AxisZ call:[NFastCosSin]

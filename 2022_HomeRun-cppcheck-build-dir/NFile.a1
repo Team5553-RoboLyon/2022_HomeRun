@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="745758053">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;pfilext&apos; can be reduced." verbose="The scope of the variable &apos;pfilext&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\File\NFile.cpp" line="68" column="15"/>
+            <symbol>pfilext</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:97:8" call-funcname="NGetFullFileName" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="250" col="25" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:241:8" my-argnr="1"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="687" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:685:6" my-argnr="1"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="687" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:685:6" my-argnr="2"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="697" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:695:6" my-argnr="1"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="697" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:695:6" my-argnr="2"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="702" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:700:6" my-argnr="1"/>
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:518:6" call-funcname="NFileRead" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="702" col="9" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:700:6" my-argnr="2"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:63:7" my-argnr="2" my-argname="ext" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="66" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:592:6" my-argnr="1" my-argname="pfile" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="594" col="16" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:604:6" my-argnr="1" my-argname="pfile" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="606" col="16" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:616:6" my-argnr="1" my-argname="pfile" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="618" col="16" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp:63:7" my-argnr="2" my-argname="ext" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/File/NFile.cpp" line="66" col="11" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NSetupRootRelativePath" lineNumber="14"/>
+    <functiondecl functionName="NClearRootRelativePath" lineNumber="22"/>
+    <functiondecl functionName="NClearAllRootRelativePath" lineNumber="30"/>
+    <functiondecl functionName="NSetCurrentRootRelativePath" lineNumber="39"/>
+    <functiondecl functionName="NCheckFileType" lineNumber="63"/>
+    <functiondecl functionName="NGetFullFileName" lineNumber="97"/>
+    <functiondecl functionName="NFileOpen" lineNumber="241"/>
+    <functiondecl functionName="NFileClose" lineNumber="326"/>
+    <functiondecl functionName="NFileTell" lineNumber="365"/>
+    <functiondecl functionName="NFileSeek" lineNumber="407"/>
+    <functiondecl functionName="NFileRewind" lineNumber="438"/>
+    <functiondecl functionName="NFileGetString" lineNumber="474"/>
+    <functiondecl functionName="NFileRead" lineNumber="518"/>
+    <functiondecl functionName="NFileWrite" lineNumber="565"/>
+    <functiondecl functionName="NFileError" lineNumber="592"/>
+    <functiondecl functionName="NFileEOF" lineNumber="604"/>
+    <functiondecl functionName="NFileClearError" lineNumber="616"/>
+    <functiondecl functionName="NPrintErrorMessage" lineNumber="628"/>
+    <functiondecl functionName="NFileGetSize" lineNumber="646"/>
+    <functiondecl functionName="NFileWriteVersionTag" lineNumber="680"/>
+    <functiondecl functionName="NFileReadVersionTag" lineNumber="685"/>
+    <functiondecl functionName="NFileWriteSignatureTag" lineNumber="690"/>
+    <functiondecl functionName="NFileReadSignatureTag" lineNumber="695"/>
+    <functiondecl functionName="NFileReadHeader" lineNumber="700"/>
+    <functiondecl functionName="NFileWriteHeader_Emplace" lineNumber="721"/>
+    <functiondecl functionName="NFileWriteHeader_CompleteBlockSize" lineNumber="775"/>
+    <functiondecl functionName="NVersionTagCmp" lineNumber="847"/>
+    <functioncall functionName="CONSTANT_NFILE_FULLDATAPATH_MAXSIZE"/>
+    <functioncall functionName="CONSTANT_NROOT_RELATIVEPATH_COUNT"/>
+    <functioncall functionName="FLAG_NFILE_APP_ROOT_RELATIVE_PATH"/>
+    <functioncall functionName="FLAG_NFILE_BINARY"/>
+    <functioncall functionName="FLAG_NFILE_FULL_PATH"/>
+    <functioncall functionName="FLAG_NFILE_MEMORY"/>
+    <functioncall functionName="FLAG_NFILE_READ"/>
+    <functioncall functionName="FLAG_NFILE_UPDATE"/>
+    <functioncall functionName="FLAG_NFILE_WRITE"/>
+    <functioncall functionName="FLAG_ON"/>
+    <functioncall functionName="Flags"/>
+    <functioncall functionName="ISFLAG_OFF"/>
+    <functioncall functionName="ISFLAG_ON"/>
+    <functioncall functionName="NERROR_FILE"/>
+    <functioncall functionName="NERROR_FILE_ALREADY_DETECTED_ERROR"/>
+    <functioncall functionName="NERROR_FILE_ELEMENT_COUNT_IS_NULL"/>
+    <functioncall functionName="NERROR_FILE_ELEMENT_SIZE_IS_NULL"/>
+    <functioncall functionName="NERROR_FILE_FSEEK"/>
+    <functioncall functionName="NERROR_FILE_FTELL"/>
+    <functioncall functionName="NERROR_FILE_FWRITE"/>
+    <functioncall functionName="NERROR_FILE_INCONSISTENT_FLAGS"/>
+    <functioncall functionName="NERROR_FILE_INVALID_EXTENSION"/>
+    <functioncall functionName="NERROR_FILE_READ_ERROR"/>
+    <functioncall functionName="NERROR_FILE_WRITE_ERROR"/>
+    <functioncall functionName="NERROR_NFILESYSTEM_UNDEFINED_PATH_MODE"/>
+    <functioncall functionName="NERROR_NON_NULL_POINTER"/>
+    <functioncall functionName="NERROR_NULL_POINTER"/>
+    <functioncall functionName="NERROR_SYSTEM_CHECK"/>
+    <functioncall functionName="NERROR_SYSTEM_NENGINEVERSION_CONFLICT"/>
+    <functioncall functionName="NERROR_UNAUTHORIZED_DRIVE_ROOT_FILENAME"/>
+    <functioncall functionName="NERROR_VALUE_OUTOFRANGE"/>
+    <functioncall functionName="NERROR_VALUE_UNEXPECTED"/>
+    <functioncall functionName="NEW"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NFILE"/>
+    <functioncall functionName="NFILE_HEADER"/>
+    <functioncall functionName="NFileRead"/>
+    <functioncall functionName="NFileWrite"/>
+    <functioncall functionName="NGetFullFileName"/>
+    <functioncall functionName="NStrDuplicate"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="NVOID"/>
+    <functioncall functionName="Nfree"/>
+    <functioncall functionName="Ns32"/>
+    <functioncall functionName="Nu32"/>
+    <functioncall functionName="Nu8"/>
+    <functioncall functionName="Size"/>
+    <functioncall functionName="_SafeNintToNs32"/>
+    <functioncall functionName="_SafeNs32ToNu32"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="b"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="case"/>
+    <functioncall functionName="clearerr"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="element_count"/>
+    <functioncall functionName="element_size_in_byte"/>
+    <functioncall functionName="ext"/>
+    <functioncall functionName="fclose"/>
+    <functioncall functionName="feof"/>
+    <functioncall functionName="ferror"/>
+    <functioncall functionName="fgets"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="filesystem_path"/>
+    <functioncall functionName="flags"/>
+    <functioncall functionName="fopen"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="fread"/>
+    <functioncall functionName="fseek"/>
+    <functioncall functionName="ftell"/>
+    <functioncall functionName="fullpathname"/>
+    <functioncall functionName="fwrite"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="id"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="maja"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="mina"/>
+    <functioncall functionName="offset"/>
+    <functioncall functionName="origin"/>
+    <functioncall functionName="pFile"/>
+    <functioncall functionName="perror"/>
+    <functioncall functionName="pfile"/>
+    <functioncall functionName="pfile_header"/>
+    <functioncall functionName="pfile_header_filled_by_write_header_emplace"/>
+    <functioncall functionName="pfilename"/>
+    <functioncall functionName="pfilext"/>
+    <functioncall functionName="pheader"/>
+    <functioncall functionName="prootpath"/>
+    <functioncall functionName="psign"/>
+    <functioncall functionName="pstring"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="pusedfilename"/>
+    <functioncall functionName="pversion"/>
+    <functioncall functionName="ra"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="rewind"/>
+    <functioncall functionName="sign"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="size_null_end_included"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="str"/>
+    <functioncall functionName="strcmp"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tell_value"/>
+    <functioncall functionName="version"/>
+  </FileInfo>
+</analyzerinfo>

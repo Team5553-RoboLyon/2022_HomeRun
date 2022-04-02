@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="64047971">
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:26:6" my-argnr="1" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="29" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:55:6" my-argnr="1" my-argname="matresult" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="57" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:55:6" my-argnr="2" my-argname="mat1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="57" col="19" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:55:6" my-argnr="3" my-argname="mat2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="57" col="31" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:83:6" my-argnr="1" my-argname="matresult" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="85" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:95:6" my-argnr="1" my-argname="matresult" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="97" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:95:6" my-argnr="2" my-argname="s" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="97" col="19" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:152:6" my-argnr="1" my-argname="pmatresult" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="166" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:152:6" my-argnr="2" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="156" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:187:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="191" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:211:6" my-argnr="1" my-argname="vr" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="219" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:211:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="215" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:211:6" my-argnr="3" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="215" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:239:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="243" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:270:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="274" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:270:6" my-argnr="3" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="274" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:303:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="307" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:318:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="322" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:346:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="351" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:362:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="367" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:391:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="396" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:407:6" my-argnr="1" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="412" col="2" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:55:6" my-argnr="2" my-argname="mat1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="57" col="19" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:55:6" my-argnr="3" my-argname="mat2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="57" col="31" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:95:6" my-argnr="2" my-argname="s" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="97" col="19" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:152:6" my-argnr="2" my-argname="pmat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="156" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:187:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="191" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:211:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="215" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:211:6" my-argnr="3" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="215" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:239:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="243" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:270:6" my-argnr="2" my-argname="mat" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="274" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp:270:6" my-argnr="3" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMatrix3x3.cpp" line="274" col="11" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NIdentityMatrix3x3" lineNumber="26"/>
+    <functiondecl functionName="NMulMatrix3x3" lineNumber="55"/>
+    <functiondecl functionName="NScaleMatrix3x3f" lineNumber="83"/>
+    <functiondecl functionName="NScaleMatrix3x3" lineNumber="95"/>
+    <functiondecl functionName="NTransposeMatrix3x3O" lineNumber="125"/>
+    <functiondecl functionName="NTransposeMatrix3x3" lineNumber="152"/>
+    <functiondecl functionName="NMulVector3ByMatrix3x3O" lineNumber="187"/>
+    <functiondecl functionName="NMulVector3ByMatrix3x3" lineNumber="211"/>
+    <functiondecl functionName="NMulVector2ByMatrix3x3O" lineNumber="239"/>
+    <functiondecl functionName="NMulVector2ByMatrix3x3" lineNumber="270"/>
+    <functiondecl functionName="NRotationMatrix3x3_AxisX" lineNumber="303"/>
+    <functiondecl functionName="NFastRotationMatrix3x3_AxisX" lineNumber="318"/>
+    <functiondecl functionName="NRotationMatrix3x3_AxisY" lineNumber="346"/>
+    <functiondecl functionName="NFastRotationMatrix3x3_AxisY" lineNumber="362"/>
+    <functiondecl functionName="NRotationMatrix3x3_AxisZ" lineNumber="391"/>
+    <functiondecl functionName="NFastRotationMatrix3x3_AxisZ" lineNumber="407"/>
+    <functioncall functionName="NCosSin"/>
+    <functioncall functionName="NERROR_MATRIX_IN_OUT_MATRIX_POINTERS_HAS_TO_BE_DIFFERENT"/>
+    <functioncall functionName="NERROR_MATRIX_IN_OUT_VECTOR2_POINTERS_HAS_TO_BE_DIFFERENT"/>
+    <functioncall functionName="NERROR_MATRIX_IN_OUT_VECTOR3_POINTERS_HAS_TO_BE_DIFFERENT"/>
+    <functioncall functionName="NERROR_MATRIX_NULL_Z"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NFastCosSin"/>
+    <functioncall functionName="angx_rad"/>
+    <functioncall functionName="angy_rad"/>
+    <functioncall functionName="angz_rad"/>
+    <functioncall functionName="co"/>
+    <functioncall functionName="f00"/>
+    <functioncall functionName="f01"/>
+    <functioncall functionName="f02"/>
+    <functioncall functionName="f10"/>
+    <functioncall functionName="f11"/>
+    <functioncall functionName="f12"/>
+    <functioncall functionName="f20"/>
+    <functioncall functionName="f21"/>
+    <functioncall functionName="f22"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="nanglex"/>
+    <functioncall functionName="nangley"/>
+    <functioncall functionName="nanglez"/>
+    <functioncall functionName="si"/>
+    <functioncall functionName="sx"/>
+    <functioncall functionName="sy"/>
+    <functioncall functionName="sz"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="v"/>
+    <functioncall functionName="vtmp"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="y"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>

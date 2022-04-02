@@ -8,8 +8,8 @@
 #include "lib/N/NCore.h"
 #include "lib/N/Core/NSafeConversion.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedParameter"
+//#pragma clang diagnostic push
+//#pragma ide diagnostic ignored "UnusedParameter"
 char *pNRootRelativePath[CONSTANT_NROOT_RELATIVEPATH_COUNT];
 Nu32 NRootRelativePathID;
 
@@ -651,6 +651,7 @@ Ns32 NFileGetSize(NFILE *pfile)
 	NErrorIf(!pfile, NERROR_NULL_POINTER);
 
 	Ns32 size, offset;
+    size = 0.0;
 
 	if (ISFLAG_ON(pfile->Flags, FLAG_NFILE_MEMORY))
 	{
@@ -918,4 +919,4 @@ Nbool NIsRootRelativePathFileName(const Nchar *pfilename)
 	#endif
 }
 */
-#pragma clang diagnostic pop
+//#pragma clang diagnostic pop

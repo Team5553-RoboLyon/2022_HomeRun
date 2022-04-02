@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3369364601">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;psrc&apos; can be reduced." verbose="The scope of the variable &apos;psrc&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Containers\NArray.cpp" line="393" column="16"/>
+            <symbol>psrc</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;ptr&apos; can be reduced." verbose="The scope of the variable &apos;ptr&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Containers\NArray.cpp" line="574" column="9"/>
+            <symbol>ptr</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:530:6" call-funcname="NIncreaseArrayCapacity" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="629" col="32" call-argexpr="(Nu32)diff" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Containers\NArray.cpp" line="628" col="11" info="Assuming that condition &apos;diff&gt;=0&apos; is not redundant"/>
+</function-call><function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:115:9" call-funcname="NSetupArray" call-argnr="2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1022" col="16" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:25:6" call-funcname="NClearArray" call-argnr="1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="89" col="2" my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:87:6" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:25:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="36" col="8" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:202:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="205" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:240:7" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="242" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:256:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="258" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:270:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="272" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:288:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="290" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:332:7" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="334" col="33" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:360:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="362" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:387:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="389" col="15" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:449:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="460" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:483:8" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="485" col="23" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:625:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="627" col="41" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:648:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="653" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:694:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="700" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:755:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="758" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:877:8" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="879" col="23" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:925:6" my-argnr="1" my-argname="pdst" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="928" col="7" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:925:6" my-argnr="2" my-argname="psrc" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="927" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:936:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="938" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:969:6" my-argnr="1" my-argname="parray1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="973" col="9" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:969:6" my-argnr="2" my-argname="parray2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="974" col="14" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1138:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1140" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1146:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1148" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1153:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1155" col="11" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:202:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="205" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:240:7" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="242" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:256:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="258" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:270:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="272" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:288:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="290" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:332:7" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="334" col="33" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:360:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="362" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:387:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="389" col="15" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:483:8" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="485" col="23" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:625:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="627" col="41" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:648:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="653" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:694:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="700" col="18" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:755:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="758" col="12" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:877:8" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="879" col="23" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:925:6" my-argnr="1" my-argname="pdst" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="928" col="7" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:925:6" my-argnr="2" my-argname="psrc" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="927" col="17" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:936:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="938" col="20" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:969:6" my-argnr="1" my-argname="parray1" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="973" col="9" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:969:6" my-argnr="2" my-argname="parray2" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="974" col="14" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1138:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1140" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1146:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1148" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp:1153:6" my-argnr="1" my-argname="parray" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Containers/NArray.cpp" line="1155" col="11" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NClearArray" lineNumber="25"/>
+    <functiondecl functionName="NCreateArray" lineNumber="63"/>
+    <functiondecl functionName="NDeleteArray" lineNumber="87"/>
+    <functiondecl functionName="NSetupArray" lineNumber="115"/>
+    <functiondecl functionName="NEnumArray" lineNumber="202"/>
+    <functiondecl functionName="NEraseArrayElement" lineNumber="240"/>
+    <functiondecl functionName="NQuickEraseArrayElement" lineNumber="256"/>
+    <functiondecl functionName="NEraseArrayElementPtr" lineNumber="270"/>
+    <functiondecl functionName="NQuickEraseArrayElementPtr" lineNumber="288"/>
+    <functiondecl functionName="NEraseArrayRange" lineNumber="332"/>
+    <functiondecl functionName="NEraseArrayRangePtr" lineNumber="360"/>
+    <functiondecl functionName="NEraseArrayElementsBatch" lineNumber="387"/>
+    <functiondecl functionName="NEraseArray" lineNumber="449"/>
+    <functiondecl functionName="NInsertArrayElement" lineNumber="483"/>
+    <functiondecl functionName="NIncreaseArrayCapacity" lineNumber="530"/>
+    <functiondecl functionName="NDecreaseArrayCapacity" lineNumber="570"/>
+    <functiondecl functionName="NSetArrayCapacity" lineNumber="625"/>
+    <functiondecl functionName="NOptimizeArrayCapacity" lineNumber="648"/>
+    <functiondecl functionName="NResizeArray" lineNumber="694"/>
+    <functiondecl functionName="NArrayPopBack" lineNumber="755"/>
+    <functiondecl functionName="NArrayPushBack" lineNumber="784"/>
+    <functiondecl functionName="NArrayBufferPushBack" lineNumber="807"/>
+    <functiondecl functionName="NArrayAllocBack" lineNumber="840"/>
+    <functiondecl functionName="NArrayAllocInPlace" lineNumber="877"/>
+    <functiondecl functionName="NCopyArray" lineNumber="925"/>
+    <functiondecl functionName="NMoveArrayElementBack" lineNumber="936"/>
+    <functiondecl functionName="NSwapArrayContent" lineNumber="969"/>
+    <functiondecl functionName="NCheckArrayIntegrity" lineNumber="1005"/>
+    <functiondecl functionName="_QuickSortArrayOfNu32Ptr" lineNumber="1061"/>
+    <functiondecl functionName="_QuickSortArray" lineNumber="1098"/>
+    <functiondecl functionName="NQuickSortArrayOfPtr" lineNumber="1138"/>
+    <functiondecl functionName="NQuickSortArray" lineNumber="1146"/>
+    <functiondecl functionName="NQuickSortArrayOfPtrEx" lineNumber="1153"/>
+    <functiondecl functionName="NQuickSortArrayEx" lineNumber="1161"/>
+    <functioncall functionName="Capacity"/>
+    <functioncall functionName="ElementSize"/>
+    <functioncall functionName="NABS"/>
+    <functioncall functionName="NARRAY"/>
+    <functioncall functionName="NARRAY_INCREASE_CAPACITY_RATIO"/>
+    <functioncall functionName="NClearArray"/>
+    <functioncall functionName="NDecreaseArrayCapacity"/>
+    <functioncall functionName="NERROR_ARRAY_CORRUPTED"/>
+    <functioncall functionName="NERROR_ARRAY_INDEX_BEYOND_LIMITS"/>
+    <functioncall functionName="NERROR_ARRAY_IS_EMPTY"/>
+    <functioncall functionName="NERROR_ARRAY_NULL_ADDRESS"/>
+    <functioncall functionName="NERROR_ARRAY_PTR_BEYOND_LIMITS"/>
+    <functioncall functionName="NERROR_ARRAY_WRONG_ELEMENT_SIZE"/>
+    <functioncall functionName="NERROR_NULL_POINTER"/>
+    <functioncall functionName="NERROR_NULL_VALUE"/>
+    <functioncall functionName="NEW"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NGetArrayIndexPtr"/>
+    <functioncall functionName="NIncreaseArrayCapacity"/>
+    <functioncall functionName="NSetupArray"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="Nf32"/>
+    <functioncall functionName="Nfree"/>
+    <functioncall functionName="Nmalloc"/>
+    <functioncall functionName="Nrealloc"/>
+    <functioncall functionName="Ns32"/>
+    <functioncall functionName="Nu32"/>
+    <functioncall functionName="Nu32FIELD_BITGET"/>
+    <functioncall functionName="Size"/>
+    <functioncall functionName="_QuickSortArray"/>
+    <functioncall functionName="_QuickSortArrayOfNu32Ptr"/>
+    <functioncall functionName="add_capacity"/>
+    <functioncall functionName="bautosetup_zero_array"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="capacity"/>
+    <functioncall functionName="compare"/>
+    <functioncall functionName="destructor_callback"/>
+    <functioncall functionName="diff"/>
+    <functioncall functionName="element_size"/>
+    <functioncall functionName="enum_callback"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="last"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="memsize"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="nb_buffer_element"/>
+    <functioncall functionName="new_size"/>
+    <functioncall functionName="newcapacity"/>
+    <functioncall functionName="pFirst"/>
+    <functioncall functionName="pNu32_bitfield"/>
+    <functioncall functionName="parr"/>
+    <functioncall functionName="parray"/>
+    <functioncall functionName="pb"/>
+    <functioncall functionName="pbuffer"/>
+    <functioncall functionName="pdst"/>
+    <functioncall functionName="pel"/>
+    <functioncall functionName="pelement"/>
+    <functioncall functionName="pend"/>
+    <functioncall functionName="plast"/>
+    <functioncall functionName="pleft"/>
+    <functioncall functionName="pright"/>
+    <functioncall functionName="psrc"/>
+    <functioncall functionName="pstart"/>
+    <functioncall functionName="ptemp"/>
+    <functioncall functionName="ptmp"/>
+    <functioncall functionName="ptr"/>
+    <functioncall functionName="ptr2"/>
+    <functioncall functionName="ptr_right"/>
+    <functioncall functionName="rangesize"/>
+    <functioncall functionName="refindex"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="right_index"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="sub_capacity"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

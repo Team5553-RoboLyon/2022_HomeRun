@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="904822108">
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:199:6" my-argnr="1" my-argname="pfirst" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="220" col="9" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:283:6" my-argnr="2" my-argname="co" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="286" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:283:6" my-argnr="3" my-argname="si" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="287" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:290:6" my-argnr="2" my-argname="cossin" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="293" col="2" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:400:6" my-argnr="2" my-argname="cf" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="411" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:400:6" my-argnr="3" my-argname="sf" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="412" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:426:6" my-argnr="2" my-argname="cf" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="437" col="3" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp:426:6" my-argnr="3" my-argname="sf" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NMath.cpp" line="438" col="3" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NNewtoncbrtf32" lineNumber="15"/>
+    <functiondecl functionName="NFastSqrt" lineNumber="97"/>
+    <functiondecl functionName="NFastRand" lineNumber="178"/>
+    <functiondecl functionName="NFastRandRange" lineNumber="199"/>
+    <functiondecl functionName="NGetFastRandRangePtr" lineNumber="242"/>
+    <functiondecl functionName="NRewindFastRandLUT" lineNumber="268"/>
+    <functiondecl functionName="NFastSin" lineNumber="273"/>
+    <functiondecl functionName="NFastCos" lineNumber="278"/>
+    <functiondecl functionName="NFastCosSin" lineNumber="283"/>
+    <functiondecl functionName="NFastVCosSin" lineNumber="290"/>
+    <functiondecl functionName="CalcCosSinLUT" lineNumber="308"/>
+    <functiondecl functionName="CalcSqrtLUT" lineNumber="332"/>
+    <functiondecl functionName="CalcRandLUT" lineNumber="367"/>
+    <functiondecl functionName="NInitializeMathLUTs" lineNumber="382"/>
+    <functiondecl functionName="NFresnelIntegralsf32" lineNumber="400"/>
+    <functiondecl functionName="NFresnelIntegralsf64" lineNumber="426"/>
+    <functiondecl functionName="NSincf64" lineNumber="441"/>
+    <functiondecl functionName="NSinc" lineNumber="453"/>
+    <functioncall functionName="CalcCosSinLUT"/>
+    <functioncall functionName="CalcRandLUT"/>
+    <functioncall functionName="CalcSqrtLUT"/>
+    <functioncall functionName="NABS"/>
+    <functioncall functionName="NANGLELUT_SIZE"/>
+    <functioncall functionName="NDEGtoRAD"/>
+    <functioncall functionName="NERROR_FASTRAND_SIZE_OUTOFRANGE"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NPOW2"/>
+    <functioncall functionName="NPOW3"/>
+    <functioncall functionName="Nf32"/>
+    <functioncall functionName="RANDLUT_SIZE"/>
+    <functioncall functionName="RAND_MAX"/>
+    <functioncall functionName="RandLUT"/>
+    <functioncall functionName="RandLUTIndex"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="abs"/>
+    <functioncall functionName="an"/>
+    <functioncall functionName="cos"/>
+    <functioncall functionName="f"/>
+    <functioncall functionName="fa"/>
+    <functioncall functionName="fabs"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="iter"/>
+    <functioncall functionName="local_err"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="pfirst"/>
+    <functioncall functionName="rand"/>
+    <functioncall functionName="s"/>
+    <functioncall functionName="sin"/>
+    <functioncall functionName="sinf"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="srand"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3564699446">
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;numbertemp&apos; can be reduced." verbose="The scope of the variable &apos;numbertemp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Miscellaneous\NString.cpp" line="14" column="7"/>
+            <symbol>numbertemp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;numbertemp&apos; can be reduced." verbose="The scope of the variable &apos;numbertemp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Miscellaneous\NString.cpp" line="67" column="7"/>
+            <symbol>numbertemp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;numbertemp&apos; can be reduced." verbose="The scope of the variable &apos;numbertemp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Miscellaneous\NString.cpp" line="119" column="7"/>
+            <symbol>numbertemp</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;numbertemp&apos; can be reduced." verbose="The scope of the variable &apos;numbertemp&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp">
+            <location file="C:\Users\hatch\Documents\GitHub\2022_HomeRun\src\main\cpp\lib\N\Miscellaneous\NString.cpp" line="181" column="7"/>
+            <symbol>numbertemp</symbol>
+        </error>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp:503:6" my-argnr="1" my-argname="pstring" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp" line="505" col="26" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp:503:6" my-argnr="1" my-argname="pstring" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Miscellaneous/NString.cpp" line="505" col="26" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NStrGet_Ns16_AfterLabel" lineNumber="7"/>
+    <functiondecl functionName="NStrGet_Ns16" lineNumber="36"/>
+    <functiondecl functionName="NStrGet_Ns32_AfterLabel" lineNumber="60"/>
+    <functiondecl functionName="NStrGet_Ns32" lineNumber="89"/>
+    <functiondecl functionName="NStrGet_Nf32_AfterLabel" lineNumber="112"/>
+    <functiondecl functionName="NStrGet_Nf32" lineNumber="148"/>
+    <functiondecl functionName="NStrGet_Nf64_AfterLabel" lineNumber="174"/>
+    <functiondecl functionName="NStrGet_Nf64" lineNumber="210"/>
+    <functiondecl functionName="NStrGet_String_BetweenLabels" lineNumber="253"/>
+    <functiondecl functionName="NStrGet_String_AfterLabel" lineNumber="300"/>
+    <functiondecl functionName="NStrGet_String_BeforeLabel" lineNumber="348"/>
+    <functiondecl functionName="NStrCopy" lineNumber="379"/>
+    <functiondecl functionName="NStrCat" lineNumber="395"/>
+    <functiondecl functionName="NStrDuplicate" lineNumber="416"/>
+    <functiondecl functionName="NMakeUIDFromString" lineNumber="429"/>
+    <functiondecl functionName="NStrGetLineCount" lineNumber="503"/>
+    <functioncall functionName="NERROR_INCONSISTENT_PARAMETERS"/>
+    <functioncall functionName="NERROR_NULL_POINTER"/>
+    <functioncall functionName="NERROR_STRING_NULL"/>
+    <functioncall functionName="NERROR_STRING_SIZEMAX_HAS_TO_BE_EQUAL_OR_GREATER_THAN_1"/>
+    <functioncall functionName="NERROR_STRING_TOO_LONG"/>
+    <functioncall functionName="NERROR_VALUE_OUTOFRANGE"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NMIN"/>
+    <functioncall functionName="Nchar"/>
+    <functioncall functionName="Nf32"/>
+    <functioncall functionName="Nf64"/>
+    <functioncall functionName="Nmalloc"/>
+    <functioncall functionName="Ns16"/>
+    <functioncall functionName="Ns32"/>
+    <functioncall functionName="Nu32"/>
+    <functioncall functionName="atof"/>
+    <functioncall functionName="atoi"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="destination"/>
+    <functioncall functionName="ename"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="len"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="numberlength"/>
+    <functioncall functionName="numbertemp"/>
+    <functioncall functionName="pchar"/>
+    <functioncall functionName="pdest"/>
+    <functioncall functionName="pdouble"/>
+    <functioncall functionName="pdup"/>
+    <functioncall functionName="pf"/>
+    <functioncall functionName="pfloat"/>
+    <functioncall functionName="pint"/>
+    <functioncall functionName="pinteger"/>
+    <functioncall functionName="plabel"/>
+    <functioncall functionName="plabel0"/>
+    <functioncall functionName="plabel1"/>
+    <functioncall functionName="psource"/>
+    <functioncall functionName="pstr"/>
+    <functioncall functionName="pstring"/>
+    <functioncall functionName="return"/>
+    <functioncall functionName="sizeof"/>
+    <functioncall functionName="source"/>
+    <functioncall functionName="strcat"/>
+    <functioncall functionName="strchr"/>
+    <functioncall functionName="strcpy"/>
+    <functioncall functionName="string"/>
+    <functioncall functionName="strlen"/>
+    <functioncall functionName="strstr"/>
+    <functioncall functionName="sum1"/>
+    <functioncall functionName="tag"/>
+    <functioncall functionName="textlength"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

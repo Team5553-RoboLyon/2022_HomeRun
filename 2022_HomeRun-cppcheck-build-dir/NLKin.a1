@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2247269891">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="NABS"/>
+    <functioncall functionName="VELOCITY_WAS_OVERSHOOTED"/>
+    <functioncall functionName="VELOCITY_WILL_OVERSHOOT"/>
+    <functioncall functionName="dt"/>
+    <functioncall functionName="dvafromzero"/>
+    <functioncall functionName="dvatozero"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="jerk"/>
+    <functioncall functionName="m_2j"/>
+    <functioncall functionName="m_a"/>
+    <functioncall functionName="m_v"/>
+    <functioncall functionName="m_vmvx"/>
+    <functioncall functionName="return"/>
+  </FileInfo>
+</analyzerinfo>

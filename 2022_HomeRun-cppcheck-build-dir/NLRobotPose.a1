@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3219617414">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="modulo2PI" lineNumber="36"/>
+    <functioncall functionName="NERROR_VALUE_OUTOFRANGE"/>
+    <functioncall functionName="NErrorIf"/>
+    <functioncall functionName="NLODOMETRY_DRIVETRAIN_V_FROM_WHEELS"/>
+    <functioncall functionName="NLODOMETRY_DRIVETRAIN_W_FROM_WHEELS"/>
+    <functioncall functionName="_continue"/>
+    <functioncall functionName="_isnan"/>
+    <functioncall functionName="a"/>
+    <functioncall functionName="cos"/>
+    <functioncall functionName="external_angle"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="left_mov"/>
+    <functioncall functionName="m_angle"/>
+    <functioncall functionName="m_axleTrack"/>
+    <functioncall functionName="modulo2PI"/>
+    <functioncall functionName="right_mov"/>
+    <functioncall functionName="sin"/>
+    <functioncall functionName="w"/>
+    <functioncall functionName="while"/>
+  </FileInfo>
+</analyzerinfo>

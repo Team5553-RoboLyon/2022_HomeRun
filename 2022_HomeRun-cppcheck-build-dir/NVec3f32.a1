@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="337311969">
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp:25:6" my-argnr="1" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp" line="29" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp:53:6" my-argnr="1" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp" line="57" col="16" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp:25:6" my-argnr="1" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp" line="29" col="11" value="0"/>
+    <unsafe-usage my-id="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp:53:6" my-argnr="1" my-argname="v" file="C:/Users/hatch/Documents/GitHub/2022_HomeRun/src/main/cpp/lib/N/Maths/NVec3f32.cpp" line="57" col="16" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="NVec3Normalize" lineNumber="25"/>
+    <functiondecl functionName="NVec3FastNormalize" lineNumber="53"/>
+    <functioncall functionName="NFastSqrt"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="n"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="z"/>
+  </FileInfo>
+</analyzerinfo>
