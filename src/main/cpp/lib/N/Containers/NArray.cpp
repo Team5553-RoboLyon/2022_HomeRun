@@ -397,7 +397,7 @@ void NEraseArrayElementsBatch(NARRAY *parray, const Nu32 *pNu32_bitfield, const 
 	{
 		pel += parray->ElementSize;
 		n++;
-	};
+	}
 	pdst = pel;
 
 	while (n < array_size)

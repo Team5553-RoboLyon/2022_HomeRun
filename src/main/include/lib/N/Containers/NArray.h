@@ -146,7 +146,7 @@ extern "C"
 	Ns32 NOptimizeArrayCapacity(NARRAY *parray);
 	Ns32 NSetArrayCapacity(NARRAY *parray, const Nu32 new_capacity, const NARRAY_ELEMENT_DESTRUCTOR_CALLBACK destructor_callback);
 	Ns32 NResizeArray(NARRAY *parray, const Nu32 new_size, const NBYTE *pelement, const NARRAY_ELEMENT_DESTRUCTOR_CALLBACK destructor_callback);
-	inline Ns32 NUpSizeArray(NARRAY *parray, Nu32 up_size, const NBYTE *pelement) { return NResizeArray(parray, (parray->Size + up_size), pelement, NULL); };
+	inline Ns32 NUpSizeArray(NARRAY *parray, Nu32 up_size, const NBYTE *pelement) { return NResizeArray(parray, (parray->Size + up_size), pelement, NULL); }
 	inline Nbool NIsArrayFull(const NARRAY *parray)
 	{
 		if (parray->Capacity == parray->Size)
@@ -184,5 +184,5 @@ extern "C"
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef __cplusplus
 }
-#endif // __cpluplus
+#endif // __cplusplus
 #endif // __NARRAY_H

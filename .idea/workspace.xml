@@ -15,43 +15,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="implementation de trapezoide !">
-      <change beforePath="$PROJECT_DIR$/src/main/include/Robot.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/Robot.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Climber/ClimberActiveMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Climber/ClimberActiveMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveConveyorFeederMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveConveyorFeederMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveConveyorMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveConveyorMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveFeederMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveFeederMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/UnblockConveyorMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/UnblockConveyorMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/UnblockFeederMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/UnblockFeederMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Intake/ActiveIntakeMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Intake/ActiveIntakeMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Intake/ChangeIntakePosition.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Intake/ChangeIntakePosition.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Intake/UnblockIntakeMotor.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Intake/UnblockIntakeMotor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Shoot/ActiveShooter.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Shoot/ActiveShooter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Shoot/SetShooterAuto.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Shoot/SetShooterAuto.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/commands/drivetrain/Drive.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/drivetrain/Drive.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Core/NLimits.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Core/NLimits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Core/NSafeConversion.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Core/NSafeConversion.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NMatrix3x3.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NMatrix3x3.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec2f32.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec2f32.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec3f32.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec3f32.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec4f32.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVec4f32.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVecLimits.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Maths/NVecLimits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NCore.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NCore.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NErrorHandling.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NErrorHandling.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NMatrix.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NMatrix.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NMemory.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NMemory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NString.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NString.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NType.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NType.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NVecLimits.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NVecLimits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/NLDriveTrainSpecs.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/NLDriveTrainSpecs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/NLRamseteFollower.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/NLRamseteFollower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/Trajectory/NLTrajectoryPack.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/NL/MotionControl/Trajectory/NLTrajectoryPack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Climber.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Climber.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Drivetrain.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Drivetrain.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Gearbox.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Gearbox.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Hood.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Hood.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Shooter.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Shooter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Turret.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Turret.h" afterDir="false" />
+    <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="ca build toujours">
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/lib/N/Containers/NArray.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/lib/N/Containers/NArray.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/Containers/NArray.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/Containers/NArray.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/File/NFile.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/File/NFile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NFlags.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NFlags.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/lib/N/NMath.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/lib/N/NMath.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +250,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647463227796</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ca build toujours">
+      <created>1648931435164</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648931435164</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +311,7 @@
     <MESSAGE value="une class hallSecurity toute belle et en bonus elle est implementé dans le hood c'est ti pas beau" />
     <MESSAGE value="sans les bug c'est mieux" />
     <MESSAGE value="implementation de trapezoide !" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation de trapezoide !" />
+    <MESSAGE value="ca build toujours" />
+    <option name="LAST_COMMIT_MESSAGE" value="ca build toujours" />
   </component>
 </project>

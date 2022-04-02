@@ -8,6 +8,8 @@
 #include "lib/N/NCore.h"
 #include "lib/N/Core/NSafeConversion.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnusedParameter"
 char *pNRootRelativePath[CONSTANT_NROOT_RELATIVEPATH_COUNT];
 Nu32 NRootRelativePathID;
 
@@ -916,3 +918,4 @@ Nbool NIsRootRelativePathFileName(const Nchar *pfilename)
 	#endif
 }
 */
+#pragma clang diagnostic pop
