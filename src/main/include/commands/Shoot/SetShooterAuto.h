@@ -8,6 +8,8 @@
 #include <frc2/command/InstantCommand.h>
 #include "subsystems/Shooter.h"
 #include "subsystems/Hood.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
 
 #define LERP(a, b, t) ((a) + ((b) - (a)) * (t))
 
@@ -26,6 +28,7 @@ private:
   Hood *m_hood;
 
   static constexpr double shooterDataTable[3][3] = {
+    // distance, angle, vitesse
       {1.3, 1.4, 1.5},
       {1.6, 1.7, 1.8},
       {1.9, 1.10, 1.11},

@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Conveyor.h"
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -19,7 +20,7 @@ class ActiveConveyorFeederMotor
     : public frc2::CommandHelper<frc2::CommandBase, ActiveConveyorFeederMotor>
 {
 public:
-  ActiveConveyorFeederMotor(Conveyor *pconveyor);
+  ActiveConveyorFeederMotor(Conveyor *pconveyor, Shooter *pshooter);
 
   void Initialize() override;
 
@@ -31,4 +32,5 @@ public:
 
 private:
   Conveyor *m_pConveyor;
+  Shooter *m_pShooter;
 };

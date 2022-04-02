@@ -58,6 +58,8 @@
 
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <cameraserver/CameraServer.h>
+#include <frc/Compressor.h>
 
 class RobotContainer
 {
@@ -94,9 +96,11 @@ private:
 #if SHOOTER
   Shooter m_Shooter;
 #endif
+
 #if HOOD
   Hood m_Hood;
 #endif
+  cs::UsbCamera m_Camera;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};
@@ -104,4 +108,6 @@ private:
   frc2::JoystickButton m_ThrottleLeft{&m_DriverLeftJoystick, 1};
   // frc2::Trigger m_ThrottleLeft{[this]
   //                              { return m_DriverRightJoystick.GetThrottle(); }};
+
+  frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 };

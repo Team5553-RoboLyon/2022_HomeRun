@@ -16,7 +16,7 @@ SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood)
 
 void SetShooterAuto::Initialize()
 {
-  double distance = 1.5f;
+  double distance = nt::NetworkTableInstance::GetDefault().GetTable("")->GetEntry("").GetDouble(0.0);
   int *index = getNearestElementId(distance);
   std::cout << "nearest : " << *(index) << " " << *(index + 1) << std::endl;
 
