@@ -23,13 +23,11 @@ Gearbox::Gearbox()
     // m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
     // m_NeoMotorRightFollower.EnableVoltageCompensation(11);
 
-    m_NeoMotorLeft.SetSmartCurrentLimit(45);
-    m_NeoMotorLeftFollower.SetSmartCurrentLimit(45);
-    m_NeoMotorRight.SetSmartCurrentLimit(45);
-    m_NeoMotorRightFollower.SetSmartCurrentLimit(45);
-
-    m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
-    m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
+    m_NeoMotorLeft.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
+    
 
     m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
