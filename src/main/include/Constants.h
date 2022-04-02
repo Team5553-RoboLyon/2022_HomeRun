@@ -9,6 +9,8 @@
 
 #define ROBOT_LOOP_TIME 0.02
 
+#define SMART_LIMIT_CURRENT_NEO 40
+
 // ######### SUBSYSTEM ACTIVATION #########
 
 #define DRIVETRAIN true
