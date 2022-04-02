@@ -61,24 +61,18 @@ extern "C"
 	Nf32 NVec3FastNormalize(NVEC3 *v);
 	inline Nf32 NVec3Length(const NVEC3 *v) { return sqrt(v->x * v->x + v->y * v->y + v->z * v->z); }
 	Nf32 NVec3Normalize(NVEC3 *v);
-	inline void NVec3Set(NVEC3 *v, const Nf32 x, const Nf32 y, const Nf32 z)
+	inline void NVec3Set(const Nf32 x, const Nf32 y, const Nf32 z)
 	{
-		v->x = x;
-		v->y = y;
-		v->z = z;
-	}
+    }
 	inline void NVec3Scale(NVEC3 *dest, const NVEC3 *src, const Nf32 factor)
 	{
 		dest->x = src->x * factor;
 		dest->y = src->y * factor;
 		dest->z = src->z * factor;
 	}
-	inline void NVec3ScaleBy(NVEC3 *v, const Nf32 factor)
+	inline void NVec3ScaleBy(const Nf32 factor)
 	{
-		v->x *= factor;
-		v->y *= factor;
-		v->z *= factor;
-	}
+    }
 	inline Nf32 NVec3SquareLength(const NVEC3 *v) { return (v->x * v->x + v->y * v->y + v->z * v->z); }
 	inline Nf32 NVec3ManhattanLength(const NVEC3 *v) { return (NABS(v->x) + NABS(v->y) + NABS(v->z)); }
 	inline void NVec3Sub(NVEC3 *vr, const NVEC3 *v1, const NVEC3 *v2)
@@ -110,5 +104,5 @@ extern "C"
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef __cplusplus
 }
-#endif // __cpluplus
+#endif // __cplusplus
 #endif // __NVEC3F32_H

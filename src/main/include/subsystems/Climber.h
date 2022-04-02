@@ -7,7 +7,7 @@ class Climber : public frc2::SubsystemBase
 
 public:
     Climber(Gearbox *gearbox);
-    void Periodic() override;
+    void Periodic() ;
     void Stop();
     void MoveRotatingArms(double speed);
     void MoveClimber(double speed);

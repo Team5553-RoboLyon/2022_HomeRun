@@ -43,7 +43,7 @@ public:
 
 #ifdef _NEDITOR
 	Nu32 read(NLPATH_WORKBENCH *pwb); // fonction read "sp�ciale" qui copie les donn�es du path workbench pass� en param�tre plutot
-#endif								  // ... que de les lire dans un fichier. Cela permet au code du simulateur de rester tr�s proche du code "r�el" du robot
+#endif								  // _NEDITOR
 									  // ... tout en permettant de recup�rer directement les donn�es du path workbench.
 	Nu32 read(FILE *pfile);
 	Nu32 write(FILE *pfile);

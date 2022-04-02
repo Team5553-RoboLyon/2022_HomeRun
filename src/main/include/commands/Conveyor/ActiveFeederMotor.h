@@ -20,13 +20,13 @@ class ActiveFeederMotor
  public:
   ActiveFeederMotor(Conveyor *pconveyor);
 
-  void Initialize() override;
+  void Initialize() ;
 
-  void Execute() override;
+  void Execute() ;
 
-  void End(bool interrupted) override;
+  void End(bool interrupted) ;
 
-  bool IsFinished() override;
+  bool IsFinished() ;
 
 private:
   Conveyor *m_pConveyor;  

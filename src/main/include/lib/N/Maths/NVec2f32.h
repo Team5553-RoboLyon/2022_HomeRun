@@ -52,21 +52,17 @@ extern "C"
 	Nf32 NVec2FastNormalize(NVEC2 *v);
 	inline Nf32 NVec2Length(const NVEC2 *v) { return sqrt(v->x * v->x + v->y * v->y); }
 	Nf32 NVec2Normalize(NVEC2 *v);
-	inline void NVec2Set(NVEC2 *v, const Nf32 x, const Nf32 y)
+	inline void NVec2Set(const Nf32 x, const Nf32 y)
 	{
-		v->x = x;
-		v->y = y;
-	}
+    }
 	inline void NVec2Scale(NVEC2 *dest, const NVEC2 *src, const Nf32 factor)
 	{
 		dest->x = src->x * factor;
 		dest->y = src->y * factor;
 	}
-	inline void NVec2ScaleBy(NVEC2 *v, const Nf32 factor)
+	inline void NVec2ScaleBy(const Nf32 factor)
 	{
-		v->x *= factor;
-		v->y *= factor;
-	}
+    }
 	inline Nf32 NVec2SquareLength(const NVEC2 *v) { return (v->x * v->x + v->y * v->y); }
 	inline Nf32 NVec2ManhattanLength(const NVEC2 *v) { return (NABS(v->x) + NABS(v->y)); }
 	inline void NVec2Sub(NVEC2 *vr, const NVEC2 *v1, const NVEC2 *v2)
@@ -104,5 +100,5 @@ extern "C"
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef __cplusplus
 }
-#endif // __cpluplus
+#endif // __cplusplus
 #endif // __NVEC2F32_H

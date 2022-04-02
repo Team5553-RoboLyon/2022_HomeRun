@@ -22,7 +22,7 @@ public:
 
     double GetMeasurement();
 
-    void Periodic() override;
+    void Periodic() ;
 
     void SetSetpoint(double setpoint);
 

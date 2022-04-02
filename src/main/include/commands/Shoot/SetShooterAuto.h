@@ -20,7 +20,7 @@ class SetShooterAuto
 public:
   SetShooterAuto(Shooter *shooter, Hood *hood);
 
-  void Initialize() override;
+  void Initialize() ;
 
 private:
   int *getNearestElementId(double target);

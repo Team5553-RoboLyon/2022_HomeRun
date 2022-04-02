@@ -12,7 +12,7 @@ class Shooter : public frc2::SubsystemBase
 {
 public:
   Shooter();
-  void Periodic() override;
+  void Periodic() ;
   void SetSpeed(double speed);
   double AppliedSpeed();
   int m_countShooter;

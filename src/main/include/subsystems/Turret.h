@@ -15,8 +15,8 @@ class Turret : public frc2::PIDSubsystem
 {
 public:
   Turret();
-  void UseOutput(double output, double setpoint) override;
-  double GetMeasurement() override;
+  void UseOutput(double output, double setpoint) ;
+  double GetMeasurement() ;
   void ResetEncoder();
   void SetPID(double p, double i, double d);
   bool MagnetDetected();

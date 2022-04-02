@@ -42,16 +42,16 @@ public:
     PATH_END        ///< La Vitesse  est en d�passement.
   };
 
-  void RobotInit() override;
-  void RobotPeriodic() override;
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
-  void TeleopInit() override;
-  void TeleopPeriodic() override;
-  void TestInit() override;
-  void TestPeriodic() override;
+  void RobotInit() ;
+  void RobotPeriodic() ;
+  void DisabledInit() ;
+  void DisabledPeriodic() ;
+  void AutonomousInit() ;
+  void AutonomousPeriodic() ;
+  void TeleopInit() ;
+  void TeleopPeriodic() ;
+  void TestInit() ;
+  void TestPeriodic() ;
 
 private:
   // Have it null by default so that if testing teleop it

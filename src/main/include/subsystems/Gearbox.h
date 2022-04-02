@@ -32,7 +32,7 @@ public:
 
     Gearbox();
 
-    void Periodic() override;
+    void Periodic() ;
 
     void Stop();
 

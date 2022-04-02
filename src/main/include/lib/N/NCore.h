@@ -67,5 +67,5 @@ extern "C"
 
 #ifdef __cplusplus
 }
-#endif // __cpluplus
+#endif // __cplusplus
 #endif // __NCORE_H

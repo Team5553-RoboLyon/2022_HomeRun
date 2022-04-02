@@ -28,7 +28,7 @@ Nchar*			NStrDuplicate(const Nchar *psource);
 
 Nu32			NMakeUIDFromString( const char *ename );
 
-inline	 Nchar*	NStrMove_AfterLabel(Nchar* string, const Nchar* tag){return strstr(string, tag) + strlen(tag);};
+inline	 Nchar*	NStrMove_AfterLabel(Nchar* string, const Nchar* tag){return strstr(string, tag) + strlen(tag);}
 
 Nchar*			NStrGet_Nf32(Nchar *psource,Nf32 *pfloat);
 Nchar*			NStrGet_Nf32_AfterLabel(Nchar *string, const Nchar *tag, Nf32 *pf);
@@ -50,6 +50,6 @@ Nu32			NStrGetLineCount(const Nchar *pstring);
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef __cplusplus
 }
-#endif	// __cpluplus
+#endif	// __cplusplus
 #endif // __NSTRING_H 
 

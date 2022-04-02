@@ -11,7 +11,7 @@ class Drivetrain : public frc2::SubsystemBase
 {
 public:
     Drivetrain(Gearbox *gearbox);
-    void Periodic() override;
+    void Periodic() ;
     void Stop();
     void Drive(double right, double left);
     void Enable();
