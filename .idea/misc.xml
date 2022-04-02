@@ -5,4 +5,5 @@
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-18" project-jdk-type="SimpleJavaSdkType" />
 </project>
