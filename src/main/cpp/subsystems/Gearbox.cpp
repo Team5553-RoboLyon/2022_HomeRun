@@ -12,10 +12,10 @@ Gearbox::Gearbox()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.3);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.3);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.5);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.5);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.5);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.5);
 
     m_NeoMotorLeft.EnableVoltageCompensation(10);
     m_NeoMotorRight.EnableVoltageCompensation(10);

@@ -30,9 +30,9 @@ void RobotContainer::ConfigureButtonBindings()
 
 #if GEARBOX
   frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-  m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
-                                                         { Gearbox::PTOState newPTOState =( m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving) ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
-                                             m_Gearbox.SetPTOState(newPTOState); }));
+  // m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
+  //                                                        { Gearbox::PTOState newPTOState =( m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving) ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
+  //                                            m_Gearbox.SetPTOState(newPTOState); }));
 #endif
 
 #if INTAKE
