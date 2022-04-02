@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2265338731">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="ClearButtons"/>
+    <functioncall functionName="ConfigureButtonBindings"/>
+    <functioncall functionName="Drive"/>
+    <functioncall functionName="GetInstance"/>
+    <functioncall functionName="GetY"/>
+    <functioncall functionName="GetZ"/>
+    <functioncall functionName="SetDefaultCommand"/>
+    <functioncall functionName="debug"/>
+    <functioncall functionName="m_Drivetrain"/>
+    <functioncall functionName="trace"/>
+  </FileInfo>
+</analyzerinfo>

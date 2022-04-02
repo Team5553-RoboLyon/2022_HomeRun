@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2365275025">
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="88"/>
+    <functioncall functionName="GetInstance"/>
+    <functioncall functionName="Robot"/>
+    <functioncall functionName="Run"/>
+    <functioncall functionName="StartRobot"/>
+    <functioncall functionName="debug"/>
+    <functioncall functionName="logger"/>
+    <functioncall functionName="set_default_logger"/>
+    <functioncall functionName="set_level"/>
+    <functioncall functionName="set_pattern"/>
+    <functioncall functionName="stdout_logger_mt"/>
+    <functioncall functionName="trace"/>
+  </FileInfo>
+</analyzerinfo>

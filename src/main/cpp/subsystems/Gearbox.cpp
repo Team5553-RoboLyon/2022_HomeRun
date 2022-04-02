@@ -6,26 +6,30 @@
 
 Gearbox::Gearbox()
 {
+    // TODO samrtcurent a 45 sans voltage compensation
     spdlog::trace("Gearbox()");
     m_NeoMotorRight.RestoreFactoryDefaults();
     m_NeoMotorRightFollower.RestoreFactoryDefaults();
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.3);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.3);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.3);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.6);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.6);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.6);
 
-    m_NeoMotorLeft.EnableVoltageCompensation(10);
-    m_NeoMotorRight.EnableVoltageCompensation(10);
-    m_NeoMotorLeftFollower.EnableVoltageCompensation(10);
-    m_NeoMotorRightFollower.EnableVoltageCompensation(10);
+    // m_NeoMotorLeft.EnableVoltageCompensation(11);
+    // m_NeoMotorRight.EnableVoltageCompensation(11);
+    // m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
+    // m_NeoMotorRightFollower.EnableVoltageCompensation(11);
 
-    m_NeoMotorLeft.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
-    m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO);
+    m_NeoMotorLeft.SetSmartCurrentLimit(45);
+    m_NeoMotorLeftFollower.SetSmartCurrentLimit(45);
+    m_NeoMotorRight.SetSmartCurrentLimit(45);
+    m_NeoMotorRightFollower.SetSmartCurrentLimit(45);
+
+    m_NeoMotorRightFollower.Follow(m_NeoMotorRight);
+    m_NeoMotorLeftFollower.Follow(m_NeoMotorLeft);
 
     m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
@@ -42,7 +46,7 @@ Gearbox::Gearbox()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-    m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+    m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void Gearbox::Periodic()

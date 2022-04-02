@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="2745981434">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="Get"/>
+    <functioncall functionName="HallSecurity"/>
+    <functioncall functionName="MagnetDetected"/>
+    <functioncall functionName="break"/>
+    <functioncall functionName="currentPosition"/>
+    <functioncall functionName="default"/>
+    <functioncall functionName="doubleHall"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="hallDIO"/>
+    <functioncall functionName="hallDIOLeft"/>
+    <functioncall functionName="hallDIORight"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="inverted"/>
+    <functioncall functionName="m_DeltaPosition"/>
+    <functioncall functionName="m_PositionBefore"/>
+    <functioncall functionName="m_inverted"/>
+    <functioncall functionName="m_state"/>
+    <functioncall functionName="maxMin_Direction"/>
+    <functioncall functionName="max_Direction"/>
+    <functioncall functionName="min_Direction"/>
+    <functioncall functionName="outputSigne"/>
+    <functioncall functionName="state"/>
+    <functioncall functionName="switch"/>
+    <functioncall functionName="tolerance"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="two"/>
+  </FileInfo>
+</analyzerinfo>

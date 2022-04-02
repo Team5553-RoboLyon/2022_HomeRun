@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="3123688271">
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="AddRequirements"/>
+    <functioncall functionName="double"/>
+    <functioncall functionName="joystickInput"/>
+    <functioncall functionName="m_joystickInput"/>
+    <functioncall functionName="m_pClimber"/>
+    <functioncall functionName="pclimber"/>
+  </FileInfo>
+</analyzerinfo>

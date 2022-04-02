@@ -17,13 +17,13 @@ void ActiveShooter::Initialize() {}
 void ActiveShooter::Execute()
 {
   // ActiveShooter(m_pShooter).Schedule();
-  m_pShooter->SetVelocity(0.6);
+  m_pShooter->SetSpeed(0.6);
 }
 
 // Called once the command ends or is interrupted.
 void ActiveShooter::End(bool interrupted)
 {
-  m_pShooter->SetVelocity(0.0);
+  m_pShooter->SetSpeed(0.0);
 }
 
 // Returns true when the command should end.
