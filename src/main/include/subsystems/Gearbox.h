@@ -12,6 +12,7 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc/Encoder.h>
 #include <robolyon/HallSecurity.h>
+#include <frc/DriverStation.h>
 
 #include <frc/DigitalInput.h>
 
@@ -35,9 +36,19 @@ public:
 
     void Stop();
 
+    void InitTeleopPeriod();
+
     void SetEveryone(double right, double left, PTOState ptoConfigurationRequired);
     void SetLeft(double left, PTOState ptoConfigurationRequired);
     void SetRight(double right, PTOState ptoConfigurationRequired);
+
+    void SetVoltageEveryone(units::voltage::volt_t right, units::voltage::volt_t left, PTOState ptoConfigurationRequired);
+    void SetVoltageLeft(units::voltage::volt_t left, PTOState ptoConfigurationRequired);
+    void SetVoltageRight(units::voltage::volt_t right, PTOState ptoConfigurationRequired);
+
+    void SetVoltageEveryone(units::voltage::volt_t r1, units::voltage::volt_t r2, units::voltage::volt_t l1, units::voltage::volt_t l2, PTOState ptoConfigurationRequired);
+    void SetVoltageLeft(units::voltage::volt_t l1, units::voltage::volt_t l2, PTOState ptoConfigurationRequired);
+    void SetVoltageRight(units::voltage::volt_t r1, units::voltage::volt_t r2, PTOState ptoConfigurationRequired);
 
     void StopEveryOne(PTOState ptoConfigurationRequired);
     void StopLeft(PTOState ptoConfigurationsRequired);
@@ -61,5 +72,9 @@ private:
 
     frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD,
                                    DRIVETRAIN_SOLENOID_ID_REVERSE};
+
+    frc::Encoder m_encodeurExterneDroite{0, 1, false, frc::Encoder::k4X};
+    frc::Encoder m_encodeurExterneGauche{2, 3, true, frc::Encoder::k4X};
+
     PTOState m_ptoState = PTOState::None;
 };

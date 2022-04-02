@@ -23,6 +23,51 @@ RobotContainer::RobotContainer()
   //                                                { return m_DriverRightJoystick.GetX(); }));
 }
 
+#if GEARBOX
+/**
+ * @brief Gets the encoder values of the left and right external encoders
+ *
+ * @param encoderValues Array of 2 doubles where the encoder values will be stored
+ */
+void RobotContainer::GetDrivetrainEncoderValues(double (&encoderValues)[2])
+{
+  m_Gearbox.GetEncoderValues(encoderValues);
+}
+
+void RobotContainer::SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2)
+{
+  if (!frc::DriverStation::IsAutonomous())
+  {
+    spdlog::critical("RobotContainer::SetMotorVoltagesWhenAutonomous() Robot is not in Autonomous mode !!!!");
+    return;
+  }
+  else
+  {
+    m_Gearbox.SetVoltageEveryone(l1, l2, r1, r2, Gearbox::PTOState::Driving);
+  }
+}
+
+void RobotContainer::SetPTOWhenAutonomous(Gearbox::PTOState ptoState)
+{
+  if (!frc::DriverStation::IsAutonomous())
+  {
+    spdlog::critical("RobotContainer::SetPTOWhenAutonomous() Robot is not in Autonomous mode !!!!");
+    return;
+  }
+  else
+  {
+    m_Gearbox.SetPTOState(ptoState);
+  }
+}
+
+void RobotContainer::InitTeleopPeriod()
+{
+#if GEARBOX
+  m_Gearbox.InitTeleopPeriod();
+#endif
+}
+#endif
+
 void RobotContainer::ConfigureButtonBindings()
 {
   frc2::CommandScheduler::GetInstance().ClearButtons();
