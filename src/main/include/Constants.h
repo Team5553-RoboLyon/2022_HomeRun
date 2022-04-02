@@ -91,3 +91,9 @@
 
 // ######### Digital input IDs #########
 #define HOOD_SENSOR_HALL_ID 8
+
+// ######### Camera #########
+
+#define TARGET_HEIGHT 2.58
+#define CAMERA_HEIGHT 0.772
+#define CAMERA_PITCH 0.6457718
