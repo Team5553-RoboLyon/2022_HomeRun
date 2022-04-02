@@ -12,15 +12,15 @@ Gearbox::Gearbox()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.5);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.5);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.5);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.5);
+    m_NeoMotorLeft.SetOpenLoopRampRate(0.7);
+    m_NeoMotorRight.SetOpenLoopRampRate(0.7);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.7);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.7);
 
-    m_NeoMotorLeft.EnableVoltageCompensation(10);
-    m_NeoMotorRight.EnableVoltageCompensation(10);
-    m_NeoMotorLeftFollower.EnableVoltageCompensation(10);
-    m_NeoMotorRightFollower.EnableVoltageCompensation(10);
+    m_NeoMotorLeft.EnableVoltageCompensation(11);
+    m_NeoMotorRight.EnableVoltageCompensation(11);
+    m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
+    m_NeoMotorRightFollower.EnableVoltageCompensation(11);
 
     m_NeoMotorLeft.SetSmartCurrentLimit(40);
     m_NeoMotorLeftFollower.SetSmartCurrentLimit(40);
@@ -45,7 +45,7 @@ Gearbox::Gearbox()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-    m_solenoid.Set(frc::DoubleSolenoid::Value::kReverse);
+    m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void Gearbox::Periodic()

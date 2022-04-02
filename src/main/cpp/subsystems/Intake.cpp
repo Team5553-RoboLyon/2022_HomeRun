@@ -5,12 +5,19 @@ Intake::Intake()
     m_IntakeMotor.SetInverted(false);
     m_IntakeMotor.ConfigClosedloopRamp(0.5);
     m_IntakeMotor.EnableVoltageCompensation(10);
-    // m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
+    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void Intake::ActiveMotor()
 {
-    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
+    if (IntakePosition)
+    {
+        m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
+    }
+    else
+    {
+        StopMotor();
+    }
 }
 
 void Intake::UnblockMotor()

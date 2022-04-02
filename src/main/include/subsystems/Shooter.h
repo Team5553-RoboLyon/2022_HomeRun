@@ -15,6 +15,7 @@ public:
   void Periodic() override;
   void SetSpeed(double speed);
   double AppliedSpeed();
+  int m_countShooter;
 
 private:
   ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{SHOOTER_FALCON_MOTOR_ID};

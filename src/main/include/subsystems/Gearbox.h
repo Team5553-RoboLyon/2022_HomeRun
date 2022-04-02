@@ -61,5 +61,5 @@ private:
 
     frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD,
                                    DRIVETRAIN_SOLENOID_ID_REVERSE};
-    PTOState m_ptoState = PTOState::None;
+    PTOState m_ptoState = PTOState::Driving;
 };

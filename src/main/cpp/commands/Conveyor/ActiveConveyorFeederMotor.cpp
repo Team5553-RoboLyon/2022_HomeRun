@@ -4,10 +4,11 @@
 
 #include "commands/Conveyor/ActiveConveyorFeederMotor.h"
 
-ActiveConveyorFeederMotor::ActiveConveyorFeederMotor(Conveyor *pconveyor)
-    : m_pConveyor(pconveyor)
+ActiveConveyorFeederMotor::ActiveConveyorFeederMotor(Conveyor *pconveyor, Shooter *pshooter)
+    : m_pConveyor(pconveyor), m_pShooter(pshooter)
 {
   AddRequirements(m_pConveyor);
+  AddRequirements(m_pShooter);
 }
 
 // Called when the command is initially scheduled.
@@ -15,41 +16,47 @@ void ActiveConveyorFeederMotor::Initialize()
 {
   m_pConveyor->m_count = 0;
   m_pConveyor->m_state = Conveyor::state::_INIT;
+  m_pShooter->m_countShooter = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ActiveConveyorFeederMotor::Execute()
 {
-  switch (m_pConveyor->m_state)
+  m_pShooter->m_countShooter += 1;
+  m_pShooter->SetSpeed(0.5);
+  if (m_pShooter->m_countShooter >= 25)
   {
-  case Conveyor::state::_INIT:
+    switch (m_pConveyor->m_state)
+    {
+    case Conveyor::state::_INIT:
 
-    if (m_pConveyor->m_count >= 20)
-    {
-      m_pConveyor->m_state = Conveyor::state::_ENABLE;
-    }
-    else
-    {
-      m_pConveyor->UnblockFeedingMotor();
-      if (m_pConveyor->m_count <= 8)
+      if (m_pConveyor->m_count >= 20)
       {
-        m_pConveyor->UnblockConveyorMotor();
+        m_pConveyor->m_state = Conveyor::state::_ENABLE;
       }
       else
       {
-        m_pConveyor->StopConveyorMotor();
+        m_pConveyor->UnblockFeedingMotor();
+        if (m_pConveyor->m_count <= 8)
+        {
+          m_pConveyor->UnblockConveyorMotor();
+        }
+        else
+        {
+          m_pConveyor->StopConveyorMotor();
+        }
       }
+      m_pConveyor->m_count += 1;
+
+      break;
+    case Conveyor::state::_ENABLE:
+      m_pConveyor->ActiveConveyorMotor();
+      m_pConveyor->ActiveFeedingMotor();
+      break;
+
+    default:
+      break;
     }
-    m_pConveyor->m_count += 1;
-
-    break;
-  case Conveyor::state::_ENABLE:
-    m_pConveyor->ActiveConveyorMotor();
-    m_pConveyor->ActiveFeedingMotor();
-    break;
-
-  default:
-    break;
   }
 }
 
@@ -57,6 +64,7 @@ void ActiveConveyorFeederMotor::Execute()
 void ActiveConveyorFeederMotor::End(bool interrupted)
 {
   m_pConveyor->StopAllMotors();
+  m_pShooter->SetSpeed(0.0);
 }
 
 // Returns true when the command should end.
