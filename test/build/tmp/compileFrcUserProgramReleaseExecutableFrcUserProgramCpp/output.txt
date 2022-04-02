@@ -1,0 +1,4 @@
+See file:///home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramReleaseExecutableFrcUserProgramCpp.
+compiling Robot.cpp successful.
+
+Finished compileFrcUserProgramReleaseExecutableFrcUserProgramCpp, see full log file:///home/eymeric/code_bidouille/projets/robolyon/2022_Robot/test/build/tmp/compileFrcUserProgramReleaseExecutableFrcUserProgramCpp/output.txt.

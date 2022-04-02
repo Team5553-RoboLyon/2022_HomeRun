@@ -13,7 +13,7 @@ ChangeIntakePosition::ChangeIntakePosition(Intake *pintake)
 
 void ChangeIntakePosition::Initialize()
 {
-  spdlog::trace("ChangeIntakePosition::Initialize()");
+  spdlog::debug("ChangeIntakePosition::Initialize()");
   m_pIntake->ChangePosition();
 }
 

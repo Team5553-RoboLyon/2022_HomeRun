@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="2022_Robot" targetName="2022_Robot" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="implementation de trapezoide !">
+      <change afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Climber.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Gearbox.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/include/subsystems/Climber.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/include/subsystems/Gearbox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/compile_commands.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="2022_Robot" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="2022_Robot" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Shooter-test" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="26IVfXwOOE0UqMGPwJcJzmKpzUC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.advertisement.text.has.clang-format" value="true" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/compile_commands.json" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/third_party/robolyon_lib/src" />
+      <recent name="$PROJECT_DIR$/third_party/robolyon_lib/include" />
+      <recent name="$PROJECT_DIR$/src/main/include" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.2022_Robot [build]">
+    <configuration name="2022_Robot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="2022_Robot" TARGET_NAME="2022_Robot" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="2022_Robot" RUN_TARGET_NAME="2022_Robot">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="2022_Robot [build]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.2022_Robot" />
+      <item itemvalue="Gradle.2022_Robot [build]" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="" />
+      <created>1647111191000</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647111191000</updated>
+      <workItem from="1647111192545" duration="1426000" />
+      <workItem from="1647186162369" duration="348000" />
+      <workItem from="1647186528140" duration="6474000" />
+      <workItem from="1647204681195" duration="1300000" />
+      <workItem from="1647208915675" duration="5771000" />
+      <workItem from="1647269318176" duration="36000" />
+      <workItem from="1647269373729" duration="35000" />
+      <workItem from="1647454704715" duration="1024000" />
+      <workItem from="1647461590899" duration="1663000" />
+      <workItem from="1648156781316" duration="297000" />
+      <workItem from="1648192762841" duration="856000" />
+      <workItem from="1648282454000" duration="1742000" />
+      <workItem from="1648286003160" duration="283000" />
+      <workItem from="1648287842704" duration="27000" />
+      <workItem from="1648310739645" duration="18000" />
+      <workItem from="1648310813965" duration="25000" />
+    </task>
+    <task id="LOCAL-00001" summary="faut tenter des truc en feed forward mais c'est pas fini">
+      <created>1647207401696</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1647207401696</updated>
+    </task>
+    <task id="LOCAL-00002" summary="on avance doucement mais pas surement">
+      <created>1647211107022</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1647211107022</updated>
+    </task>
+    <task id="LOCAL-00003" summary="une class hallSecurity toute belle et en bonus elle est implementé dans le hood c'est ti pas beau">
+      <created>1647214524801</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1647214524801</updated>
+    </task>
+    <task id="LOCAL-00004" summary="sans les bug c'est mieux">
+      <created>1647214675766</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1647214675766</updated>
+    </task>
+    <task id="LOCAL-00005" summary="implementation de trapezoide !">
+      <created>1647463227796</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1647463227796</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/third_party/robolyon_lib" />
+    </ignored-roots>
+    <MESSAGE value="faut tenter des truc en feed forward mais c'est pas fini" />
+    <MESSAGE value="on avance doucement mais pas surement" />
+    <MESSAGE value="une class hallSecurity toute belle et en bonus elle est implementé dans le hood c'est ti pas beau" />
+    <MESSAGE value="sans les bug c'est mieux" />
+    <MESSAGE value="implementation de trapezoide !" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementation de trapezoide !" />
+  </component>
+</project>

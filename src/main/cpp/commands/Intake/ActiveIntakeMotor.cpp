@@ -18,7 +18,7 @@ void ActiveIntakeMotor::Initialize()
 
 void ActiveIntakeMotor::Execute()
 {
-  spdlog::trace("ActiveIntakeMotor::Execute()");
+  spdlog::debug("ActiveIntakeMotor::Execute()");
   m_pIntake->ActiveMotor();
 }
 

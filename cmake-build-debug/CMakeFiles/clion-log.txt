@@ -1,0 +1,13 @@
+/usr/share/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/share/clion/bin/ninja/linux/ninja -G Ninja /home/eymeric/code_bidouille/projets/robolyon/2022_Robot
+-- Configuring done
+CMake Error at CMakeLists.txt:30 (add_executable):
+  Cannot find source file:
+
+    src/main/cpp/lib/Hallsecurity.cpp
+
+
+CMake Error at CMakeLists.txt:30 (add_executable):
+  No SOURCES given to target: 2022_Robot
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

@@ -17,28 +17,20 @@ protected:
     frc::sim::SimDeviceSim RightMotorFollower{("WRAPPER::SPARK MAX [" + std::to_string(DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID) + "]").c_str()};
     frc::sim::SimDeviceSim LeftMotor{("WRAPPER::SPARK MAX [" + std::to_string(DRIVETRAIN_NEO_MOTOR_LEFT_ID) + "]").c_str()};
     frc::sim::SimDeviceSim LeftMotorFollower{("WRAPPER::SPARK MAX [" + std::to_string(DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID) + "]").c_str()};
-#if IS_DRIVETRAIN_OMNIBASE
-    // frc::sim::SimDeviceSim FalconMotor = ;
-#endif
 };
 
-void callbackt(const char *valueName, HAL_SimValueHandle handle, int value, const HAL_Value *HALValue)
-{
-    spdlog::debug("{} = {}", valueName, value);
-}
-
-#if IS_DRIVETRAIN_OMNIBASE
 TEST_F(DrivetrainTest, MotorRightFollowerTest)
 {
-    drivetrain.Drive(0.76, 0.5, 0.2);
+    drivetrain.Drive(0.76, 0.5, 0.2, Drivetrain::PTOState::Driving);
     EXPECT_EQ(RightMotorFollower.GetDouble("Setpoint").Get(), RightMotor.GetDouble("Setpoint").Get()); // Motor must be at speed
 }
 
 TEST_F(DrivetrainTest, MotorLeftFollowerTest)
 {
-    drivetrain.Drive(0.76, 0.5, 0.2);
+    drivetrain.Drive(0.76, 0.5, 0.2, Drivetrain::PTOState::Driving);
     EXPECT_EQ(LeftMotorFollower.GetDouble("Setpoint").Get(), LeftMotor.GetDouble("Setpoint").Get()); // Motor must be at speed
 }
+
 /*
 TEST_F(DrivetrainTest, MotorCorrectSpeedTest)
 {
@@ -56,5 +48,3 @@ TEST_F(DrivetrainTest, MotorOverspeedTest)
     EXPECT_EQ(FalconMotor.GetDouble("Setpoint").Get(), 1); // Motor must be at speed
 }
 */
-
-#endif

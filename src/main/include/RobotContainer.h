@@ -12,27 +12,83 @@
 #include "lib/RobotError.h"
 
 #include "Constants.h"
-#include "subsystems/Drivetrain.h"
+
+#if GEARBOX
+#include "subsystems/Gearbox.h"
+#endif
+
+#if CLIMBER
 #include "subsystems/Climber.h"
+#endif
+
+#if DRIVETRAIN
+#include "subsystems/Drivetrain.h"
+#include "commands/drivetrain/Drive.h"
+#include "commands/tests/DrivetrainDirectionTest.h"
+#endif
+
+#if INTAKE
 #include "subsystems/Intake.h"
-#include "commands/driving/Drive.h"
-#include "commands/Climber/ClimberActiveMotor.h"
+#include "commands/Intake/ChangeIntakePosition.h"
+#include "commands/Intake/ActiveIntakeMotor.h"
+#include "commands/Intake/UnblockIntakeMotor.h"
+
+#endif
+
+#if CONVEYOR
+#include "subsystems/Conveyor.h"
+#include "commands/Conveyor/ActiveConveyorMotor.h"
+#include "commands/Conveyor/UnblockConveyorMotor.h"
+#include "commands/Conveyor/ActiveFeederMotor.h"
+#include "commands/Conveyor/UnblockFeederMotor.h"
+#include "commands/Conveyor/ActiveConveyorFeederMotor.h"
+#endif
+
+#if SHOOTER
+#include "subsystems/Shooter.h"
+#include "commands/Shoot/ActiveShooter.h"
+#include "commands/Shoot/SetShooterAuto.h"
+#endif
+
+#if HOOD
+#include "subsystems/Hood.h"
+#endif
+
 #include "lib/JsonConfig.h"
 
-#include "commands/tests/DrivetrainDirectionTest.h"
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
 class RobotContainer
 {
 public:
   RobotContainer();
-  void StartTests();
+  // void StartTests();
 
 private:
   void ConfigureButtonBindings();
 
-  Drivetrain m_Drivetrain;
-  Climber m_Climber;
+#if GEARBOX
+  Gearbox m_Gearbox;
+#endif
+#if CLIMBER
+  Climber m_Climber{&m_Gearbox};
+#endif
+#if DRIVETRAIN
+  Drivetrain m_Drivetrain{&m_Gearbox};
+#endif
+#if INTAKE
   Intake m_Intake;
+#endif
+#if CONVEYOR
+  Conveyor m_Conveyor;
+#endif
+#if SHOOTER
+  Shooter m_Shooter;
+#endif
+#if HOOD
+  Hood m_Hood;
+#endif
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};

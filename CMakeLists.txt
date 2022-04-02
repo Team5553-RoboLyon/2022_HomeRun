@@ -1,0 +1,210 @@
+cmake_minimum_required(VERSION 3.21)
+project(2022_Robot)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(src)
+include_directories(src/main)
+include_directories(src/main/include)
+include_directories(src/main/include/commands)
+include_directories(src/main/include/commands/Conveyor)
+include_directories(src/main/include/commands/drivetrain)
+include_directories(src/main/include/commands/Intake)
+include_directories(src/main/include/commands/tests)
+include_directories(src/main/include/lib)
+include_directories(src/main/include/lib/wrappers)
+include_directories(src/main/include/subsystems)
+include_directories(third_party)
+include_directories(third_party/spdlog-1.9.2)
+include_directories(third_party/spdlog-1.9.2/bench)
+include_directories(third_party/spdlog-1.9.2/include)
+include_directories(third_party/spdlog-1.9.2/include/spdlog)
+include_directories(third_party/spdlog-1.9.2/include/spdlog/cfg)
+include_directories(third_party/spdlog-1.9.2/include/spdlog/details)
+include_directories(third_party/spdlog-1.9.2/include/spdlog/fmt)
+include_directories(third_party/spdlog-1.9.2/include/spdlog/fmt/bundled)
+include_directories(third_party/spdlog-1.9.2/include/spdlog/sinks)
+include_directories(third_party/spdlog-1.9.2/tests)
+
+add_executable(2022_Robot
+        src/main/cpp/commands/Conveyor/ActiveConveyorMotor.cpp
+        src/main/cpp/commands/Conveyor/ActiveFeederMotor.cpp
+        src/main/cpp/commands/Conveyor/UnblockConveyorMotor.cpp
+        src/main/cpp/commands/Conveyor/UnblockFeederMotor.cpp
+        src/main/cpp/commands/drivetrain/Drive.cpp
+        src/main/cpp/commands/Intake/ActiveIntakeMotor.cpp
+        src/main/cpp/commands/Intake/ChangeIntakePosition.cpp
+        src/main/cpp/commands/Intake/UnblockIntakeMotor.cpp
+        src/main/cpp/commands/tests/DrivetrainDirectionTest.cpp
+        src/main/cpp/lib/wrappers/CANSparkMaxWrapper.cpp
+        src/main/cpp/lib/Hallsecurity.cpp
+        src/main/cpp/lib/JsonConfig.cpp
+        src/main/cpp/subsystems/Conveyor.cpp
+        src/main/cpp/subsystems/Drivetrain.cpp
+        src/main/cpp/subsystems/Hood.cpp
+        src/main/cpp/subsystems/Intake.cpp
+        src/main/cpp/subsystems/Shooter.cpp
+        src/main/cpp/subsystems/Turret.cpp
+        src/main/cpp/Robot.cpp
+        src/main/cpp/RobotContainer.cpp
+        src/main/include/commands/Conveyor/ActiveConveyorMotor.h
+        src/main/include/commands/Conveyor/ActiveFeederMotor.h
+        src/main/include/commands/Conveyor/UnblockConveyorMotor.h
+        src/main/include/commands/Conveyor/UnblockFeederMotor.h
+        src/main/include/commands/drivetrain/Drive.h
+        src/main/include/commands/Intake/ActiveIntakeMotor.h
+        src/main/include/commands/Intake/ChangeIntakePosition.h
+        src/main/include/commands/Intake/UnblockIntakeMotor.h
+        src/main/include/commands/tests/DrivetrainDirectionTest.h
+        src/main/include/lib/wrappers/CANSparkMaxWrapper.h
+        src/main/include/lib/HallSecurity.h
+        src/main/include/lib/JsonConfig.h
+        src/main/include/lib/RobotError.h
+        src/main/include/lib/Utils.h
+        src/main/include/subsystems/Conveyor.h
+        src/main/include/subsystems/Drivetrain.h
+        src/main/include/subsystems/Hood.h
+        src/main/include/subsystems/Intake.h
+        src/main/include/subsystems/Shooter.h
+        src/main/include/subsystems/Turret.h
+        src/main/include/Constants.h
+        src/main/include/Robot.h
+        src/main/include/RobotContainer.h
+        src/test/cpp/DrivetrainTest.cpp
+        src/test/cpp/IntakeTest.cpp
+        src/test/cpp/main.cpp
+        third_party/spdlog-1.9.2/bench/async_bench.cpp
+        third_party/spdlog-1.9.2/bench/bench.cpp
+        third_party/spdlog-1.9.2/bench/formatter-bench.cpp
+        third_party/spdlog-1.9.2/bench/latency.cpp
+        third_party/spdlog-1.9.2/bench/utils.h
+        third_party/spdlog-1.9.2/example/example.cpp
+        third_party/spdlog-1.9.2/include/spdlog/cfg/argv.h
+        third_party/spdlog-1.9.2/include/spdlog/cfg/env.h
+        third_party/spdlog-1.9.2/include/spdlog/cfg/helpers-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/cfg/helpers.h
+        third_party/spdlog-1.9.2/include/spdlog/details/backtracer-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/backtracer.h
+        third_party/spdlog-1.9.2/include/spdlog/details/circular_q.h
+        third_party/spdlog-1.9.2/include/spdlog/details/console_globals.h
+        third_party/spdlog-1.9.2/include/spdlog/details/file_helper-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/file_helper.h
+        third_party/spdlog-1.9.2/include/spdlog/details/fmt_helper.h
+        third_party/spdlog-1.9.2/include/spdlog/details/log_msg-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/log_msg.h
+        third_party/spdlog-1.9.2/include/spdlog/details/log_msg_buffer-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/log_msg_buffer.h
+        third_party/spdlog-1.9.2/include/spdlog/details/mpmc_blocking_q.h
+        third_party/spdlog-1.9.2/include/spdlog/details/null_mutex.h
+        third_party/spdlog-1.9.2/include/spdlog/details/os-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/os.h
+        third_party/spdlog-1.9.2/include/spdlog/details/periodic_worker-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/periodic_worker.h
+        third_party/spdlog-1.9.2/include/spdlog/details/registry-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/registry.h
+        third_party/spdlog-1.9.2/include/spdlog/details/synchronous_factory.h
+        third_party/spdlog-1.9.2/include/spdlog/details/tcp_client-windows.h
+        third_party/spdlog-1.9.2/include/spdlog/details/tcp_client.h
+        third_party/spdlog-1.9.2/include/spdlog/details/thread_pool-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/details/thread_pool.h
+        third_party/spdlog-1.9.2/include/spdlog/details/windows_include.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/args.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/chrono.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/color.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/compile.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/core.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/format-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/format.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/locale.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/os.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/ostream.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/printf.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/ranges.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bundled/xchar.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/bin_to_hex.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/chrono.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/compile.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/fmt.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/ostr.h
+        third_party/spdlog-1.9.2/include/spdlog/fmt/xchar.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/android_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/ansicolor_sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/ansicolor_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/base_sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/base_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/basic_file_sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/basic_file_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/daily_file_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/dist_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/dup_filter_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/hourly_file_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/mongo_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/msvc_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/null_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/ostream_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/qt_sinks.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/ringbuffer_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/rotating_file_sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/rotating_file_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/stdout_color_sinks-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/stdout_color_sinks.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/stdout_sinks-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/stdout_sinks.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/syslog_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/systemd_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/tcp_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/win_eventlog_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/wincolor_sink-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/sinks/wincolor_sink.h
+        third_party/spdlog-1.9.2/include/spdlog/async.h
+        third_party/spdlog-1.9.2/include/spdlog/async_logger-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/async_logger.h
+        third_party/spdlog-1.9.2/include/spdlog/common-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/common.h
+        third_party/spdlog-1.9.2/include/spdlog/formatter.h
+        third_party/spdlog-1.9.2/include/spdlog/fwd.h
+        third_party/spdlog-1.9.2/include/spdlog/logger-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/logger.h
+        third_party/spdlog-1.9.2/include/spdlog/pattern_formatter-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/pattern_formatter.h
+        third_party/spdlog-1.9.2/include/spdlog/spdlog-inl.h
+        third_party/spdlog-1.9.2/include/spdlog/spdlog.h
+        third_party/spdlog-1.9.2/include/spdlog/stopwatch.h
+        third_party/spdlog-1.9.2/include/spdlog/tweakme.h
+        third_party/spdlog-1.9.2/include/spdlog/version.h
+        third_party/spdlog-1.9.2/src/async.cpp
+        third_party/spdlog-1.9.2/src/cfg.cpp
+        third_party/spdlog-1.9.2/src/color_sinks.cpp
+        third_party/spdlog-1.9.2/src/file_sinks.cpp
+        third_party/spdlog-1.9.2/src/fmt.cpp
+        third_party/spdlog-1.9.2/src/spdlog.cpp
+        third_party/spdlog-1.9.2/src/stdout_sinks.cpp
+        third_party/spdlog-1.9.2/tests/catch.hpp
+        third_party/spdlog-1.9.2/tests/includes.h
+        third_party/spdlog-1.9.2/tests/main.cpp
+        third_party/spdlog-1.9.2/tests/test_async.cpp
+        third_party/spdlog-1.9.2/tests/test_backtrace.cpp
+        third_party/spdlog-1.9.2/tests/test_cfg.cpp
+        third_party/spdlog-1.9.2/tests/test_create_dir.cpp
+        third_party/spdlog-1.9.2/tests/test_daily_logger.cpp
+        third_party/spdlog-1.9.2/tests/test_dup_filter.cpp
+        third_party/spdlog-1.9.2/tests/test_errors.cpp
+        third_party/spdlog-1.9.2/tests/test_eventlog.cpp
+        third_party/spdlog-1.9.2/tests/test_file_helper.cpp
+        third_party/spdlog-1.9.2/tests/test_file_logging.cpp
+        third_party/spdlog-1.9.2/tests/test_fmt_helper.cpp
+        third_party/spdlog-1.9.2/tests/test_macros.cpp
+        third_party/spdlog-1.9.2/tests/test_misc.cpp
+        third_party/spdlog-1.9.2/tests/test_mpmc_q.cpp
+        third_party/spdlog-1.9.2/tests/test_pattern_formatter.cpp
+        third_party/spdlog-1.9.2/tests/test_registry.cpp
+        third_party/spdlog-1.9.2/tests/test_sink.h
+        third_party/spdlog-1.9.2/tests/test_stdout_api.cpp
+        third_party/spdlog-1.9.2/tests/test_stopwatch.cpp
+        third_party/spdlog-1.9.2/tests/test_systemd.cpp
+        third_party/spdlog-1.9.2/tests/test_time_point.cpp
+        third_party/spdlog-1.9.2/tests/utils.cpp
+        third_party/spdlog-1.9.2/tests/utils.h)

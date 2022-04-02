@@ -15,9 +15,7 @@ void ClimberActiveMotor::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ClimberActiveMotor::Execute()
 {
-  double joystickInput = m_joystickInput() * 0.1;
-
-  m_pClimber->ActiveMotor(joystickInput);
+  // m_pClimber->ActiveMotor(joystickInput);
 }
 
 // Called once the command ends or is interrupted.

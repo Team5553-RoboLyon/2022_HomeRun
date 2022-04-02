@@ -7,6 +7,7 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
 #include <iostream>
+#include <iomanip>
 
 #include "RobotContainer.h"
 #include "Constants.h"
@@ -15,6 +16,7 @@
 #include <spdlog/spdlog.h>
 #include "spdlog/fmt/ostr.h" // must be included
 #include "spdlog/sinks/stdout_sinks.h"
+#include "spdlog/sinks/basic_file_sink.h"
 #include <frc/DutyCycleEncoder.h>
 #include <frc/DigitalInput.h>
 

@@ -80,6 +80,39 @@ model {
 
             wpi.cpp.deps.wpilib(it)
         }
+        
+        robolyon(NativeLibrarySpec) {
+            targetPlatform wpi.platforms.roborio
+            if (includeDesktopSupport) {
+                targetPlatform wpi.platforms.desktop
+            }
+
+            sources.cpp {
+                source {
+                    srcDir './third_party/robolyon_lib/src'
+                    include '**/*.cpp'
+                }
+                exportedHeaders {
+                    srcDir './third_party/robolyon_lib/include'
+                }
+            }
+
+            binaries.all {
+                if (targetPlatform.operatingSystem.isWindows()) {
+                    cppCompiler.args << '/std:c++17'
+                } else {
+                    cppCompiler.args << '-std=c++17'
+                }
+            }
+
+            binaries.withType(SharedLibraryBinarySpec) {
+                buildable = false
+            }
+
+            wpi.cpp.deps.wpilib(it)
+        }
+
+
         frcUserProgram(NativeExecutableSpec) {
             targetPlatform wpi.platforms.roborio
             if (includeDesktopSupport) {
@@ -95,6 +128,7 @@ model {
                     srcDir 'src/main/include'
                 }
         	    lib library: 'spdlog', linkage: 'static'
+                lib library: 'robolyon', linkage: 'static'
             }
 
             binaries.all {
@@ -128,6 +162,15 @@ model {
 
             sources.cpp {
                 source {
+                    srcDir './third_party/robolyon_lib/src'
+                    include '**/*.cpp'
+                }
+                exportedHeaders {
+                    srcDir './third_party/robolyon_lib/include'
+                }
+            }
+            sources.cpp {
+                source {
                     srcDir './third_party/spdlog-1.9.2/src'
                     include '**/*.cpp'
                 }
@@ -146,6 +189,7 @@ model {
             binaries.all {
                 cppCompiler.define 'SPDLOG_COMPILED_LIB'
                 cppCompiler.define 'SPDLOG_FMT_EXTERNAL'
+
             }
         }
     }

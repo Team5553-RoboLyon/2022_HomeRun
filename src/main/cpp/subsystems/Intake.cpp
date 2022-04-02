@@ -2,39 +2,45 @@
 
 Intake::Intake()
 {
-    m_IntakeMotor.RestoreFactoryDefaults();
-
-    m_IntakeMotor.SetInverted(true);
+    m_IntakeMotor.SetInverted(false);
+    m_IntakeMotor.ConfigClosedloopRamp(0.5);
+    m_IntakeMotor.EnableVoltageCompensation(10);
+    // m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
 }
 
 void Intake::ActiveMotor()
 {
-    m_IntakeMotor.Set(INTAKE_MOTOR_SPEED);
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
 }
 
 void Intake::UnblockMotor()
 {
-    m_IntakeMotor.Set(-INTAKE_MOTOR_SPEED);
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
 }
 
 void Intake::StopMotor()
 {
-    m_IntakeMotor.Set(0.0);
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
 void Intake::Open()
 {
     m_IntakeSolenoid.Set(frc::DoubleSolenoid::kReverse);
+    IntakePosition = false;
+    spdlog::debug("Open");
 }
 
 void Intake::Close()
 {
     m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
+    IntakePosition = true;
+    spdlog::debug("Close");
 }
 
 void Intake::ChangePosition()
 {
-    if (m_IntakeSolenoid.Get() == frc::DoubleSolenoid::kReverse)
+    spdlog::debug("ChangePosition");
+    if (IntakePosition)
     {
         Open();
     }

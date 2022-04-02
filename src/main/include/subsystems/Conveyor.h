@@ -6,6 +6,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <rev/CANSparkMax.h>
 
 #include "Constants.h"
 
@@ -13,10 +14,22 @@ class Conveyor : public frc2::SubsystemBase
 {
 public:
     Conveyor();
-    void ActiveMotor();
-    void UnblockMotor();
-    void StopMotor();
+    void StopAllMotors();
+    void ActiveFeedingMotor();
+    void ActiveConveyorMotor();
+    void UnblockFeedingMotor();
+    void UnblockConveyorMotor();
+    void StopFeedingMotor();
+    void StopConveyorMotor();
+    int m_count;
+    enum state
+    {
+        _INIT,
+        _ENABLE
+    };
+    state m_state;
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_ConveyorMotor{CONVEYOR_MOTOR_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
+    rev::CANSparkMax m_ConveyorMotor{CONVEYOR_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
 };

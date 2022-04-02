@@ -11,7 +11,23 @@
 
 void Robot::RobotInit()
 {
-  auto logger = spdlog::stdout_logger_mt("LOGGER");
+
+#if LOG_IN_FILE
+  std::vector<spdlog::sink_ptr> sinks;
+  sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_st>());
+  // Get timestamp
+  auto now = std::chrono::system_clock::now();
+  auto in_time_t = std::chrono::system_clock::to_time_t(now);
+  std::stringstream ss;
+  ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d_%H-%M-%S");
+  std::string time_stamp = ss.str();
+  std::string log_file_name = "/home/lvuser/logs/" + time_stamp + ".log";
+
+  sinks.push_back(std::make_shared<spdlog::sinks::basic_file_sink_st>(log_file_name));
+  std::shared_ptr<spdlog::logger> logger = std::make_shared<spdlog::logger>("LOGGER", begin(sinks), end(sinks));
+#else
+  std::shared_ptr<spdlog::logger> logger = spdlog::stdout_logger_mt("LOGGER");
+#endif
   spdlog::set_default_logger(logger);
 
   spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] %v");
@@ -19,9 +35,6 @@ void Robot::RobotInit()
 
   // JsonConfig::LoadConfig(CONFIG_FILE_PATH);
   spdlog::trace("RobotInit()");
-
-  spdlog::debug("OMNIBASE : {}", IS_DRIVETRAIN_OMNIBASE);
-  planetaryencoder.Reset();
 }
 
 void Robot::RobotPeriodic()
@@ -63,7 +76,7 @@ void Robot::TeleopPeriodic()
 void Robot::TestInit()
 {
   spdlog::trace("TestInit()");
-  m_container.StartTests();
+  // m_container.StartTests();
 }
 
 void Robot::TestPeriodic()
