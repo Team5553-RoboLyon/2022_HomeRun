@@ -16,17 +16,17 @@ SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood)
 
 void SetShooterAuto::Initialize()
 {
-  //   double distance = nt::NetworkTableInstance::GetDefault().GetTable("")->GetEntry("").GetDouble();
-  //   int *index = getNearestElementId(distance);
-  //   std::cout << "nearest : " << *(index) << " " << *(index + 1) << std::endl;
+  double distance = nt::NetworkTableInstance::GetDefault().GetTable("")->GetEntry("").GetDouble(0.0);
+  int *index = getNearestElementId(distance);
+  std::cout << "nearest : " << *(index) << " " << *(index + 1) << std::endl;
 
-  //   double t = (distance - shooterDataTable[*(index)][0]) / (shooterDataTable[*(index + 1)][0] - shooterDataTable[*(index)][0]);
-  //   std::cout << "t : " << t << std::endl;
-  //   std::cout << "distance calculated : " << LERP(shooterDataTable[*(index)][0], shooterDataTable[*(index + 1)][0], t) << std::endl;
-  //   std::cout << "angle calculated : " << LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
-  //   std::cout << "speed calculated : " << LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
-  //   m_hood->SetSetpoint(LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t));
-  //   m_shooter->SetSpeed(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
+  double t = (distance - shooterDataTable[*(index)][0]) / (shooterDataTable[*(index + 1)][0] - shooterDataTable[*(index)][0]);
+  std::cout << "t : " << t << std::endl;
+  std::cout << "distance calculated : " << LERP(shooterDataTable[*(index)][0], shooterDataTable[*(index + 1)][0], t) << std::endl;
+  std::cout << "angle calculated : " << LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
+  std::cout << "speed calculated : " << LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
+  m_hood->SetSetpoint(LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t));
+  m_shooter->SetSpeed(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
 }
 
 int *SetShooterAuto::getNearestElementId(double target)
