@@ -37,8 +37,8 @@
 
 // Intake
 #define INTAKE_MOTOR_ID 6
-#define INTAKE_SOLENOID_1_ID 3 // 3
-#define INTAKE_SOLENOID_2_ID 2 // 2
+#define INTAKE_SOLENOID_1_ID 5 // 3
+#define INTAKE_SOLENOID_2_ID 4 // 2
 
 // Hood
 #define HOOD_MOTOR_ID 10
