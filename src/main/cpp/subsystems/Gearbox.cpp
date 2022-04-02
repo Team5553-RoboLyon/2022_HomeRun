@@ -6,6 +6,7 @@
 
 Gearbox::Gearbox()
 {
+    // TODO samrtcurent a 45 sans voltage compensation
     spdlog::trace("Gearbox()");
     m_NeoMotorRight.RestoreFactoryDefaults();
     m_NeoMotorRightFollower.RestoreFactoryDefaults();

@@ -33,6 +33,7 @@ void ActiveConveyorFeederMotor::Execute()
       if (m_pConveyor->m_count >= 20)
       {
         m_pConveyor->m_state = Conveyor::state::_ENABLE;
+        m_pConveyor->m_count = 0;
       }
       else
       {
@@ -57,6 +58,7 @@ void ActiveConveyorFeederMotor::Execute()
       }
       else
       {
+        m_pConveyor->m_count += 1;
         m_pConveyor->ActiveConveyorMotor();
         m_pConveyor->ActiveFeedingMotor();
       }
