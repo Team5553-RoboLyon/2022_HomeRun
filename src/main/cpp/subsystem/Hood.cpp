@@ -21,8 +21,8 @@ Hood::Hood()
     m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_HoodMotor.SetInverted(true);
     GetController().SetIntegratorRange(-5, 5);
+    m_HoodMotor.SetSmartCurrentLimit(20);
 }
-bool Hood::MagnetDetected() { return !m_SensorHall.Get(); }
 
 void Hood::ResetEncoders()
 { /*

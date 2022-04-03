@@ -14,6 +14,9 @@ void Shooter::Init()
     m_ShooterMotorLeft.SetInverted(true);
     m_ShooterMotorRight.SetInverted(false);
 
-    m_ShooterMotorLeft.ConfigVoltageCompSaturation(11.0);
-    m_ShooterMotorRight.ConfigVoltageCompSaturation(11.0);
+    m_ShooterMotorLeft.ConfigVoltageCompSaturation(SHOOTER_VOLTAGE_COMPENSATION);
+    m_ShooterMotorRight.ConfigVoltageCompSaturation(SHOOTER_VOLTAGE_COMPENSATION);
+
+    m_ShooterMotorLeft.EnableVoltageCompensation(true);
+    m_ShooterMotorRight.EnableVoltageCompensation(true);
 }

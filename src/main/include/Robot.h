@@ -15,6 +15,8 @@
 #include "subsystem/Hood.h"
 #include "subsystem/Turret.h"
 #include "subsystem/Shooter.h"
+#include "subsystem/ShooterFeedingSystem.h"
+#include "Constants.h"
 
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
@@ -29,20 +31,19 @@ public:
   void TestPeriodic() override;
 
 private:
-  rev::CANSparkMax m_leftMotor{1, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftMotorFollower{2, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotor{7, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightMotorFollower{6, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_leftMotor{DRIVETRAIN_MOTOR_RIGHT_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_leftMotorFollower{DRIVETRAIN_MOTOR_RIGHT_FOLLOWER_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotor{DRIVETRAIN_MOTOR_LEFT_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_rightMotorFollower{DRIVETRAIN_MOTOR_LEFT_FOLLOWER_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
   frc::Joystick m_joystickRight{0};
   frc::Joystick m_joystickLeft{1};
-  // frc::DutyCycleEncoder m_encoderRotatingArms{0};
-  frc::DutyCycleEncoder m_encoderClimber{1};
-  frc::DoubleSolenoid m_solenoidRotatingArms{frc::PneumaticsModuleType::CTREPCM, 0, 1};
-  frc::DoubleSolenoid m_solenoidClimber{frc::PneumaticsModuleType::CTREPCM, 2, 3};
   frc::Compressor m_compressor{frc::PneumaticsModuleType::CTREPCM};
   double time = 0;
 
   Hood m_hood;
   Turret m_turret;
   Shooter m_shooter;
+  ShooterFeedingSystem m_feedingSystem;
+
+  double m_flyingWheelsSpeed = 0.0;
 };

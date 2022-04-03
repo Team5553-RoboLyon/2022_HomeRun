@@ -10,6 +10,7 @@
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
+#include "Constants.h"
 
 class Turret : public frc2::PIDSubsystem
 {
@@ -30,8 +31,7 @@ private:
         goTo0,
         ready,
     };
-    ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{8};
-    frc::Encoder m_encoderTurret{10, 11};
-    frc::DigitalInput m_SensorHall{7};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{TURRET_MOTOR_CAN_ID};
+    frc::Encoder m_encoderTurret{TURRET_ENCODER_ID_A, TURRET_ENCODER_ID_B};
     TurretState m_state = Turret::TurretState::ready;
 };

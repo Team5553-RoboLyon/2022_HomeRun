@@ -9,6 +9,7 @@
 #include <rev/CANSparkMax.h>
 #include <iostream>
 #include <frc/DigitalInput.h>
+#include "Constants.h"
 
 class Hood : public frc2::PIDSubsystem
 {
@@ -38,8 +39,7 @@ public:
     Hood::state m_state = Hood::state::encodeurReset;
 
 private:
-    frc::DutyCycleEncoder m_encoderHood{0};
-    frc::DigitalInput m_SensorHall{8};
+    frc::Encoder m_encoderHood{HOOD_ENCODER_ID_A, HOOD_ENCODER_ID_B};
 
-    rev::CANSparkMax m_HoodMotor{5, rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax m_HoodMotor{HOOD_MOTOR_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
 };

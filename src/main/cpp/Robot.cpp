@@ -42,6 +42,11 @@ void Robot::RobotInit()
   m_rightMotor.SetInverted(false);
   m_rightMotorFollower.SetInverted(false);
 
+  m_leftMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_leftMotorFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_rightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  m_rightMotorFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+
   m_shooter.Init();
 
   m_turret.ResetEncoder();
@@ -54,13 +59,12 @@ void Robot::RobotPeriodic()
 
 void Robot::TeleopInit()
 {
-  m_solenoidClimber.Set(frc::DoubleSolenoid::Value::kForward);
-  m_solenoidRotatingArms.Set(frc::DoubleSolenoid::Value::kForward);
   m_hood.Enable();
   m_turret.Enable();
   // a mettre dans init de m_hood et m_turret
   frc::SmartDashboard::PutNumber("Setpoint m_turret", frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
-  frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0));
+  frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 1.0));
+  m_feedingSystem.SetIntakeState(frc::DoubleSolenoid::Value::kReverse);
 }
 
 /**
@@ -68,76 +72,60 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  bool isAnyPTOEnabled = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ||
-                         m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse;
 
-  double speedCoefficientLeft = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.4 : 0.2;
-  double speedCoefficientRight = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse ? 0.8 : 0.2;
-  double speedRight = utils::Deadband(-m_joystickRight.GetY(), 0.15) * speedCoefficientRight;
-  double speedLeft = utils::Deadband(-m_joystickLeft.GetY(), 0.15) * speedCoefficientLeft;
-  frc::SmartDashboard::PutNumber("speedRight", speedRight);
-  frc::SmartDashboard::PutNumber("speedLeft", speedLeft);
-
-  if (m_joystickLeft.GetRawButtonPressed(1))
+  if (m_joystickRight.GetRawButtonPressed(8))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidClimber.Set(value);
+    m_hood.SetSetpoint(m_hood.GetSetpoint() + 0.5);
+  }
+  if (m_joystickRight.GetRawButtonPressed(7))
+  {
+    m_hood.SetSetpoint(m_hood.GetSetpoint() - 0.5);
   }
 
-  if (m_joystickRight.GetRawButtonPressed(1))
+  if (m_joystickRight.GetRawButtonPressed(6))
   {
-    frc::DoubleSolenoid::Value value = m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward;
-    m_solenoidRotatingArms.Set(value);
+    m_flyingWheelsSpeed += 0.5;
+  }
+  if (m_joystickRight.GetRawButtonPressed(5))
+  {
+    m_flyingWheelsSpeed -= 0.5;
+  }
+
+  if (m_joystickLeft.GetRawButton(1))
+  {
+    m_feedingSystem.ActivateConveyor();
+    m_feedingSystem.ActivateIntake();
+  }
+  else
+  {
+    m_feedingSystem.StopConveyor();
+    m_feedingSystem.StopIntake();
+  }
+
+  if (m_joystickRight.GetRawButton(1))
+  {
+    m_feedingSystem.ActivateFeeder();
+  }
+  else
+  {
+    m_feedingSystem.StopFeeder();
   }
 
   if (m_joystickRight.GetRawButtonPressed(2))
   {
-    if (m_compressor.Enabled())
-    {
-      m_compressor.Disable();
-    }
-    else
-    {
-      m_compressor.EnableDigital();
-    }
+    m_feedingSystem.SetIntakeState(m_feedingSystem.GetIntakeState() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward);
   }
 
-  if (m_solenoidClimber.Get() == frc::DoubleSolenoid::Value::kReverse)
-  {
-    m_leftMotor.Set(speedLeft);
-  }
-
-  if (m_solenoidRotatingArms.Get() == frc::DoubleSolenoid::Value::kReverse)
-  {
-    m_rightMotor.Set(-speedRight);
-  }
-
-  if (!isAnyPTOEnabled)
-  {
-    m_leftMotor.Set(speedLeft);
-    m_rightMotor.Set(speedRight);
-  }
-
-  frc::SmartDashboard::PutNumber("shooter output", m_joystickLeft.GetThrottle());
-  if (m_joystickLeft.GetRawButton(2))
-  {
-    m_shooter.Set(m_joystickLeft.GetThrottle());
-  }
-  else
-  {
-    m_shooter.Set(0.0);
-  }
-  if (m_joystickRight.GetRawButton(5))
-  {
-    m_hood.Enable();
-  }
-  else
-  {
-    m_hood.Disable();
-  }
+  std::clamp(m_flyingWheelsSpeed, 0.0, SHOOTER_VOLTAGE_COMPENSATION);
 
   m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
   m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
+
+  frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
+  frc::SmartDashboard::PutNumber("Speed Shooter", m_flyingWheelsSpeed);
+  frc::SmartDashboard::PutNumber("Setpoint Turret", m_turret.GetSetpoint());
+
+  m_shooter.Set(m_flyingWheelsSpeed);
 }
 
 /**
