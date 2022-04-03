@@ -133,10 +133,6 @@ void RobotContainer::ConfigureButtonBindings()
                                                          {
                                                            m_Hood.Disable();
                                                          } }));
-
-  frc2::JoystickButton m_buttonResetHood = frc2::JoystickButton(&m_DriverLeftJoystick, 4);
-  m_buttonResetHood.WhenActive(frc2::InstantCommand([this]
-                                                    { m_Hood.ResetEncoders(); }));
 }
 
 // void RobotContainer::StartTests()

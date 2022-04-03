@@ -15,6 +15,7 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <robolyon/HallSecurity.h>
 #include "Constants.h"
+#include <spdlog/spdlog.h>
 
 class Hood : public frc2::SubsystemBase
 {

@@ -6,7 +6,7 @@
 
 Hood::Hood()
 {
-    m_encoderHood.SetDistancePerPulse(-(58 / 4.2));
+    m_encoderHood.SetDistancePerPulse(HOOD_ENCODER_CONVERSION_FACTOR);
 
     Enable();
     SetSetpoint(0.0);
@@ -16,10 +16,9 @@ Hood::Hood()
     m_HoodMotor.SetSmartCurrentLimit(20);
     m_controller.SetIntegratorRange(-5, 5);
     frc::SmartDashboard::PutNumber("hood setpoint", m_setPoint);
-
     m_state = Hood::state::Disabled;
 
-    m_hallSecurity.setInverted(true); // TODO verifier ca mais je pense que c'est vrai
+    m_hallSecurity.setInverted(false);
 }
 
 void Hood::Enable()
@@ -34,7 +33,7 @@ void Hood::Disable()
 
 void Hood::SetSetpoint(double setpoint)
 {
-    m_setPoint = setpoint;
+    m_setPoint = std::clamp(setpoint, 1.0, 58.0);
 }
 
 void Hood::ResetEncoders()
@@ -49,19 +48,25 @@ double Hood::GetMeasurement()
 
 void Hood::Periodic()
 {
-    double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
-    frc::SmartDashboard::PutNumber("outputHood", output);
-    frc::SmartDashboard::PutNumber("encodeur hood", GetMeasurement());
     SetSetpoint(frc::SmartDashboard::GetNumber("hood setpoint", m_setPoint));
     switch (m_state)
     {
     case Hood::state::Enabled:
+    {
+        double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
+        frc::SmartDashboard::PutNumber("outputHood", output);
+        frc::SmartDashboard::PutNumber("encodeur hood", GetMeasurement());
         m_HoodMotor.Set(output);
         break;
+    }
     case Hood::state::Disabled:
+    {
         m_HoodMotor.Set(0.0);
         break;
+    }
     default:
+    {
         break;
+    }
     }
 }
