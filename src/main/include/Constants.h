@@ -75,7 +75,7 @@
 
 // Hood PID
 #define HOOD_PID_P 0.02 // 0.035
-#define HOOD_PID_I 0.01 // 0.008
+#define HOOD_PID_I 0.008 // 0.008
 #define HOOD_PID_D 0.0  // 0.004
 #define HOOD_ENCODER_CONVERSION_FACTOR 58.0 / 8604.0
 #define HOOD_PID_TOLERANCE 0
