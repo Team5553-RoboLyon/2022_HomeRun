@@ -6,7 +6,7 @@
 
 Hood::Hood()
 {
-    m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
+    m_encoderHood.SetDistancePerPulse(-(58 / 4.2));
 
     Enable();
     SetSetpoint(0.0);
@@ -51,11 +51,11 @@ void Hood::Periodic()
     switch (m_state)
     {
     case Hood::state::WaitingEncoder:
-        if (m_encoderHood.IsConnected())
-        {
-            ResetEncoders();
-            m_state = Hood::state::Enabled; // TODO attention on saute le mode init la !!!!!
-        }
+        // if (m_encoderHood.())
+        // {
+        //     ResetEncoders();
+        //     m_state = Hood::state::Enabled; // TODO attention on saute le mode init la !!!!!
+        // }
         break;
     case Hood::state::Init:
         if (m_hallSecurity.MagnetDetected())
@@ -95,7 +95,7 @@ void Hood::Periodic()
         break;
     }
     frc::SmartDashboard::PutNumber("outputHood", output);
-    frc::SmartDashboard::PutNumber("setpointHood",0.0);
+    frc::SmartDashboard::PutNumber("setpointHood", 0.0);
     frc::SmartDashboard::PutNumber("measurementHood", GetMeasurement());
     frc::SmartDashboard::PutNumber("stateHood", m_state);
 }

@@ -34,7 +34,7 @@ void RobotContainer::ConfigureButtonBindings()
   spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
 #if GEARBOX
-  frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
+  // frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
   // m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
   //                                                        { Gearbox::PTOState newPTOState =( m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving) ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
   //                                            m_Gearbox.SetPTOState(newPTOState); }));
@@ -55,7 +55,6 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton m_buttonConveyorFeederActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
   m_buttonConveyorFeederActiveMotor.WhileActiveContinous(ActiveConveyorFeederMotor(&m_Conveyor, &m_Shooter));
 
-
   frc2::JoystickButton m_buttonConveyorUnblockMotor = frc2::JoystickButton(&m_DriverRightJoystick, 11);
   m_buttonConveyorUnblockMotor.WhileActiveContinous(UnblockConveyorMotor(&m_Conveyor));
 
@@ -68,16 +67,19 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), ActiveConveyorMotor(&m_Conveyor)));
 #endif
 
-   frc2::JoystickButton m_buttonChangeModeHood = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-    m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
-                                                            { if(m_Hood.m_state==Hood::state::Enabled)
+  frc2::JoystickButton m_buttonChangeModeHood = frc2::JoystickButton(&m_DriverRightJoystick, 3);
+  m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
+                                                         { if(m_Hood.m_state==Hood::state::Enabled)
                                                             {
                                                               m_Hood.m_state=Hood::state::Disabled;
                                                             }
                                                             else
                                                             {
                                                               m_Hood.m_state=Hood::state::Enabled;
-                                                            }}));
+                                                            } }));
+  frc2::JoystickButton m_buttonResetEncoder = frc2::JoystickButton(&m_DriverRightJoystick, 4);
+  m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
+                                                         { m_Hood.ResetEncoders(); }));
 
   frc2::JoystickButton m_buttonCompressor = frc2::JoystickButton(&m_DriverRightJoystick, 10);
   m_buttonCompressor.WhenActive(frc2::InstantCommand([this]
