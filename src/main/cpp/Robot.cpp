@@ -124,7 +124,7 @@ void Robot::AutonomousPeriodic()
     m_dsLeftWheel = l;
     m_dsRightWheel = r;
     // forward:
-    m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, dl, dr, (m_gyro.GetAngle().value() * NF64_2PI / 360.0));
+    m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, dl, dr, (m_gyro.GetAngle() * NF64_2PI / 360.0));
 
     // backward:
     // m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, -dr, -dl, m_gyro.get());

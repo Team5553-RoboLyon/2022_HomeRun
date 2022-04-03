@@ -21,7 +21,7 @@
 #include <frc/DigitalInput.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-#include <frc/ADIS16470_IMU.h>
+#include <frc/AnalogGyro.h>
 
 #include <ostream>
 
@@ -77,5 +77,5 @@ private:
   NLTRAJECTORY_PACK m_TrajectoryStatePack;
   NLTRAJECTORY_STATE m_currrentState;
 
-  frc::ADIS16470_IMU m_gyro;
+  frc::AnalogGyro m_gyro{0};
 };
