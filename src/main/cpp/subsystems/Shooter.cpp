@@ -17,8 +17,8 @@ Shooter::Shooter()
     m_MotorLeft.ConfigVoltageCompSaturation(11);
     m_MotorRight.ConfigVoltageCompSaturation(11);
 
-    m_MotorLeft.EnableVoltageCompensation(0.5);
-    m_MotorRight.EnableVoltageCompensation(0.5);
+    m_MotorLeft.EnableVoltageCompensation(true);
+    m_MotorRight.EnableVoltageCompensation(true);
 }
 
 void Shooter::SetSpeed(double speed)
