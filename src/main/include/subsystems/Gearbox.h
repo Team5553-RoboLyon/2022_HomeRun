@@ -32,7 +32,7 @@ public:
 
     Gearbox();
 
-    void Periodic() ;
+    void Periodic();
 
     void Stop();
 
@@ -73,8 +73,8 @@ private:
     frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD,
                                    DRIVETRAIN_SOLENOID_ID_REVERSE};
 
-    frc::Encoder m_encodeurExterneDroite{0, 1, false, frc::Encoder::k4X};
-    frc::Encoder m_encodeurExterneGauche{2, 3, true, frc::Encoder::k4X};
+    frc::Encoder m_encodeurExterneDroite{DRIVETRAIN_ENCODER_EXTERN_RIGHT_A_ID, DRIVETRAIN_ENCODER_EXTERN_RIGHT_B_ID, false, frc::Encoder::k4X};
+    frc::Encoder m_encodeurExterneGauche{DRIVETRAIN_ENCODER_EXTERN_LEFT_A_ID, DRIVETRAIN_ENCODER_EXTERN_LEFT_B_ID, true, frc::Encoder::k4X};
 
     PTOState m_ptoState = PTOState::None;
 };

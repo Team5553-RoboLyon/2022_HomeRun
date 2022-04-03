@@ -6,7 +6,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <frc2/command/ProfiledPIDCommand.h>
-#include <frc/DutyCycleEncoder.h>
+#include <frc/Encoder.h>
 #include <rev/CANSparkMax.h>
 #include <iostream>
 #include <frc/DigitalInput.h>
@@ -14,6 +14,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <robolyon/HallSecurity.h>
+#include "Constants.h"
 
 class Hood : public frc2::SubsystemBase
 {
@@ -22,7 +23,7 @@ public:
 
     double GetMeasurement();
 
-    void Periodic() ;
+    void Periodic();
 
     void SetSetpoint(double setpoint);
 
@@ -45,10 +46,10 @@ private:
     frc::ProfiledPIDController<units::degree> m_controller{
         0.035, 0.008, 0.0004,
         frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
-    frc::DutyCycleEncoder m_encoderHood{0};
+    frc::Encoder m_encoderHood{HOOD_ENCODER_A_ID, HOOD_ENCODER_B_ID};
 
-    rev::CANSparkMax m_HoodMotor{18, rev::CANSparkMax::MotorType::kBrushless};
-    HallSecurity m_hallSecurity{8, 0.3};
+    rev::CANSparkMax m_HoodMotor{HOOD_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+    HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
 
     double m_setPoint = 0;
 };

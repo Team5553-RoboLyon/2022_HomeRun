@@ -42,22 +42,21 @@ public:
     PATH_END        ///< La Vitesse  est en d�passement.
   };
 
-  void RobotInit() ;
-  void RobotPeriodic() ;
-  void DisabledInit() ;
-  void DisabledPeriodic() ;
-  void AutonomousInit() ;
-  void AutonomousPeriodic() ;
-  void TeleopInit() ;
-  void TeleopPeriodic() ;
-  void TestInit() ;
-  void TestPeriodic() ;
+  void RobotInit();
+  void RobotPeriodic();
+  void DisabledInit();
+  void DisabledPeriodic();
+  void AutonomousInit();
+  void AutonomousPeriodic();
+  void TeleopInit();
+  void TeleopPeriodic();
+  void TestInit();
+  void TestPeriodic();
 
 private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
   frc2::Command *m_autonomousCommand = nullptr;
-  frc::DutyCycleEncoder planetaryencoder{1};
 
   RobotContainer m_container;
   STATE m_state;

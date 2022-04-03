@@ -10,13 +10,14 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
 #include <frc/Timer.h>
+#include "Constants.h"
 
 class Turret : public frc2::PIDSubsystem
 {
 public:
   Turret();
-  void UseOutput(double output, double setpoint) ;
-  double GetMeasurement() ;
+  void UseOutput(double output, double setpoint);
+  double GetMeasurement();
   void ResetEncoder();
   void SetPID(double p, double i, double d);
   bool MagnetDetected();
@@ -37,9 +38,9 @@ private:
     dg_Direction,
     StopSecure
   };
-  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{4};
-  frc::Encoder m_encoderTurret{10, 11};
-  frc::DigitalInput m_SensorHall{7};
+  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{TURRET_MOTOR_ID};
+  frc::Encoder m_encoderTurret{TURRET_ENCODER_A_ID, TURRET_ENCODER_B_ID};
+  frc::DigitalInput m_SensorHall{TURRET_SENSOR_HALL_ID};
   State m_State = Turret::State::unknownPosition;
   frc::Timer m_Timer;
 };
