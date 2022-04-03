@@ -115,11 +115,6 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), ActiveConveyorMotor(&m_Conveyor)));
 #endif
 
-  // #if SHOOTER
-  //   frc2::JoystickButton m_buttonShooterActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
-  //   m_buttonShooterActiveMotor.WhileActiveContinous(ActiveShooter(&m_Shooter));
-  // #endif
-
   frc2::JoystickButton m_buttonCompressor = frc2::JoystickButton(&m_DriverRightJoystick, 10);
   m_buttonCompressor.WhenActive(frc2::InstantCommand([this]
                                                      {if (m_Compressor.Enabled()){
@@ -127,6 +122,21 @@ void RobotContainer::ConfigureButtonBindings()
                                                          }else{
                                                            m_Compressor.EnableDigital();
                                                          } }));
+
+  frc2::JoystickButton m_buttonChangeModeHood = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
+                                                         { if (m_Hood.m_state==m_Hood.Hood::state::Disabled)
+                                                         {
+                                                           m_Hood.Enable();
+                                                         }
+                                                         else
+                                                         {
+                                                           m_Hood.Disable();
+                                                         } }));
+
+  frc2::JoystickButton m_buttonResetHood = frc2::JoystickButton(&m_DriverLeftJoystick, 4);
+  m_buttonResetHood.WhenActive(frc2::InstantCommand([this]
+                                                    { m_Hood.ResetEncoders(); }));
 }
 
 // void RobotContainer::StartTests()

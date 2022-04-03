@@ -32,24 +32,19 @@ public:
     void Disable();
 
     void ResetEncoders();
-
-private:
     enum state
     {
-        WaitingEncoder,
-        Init,
         Enabled,
         Disabled
     };
-    Hood::state m_state = Hood::state::WaitingEncoder;
+    Hood::state m_state = Hood::state::Disabled;
 
-    frc::ProfiledPIDController<units::degree> m_controller{
-        0.035, 0.008, 0.0004,
-        frc::TrapezoidProfile<units::degree>::Constraints{5_deg / 1_s, 10_deg / (1_s * 1_s)}};
+private:
+    frc::PIDController m_controller{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};
     frc::Encoder m_encoderHood{HOOD_ENCODER_A_ID, HOOD_ENCODER_B_ID};
 
     rev::CANSparkMax m_HoodMotor{HOOD_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
     HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
 
-    double m_setPoint = 0;
+    double m_setPoint = 0.0;
 };

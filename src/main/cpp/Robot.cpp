@@ -34,37 +34,37 @@ void Robot::RobotInit()
   NErrorIf(!m_pVirtualRobot, NERROR_NULL_POINTER); // A virtual Robot has to be defined !!!
   // a reprendre :
 
-  NLCHARACTERIZATION_TABLE characterization_table(4);
-  characterization_table.load("characterization_MultiVarLinearRegression.txt");
-  characterization_table.get(&m_CrtzL1, "L1", NFALSE);
-  characterization_table.get(&m_CrtzL2, "L2", NFALSE);
-  characterization_table.get(&m_CrtzR1, "R1", NFALSE);
-  characterization_table.get(&m_CrtzR2, "R2", NFALSE);
+  // NLCHARACTERIZATION_TABLE characterization_table(4);
+  // characterization_table.load("characterization_MultiVarLinearRegression.txt");
+  // characterization_table.get(&m_CrtzL1, "L1", NFALSE);
+  // characterization_table.get(&m_CrtzL2, "L2", NFALSE);
+  // characterization_table.get(&m_CrtzR1, "R1", NFALSE);
+  // characterization_table.get(&m_CrtzR2, "R2", NFALSE);
 
-  // Read TrajectoryFollowing external data:
-  // En mode simulation ces donn�es sont 'lues' ( copi�es en fait ) depuis le path workbench courant.
-  // En mode "r�el" elles sont effectivement pr�sentes sous forme de fichiers charg�s � l'initialisation.
-  Nu32 read_error_count = 0;
+  // // Read TrajectoryFollowing external data:
+  // // En mode simulation ces donn�es sont 'lues' ( copi�es en fait ) depuis le path workbench courant.
+  // // En mode "r�el" elles sont effectivement pr�sentes sous forme de fichiers charg�s � l'initialisation.
+  // Nu32 read_error_count = 0;
 
-  FILE *file;
+  // FILE *file;
 
-  read_error_count += m_DriveTrainSpecs.read(file) ? 0 : 1;
-  read_error_count += m_ramsete.read(file) ? 0 : 1;
-  read_error_count += m_TrajectoryStatePack.read(file) ? 0 : 1;
-  read_error_count += m_TrajectoryStatePack.m_keyStatesArray.Size ? 0 : 1;
+  // read_error_count += m_DriveTrainSpecs.read(file) ? 0 : 1;
+  // read_error_count += m_ramsete.read(file) ? 0 : 1;
+  // read_error_count += m_TrajectoryStatePack.read(file) ? 0 : 1;
+  // read_error_count += m_TrajectoryStatePack.m_keyStatesArray.Size ? 0 : 1;
 
-  m_currrentState.null();
-  // read_error_count += m_TrajectoryStateSPack.read(pwb) ? 0:1;
-  // m_currrentSState.null();
+  // m_currrentState.null();
+  // // read_error_count += m_TrajectoryStateSPack.read(pwb) ? 0:1;
+  // // m_currrentSState.null();
 
-  if (read_error_count)
-    m_state = Robot::STATE::PATH_ERROR;
-  else
-    m_state = Robot::STATE::PATH_FOLLOWING;
+  // if (read_error_count)
+  //   m_state = Robot::STATE::PATH_ERROR;
+  // else
+  //   m_state = Robot::STATE::PATH_FOLLOWING;
 
-  m_dsLeftWheel = 0.0f;
-  m_dsRightWheel = 0.0f;
-  m_estimatedPose.reset();
+  // m_dsLeftWheel = 0.0f;
+  // m_dsRightWheel = 0.0f;
+  // m_estimatedPose.reset();
 }
 
 void Robot::RobotPeriodic()

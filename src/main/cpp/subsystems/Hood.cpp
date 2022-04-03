@@ -15,6 +15,9 @@ Hood::Hood()
     m_HoodMotor.SetInverted(true);
     m_HoodMotor.SetSmartCurrentLimit(20);
     m_controller.SetIntegratorRange(-5, 5);
+    frc::SmartDashboard::PutNumber("hood setpoint", m_setPoint);
+
+    m_state = Hood::state::Disabled;
 
     m_hallSecurity.setInverted(true); // TODO verifier ca mais je pense que c'est vrai
 }
@@ -46,47 +49,14 @@ double Hood::GetMeasurement()
 
 void Hood::Periodic()
 {
-    double output = m_controller.Calculate(units::degree_t{GetMeasurement()}, units::degree_t{m_setPoint});
-
+    double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
+    frc::SmartDashboard::PutNumber("outputHood", output);
+    frc::SmartDashboard::PutNumber("encodeur hood", GetMeasurement());
+    SetSetpoint(frc::SmartDashboard::GetNumber("hood setpoint", m_setPoint));
     switch (m_state)
     {
-    case Hood::state::WaitingEncoder:
-        // if (m_encoderHood.IsConnected())
-        // {
-        //     ResetEncoders();
-        //     m_state = Hood::state::Enabled; // TODO attention on saute le mode init la !!!!!
-        // }
-        break;
-    case Hood::state::Init:
-        if (m_hallSecurity.MagnetDetected())
-        {
-            m_state = Hood::state::Disabled;
-            ResetEncoders();
-            SetSetpoint(0.0);
-        }
-        else
-        {
-            SetSetpoint(-60.0);
-            if (!m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
-            {
-                m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
-            }
-            else
-            {
-                m_HoodMotor.Set(0.0);
-            }
-        }
-        break;
-
     case Hood::state::Enabled:
-        if (m_hallSecurity.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
-        {
-            m_HoodMotor.Set(output);
-        }
-        else
-        {
-            m_HoodMotor.Set(0.0);
-        }
+        m_HoodMotor.Set(output);
         break;
     case Hood::state::Disabled:
         m_HoodMotor.Set(0.0);
@@ -94,5 +64,4 @@ void Hood::Periodic()
     default:
         break;
     }
-    frc::SmartDashboard::PutNumber("outputHood", output);
 }

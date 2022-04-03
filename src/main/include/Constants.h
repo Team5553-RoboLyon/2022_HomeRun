@@ -74,9 +74,9 @@
 #define CLIMBER_ENCODER_CONVERSION_FACTOR 1 / 56.4
 
 // Hood PID
-#define HOOD_PID_P 0.035
-#define HOOD_PID_I 0.008
-#define HOOD_PID_D 0.0004
+#define HOOD_PID_P 0.01 // 0.035
+#define HOOD_PID_I 0    // 0.008
+#define HOOD_PID_D 0    // 0.004
 #define HOOD_ENCODER_CONVERSION_FACTOR -(58 / 4.2)
 #define HOOD_PID_TOLERANCE 0
 #define HOOD_PID_INTEGRATOR_RANGE 5
@@ -102,9 +102,6 @@
 #define CLIMBER_LINEAR_ENCODER_ID_B 11
 #define HOOD_ENCODER_A_ID 12
 #define HOOD_ENCODER_B_ID 13
-
-
-
 
 // ######### Digital input IDs #########
 #define HOOD_SENSOR_HALL_ID 17
