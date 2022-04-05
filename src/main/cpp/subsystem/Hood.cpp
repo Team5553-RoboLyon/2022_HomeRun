@@ -1,172 +1,72 @@
-// Copyright(c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystem/Hood.h"
 
-#include <frc/livewindow/LiveWindow.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/shuffleboard/Shuffleboard.h>
-#include <spdlog/spdlog.h>
-
 Hood::Hood()
-    : PIDSubsystem(frc2::PIDController{0.035, 0.008, 0.0004})
 {
-    spdlog::info("constructeur hood");
-    m_encoderHood.SetDistancePerRotation(-(58 / 4.2));
+    m_encoderHood.SetDistancePerPulse(HOOD_ENCODER_CONVERSION_FACTOR);
 
     Enable();
     SetSetpoint(0.0);
 
     m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_HoodMotor.SetInverted(true);
-    GetController().SetIntegratorRange(-5, 5);
     m_HoodMotor.SetSmartCurrentLimit(20);
+    m_controller.SetIntegratorRange(-5, 5);
+    frc::SmartDashboard::PutNumber("hood setpoint", m_setPoint);
+    m_state = Hood::state::Disabled;
+
+    m_hallSecurity.setInverted(false);
+}
+
+void Hood::Enable()
+{
+    m_state = Hood::state::Enabled;
+}
+
+void Hood::Disable()
+{
+    m_state = Hood::state::Disabled;
+}
+
+void Hood::SetSetpoint(double setpoint)
+{
+    m_setPoint = std::clamp(setpoint, 1.0, 58.0);
 }
 
 void Hood::ResetEncoders()
-{ /*
-     while (!m_encoderHood.IsConnected())
-     {
-     }*/
+{
     m_encoderHood.Reset();
-    // m_HoodMotor.GetEncoder().SetPosition(0.0);
 }
 
 double Hood::GetMeasurement()
 {
-    frc::SmartDashboard::PutNumber("distance hood", m_encoderHood.GetDistance());
     return m_encoderHood.GetDistance();
-    return GetEncoder();
 }
 
-void Hood::UseOutput(double output, double setpoint)
+void Hood::Periodic()
 {
-    spdlog::info(output);
-    spdlog::info(setpoint);
-    m_Position = GetMeasurement();
-    m_DeltaPosition = m_Position - m_PositionBefore;
-    if (m_DeltaPosition > -0.3 && m_DeltaPosition < 0.3)
-        m_DeltaPosition = 0;
-    m_PositionBefore = m_Position;
-
+    SetSetpoint(frc::SmartDashboard::GetNumber("hood setpoint", m_setPoint));
     switch (m_state)
     {
-    case Hood::state::encodeurReset:
-        if (m_encoderHood.IsConnected())
-        {
-            ResetEncoders();
-            m_state = Hood::state::bh_Direction;
-        }
-        break;
-
-    case Hood::state::Init:
-        m_Position = m_PositionBefore = GetMeasurement();
-        if (MagnetDetected())
-        {
-            m_state = Hood::state::haut_Direction;
-            ResetEncoders();
-            SetSetpoint(0.0);
-        }
-        else
-        {
-            SetSetpoint(-60.0);
-            m_HoodMotor.Set(std::clamp(output, -0.1, 0.1));
-        }
-        break;
-    case Hood::state::bas_Direction:
-        std::cout << "Hood::state::bas_Direction" << std::endl;
-        if (output < 0)
-        { // si le pid renvoie <0 mettre moteur vitesse normal
-            // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-            m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-        }
-        else
-        { // sinon mettre le hood a 0.0
-            m_HoodMotor.Set(0.0);
-        }
-        if (!MagnetDetected())
-        {                                        // si on ne détecte plus
-            m_state = Hood::state::bh_Direction; // mettre state à bh_direction
-        }
-        break;
-
-    case Hood::state::haut_Direction:
-        std::cout << "AdjustableHood::state::haut_Direction" << std::endl;
-        if (output > 0)
-        { // si le pid renvoie >0 mettre moteur vitesse normal
-            // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-            m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-        }
-        else
-        { // sinon mettre vitesse à 0
-            m_HoodMotor.Set(0.0);
-        }
-        if (!MagnetDetected())
-        {                                        // si on ne détecte plus
-            m_state = Hood::state::bh_Direction; // mettre state à bh_direction
-        }
-
-        break;
-
-    case Hood::state::bh_Direction:
-        std::cout << "AdjustableHood::state::bh_Direction" << std::endl;
-        if (MagnetDetected())
-        { // si on détecte un aimant
-            if (m_DeltaPosition < 0)
-            { // si on va en bas
-                if (output > 0)
-                { // si joystick renvoie >0 mettre moteur vitesse normal
-                    // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-                    m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-                }
-                else
-                { // sinon mettre le poid du Hood
-                    m_HoodMotor.Set(0.0);
-                    // est ce que le hood a une barre qui le maintien (mettre a O ?)
-                }
-                m_state = Hood::state::haut_Direction; // mettre state à haut
-            }
-            else
-            { // sinon si on vas en haut
-                if (output < 0)
-                { // si joystick renvoie <0 mettre moteur vitesse normal
-                    // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-                    m_HoodMotor.Set(0.0);
-                }
-                else
-                { // sinon mettre le poid du Hood
-                    m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-                }
-                m_state = Hood::state::bas_Direction; // mettre state à bas
-            }
-        }
-        else
-        { // sinon pas d'aimant mettre vitesse normal
-            // SetSetpoint((frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0)));
-            m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-        }
-
-        break;
-
-    default:
+    case Hood::state::Enabled:
+    {
+        double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
+        frc::SmartDashboard::PutNumber("outputHood", output);
+        frc::SmartDashboard::PutNumber("encodeur hood", GetMeasurement());
+        m_HoodMotor.Set(output);
         break;
     }
-    frc::SmartDashboard::PutNumber("outputHood", output);
-    m_HoodMotor.Set(std::clamp(output, -0.3, 0.3));
-    frc::SmartDashboard::PutNumber("setPointfromcontroller", GetSetpoint());
-}
-
-double Hood::GetEncoder()
-{
-
-    frc::SmartDashboard::PutNumber("distance hood", m_encoderHood.GetDistance());
-    return m_encoderHood.GetDistance();
-}
-
-void Hood::SetPID(double p, double i, double d)
-{
-    this->GetController().SetP(p);
-    this->GetController().SetI(i);
-    this->GetController().SetD(d);
+    case Hood::state::Disabled:
+    {
+        m_HoodMotor.Set(0.0);
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
 }
