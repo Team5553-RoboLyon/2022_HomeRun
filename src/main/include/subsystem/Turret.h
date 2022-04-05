@@ -23,6 +23,7 @@ public:
 
     bool MagnetDetected();
     void ResetTurretState();
+    void SetClampedSetpoint(double setpoint);
 
 private:
     enum TurretState

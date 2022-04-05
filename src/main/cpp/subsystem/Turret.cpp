@@ -41,3 +41,8 @@ void Turret::SetPID(double p, double i, double d)
     GetController().SetI(i);
     GetController().SetD(d);
 }
+
+void Turret::SetClampedSetpoint(double setpoint)
+{
+    SetSetpoint(std::clamp(setpoint, -90.0, 90.0));
+}

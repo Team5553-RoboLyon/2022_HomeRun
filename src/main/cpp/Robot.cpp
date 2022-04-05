@@ -147,6 +147,20 @@ void Robot::TeleopPeriodic()
       spdlog::error("No target detected. Couldn't log data");
     }
   }
+
+#if USE_CAMERA_TO_MOVE_TURRET
+  if (m_camera.GetLatestResult().HasTargets())
+  {
+    m_BufferYaw[m_BufferCount] = m_camera.GetLatestResult().GetBestTarget().GetYaw();
+  }
+  m_BufferCount = (m_BufferCount + 1) % BUFFER_SIZE;
+
+  std::partial_sort_copy(&m_BufferYaw[0], &m_BufferYaw[BUFFER_SIZE - 1], &m_BufferYawSorted[0],
+                         &m_BufferYawSorted[BUFFER_SIZE - 1]);
+  m_turret.SetClampedSetpoint(m_turret.GetMeasurement() +
+                              m_BufferYawSorted[(int)(BUFFER_SIZE / 2)]);
+
+#endif
 }
 
 /**

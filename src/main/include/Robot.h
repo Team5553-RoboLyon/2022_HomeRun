@@ -22,6 +22,7 @@
 #include <iostream>
 #include <fstream>
 
+#define BUFFER_SIZE 3
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
 
@@ -51,4 +52,8 @@ private:
 
   double m_flyingWheelsSpeed = 0.0;
   photonlib::PhotonCamera m_camera{"photonvision"};
+
+  double m_BufferYaw[BUFFER_SIZE] = {0};
+  double m_BufferYawSorted[BUFFER_SIZE] = {0};
+  unsigned int m_BufferCount = 0;
 };
