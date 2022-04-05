@@ -65,6 +65,9 @@ void Robot::TeleopInit()
   frc::SmartDashboard::PutNumber("Setpoint m_turret", frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
   frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 1.0));
   m_feedingSystem.SetIntakeState(frc::DoubleSolenoid::Value::kReverse);
+  frc::SmartDashboard::PutNumber("Turret P", frc::SmartDashboard::GetNumber("Turret P", 0.0));
+  frc::SmartDashboard::PutNumber("Turret I", frc::SmartDashboard::GetNumber("Turret I", 0.0));
+  frc::SmartDashboard::PutNumber("Turret D", frc::SmartDashboard::GetNumber("Turret D", 0.0));
 }
 
 /**
@@ -115,11 +118,13 @@ void Robot::TeleopPeriodic()
   {
     m_feedingSystem.SetIntakeState(m_feedingSystem.GetIntakeState() == frc::DoubleSolenoid::Value::kForward ? frc::DoubleSolenoid::Value::kReverse : frc::DoubleSolenoid::Value::kForward);
   }
+#if TURRET_PID_CALIBRATE_MODE
+  m_turret.SetPID(frc::SmartDashboard::GetNumber("Turret P", 0.0), frc::SmartDashboard::GetNumber("Turret I", 0.0), frc::SmartDashboard::GetNumber("Turret D", 0.0));
+#endif
 
   std::clamp(m_flyingWheelsSpeed, 0.0, SHOOTER_VOLTAGE_COMPENSATION);
 
   m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
-  m_turret.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0), -35.0, 35.0));
 
   frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
   frc::SmartDashboard::PutNumber("Speed Shooter", m_flyingWheelsSpeed);
@@ -141,6 +146,8 @@ void Robot::TeleopPeriodic()
       std::ofstream file;
       file.open("/home/lvuser/ShooterLogFile.csv", std::ios_base::app);
       file << m_camera.GetLatestResult().GetBestTarget().GetPitch() << "," << m_hood.GetSetpoint() << "," << m_flyingWheelsSpeed << "\n";
+      file.close();
+      spdlog::info("Logged to file, {}, {}, {}", m_camera.GetLatestResult().GetBestTarget().GetPitch(), m_hood.GetSetpoint(), m_flyingWheelsSpeed);
     }
     else
     {
@@ -156,10 +163,15 @@ void Robot::TeleopPeriodic()
   m_BufferCount = (m_BufferCount + 1) % BUFFER_SIZE;
 
   std::partial_sort_copy(&m_BufferYaw[0], &m_BufferYaw[BUFFER_SIZE - 1], &m_BufferYawSorted[0],
-                         &m_BufferYawSorted[BUFFER_SIZE - 1]);
+                         &m_BufferYawSorted[BUFFER_SIZE - c1]);
   m_turret.SetClampedSetpoint(m_turret.GetMeasurement() +
                               m_BufferYawSorted[(int)(BUFFER_SIZE / 2)]);
 
+#else
+  if (m_joystickRight.GetRawButtonPressed(3))
+  {
+    m_turret.SetClampedSetpoint(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
+  }
 #endif
 }
 

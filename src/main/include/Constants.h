@@ -59,3 +59,4 @@
 #define HOOD_ENCODER_B_ID 13
 
 #define USE_CAMERA_TO_MOVE_TURRET false
+#define TURRET_PID_CALIBRATE_MODE true
