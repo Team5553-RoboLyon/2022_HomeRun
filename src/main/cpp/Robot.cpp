@@ -84,11 +84,11 @@ void Robot::TeleopPeriodic()
 
   if (m_joystickRight.GetRawButtonPressed(6))
   {
-    m_flyingWheelsSpeed += 0.5;
+    m_flyingWheelsSpeed += 0.05;
   }
   if (m_joystickRight.GetRawButtonPressed(5))
   {
-    m_flyingWheelsSpeed -= 0.5;
+    m_flyingWheelsSpeed -= 0.05;
   }
 
   if (m_joystickLeft.GetRawButton(1))
@@ -124,8 +124,29 @@ void Robot::TeleopPeriodic()
   frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
   frc::SmartDashboard::PutNumber("Speed Shooter", m_flyingWheelsSpeed);
   frc::SmartDashboard::PutNumber("Setpoint Turret", m_turret.GetSetpoint());
+  frc::SmartDashboard::PutNumber("Photonvision Target number", m_camera.GetLatestResult().GetTargets().size());
+  if (m_camera.GetLatestResult().HasTargets())
+  {
+    frc::SmartDashboard::PutNumber("Pitch from Photonvision", m_camera.GetLatestResult().GetBestTarget().GetPitch());
+    frc::SmartDashboard::PutNumber("Yaw from Photonvision", m_camera.GetLatestResult().GetBestTarget().GetYaw());
+  }
 
   m_shooter.Set(m_flyingWheelsSpeed);
+
+  if (m_joystickLeft.GetRawButtonPressed(2))
+  {
+    if (m_camera.GetLatestResult().HasTargets())
+    {
+      // Open a file for logging
+      std::ofstream file;
+      file.open("/home/lvuser/ShooterLogFile.csv", std::ios_base::app);
+      file << m_camera.GetLatestResult().GetBestTarget().GetPitch() + "," + m_hood.GetSetpoint() + "," + m_flyingWheelsSpeed + "\n";
+    }
+    else
+    {
+      spdlog::error("No target detected. Couldn't log data");
+    }
+  }
 }
 
 /**
