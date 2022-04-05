@@ -38,3 +38,13 @@ void ShooterFeedingSystem::StopFeeder()
 {
     m_FeederMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
+
+frc::DoubleSolenoid::Value ShooterFeedingSystem::GetIntakeState()
+{
+    return m_Solenoid.Get();
+}
+
+void ShooterFeedingSystem::SetIntakeState(frc::DoubleSolenoid::Value state)
+{
+    m_Solenoid.Set(state);
+}

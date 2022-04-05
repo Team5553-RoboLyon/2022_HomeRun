@@ -40,6 +40,8 @@ public:
     };
     Hood::state m_state = Hood::state::Disabled;
 
+    double GetSetpoint();
+
 private:
     frc::PIDController m_controller{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};
     frc::Encoder m_encoderHood{HOOD_ENCODER_A_ID, HOOD_ENCODER_B_ID};

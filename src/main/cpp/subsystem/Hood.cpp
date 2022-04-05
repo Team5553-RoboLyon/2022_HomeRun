@@ -70,3 +70,8 @@ void Hood::Periodic()
     }
     }
 }
+
+double Hood::GetSetpoint()
+{
+    return m_controller.GetSetpoint();
+}

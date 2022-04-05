@@ -17,6 +17,10 @@
 #include "subsystem/Shooter.h"
 #include "subsystem/ShooterFeedingSystem.h"
 #include "Constants.h"
+#include <photonlib/PhotonCamera.h>
+#include <photonlib/PhotonUtils.h>
+#include <iostream>
+#include <fstream>
 
 #define MAX_HEIGHT_CLIMBER 56.4
 #define IS_CLIMBER_PID true
@@ -46,4 +50,5 @@ private:
   ShooterFeedingSystem m_feedingSystem;
 
   double m_flyingWheelsSpeed = 0.0;
+  photonlib::PhotonCamera m_camera{"photonvision"};
 };
