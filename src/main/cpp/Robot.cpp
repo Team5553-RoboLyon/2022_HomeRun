@@ -140,7 +140,7 @@ void Robot::TeleopPeriodic()
       // Open a file for logging
       std::ofstream file;
       file.open("/home/lvuser/ShooterLogFile.csv", std::ios_base::app);
-      file << m_camera.GetLatestResult().GetBestTarget().GetPitch() + "," + m_hood.GetSetpoint() + "," + m_flyingWheelsSpeed + "\n";
+      file << m_camera.GetLatestResult().GetBestTarget().GetPitch() << "," << m_hood.GetSetpoint() << "," << m_flyingWheelsSpeed << "\n";
     }
     else
     {
