@@ -4,7 +4,11 @@
 
 #include "subsystem/ShooterFeedingSystem.h"
 
-ShooterFeedingSystem::ShooterFeedingSystem() = default;
+ShooterFeedingSystem::ShooterFeedingSystem(){
+    m_ConveyorMotor.SetSmartCurrentLimit(CONVEYOR_CURRENT_LIMIT);
+
+    m_ConveyorMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+};
 
 // This method will be called once per scheduler run
 void ShooterFeedingSystem::Periodic() {}

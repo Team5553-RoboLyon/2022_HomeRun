@@ -47,6 +47,11 @@ void Robot::RobotInit()
   m_rightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   m_rightMotorFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
+  m_leftMotor.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+  m_leftMotorFollower.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+  m_rightMotor.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+  m_rightMotorFollower.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+
   m_shooter.Init();
 
   m_turret.ResetEncoder();
@@ -65,9 +70,17 @@ void Robot::TeleopInit()
   frc::SmartDashboard::PutNumber("Setpoint m_turret", frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
   frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 1.0));
   m_feedingSystem.SetIntakeState(frc::DoubleSolenoid::Value::kReverse);
+#if TURRET_PID_CALIBRATE_MODE
   frc::SmartDashboard::PutNumber("Turret P", frc::SmartDashboard::GetNumber("Turret P", 0.0));
   frc::SmartDashboard::PutNumber("Turret I", frc::SmartDashboard::GetNumber("Turret I", 0.0));
   frc::SmartDashboard::PutNumber("Turret D", frc::SmartDashboard::GetNumber("Turret D", 0.0));
+#endif
+
+#if HOOD_PID_CALIBRATE_MODE
+  frc::SmartDashboard::PutNumber("Hood P", frc::SmartDashboard::GetNumber("Hood P", 0.0));
+  frc::SmartDashboard::PutNumber("Hood I", frc::SmartDashboard::GetNumber("Hood I", 0.0));
+  frc::SmartDashboard::PutNumber("Hood D", frc::SmartDashboard::GetNumber("Hood D", 0.0));
+#endif
 }
 
 /**
@@ -122,6 +135,10 @@ void Robot::TeleopPeriodic()
   m_turret.SetPID(frc::SmartDashboard::GetNumber("Turret P", 0.0), frc::SmartDashboard::GetNumber("Turret I", 0.0), frc::SmartDashboard::GetNumber("Turret D", 0.0));
 #endif
 
+#if HOOD_PID_CALIBRATE_MODE
+  m_hood.SetPID(frc::SmartDashboard::GetNumber("Hood P", 0.0), frc::SmartDashboard::GetNumber("Hood I", 0.0), frc::SmartDashboard::GetNumber("Hood D", 0.0));
+#endif
+
   std::clamp(m_flyingWheelsSpeed, 0.0, SHOOTER_VOLTAGE_COMPENSATION);
 
   m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
@@ -167,11 +184,13 @@ void Robot::TeleopPeriodic()
   m_turret.SetClampedSetpoint(m_turret.GetMeasurement() +
                               m_BufferYawSorted[(int)(BUFFER_SIZE / 2)]);
 
-#else
+#elif !DISABLE_TURRET
   if (m_joystickRight.GetRawButtonPressed(3))
   {
     m_turret.SetClampedSetpoint(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
   }
+#else
+  m_turret.Disable();
 #endif
 }
 

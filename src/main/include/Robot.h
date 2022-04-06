@@ -12,15 +12,16 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/Compressor.h>
+#include <photonlib/PhotonCamera.h>
+#include <photonlib/PhotonUtils.h>
+#include <iostream>
+#include <fstream>
 #include "subsystem/Hood.h"
 #include "subsystem/Turret.h"
 #include "subsystem/Shooter.h"
 #include "subsystem/ShooterFeedingSystem.h"
 #include "Constants.h"
-#include <photonlib/PhotonCamera.h>
-#include <photonlib/PhotonUtils.h>
-#include <iostream>
-#include <fstream>
+
 
 #define BUFFER_SIZE 3
 #define MAX_HEIGHT_CLIMBER 56.4

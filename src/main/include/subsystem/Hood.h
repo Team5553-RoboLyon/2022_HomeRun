@@ -41,6 +41,7 @@ public:
     Hood::state m_state = Hood::state::Disabled;
 
     double GetSetpoint();
+    void SetPID(double p, double i, double d);
 
 private:
     frc::PIDController m_controller{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};

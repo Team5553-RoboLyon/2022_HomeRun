@@ -13,7 +13,7 @@ Hood::Hood()
 
     m_HoodMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_HoodMotor.SetInverted(true);
-    m_HoodMotor.SetSmartCurrentLimit(20);
+    m_HoodMotor.SetSmartCurrentLimit(HOOD_CURRENT_LIMIT);
     m_controller.SetIntegratorRange(-5, 5);
     frc::SmartDashboard::PutNumber("hood setpoint", m_setPoint);
     m_state = Hood::state::Disabled;
@@ -74,4 +74,8 @@ void Hood::Periodic()
 double Hood::GetSetpoint()
 {
     return m_controller.GetSetpoint();
+}
+
+void Hood::SetPID(double p, double i, double d) {
+    m_controller.SetPID(p, i, d);
 }
