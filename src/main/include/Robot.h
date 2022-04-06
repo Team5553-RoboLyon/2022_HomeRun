@@ -57,4 +57,15 @@ private:
   double m_BufferYaw[BUFFER_SIZE] = {0};
   double m_BufferYawSorted[BUFFER_SIZE] = {0};
   unsigned int m_BufferCount = 0;
+
+  double m_countShooter = 0;
+  double m_countConveyor = 0;
+
+  enum ConveyorState
+  {
+    Init,
+    Enable
+  };
+
+  ConveyorState m_conveyorState = ConveyorState::Init;
 };

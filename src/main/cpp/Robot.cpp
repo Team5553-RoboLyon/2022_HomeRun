@@ -83,6 +83,7 @@ void Robot::TeleopInit()
 #endif
 
   m_hood.ResetController();
+  m_hood.Enable();
 }
 
 /**
@@ -91,25 +92,30 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic()
 {
 
+  if (m_joystickRight.GetRawButtonPressed(4))
+  {
+    m_camera.GetLEDMode() == photonlib::LEDMode::kOff ? m_camera.SetLEDMode(photonlib::LEDMode::kOn) : m_camera.SetLEDMode(photonlib::LEDMode::kOff);
+  }
+
   if (m_joystickRight.GetRawButtonPressed(8))
   {
-    m_hood.SetSetpoint(m_hood.GetSetpoint() + 0.5);
+    m_hood.SetSetpoint(std::clamp(m_hood.GetSetpoint() + 0.5, 2.0, 56.0));
   }
   if (m_joystickRight.GetRawButtonPressed(7))
   {
-    m_hood.SetSetpoint(m_hood.GetSetpoint() - 0.5);
+    m_hood.SetSetpoint(std::clamp(m_hood.GetSetpoint() - 0.5, 2.0, 56.0));
   }
 
   if (m_joystickRight.GetRawButtonPressed(6))
   {
-    m_flyingWheelsSpeed += 0.05;
+    m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed + 0.05, 0.0, 1.0);
   }
   if (m_joystickRight.GetRawButtonPressed(5))
   {
-    m_flyingWheelsSpeed -= 0.05;
+    m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed - 0.05, 0.0, 1.0);
   }
 
-  if (m_joystickLeft.GetRawButton(1))
+  if (m_joystickRight.GetRawButton(1))
   {
     m_feedingSystem.ActivateConveyor();
     m_feedingSystem.ActivateIntake();
@@ -118,15 +124,6 @@ void Robot::TeleopPeriodic()
   {
     m_feedingSystem.StopConveyor();
     m_feedingSystem.StopIntake();
-  }
-
-  if (m_joystickRight.GetRawButton(1))
-  {
-    m_feedingSystem.ActivateFeeder();
-  }
-  else
-  {
-    m_feedingSystem.StopFeeder();
   }
 
   if (m_joystickRight.GetRawButtonPressed(2))
@@ -141,10 +138,6 @@ void Robot::TeleopPeriodic()
   m_hood.SetPID(frc::SmartDashboard::GetNumber("Hood P", 0.0), frc::SmartDashboard::GetNumber("Hood I", 0.0), frc::SmartDashboard::GetNumber("Hood D", 0.0));
 #endif
 
-  std::clamp(m_flyingWheelsSpeed, 0.0, SHOOTER_VOLTAGE_COMPENSATION);
-
-  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint Hood", 0.0), 1.0, 57.0));
-
 #if !HOOD_PID_CALIBRATE_MODE
   frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
 #endif
@@ -158,8 +151,6 @@ void Robot::TeleopPeriodic()
     frc::SmartDashboard::PutNumber("Pitch from Photonvision", m_camera.GetLatestResult().GetBestTarget().GetPitch());
     frc::SmartDashboard::PutNumber("Yaw from Photonvision", m_camera.GetLatestResult().GetBestTarget().GetYaw());
   }
-
-  m_shooter.Set(m_flyingWheelsSpeed);
 
   if (m_joystickLeft.GetRawButtonPressed(2))
   {
@@ -202,6 +193,71 @@ void Robot::TeleopPeriodic()
   if (m_joystickLeft.GetRawButtonPressed(10))
   {
     m_compressor.Enabled() ? m_compressor.Disable() : m_compressor.EnableDigital();
+  }
+
+  if (m_joystickLeft.GetRawButtonPressed(1))
+  {
+    m_countConveyor = 0;
+    m_conveyorState = ConveyorState::Init;
+    m_countShooter = 0;
+  }
+
+  if (m_joystickLeft.GetRawButtonReleased(1))
+  {
+    m_feedingSystem.StopConveyor();
+    m_feedingSystem.StopFeeder();
+    m_shooter.Set(0.0);
+  }
+
+  if (m_joystickLeft.GetRawButton(1))
+  {
+    m_countShooter += 1;
+    m_shooter.Set(m_flyingWheelsSpeed);
+    if (m_countShooter >= 25)
+    {
+      switch (m_conveyorState)
+      {
+      case ConveyorState::Init:
+
+        if (m_countConveyor >= 20)
+        {
+          m_conveyorState = ConveyorState::Enable;
+          m_countConveyor = 0;
+        }
+        else
+        {
+          m_feedingSystem.UnblockFeeder();
+          if (m_countConveyor <= 6)
+          {
+            m_feedingSystem.UnblockConveyor();
+          }
+          else
+          {
+            m_feedingSystem.StopConveyor();
+          }
+        }
+        m_countConveyor += 1;
+
+        break;
+      case ConveyorState::Enable:
+        if (m_countConveyor >= 20)
+        {
+          m_countConveyor = 0;
+          m_conveyorState = ConveyorState::Init;
+        }
+        else
+        {
+          m_countConveyor += 1;
+          m_feedingSystem.ActivateConveyor();
+          m_feedingSystem.ActivateFeeder();
+        }
+
+        break;
+
+      default:
+        break;
+      }
+    }
   }
 }
 

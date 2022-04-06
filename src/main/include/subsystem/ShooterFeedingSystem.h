@@ -25,6 +25,8 @@ public:
   void StopIntake();
   void StopConveyor();
   void StopFeeder();
+  void UnblockConveyor();
+  void UnblockFeeder();
   void SetIntakeState(frc::DoubleSolenoid::Value state);
   frc::DoubleSolenoid::Value GetIntakeState();
 

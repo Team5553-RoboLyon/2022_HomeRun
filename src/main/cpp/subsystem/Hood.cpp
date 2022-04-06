@@ -47,28 +47,8 @@ double Hood::GetMeasurement()
 
 void Hood::Periodic()
 {
-    switch (m_state)
-    {
-    case Hood::state::Enabled:
-    {
-        double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
-#if HOOD_PID_CALIBRATE_MODE
-        frc::SmartDashboard::PutNumber("Hood output", output);
-        frc::SmartDashboard::PutNumber("Hood encoder", GetMeasurement());
-#endif
-        m_HoodMotor.Set(output);
-        break;
-    }
-    case Hood::state::Disabled:
-    {
-        m_HoodMotor.Set(0.0);
-        break;
-    }
-    default:
-    {
-        break;
-    }
-    }
+    double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
+    m_HoodMotor.Set(output);
 }
 
 void Hood::ResetController()
