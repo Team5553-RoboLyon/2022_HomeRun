@@ -14,15 +14,16 @@ Turret::Turret()
     m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
     m_encoderTurret.SetReverseDirection(true);
     ResetEncoder();
-    Disable();
+    Enable();
 }
 
 void Turret::UseOutput(double output, double setpoint)
 {
-    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.5, 0.5));
-
-    frc::SmartDashboard::PutNumber("outputTurret", output);
-    frc::SmartDashboard::PutNumber("out setpoint", setpoint);
+#if TURRET_PID_CALIBRATE_MODE
+    frc::SmartDashboard::PutNumber("Turret output", output);
+    frc::SmartDashboard::PutNumber("Turret encoder", GetMeasurement());
+#endif
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.7, 0.7));
 }
 
 double Turret::GetMeasurement()
@@ -44,5 +45,5 @@ void Turret::SetPID(double p, double i, double d)
 
 void Turret::SetClampedSetpoint(double setpoint)
 {
-    SetSetpoint(std::clamp(setpoint, -90.0, 90.0));
+    SetSetpoint(std::clamp(setpoint, -80.0, 80.0));
 }

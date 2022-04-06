@@ -42,6 +42,7 @@ public:
 
     double GetSetpoint();
     void SetPID(double p, double i, double d);
+    void ResetController();
 
 private:
     frc::PIDController m_controller{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};

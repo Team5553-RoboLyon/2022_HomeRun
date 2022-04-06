@@ -21,7 +21,7 @@
 #include "subsystem/Shooter.h"
 #include "subsystem/ShooterFeedingSystem.h"
 #include "Constants.h"
-
+#include <frc2/command/CommandScheduler.h>
 
 #define BUFFER_SIZE 3
 #define MAX_HEIGHT_CLIMBER 56.4

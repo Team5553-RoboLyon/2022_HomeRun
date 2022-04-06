@@ -37,6 +37,10 @@
 #define HOOD_INIT_MAX_SPEED 0.1
 #define HOOD_MAX_SPEED 0.3
 
+#define TURRET_PID_P 0.04
+#define TURRET_PID_I 0.02
+#define TURRET_PID_D 0.002
+
 // ######### Digital input IDs #########
 #define HOOD_SENSOR_HALL_ID 17
 #define TURRET_SENSOR_HALL_ID 14
@@ -61,7 +65,8 @@
 #define HOOD_ENCODER_A_ID 12
 #define HOOD_ENCODER_B_ID 13
 
-#define USE_CAMERA_TO_MOVE_TURRET false
-#define DISABLE_TURRET true
+#define USE_CAMERA_TO_MOVE_TURRET true
+#define DISABLE_TURRET false
+// ######### pid actions #########
 #define TURRET_PID_CALIBRATE_MODE false
-#define HOOD_PID_CALIBRATE_MODE true
+#define HOOD_PID_CALIBRATE_MODE false

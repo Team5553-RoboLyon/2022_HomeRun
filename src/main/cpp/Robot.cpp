@@ -60,27 +60,29 @@ void Robot::RobotInit()
 
 void Robot::RobotPeriodic()
 {
+  frc2::CommandScheduler::GetInstance().Run();
 }
 
 void Robot::TeleopInit()
 {
-  m_hood.Enable();
   m_turret.Enable();
   // a mettre dans init de m_hood et m_turret
-  frc::SmartDashboard::PutNumber("Setpoint m_turret", frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
-  frc::SmartDashboard::PutNumber("Setpoint m_hood", frc::SmartDashboard::GetNumber("Setpoint m_hood", 1.0));
   m_feedingSystem.SetIntakeState(frc::DoubleSolenoid::Value::kReverse);
 #if TURRET_PID_CALIBRATE_MODE
-  frc::SmartDashboard::PutNumber("Turret P", frc::SmartDashboard::GetNumber("Turret P", 0.0));
-  frc::SmartDashboard::PutNumber("Turret I", frc::SmartDashboard::GetNumber("Turret I", 0.0));
-  frc::SmartDashboard::PutNumber("Turret D", frc::SmartDashboard::GetNumber("Turret D", 0.0));
+  frc::SmartDashboard::PutNumber("Turret P", frc::SmartDashboard::GetNumber("Turret P", TURRET_PID_P));
+  frc::SmartDashboard::PutNumber("Turret I", frc::SmartDashboard::GetNumber("Turret I", TURRET_PID_I));
+  frc::SmartDashboard::PutNumber("Turret D", frc::SmartDashboard::GetNumber("Turret D", TURRET_PID_D));
+  frc::SmartDashboard::PutNumber("Setpoint Turret", m_turret.GetSetpoint());
 #endif
 
 #if HOOD_PID_CALIBRATE_MODE
-  frc::SmartDashboard::PutNumber("Hood P", frc::SmartDashboard::GetNumber("Hood P", 0.0));
-  frc::SmartDashboard::PutNumber("Hood I", frc::SmartDashboard::GetNumber("Hood I", 0.0));
-  frc::SmartDashboard::PutNumber("Hood D", frc::SmartDashboard::GetNumber("Hood D", 0.0));
+  frc::SmartDashboard::PutNumber("Hood P", frc::SmartDashboard::GetNumber("Hood P", HOOD_PID_P));
+  frc::SmartDashboard::PutNumber("Hood I", frc::SmartDashboard::GetNumber("Hood I", HOOD_PID_I));
+  frc::SmartDashboard::PutNumber("Hood D", frc::SmartDashboard::GetNumber("Hood D", HOOD_PID_D));
+  frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
 #endif
+
+  m_hood.ResetController();
 }
 
 /**
@@ -141,11 +143,15 @@ void Robot::TeleopPeriodic()
 
   std::clamp(m_flyingWheelsSpeed, 0.0, SHOOTER_VOLTAGE_COMPENSATION);
 
-  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint m_hood", 0.0), 1.0, 57.0));
+  m_hood.SetSetpoint(std::clamp(frc::SmartDashboard::GetNumber("Setpoint Hood", 0.0), 1.0, 57.0));
 
+#if !HOOD_PID_CALIBRATE_MODE
   frc::SmartDashboard::PutNumber("Setpoint Hood", m_hood.GetSetpoint());
+#endif
   frc::SmartDashboard::PutNumber("Speed Shooter", m_flyingWheelsSpeed);
+#if !TURRET_PID_CALIBRATE_MODE
   frc::SmartDashboard::PutNumber("Setpoint Turret", m_turret.GetSetpoint());
+#endif
   frc::SmartDashboard::PutNumber("Photonvision Target number", m_camera.GetLatestResult().GetTargets().size());
   if (m_camera.GetLatestResult().HasTargets())
   {
@@ -187,11 +193,16 @@ void Robot::TeleopPeriodic()
 #elif !DISABLE_TURRET
   if (m_joystickRight.GetRawButtonPressed(3))
   {
-    m_turret.SetClampedSetpoint(frc::SmartDashboard::GetNumber("Setpoint m_turret", 0.0));
+    m_turret.SetClampedSetpoint(frc::SmartDashboard::GetNumber("Setpoint Turret", 0.0));
   }
 #else
   m_turret.Disable();
 #endif
+
+  if (m_joystickLeft.GetRawButtonPressed(10))
+  {
+    m_compressor.Enabled() ? m_compressor.Disable() : m_compressor.EnableDigital();
+  }
 }
 
 /**
