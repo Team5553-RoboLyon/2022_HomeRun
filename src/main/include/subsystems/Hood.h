@@ -13,7 +13,6 @@
 #include <units/angle.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
-#include <robolyon/HallSecurity.h>
 #include "Constants.h"
 #include <spdlog/spdlog.h>
 
@@ -33,6 +32,7 @@ public:
     void Disable();
 
     void ResetEncoders();
+    void ResetPID();
     enum state
     {
         Enabled,
@@ -42,10 +42,9 @@ public:
 
 private:
     frc::PIDController m_controller{HOOD_PID_P, HOOD_PID_I, HOOD_PID_D};
-    frc::Encoder m_encoderHood{HOOD_ENCODER_A_ID, HOOD_ENCODER_B_ID};
+    frc::Encoder m_encoderHood{HOOD_ENCODER_ID_A, HOOD_ENCODER_ID_B};
 
-    rev::CANSparkMax m_HoodMotor{HOOD_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
-    HallSecurity m_hallSecurity{HOOD_SENSOR_HALL_ID, 0.3};
+    rev::CANSparkMax m_HoodMotor{HOOD_MOTOR_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
 
     double m_setPoint = 0.0;
 };

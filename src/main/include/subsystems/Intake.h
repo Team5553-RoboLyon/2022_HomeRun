@@ -24,6 +24,6 @@ public:
 
 private:
     bool IntakePosition = true;
-    ctre::phoenix::motorcontrol::can::VictorSPX m_IntakeMotor{INTAKE_MOTOR_ID};
-    frc::DoubleSolenoid m_IntakeSolenoid{frc::PneumaticsModuleType::CTREPCM, INTAKE_SOLENOID_1_ID, INTAKE_SOLENOID_2_ID};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_IntakeMotor{INTAKE_MOTOR_CAN_ID};
+    frc::DoubleSolenoid m_IntakeSolenoid{frc::PneumaticsModuleType::CTREPCM, INTAKE_SOLENOID_ID_FORWARD, INTAKE_SOLENOID_ID_REVERSE};
 };

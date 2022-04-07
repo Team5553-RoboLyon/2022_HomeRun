@@ -12,12 +12,12 @@ class Shooter : public frc2::SubsystemBase
 {
 public:
   Shooter();
-  void Periodic() ;
+  void Periodic();
   void SetSpeed(double speed);
   double AppliedSpeed();
   int m_countShooter;
 
 private:
-  ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{SHOOTER_FALCON_MOTOR_ID};
-  ctre::phoenix::motorcontrol::can::TalonFX m_MotorRight{SHOOTER_FALCON_MOTOR_FOLLOWER_ID};
+  ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{SHOOTER_MOTOR_LEFT_CAN_ID};
+  ctre::phoenix::motorcontrol::can::TalonFX m_MotorRight{SHOOTER_MOTOR_RIGHT_CAN_ID};
 };

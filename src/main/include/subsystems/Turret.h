@@ -20,27 +20,11 @@ public:
   double GetMeasurement();
   void ResetEncoder();
   void SetPID(double p, double i, double d);
-  bool MagnetDetected();
   void ResetTurretState();
-  double m_TDeltaPosition;
-  double m_TPosition;
-  double m_TPositionBefore;
-  double m_TSpeedConsigne;
+  void SetClampedSetpoint(double setpoint);
 
 private:
-  enum State
-  {
-    unknownPosition,
-    goTo0,
-    ready,
-    d_Direction,
-    g_Direction,
-    dg_Direction,
-    StopSecure
-  };
-  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{TURRET_MOTOR_ID};
-  frc::Encoder m_encoderTurret{TURRET_ENCODER_A_ID, TURRET_ENCODER_B_ID};
-  frc::DigitalInput m_SensorHall{TURRET_SENSOR_HALL_ID};
-  State m_State = Turret::State::unknownPosition;
+  ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{TURRET_MOTOR_CAN_ID};
+  frc::Encoder m_encoderTurret{TURRET_ENCODER_ID_A, TURRET_ENCODER_ID_B};
   frc::Timer m_Timer;
 };

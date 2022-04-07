@@ -13,21 +13,15 @@ Gearbox::Gearbox()
     m_NeoMotorLeft.RestoreFactoryDefaults();
     m_NeoMotorLeftFollower.RestoreFactoryDefaults();
 
-    m_NeoMotorLeft.SetOpenLoopRampRate(0.6);
-    m_NeoMotorRight.SetOpenLoopRampRate(0.6);
-    m_NeoMotorLeftFollower.SetOpenLoopRampRate(0.6);
-    m_NeoMotorRightFollower.SetOpenLoopRampRate(0.6);
+    m_NeoMotorLeft.SetOpenLoopRampRate(DRIVETRAIN_RAMPRATE);
+    m_NeoMotorRight.SetOpenLoopRampRate(DRIVETRAIN_RAMPRATE);
+    m_NeoMotorLeftFollower.SetOpenLoopRampRate(DRIVETRAIN_RAMPRATE);
+    m_NeoMotorRightFollower.SetOpenLoopRampRate(DRIVETRAIN_RAMPRATE);
 
-    // m_NeoMotorLeft.EnableVoltageCompensation(11);
-    // m_NeoMotorRight.EnableVoltageCompensation(11);
-    // m_NeoMotorLeftFollower.EnableVoltageCompensation(11);
-    // m_NeoMotorRightFollower.EnableVoltageCompensation(11);
-
-    m_NeoMotorLeft.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
-    m_NeoMotorLeftFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
-    m_NeoMotorRight.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
-    m_NeoMotorRightFollower.SetSmartCurrentLimit(SMART_LIMIT_CURRENT_NEO_BASE);
-    
+    m_NeoMotorLeft.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+    m_NeoMotorLeftFollower.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+    m_NeoMotorRight.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
+    m_NeoMotorRightFollower.SetSmartCurrentLimit(DRIVETRAIN_CURRENT_LIMIT);
 
     m_NeoMotorLeft.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     m_NeoMotorLeftFollower.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);

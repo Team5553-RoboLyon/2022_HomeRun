@@ -19,9 +19,9 @@ RobotContainer::RobotContainer()
                                        { return m_DriverRightJoystick.GetZ(); },
                                        &m_Drivetrain));
 
-  m_Camera = frc::CameraServer::StartAutomaticCapture();
-  m_Camera.SetResolution(320, 240);
-  m_Camera.SetFPS(12);
+  m_CameraPilote = frc::CameraServer::StartAutomaticCapture();
+  m_CameraPilote.SetResolution(320, 240);
+  m_CameraPilote.SetFPS(12);
   m_Compressor.Disable();
 
   // m_Climber.SetDefaultCommand(ClimberActiveMotor(&m_Climber, [=]
@@ -67,6 +67,10 @@ void RobotContainer::SetPTOWhenAutonomous(Gearbox::PTOState ptoState)
 
 void RobotContainer::InitTeleopPeriod()
 {
+#if HOOD
+  m_Hood.ResetPID();
+#endif
+
 #if GEARBOX
   m_Gearbox.InitTeleopPeriod();
 #endif
@@ -123,16 +127,22 @@ void RobotContainer::ConfigureButtonBindings()
                                                            m_Compressor.EnableDigital();
                                                          } }));
 
-  frc2::JoystickButton m_buttonChangeModeHood = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
-  m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
-                                                         { if (m_Hood.m_state==m_Hood.Hood::state::Disabled)
-                                                         {
-                                                           m_Hood.Enable();
-                                                         }
-                                                         else
-                                                         {
-                                                           m_Hood.Disable();
-                                                         } }));
+  // frc2::JoystickButton m_buttonChangeModeHood = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  // m_buttonChangeModeHood.WhenActive(frc2::InstantCommand([this]
+  //                                                        { if (m_Hood.m_state==m_Hood.Hood::state::Disabled)
+  //                                                        {
+  //                                                          m_Hood.Enable();
+  //                                                        }
+  //                                                        else
+  //                                                        {
+  //                                                          m_Hood.Disable();
+  //                                                        } }));
+
+#if SHOOTER && TURRET
+  frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverLeftJoystick, 3);
+  m_buttonAutoShoot.WhenHeld(SetShooterAuto(&m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+
+#endif
 }
 
 // void RobotContainer::StartTests()

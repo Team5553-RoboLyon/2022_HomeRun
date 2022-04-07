@@ -47,11 +47,22 @@
 #if SHOOTER
 #include "subsystems/Shooter.h"
 #include "commands/Shoot/ActiveShooter.h"
-#include "commands/Shoot/SetShooterAuto.h"
+#endif
+
+#if TURRET
+#include "subsystems/Turret.h"
 #endif
 
 #if HOOD
 #include "subsystems/Hood.h"
+#endif
+
+#if CAMERA
+#include "subsystems/Camera.h"
+#endif
+
+#if SHOOTER && TURRET
+#include "commands/Shoot/SetShooterAuto.h"
 #endif
 
 #include "lib/JsonConfig.h"
@@ -96,11 +107,15 @@ private:
 #if SHOOTER
   Shooter m_Shooter;
 #endif
-
+#if TURRET
+  Turret m_Turret;
+#endif
 #if HOOD
   Hood m_Hood;
 #endif
-  cs::UsbCamera m_Camera;
+
+  cs::UsbCamera m_CameraPilote;
+  Camera m_Camera;
 
   frc::Joystick m_DriverRightJoystick{DRIVER_JOYSTICK_RIGHT_ID};
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};

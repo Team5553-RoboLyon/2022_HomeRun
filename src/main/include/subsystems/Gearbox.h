@@ -63,11 +63,11 @@ public:
     void SetPTOState(PTOState ptoConfiguration);
 
 private:
-    CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_NEO_MOTOR_RIGHT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-    CANSparkMaxWrapper m_NeoMotorRightFollower{DRIVETRAIN_NEO_MOTOR_RIGHT_FOLLOWER_ID,
+    CANSparkMaxWrapper m_NeoMotorRight{DRIVETRAIN_MOTOR_RIGHT_CAN_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+    CANSparkMaxWrapper m_NeoMotorRightFollower{DRIVETRAIN_MOTOR_RIGHT_FOLLOWER_CAN_ID,
                                                rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-    CANSparkMaxWrapper m_NeoMotorLeft{DRIVETRAIN_NEO_MOTOR_LEFT_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
-    CANSparkMaxWrapper m_NeoMotorLeftFollower{DRIVETRAIN_NEO_MOTOR_LEFT_FOLLOWER_ID,
+    CANSparkMaxWrapper m_NeoMotorLeft{DRIVETRAIN_MOTOR_LEFT_CAN_ID, rev::CANSparkMaxLowLevel::MotorType::kBrushless};
+    CANSparkMaxWrapper m_NeoMotorLeftFollower{DRIVETRAIN_MOTOR_LEFT_FOLLOWER_CAN_ID,
                                               rev::CANSparkMaxLowLevel::MotorType::kBrushless};
 
     frc::DoubleSolenoid m_solenoid{frc::PneumaticsModuleType::CTREPCM, DRIVETRAIN_SOLENOID_ID_FORWARD,

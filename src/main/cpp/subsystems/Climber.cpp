@@ -27,14 +27,10 @@ void Climber::ResetEncoder()
 void Climber::Enable()
 {
     m_gearbox->SetPTOState(Gearbox::PTOState::Climbing);
-    m_state_Climber = Climber::state_Climber::enableClimber;
-    m_state_RotatingArms = Climber::state_RotatingArms::enableRotatingArms;
 }
 void Climber::Disable()
 {
     m_gearbox->SetPTOState(Gearbox::PTOState::Driving);
-    m_state_Climber = Climber::state_Climber::disableClimber;
-    m_state_RotatingArms = Climber::state_RotatingArms::disableRotatingArms;
 }
 
 double Climber::GetMeasurement()
@@ -46,68 +42,8 @@ void Climber::UseOutput(double output, double setpoint)
 {
 
     spdlog::trace("Drivetrain::UseOutput()");
-    if (m_gearbox->GetPTOState() == Gearbox::PTOState::Climbing)
-    {
-        switch (m_state_Climber)
-        {
-        case Climber::state_Climber::initClimber:
-            if (m_HallSensor.MagnetDetected())
-            {
-                m_state_Climber = Climber::state_Climber::disableClimber;
-                ResetEncoder();
-            }
-            else
-            {
-                if (!m_HallSensor.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
-                {
-                    m_gearbox->SetRight(output, Gearbox::PTOState::Climbing);
-                }
-                else
-                {
-                    m_gearbox->SetRight(0.0, Gearbox::PTOState::Climbing);
-                }
-            }
-            break;
-
-        case Climber::state_Climber::enableClimber:
-            if (m_HallSensor.ShouldIStop(GetMeasurement(), wpi::sgn(output)))
-            {
-                m_gearbox->SetRight(output, Gearbox::PTOState::Climbing);
-            }
-            else
-            {
-                m_gearbox->SetRight(0.0, Gearbox::PTOState::Climbing);
-            }
-            break;
-        case Climber::state_Climber::disableClimber:
-            m_gearbox->SetRight(0.0, Gearbox::PTOState::Climbing);
-            break;
-        default:
-            break;
-        }
-
-        switch (m_state_RotatingArms)
-        {
-        case Climber::state_RotatingArms::initRotatingArms:
-            /* code */
-            break;
-        case Climber::state_RotatingArms::enableRotatingArms:
-            if (m_HallSensor.ShouldIStop(GetMeasurement(), wpi::sgn(0.1)))
-            {
-                m_gearbox->SetLeft(0.1, Gearbox::PTOState::Climbing);
-            }
-            else
-            {
-                m_gearbox->SetLeft(0.0, Gearbox::PTOState::Climbing);
-            }
-            break;
-        case Climber::state_RotatingArms::disableRotatingArms:
-            m_gearbox->SetLeft(0.0, Gearbox::PTOState::Climbing);
-            break;
-        default:
-            break;
-        }
-    }
+    m_gearbox->SetRight(output, Gearbox::PTOState::Climbing);
+    m_gearbox->SetLeft(0.1, Gearbox::PTOState::Climbing);
 }
 void Climber::SetSetpoint(double setpoint)
 {

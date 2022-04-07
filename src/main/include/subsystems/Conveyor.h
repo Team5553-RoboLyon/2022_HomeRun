@@ -30,6 +30,6 @@ public:
     state m_state;
 
 private:
-    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_ID};
-    rev::CANSparkMax m_ConveyorMotor{CONVEYOR_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+    ctre::phoenix::motorcontrol::can::VictorSPX m_FeederMotor{FEEDER_MOTOR_CAN_ID};
+    rev::CANSparkMax m_ConveyorMotor{CONVEYOR_MOTOR_CAN_ID, rev::CANSparkMax::MotorType::kBrushless};
 };

@@ -7,26 +7,41 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood)
-    : m_shooter(shooter), m_hood(hood)
+SetShooterAuto::SetShooterAuto(Shooter *shooter, Hood *hood, Turret *turret, Camera *camera)
+    : m_shooter(shooter), m_hood(hood), m_turret(turret), m_camera(camera)
 {
   AddRequirements(m_shooter);
   AddRequirements(m_hood);
+  AddRequirements(m_turret);
+  AddRequirements(m_camera);
 }
-
+void SetShooterAuto::End(bool interrupted)
+{
+  m_camera->DisableLED();
+  m_shooter->SetSpeed(0.0);
+  m_turret->SetClampedSetpoint(0.0);
+}
 void SetShooterAuto::Initialize()
 {
-  double distance = nt::NetworkTableInstance::GetDefault().GetTable("")->GetEntry("").GetDouble(0.0);
-  int *index = getNearestElementId(distance);
-  std::cout << "nearest : " << *(index) << " " << *(index + 1) << std::endl;
+  m_camera->EnableLED();
+}
 
-  double t = (distance - shooterDataTable[*(index)][0]) / (shooterDataTable[*(index + 1)][0] - shooterDataTable[*(index)][0]);
-  std::cout << "t : " << t << std::endl;
-  std::cout << "distance calculated : " << LERP(shooterDataTable[*(index)][0], shooterDataTable[*(index + 1)][0], t) << std::endl;
-  std::cout << "angle calculated : " << LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
-  std::cout << "speed calculated : " << LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
-  m_hood->SetSetpoint(LERP(shooterDataTable[*(index)][1], shooterDataTable[*(index + 1)][1], t));
-  m_shooter->SetSpeed(LERP(shooterDataTable[*(index)][2], shooterDataTable[*(index + 1)][2], t));
+void SetShooterAuto::Execute()
+{
+  if (m_camera->HasTarget())
+  {
+    double pitch = m_horizontalMedian.Calculate(m_camera->GetPitch());
+    int *index = getNearestElementId(std::clamp(pitch, shooterDataTable[0][0], shooterDataTable[SHOOTER_TABLE_SIZE - 1][0]));
+
+    double t = (pitch - shooterDataTable[*index][0]) / (shooterDataTable[*(index + 1)][0] - shooterDataTable[*index][0]);
+    // std::cout << "t : " << t << std::endl;
+    // std::cout << "pitch : " << LERP(shooterDataTable[*index][0], shooterDataTable[*(index + 1)][0], t) << std::endl;
+    // std::cout << "angle calculated : " << LERP(shooterDataTable[*index][1], shooterDataTable[*(index + 1)][1], t) << std::endl;
+    // std::cout << "speed calculated : " << LERP(shooterDataTable[*index][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
+    m_hood->SetSetpoint(LERP(shooterDataTable[*index][1], shooterDataTable[*(index + 1)][1], t));
+    m_shooter->SetSpeed(LERP(shooterDataTable[*index][2], shooterDataTable[*(index + 1)][2], t));
+    m_turret->SetClampedSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
+  }
 }
 
 int *SetShooterAuto::getNearestElementId(double target)
@@ -42,8 +57,8 @@ int *SetShooterAuto::getNearestElementId(double target)
   }
   if (target >= shooterDataTable[n - 1][0])
   {
-    r[0] = n - 1;
-    r[1] = n;
+    r[0] = n - 2;
+    r[1] = n - 1;
     return r;
   }
   int left = 0, right = n, mid = 0;
