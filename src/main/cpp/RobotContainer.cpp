@@ -13,11 +13,13 @@ RobotContainer::RobotContainer()
   ConfigureButtonBindings();
   // frc::Joystick *joystick1 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverRightJoystick : &m_DriverLeftJoystick);
   // frc::Joystick *joystick2 = (JsonConfig::GetConfig()["invertJoysticks"].get<bool>() ? &m_DriverLeftJoystick : &m_DriverRightJoystick);
-  m_Drivetrain.SetDefaultCommand(Drive([=]
-                                       { return -m_DriverLeftJoystick.GetY(); },
-                                       [=]
-                                       { return m_DriverRightJoystick.GetZ(); },
-                                       &m_Drivetrain));
+
+  if (m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving)
+    m_Drivetrain.SetDefaultCommand(Drive([=]
+                                         { return -m_DriverLeftJoystick.GetY(); },
+                                         [=]
+                                         { return m_DriverRightJoystick.GetZ(); },
+                                         &m_Drivetrain));
 
   m_CameraPilote = frc::CameraServer::StartAutomaticCapture();
   m_CameraPilote.SetResolution(320, 240);
@@ -82,11 +84,32 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::CommandScheduler::GetInstance().ClearButtons();
   spdlog::debug("RobotContainer::ConfigureButtonBindings()");
 
-#if GEARBOX
+#if GEARBOX && CLIMBER
   frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 3);
-  // m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
-  //                                                        { Gearbox::PTOState newPTOState =( m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving) ? Gearbox::PTOState::Climbing : Gearbox::PTOState::Driving;
-  //                                            m_Gearbox.SetPTOState(newPTOState); }));
+  m_buttonChangeModeBase.WhenActive(frc2::InstantCommand([this]
+                                                         { 
+                                                           if (m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving){
+                                                            m_Gearbox.SetPTOState(Gearbox::PTOState::Climbing);
+                                                            m_Drivetrain.SetDefaultCommand(frc2::InstantCommand());
+                                                            m_Climber.SetDefaultCommand(Climb(
+                                                              Climb([=]
+                                                                { return -m_DriverLeftJoystick.GetY(); },
+                                                                [=]
+                                                                { return m_DriverRightJoystick.GetZ(); },
+                                                                &m_Climber
+                                                            )));
+
+                                                           } else{
+                                                             m_Gearbox.SetPTOState(Gearbox::PTOState::Driving);
+                                                            m_Drivetrain.SetDefaultCommand(Drive([=]
+                                                                { return -m_DriverLeftJoystick.GetY(); },
+                                                                [=]
+                                                                { return m_DriverRightJoystick.GetZ(); },
+                                                                &m_Drivetrain));
+                                                                m_Climber.SetDefaultCommand(frc2::InstantCommand());
+
+                                                           } }));
+
 #endif
 
 #if INTAKE

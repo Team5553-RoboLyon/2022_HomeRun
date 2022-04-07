@@ -38,7 +38,7 @@ void ActiveConveyorFeederMotor::Execute()
       else
       {
         m_pConveyor->UnblockFeedingMotor();
-        if (m_pConveyor->m_count <= 6)
+        if (m_pConveyor->m_count <= 8)
         {
           m_pConveyor->UnblockConveyorMotor();
         }
@@ -51,7 +51,7 @@ void ActiveConveyorFeederMotor::Execute()
 
       break;
     case Conveyor::state::_ENABLE:
-      if (m_pConveyor->m_count >= 20)
+      if (m_pConveyor->m_count >= 30)
       {
         m_pConveyor->m_count = 0;
         m_pConveyor->m_state = Conveyor::state::_INIT;

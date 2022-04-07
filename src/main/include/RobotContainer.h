@@ -19,6 +19,7 @@
 
 #if CLIMBER
 #include "subsystems/Climber.h"
+#include "commands/Climber/Climb.h"
 #endif
 
 #if DRIVETRAIN

@@ -5,7 +5,7 @@ Intake::Intake()
     m_IntakeMotor.SetInverted(false);
     m_IntakeMotor.ConfigClosedloopRamp(INTAKE_RAMP_RATE);
     m_IntakeMotor.EnableVoltageCompensation(INTAKE_VOLTAGE_COMPENSATION);
-    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kOff);
+    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kReverse);
 }
 
 void Intake::ActiveMotor()
