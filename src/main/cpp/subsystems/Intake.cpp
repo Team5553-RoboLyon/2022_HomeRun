@@ -32,14 +32,14 @@ void Intake::StopMotor()
 
 void Intake::Open()
 {
-    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kReverse);
+    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
     IntakePosition = false;
     spdlog::debug("Open");
 }
 
 void Intake::Close()
 {
-    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kForward);
+    m_IntakeSolenoid.Set(frc::DoubleSolenoid::kReverse);
     IntakePosition = true;
     spdlog::debug("Close");
 }

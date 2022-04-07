@@ -16,6 +16,7 @@ public:
   void SetSpeed(double speed);
   double AppliedSpeed();
   int m_countShooter;
+  bool isReady = false;
 
 private:
   ctre::phoenix::motorcontrol::can::TalonFX m_MotorLeft{SHOOTER_MOTOR_LEFT_CAN_ID};

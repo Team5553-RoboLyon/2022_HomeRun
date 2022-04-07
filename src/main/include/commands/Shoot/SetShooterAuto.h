@@ -11,6 +11,7 @@
 #include "subsystems/Hood.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Camera.h"
+#include "subsystems/Conveyor.h"
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableEntry.h"
 
@@ -21,7 +22,7 @@ class SetShooterAuto
                                  SetShooterAuto>
 {
 public:
-  SetShooterAuto(Shooter *shooter, Hood *hood, Turret *turret, Camera *camera);
+  SetShooterAuto(Conveyor *pconveyor, Shooter *shooter, Hood *hood, Turret *turret, Camera *camera);
 
   void Execute() override;
   void End(bool interrupted) override;
@@ -31,6 +32,7 @@ private:
   int *getNearestElementId(double target);
   frc::MedianFilter<double> m_horizontalMedian = frc::MedianFilter<double>(3);
   Shooter *m_shooter;
+  Conveyor *m_pConveyor;
   Hood *m_hood;
   Turret *m_turret;
   Camera *m_camera;

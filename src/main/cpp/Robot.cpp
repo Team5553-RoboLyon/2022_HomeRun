@@ -85,85 +85,87 @@ void Robot::DisabledPeriodic()
 
 void Robot::AutonomousInit()
 {
+  m_container.m_count = 0;
   spdlog::trace("AutonomousInit()");
 }
 
 void Robot::AutonomousPeriodic()
 {
-  Nf32 dt = ROBOT_LOOP_TIME;
-  spdlog::trace("AutonomousPeriodic()");
-  Nf32 l, r, dl, dr;
-  NLRAMSETEOUTPUT output;
+  // Nf32 dt = ROBOT_LOOP_TIME;
+  // spdlog::trace("AutonomousPeriodic()");
+  // Nf32 l, r, dl, dr;
+  // NLRAMSETEOUTPUT output;
 
-  switch (m_state)
-  {
-  case Robot::STATE::PATH_ERROR:
-  {
-    break;
-  }
-  case Robot::STATE::PATH_FOLLOWING:
-  {
-    // *****************************************************    'THE' METHOD(e)
-    // A) Feed back:
-    // avec les encodeurs on estime la position du robot:
-    //			l = distance parcourue par la roue gauche depuis le dernier reset encodeur.
-    //			r = distance parcourue par la roue droite depuis le dernier reset encodeur.
-    //
-    //			dl et dr = distances parcourues par les roues gauche et droite depuis le dernier call.
-    //			(note dl/dt = vitesse roue gauche et dr/dt = vitesse roue droite  )
-    //
+  // switch (m_state)
+  // {
+  // case Robot::STATE::PATH_ERROR:
+  // {
+  //   break;
+  // }
+  // case Robot::STATE::PATH_FOLLOWING:
+  // {
+  //   // *****************************************************    'THE' METHOD(e)
+  //   // A) Feed back:
+  //   // avec les encodeurs on estime la position du robot:
+  //   //			l = distance parcourue par la roue gauche depuis le dernier reset encodeur.
+  //   //			r = distance parcourue par la roue droite depuis le dernier reset encodeur.
+  //   //
+  //   //			dl et dr = distances parcourues par les roues gauche et droite depuis le dernier call.
+  //   //			(note dl/dt = vitesse roue gauche et dr/dt = vitesse roue droite  )
+  //   //
 
-    double encoderValues[2];
+  //   double encoderValues[2];
 
-    m_container.GetDrivetrainEncoderValues(encoderValues);
+  //   m_container.GetDrivetrainEncoderValues(encoderValues);
 
-    l = (encoderValues[0] / 8192.0f) * NF32_2PI * m_DriveTrainSpecs.m_wheelRadius;
-    r = (encoderValues[1] / 8192.0f) * NF32_2PI * m_DriveTrainSpecs.m_wheelRadius;
-    dl = l - m_dsLeftWheel;
-    dr = r - m_dsRightWheel;
-    m_dsLeftWheel = l;
-    m_dsRightWheel = r;
-    // forward:
-    m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, dl, dr, (m_gyro.GetAngle() * NF64_2PI / 360.0));
+  //   l = (encoderValues[0] / 8192.0f) * NF32_2PI * m_DriveTrainSpecs.m_wheelRadius;
+  //   r = (encoderValues[1] / 8192.0f) * NF32_2PI * m_DriveTrainSpecs.m_wheelRadius;
+  //   dl = l - m_dsLeftWheel;
+  //   dr = r - m_dsRightWheel;
+  //   m_dsLeftWheel = l;
+  //   m_dsRightWheel = r;
+  //   // forward:
+  //   m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, dl, dr, (m_gyro.GetAngle() * NF64_2PI / 360.0));
 
-    // backward:
-    // m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, -dr, -dl, m_gyro.get());
+  //   // backward:
+  //   // m_estimatedPose.odometryUpdate(&m_DriveTrainSpecs, -dr, -dl, m_gyro.get());
 
-    // B) Feed forward : State ( full )
-    m_currrentState.m_kin.m_t += dt;
-    m_TrajectoryStatePack.getState(&m_currrentState, m_currrentState.m_kin.m_t);
+  //   // B) Feed forward : State ( full )
+  //   m_currrentState.m_kin.m_t += dt;
+  //   m_TrajectoryStatePack.getState(&m_currrentState, m_currrentState.m_kin.m_t);
 
-    // C) Ramsete:
-    m_ramsete.update(&output, &m_DriveTrainSpecs, &m_currrentState, &m_estimatedPose);
+  //   // C) Ramsete:
+  //   m_ramsete.update(&output, &m_DriveTrainSpecs, &m_currrentState, &m_estimatedPose);
 
-    // forward:
-    Nf32 l1 = m_CrtzL1.getVoltage(output.m_leftVelocity, output.m_leftAcceleration);
-    Nf32 l2 = m_CrtzL2.getVoltage(output.m_leftVelocity, output.m_leftAcceleration);
-    Nf32 r1 = m_CrtzR1.getVoltage(output.m_rightVelocity, output.m_rightAcceleration);
-    Nf32 r2 = m_CrtzR2.getVoltage(output.m_rightVelocity, output.m_rightAcceleration);
+  //   // forward:
+  //   Nf32 l1 = m_CrtzL1.getVoltage(output.m_leftVelocity, output.m_leftAcceleration);
+  //   Nf32 l2 = m_CrtzL2.getVoltage(output.m_leftVelocity, output.m_leftAcceleration);
+  //   Nf32 r1 = m_CrtzR1.getVoltage(output.m_rightVelocity, output.m_rightAcceleration);
+  //   Nf32 r2 = m_CrtzR2.getVoltage(output.m_rightVelocity, output.m_rightAcceleration);
 
-    m_container.SetMotorVoltagesWhenAutonomous(units::volt_t{l1}, units::volt_t{l2}, units::volt_t{r1}, units::volt_t{r2});
+  //   m_container.SetMotorVoltagesWhenAutonomous(units::volt_t{l1}, units::volt_t{l2}, units::volt_t{r1}, units::volt_t{r2});
 
-    /*
-    // backward:
-    m_moteurR1.SetVoltage(m_CrtzL1.getVoltage(-output.m_leftVelocity, -output.m_leftAcceleration));
-    m_moteurR2.SetVoltage(m_CrtzL2.getVoltage(-output.m_leftVelocity, -output.m_leftAcceleration));
+  //   /*
+  //   // backward:
+  //   m_moteurR1.SetVoltage(m_CrtzL1.getVoltage(-output.m_leftVelocity, -output.m_leftAcceleration));
+  //   m_moteurR2.SetVoltage(m_CrtzL2.getVoltage(-output.m_leftVelocity, -output.m_leftAcceleration));
 
-    m_moteurL1.SetVoltage(m_CrtzR1.getVoltage(-output.m_rightVelocity,-output.m_rightAcceleration));
-    m_moteurL2.SetVoltage(m_CrtzR2.getVoltage(-output.m_rightVelocity,-output.m_rightAcceleration));
-    */
-    break;
-  }
-  case Robot::STATE::PATH_END:
-  {
-    break;
-  }
-  default:
-  {
-    NErrorIf(1, NERROR_UNAUTHORIZED_CASE);
-    break;
-  }
-  }
+  //   m_moteurL1.SetVoltage(m_CrtzR1.getVoltage(-output.m_rightVelocity,-output.m_rightAcceleration));
+  //   m_moteurL2.SetVoltage(m_CrtzR2.getVoltage(-output.m_rightVelocity,-output.m_rightAcceleration));
+  //   */
+  //   break;
+  // }
+  // case Robot::STATE::PATH_END:
+  // {
+  //   break;
+  // }
+  // default:
+  // {
+  //   NErrorIf(1, NERROR_UNAUTHORIZED_CASE);
+  //   break;
+  // }
+  // }
+  //m_container.Autonomous();
 }
 
 void Robot::TeleopInit()

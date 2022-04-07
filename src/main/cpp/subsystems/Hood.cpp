@@ -71,3 +71,8 @@ void Hood::Periodic()
     }
     }
 }
+
+double Hood::GetError()
+{
+    return GetMeasurement() - m_setPoint;
+}

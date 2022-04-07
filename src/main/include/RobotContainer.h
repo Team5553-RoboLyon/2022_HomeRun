@@ -77,12 +77,14 @@ class RobotContainer
 {
 public:
   RobotContainer();
+  int m_count = 0;
   // void StartTests();
 
 #if GEARBOX
   void GetDrivetrainEncoderValues(double (&encoderValues)[2]);
   void SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2);
   void SetPTOWhenAutonomous(Gearbox::PTOState ptoState);
+  void Autonomous();
 #endif
 
   void InitTeleopPeriod();

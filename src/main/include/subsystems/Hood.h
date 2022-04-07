@@ -32,6 +32,9 @@ public:
     void Disable();
 
     void ResetEncoders();
+
+    double GetError();
+
     void ResetPID();
     enum state
     {
