@@ -105,22 +105,38 @@ void Robot::TeleopPeriodic()
   {
     m_hood.SetSetpoint(std::clamp(m_hood.GetSetpoint() - 0.5, 2.0, 56.0));
   }
+  if (m_joystickRight.GetRawButtonPressed(10))
+  {
+    m_hood.SetSetpoint(std::clamp(m_hood.GetSetpoint() + 3, 2.0, 56.0));
+  }
+  if (m_joystickRight.GetRawButtonPressed(9))
+  {
+    m_hood.SetSetpoint(std::clamp(m_hood.GetSetpoint() - 3, 2.0, 56.0));
+  }
 
-  if (m_joystickRight.GetRawButtonPressed(6))
+  if (m_joystickLeft.GetRawButtonPressed(6))
   {
     m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed + 0.05, 0.0, 1.0);
   }
-  if (m_joystickRight.GetRawButtonPressed(5))
+  if (m_joystickLeft.GetRawButtonPressed(5))
   {
     m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed - 0.05, 0.0, 1.0);
   }
 
-  if (m_joystickRight.GetRawButton(1))
+  if (m_joystickLeft.GetRawButtonPressed(8))
+  {
+    m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed + 0.01, 0.0, 1.0);
+  }
+  if (m_joystickLeft.GetRawButtonPressed(7))
+  {
+    m_flyingWheelsSpeed = std::clamp(m_flyingWheelsSpeed - 0.01, 0.0, 1.0);
+  }
+  if (m_joystickRight.GetRawButtonPressed(1))
   {
     m_feedingSystem.ActivateConveyor();
     m_feedingSystem.ActivateIntake();
   }
-  else
+  else if (m_joystickRight.GetRawButtonReleased(1))
   {
     m_feedingSystem.StopConveyor();
     m_feedingSystem.StopIntake();
@@ -208,12 +224,12 @@ void Robot::TeleopPeriodic()
     m_feedingSystem.StopFeeder();
     m_shooter.Set(0.0);
   }
-
+  frc::SmartDashboard::PutNumber("RPM shooter", m_shooter.m_ShooterMotorRight.GetSensorCollection().GetIntegratedSensorVelocity());
   if (m_joystickLeft.GetRawButton(1))
   {
     m_countShooter += 1;
     m_shooter.Set(m_flyingWheelsSpeed);
-    if (m_countShooter >= 25)
+    if (m_countShooter >= 70)
     {
       switch (m_conveyorState)
       {
@@ -227,7 +243,7 @@ void Robot::TeleopPeriodic()
         else
         {
           m_feedingSystem.UnblockFeeder();
-          if (m_countConveyor <= 6)
+          if (m_countConveyor <= 8)
           {
             m_feedingSystem.UnblockConveyor();
           }
@@ -240,7 +256,7 @@ void Robot::TeleopPeriodic()
 
         break;
       case ConveyorState::Enable:
-        if (m_countConveyor >= 20)
+        if (m_countConveyor >= 30)
         {
           m_countConveyor = 0;
           m_conveyorState = ConveyorState::Init;

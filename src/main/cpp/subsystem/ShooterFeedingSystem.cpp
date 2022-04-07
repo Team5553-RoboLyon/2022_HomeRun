@@ -10,7 +10,7 @@ ShooterFeedingSystem::ShooterFeedingSystem()
 
     m_ConveyorMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
 
-    m_FeederMotor.SetInverted(true);
+    m_FeederMotor.SetInverted(false);
     m_IntakeMotor.SetInverted(false);
     m_ConveyorMotor.SetInverted(false);
 

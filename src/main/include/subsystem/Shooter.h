@@ -10,8 +10,9 @@ public:
     void Set(double speed);
     void Init();
 
-private:
     ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorLeft{SHOOTER_MOTOR_LEFT_CAN_ID};
     ctre::phoenix::motorcontrol::can::TalonFX m_ShooterMotorRight{SHOOTER_MOTOR_RIGHT_CAN_ID};
-    double m_speedShooter;
+
+private:
+        double m_speedShooter;
 };
