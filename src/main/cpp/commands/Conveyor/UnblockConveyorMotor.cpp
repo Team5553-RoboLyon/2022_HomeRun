@@ -18,12 +18,13 @@ void UnblockConveyorMotor::Initialize() {}
 void UnblockConveyorMotor::Execute()
 {
   m_pConveyor->UnblockConveyorMotor();
+  m_pConveyor->UnblockFeedingMotor();
 }
 
 // Called once the command ends or is interrupted.
 void UnblockConveyorMotor::End(bool interrupted)
 {
-  m_pConveyor->StopConveyorMotor();
+  m_pConveyor->StopAllMotors();
 }
 
 // Returns true when the command should end.

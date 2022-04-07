@@ -8,8 +8,9 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 SetShooterAuto::SetShooterAuto(Conveyor *pconveyor, Shooter *shooter, Hood *hood, Turret *turret, Camera *camera)
-    : m_shooter(shooter), m_hood(hood), m_turret(turret), m_camera(camera)
+    : m_pConveyor(pconveyor), m_shooter(shooter), m_hood(hood), m_turret(turret), m_camera(camera)
 {
+
   AddRequirements(m_shooter);
   AddRequirements(m_hood);
   AddRequirements(m_turret);
@@ -18,6 +19,7 @@ SetShooterAuto::SetShooterAuto(Conveyor *pconveyor, Shooter *shooter, Hood *hood
 }
 void SetShooterAuto::End(bool interrupted)
 {
+
   m_camera->DisableLED();
   m_shooter->SetSpeed(0.0);
   m_turret->SetClampedSetpoint(0.0);
@@ -25,6 +27,7 @@ void SetShooterAuto::End(bool interrupted)
 }
 void SetShooterAuto::Initialize()
 {
+  std::cout << "init" << std::endl;
   m_camera->EnableLED();
   m_shooter->m_countShooter = 0;
   m_pConveyor->m_count = 0;
@@ -33,6 +36,8 @@ void SetShooterAuto::Initialize()
 
 void SetShooterAuto::Execute()
 {
+  std::cout << "exec" << std::endl;
+
   if (m_camera->HasTarget())
   {
     m_shooter->m_countShooter += 1;

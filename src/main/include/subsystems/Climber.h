@@ -22,6 +22,7 @@ public:
     void UseOutput(double output, double setpoint);
     void SetSetpoint(double setpoint);
     double GetSetpoint();
+    bool GetEnabled();
 
 private:
     Gearbox *m_gearbox;
@@ -32,6 +33,7 @@ private:
     frc::Encoder m_encoderClimber{CLIMBER_LINEAR_ENCODER_ID_A, CLIMBER_LINEAR_ENCODER_ID_B};
 
     double m_setPoint = 0.0;
+    bool m_enabled = false;
 
     frc::Encoder m_encoderRotatingArms{CLIMBER_ROTATING_ENCODER_ID_A, CLIMBER_ROTATING_ENCODER_ID_B};
 };

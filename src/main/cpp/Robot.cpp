@@ -85,7 +85,7 @@ void Robot::DisabledPeriodic()
 
 void Robot::AutonomousInit()
 {
-  m_container.m_count = 0;
+  m_container.AutonomousInit();
   spdlog::trace("AutonomousInit()");
 }
 
@@ -165,7 +165,7 @@ void Robot::AutonomousPeriodic()
   //   break;
   // }
   // }
-  //m_container.Autonomous();
+  // m_container.Autonomous();
 }
 
 void Robot::TeleopInit()

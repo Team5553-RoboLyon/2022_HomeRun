@@ -19,8 +19,11 @@ void Climb::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void Climb::Execute()
 {
-  m_pClimber->MoveRotatingArms(m_rotating());
-  m_pClimber->MoveClimber(m_linear());
+  if (m_pClimber->GetEnabled())
+  {
+    m_pClimber->MoveRotatingArms(m_rotating());
+    m_pClimber->MoveClimber(m_linear());
+  }
 }
 
 // Called once the command ends or is interrupted.

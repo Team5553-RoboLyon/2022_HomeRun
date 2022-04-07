@@ -10,14 +10,14 @@ Intake::Intake()
 
 void Intake::ActiveMotor()
 {
-    if (IntakePosition)
-    {
-        m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
-    }
-    else
-    {
-        StopMotor();
-    }
+    // if (IntakePosition)
+    // {
+    m_IntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, INTAKE_MOTOR_SPEED);
+    // }
+    // else
+    // {
+    // StopMotor();
+    // }
 }
 
 void Intake::UnblockMotor()

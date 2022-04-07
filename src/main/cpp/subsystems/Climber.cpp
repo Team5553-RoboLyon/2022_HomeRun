@@ -26,10 +26,12 @@ void Climber::ResetEncoder()
 }
 void Climber::Enable()
 {
+    m_enabled = true;
     m_gearbox->SetPTOState(Gearbox::PTOState::Climbing);
 }
 void Climber::Disable()
 {
+    m_enabled = false;
     m_gearbox->SetPTOState(Gearbox::PTOState::Driving);
 }
 
@@ -54,4 +56,9 @@ double Climber::GetSetpoint()
 {
     spdlog::trace("Drivetrain::GetSetpointClimber()");
     return m_setPoint;
+}
+
+bool Climber::GetEnabled()
+{
+    return m_enabled;
 }

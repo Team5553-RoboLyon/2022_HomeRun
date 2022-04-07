@@ -16,11 +16,13 @@ void Drivetrain::Stop()
 
 void Drivetrain::Enable()
 {
+    m_gearbox->SetPTOState(Gearbox::PTOState::Driving);
     m_enabled = true;
 }
 
 void Drivetrain::Disable()
 {
+    m_gearbox->SetPTOState(Gearbox::PTOState::Climbing);
     m_enabled = false;
 }
 
