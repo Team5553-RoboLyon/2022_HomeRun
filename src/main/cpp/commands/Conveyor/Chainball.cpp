@@ -97,7 +97,7 @@ void ChainballRun2(Conveyor *m_pConveyor, Shooter *m_pShooter)
     case ChainBallState::Shoot1:            // on envoie les balle
         m_pConveyor->ActiveConveyorMotor(); // +5             5*0.8=4
         m_pConveyor->ActiveFeedingMotor();  // +5             5*0.9=4.5
-        if (m_pConveyor->m_count >= 8)
+        if (m_pConveyor->m_count >= 5)
         {
             m_pConveyor->m_count = 0;
             chainBallState = ChainBallState::Shoot2_Pause;

@@ -49,8 +49,8 @@
 #define CONVEYOR_CURRENT_LIMIT 40
 
 // ########### ramp ###############
-#define CONVEYOR_RAMP_RATE 0.2
-#define FEEDER_RAMP_RATE 0.2
+#define CONVEYOR_RAMP_RATE 0.0
+#define FEEDER_RAMP_RATE 0.0
 #define INTAKE_RAMP_RATE 0.5
 #define DRIVETRAIN_RAMPRATE 0.6
 

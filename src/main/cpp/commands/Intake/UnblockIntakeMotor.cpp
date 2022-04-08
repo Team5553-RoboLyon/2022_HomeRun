@@ -14,6 +14,7 @@ UnblockIntakeMotor::UnblockIntakeMotor(Intake *pintake)
 void UnblockIntakeMotor::Initialize()
 {
   spdlog::trace("UnblockIntakeMotor::Initialize()");
+  m_pIntake->Open();
 }
 
 void UnblockIntakeMotor::Execute()

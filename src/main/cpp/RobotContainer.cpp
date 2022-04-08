@@ -108,7 +108,7 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonShootNear.WhenHeld(NearShoot(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret));
 #endif
 
-  frc2::JoystickButton m_buttonRemonteIntake = frc2::JoystickButton(&m_DriverLeftJoystick, 8);
+  frc2::JoystickButton m_buttonRemonteIntake = frc2::JoystickButton(&m_DriverLeftJoystick, 10);
   m_buttonRemonteIntake.WhenActive(frc2::InstantCommand([this]
                                                         { m_Intake.Close(); }));
 }
