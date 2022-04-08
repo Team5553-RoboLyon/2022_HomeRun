@@ -12,6 +12,7 @@
 #include "lib/RobotError.h"
 
 #include "Constants.h"
+#include "commands/autonomous/SimpleAutonomous.h"
 
 #if GEARBOX
 #include "subsystems/Gearbox.h"
@@ -47,6 +48,7 @@
 #if SHOOTER
 #include "subsystems/Shooter.h"
 #include "commands/Shoot/ActiveShooter.h"
+#include "commands/Shoot/UnblockShooter.h"
 #endif
 
 #if TURRET
@@ -63,12 +65,14 @@
 
 #if SHOOTER && TURRET
 #include "commands/Shoot/SetShooterAuto.h"
+#include "commands/Shoot/NearShoot.h"
 #endif
 
 #include "lib/JsonConfig.h"
 
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include <cameraserver/CameraServer.h>
 #include <frc/Compressor.h>
 
@@ -76,16 +80,14 @@ class RobotContainer
 {
 public:
   RobotContainer();
-  int m_count = 0;
-  bool m_isShooting = false;
-  void AutonomousInit();
+
+  frc2::Command *GetAutonomousCommand();
   // void StartTests();
 
 #if GEARBOX
   void GetDrivetrainEncoderValues(double (&encoderValues)[2]);
   void SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2);
   void SetPTOWhenAutonomous(Gearbox::PTOState ptoState);
-  void Autonomous();
 #endif
 
   void InitTeleopPeriod();
@@ -129,4 +131,8 @@ private:
   //                              { return m_DriverRightJoystick.GetThrottle(); }};
 
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
+
+  frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
+      SimpleAutonomous(&m_Drivetrain),
+      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 };

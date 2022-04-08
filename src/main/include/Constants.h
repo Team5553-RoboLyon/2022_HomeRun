@@ -35,10 +35,13 @@
 #define CONVEYOR_UNBLOCK_SPEED -0.5
 #define FEEDER_UNBLOCK_SPEED -0.5
 #define INTAKE_UNBLOCK_SPEED -0.5
+#define SHOOTER_UNBLOCK_SPEED -0.5
 // motor normal speeds
 #define INTAKE_MOTOR_SPEED 0.7
 #define FEEDER_MOTOR_SPEED 0.9
 #define CONVEYOR_MOTOR_SPEED 0.8
+// autonomous
+#define DRIVETRAIN_AUTONOMOUS_SPEED -0.3
 
 // ############ smart current limit ###############
 #define DRIVETRAIN_CURRENT_LIMIT 45

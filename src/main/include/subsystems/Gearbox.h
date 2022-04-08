@@ -76,5 +76,5 @@ private:
     frc::Encoder m_encodeurExterneDroite{DRIVETRAIN_ENCODER_EXTERN_RIGHT_A_ID, DRIVETRAIN_ENCODER_EXTERN_RIGHT_B_ID, false, frc::Encoder::k4X};
     frc::Encoder m_encodeurExterneGauche{DRIVETRAIN_ENCODER_EXTERN_LEFT_A_ID, DRIVETRAIN_ENCODER_EXTERN_LEFT_B_ID, true, frc::Encoder::k4X};
 
-    PTOState m_ptoState = PTOState::Driving;
+    PTOState m_ptoState = PTOState::None;
 };

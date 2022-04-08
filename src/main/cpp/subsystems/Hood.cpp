@@ -55,8 +55,6 @@ void Hood::Periodic()
     case Hood::state::Enabled:
     {
         double output = m_controller.Calculate(GetMeasurement(), m_setPoint);
-        frc::SmartDashboard::PutNumber("outputHood", output);
-        frc::SmartDashboard::PutNumber("encodeur hood", GetMeasurement());
         m_HoodMotor.Set(output);
         break;
     }

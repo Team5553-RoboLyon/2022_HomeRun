@@ -27,7 +27,6 @@ void SetShooterAuto::End(bool interrupted)
 }
 void SetShooterAuto::Initialize()
 {
-  std::cout << "init" << std::endl;
   m_camera->EnableLED();
   m_shooter->m_countShooter = 0;
   m_pConveyor->m_count = 0;
@@ -36,7 +35,6 @@ void SetShooterAuto::Initialize()
 
 void SetShooterAuto::Execute()
 {
-  std::cout << "exec" << std::endl;
 
   if (m_camera->HasTarget())
   {
@@ -54,6 +52,7 @@ void SetShooterAuto::Execute()
     m_turret->SetClampedSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
     if (std::abs(m_turret->GetController().GetPositionError()) < 2 && std::abs(m_hood->GetError()) < 2 && m_shooter->m_countShooter >= 10)
     {
+      spdlog::error("on vas shooter !!!");
       m_shooter->isReady = true;
       switch (m_pConveyor->m_state)
       {
@@ -88,7 +87,10 @@ void SetShooterAuto::Execute()
         else
         {
           m_pConveyor->m_count += 1;
-          m_pConveyor->ActiveConveyorMotor();
+          if (m_pConveyor->m_count >= 10)
+          {
+            m_pConveyor->ActiveConveyorMotor();
+          }
           m_pConveyor->ActiveFeedingMotor();
         }
 

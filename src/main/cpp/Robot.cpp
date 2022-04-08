@@ -85,12 +85,13 @@ void Robot::DisabledPeriodic()
 
 void Robot::AutonomousInit()
 {
-  m_container.AutonomousInit();
   spdlog::trace("AutonomousInit()");
+  m_container.GetAutonomousCommand()->Schedule();
 }
 
 void Robot::AutonomousPeriodic()
 {
+
   // Nf32 dt = ROBOT_LOOP_TIME;
   // spdlog::trace("AutonomousPeriodic()");
   // Nf32 l, r, dl, dr;
@@ -165,7 +166,6 @@ void Robot::AutonomousPeriodic()
   //   break;
   // }
   // }
-  // m_container.Autonomous();
 }
 
 void Robot::TeleopInit()

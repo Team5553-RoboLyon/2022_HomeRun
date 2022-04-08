@@ -38,7 +38,7 @@ Gearbox::Gearbox()
     m_NeoMotorRight.GetEncoder().SetPosition(0);
     m_NeoMotorRightFollower.GetEncoder().SetPosition(0);
 
-    m_solenoid.Set(frc::DoubleSolenoid::Value::kForward);
+    SetPTOState(PTOState::Driving);
 }
 
 void Gearbox::Periodic()

@@ -22,9 +22,9 @@ RobotContainer::RobotContainer()
 
   m_Climber.SetDefaultCommand(Climb(
       [=]
-      { return -m_DriverLeftJoystick.GetY(); },
+      { return m_DriverLeftJoystick.GetY(); },
       [=]
-      { return m_DriverRightJoystick.GetZ(); },
+      { return m_DriverRightJoystick.GetY(); },
       &m_Climber));
 
   m_CameraPilote = frc::CameraServer::StartAutomaticCapture();
@@ -32,6 +32,8 @@ RobotContainer::RobotContainer()
   m_CameraPilote.SetFPS(12);
   m_Compressor.EnableDigital();
   m_Camera.DisableLED();
+
+  m_Drivetrain.Enable();
 
   // m_Climber.SetDefaultCommand(ClimberActiveMotor(&m_Climber, [=]
   //                                                { return m_DriverRightJoystick.GetX(); }));
@@ -46,28 +48,10 @@ void RobotContainer::GetDrivetrainEncoderValues(double (&encoderValues)[2])
 {
   m_Gearbox.GetEncoderValues(encoderValues);
 }
-void RobotContainer::AutonomousInit()
-{
-  m_count = 0;
-  m_Hood.ResetPID();
-}
 
-void RobotContainer::Autonomous()
+frc2::Command *RobotContainer::GetAutonomousCommand()
 {
-  m_count += 1;
-  if (m_count < 100)
-  {
-    m_Drivetrain.Drive(-0.2, -0.2);
-  }
-  else
-  {
-    m_Drivetrain.Drive(0.0, -0.0);
-    if (!m_isShooting)
-    {
-      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera).Schedule();
-      m_isShooting = true;
-    }
-  }
+  return &m_autonomousGroupCommand;
 }
 
 void RobotContainer::SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2)
@@ -106,6 +90,7 @@ void RobotContainer::InitTeleopPeriod()
 
 #if GEARBOX
   m_Gearbox.InitTeleopPeriod();
+  m_Drivetrain.Enable();
 #endif
 }
 
@@ -121,6 +106,11 @@ void RobotContainer::ConfigureButtonBindings()
                                                         if (m_Gearbox.GetPTOState() == Gearbox::PTOState::Driving){
                                                           m_Drivetrain.Disable();
                                                           m_Climber.Enable();
+                                                          m_Turret.Enable();
+                                                          m_Turret.SetClampedSetpoint(0.0);
+                                                          m_Intake.Close();
+                                                          m_Hood.SetSetpoint(0.0);
+
                                                            } else{
                                                              m_Drivetrain.Enable();
                                                              m_Climber.Disable();
@@ -133,7 +123,7 @@ void RobotContainer::ConfigureButtonBindings()
   m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
 
   frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 11);
-  m_buttonIntakeUnblockMotor.WhileActiveContinous(frc2::ParallelCommandGroup(UnblockIntakeMotor(&m_Intake), UnblockConveyorMotor(&m_Conveyor)));
+  m_buttonIntakeUnblockMotor.WhileActiveContinous(frc2::ParallelCommandGroup(UnblockIntakeMotor(&m_Intake), UnblockConveyorMotor(&m_Conveyor), UnblockShooter(&m_Shooter)));
 #endif
 
 #if INTAKE && CONVEYOR
@@ -156,6 +146,9 @@ void RobotContainer::ConfigureButtonBindings()
 #if SHOOTER && TURRET
   frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   m_buttonAutoShoot.WhenHeld(SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+
+  frc2::JoystickButton m_buttonShootNear = frc2::JoystickButton(&m_DriverRightJoystick, 4);
+  m_buttonShootNear.WhenHeld(NearShoot(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret));
 #endif
 
   frc2::JoystickButton m_buttonRemonteIntake = frc2::JoystickButton(&m_DriverLeftJoystick, 8);

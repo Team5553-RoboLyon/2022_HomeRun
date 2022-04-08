@@ -10,7 +10,6 @@ Climb::Climb(std::function<double()> rotating, std::function<double()> linear, C
   AddRequirements(m_pClimber);
   m_rotating = rotating;
   m_linear = linear;
-  // Use addRequirements() here to declare subsystem dependencies.
 }
 
 // Called when the command is initially scheduled.
@@ -21,8 +20,8 @@ void Climb::Execute()
 {
   if (m_pClimber->GetEnabled())
   {
-    m_pClimber->MoveRotatingArms(m_rotating());
-    m_pClimber->MoveClimber(m_linear());
+    m_pClimber->MoveRotatingArms(m_rotating() * 1.0);
+    m_pClimber->MoveClimber(m_linear() * 1.0);
   }
 }
 
