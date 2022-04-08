@@ -10,8 +10,8 @@ Turret::Turret()
   SetSetpoint(0.0);
   m_controller.SetIntegratorRange(-TURRET_PID_INTEGRATOR_RANGE, TURRET_PID_INTEGRATOR_RANGE);
   m_controller.SetTolerance(0.0, std::numeric_limits<double>::infinity());
-  m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
-  m_encoderTurret.SetReverseDirection(true);
+  m_encoderTurret.SetDistancePerPulse(45.000 / 1290.0);
+  m_encoderTurret.SetReverseDirection(false);
   ResetEncoders();
   Enable();
 }
@@ -42,10 +42,23 @@ void Turret::ResetPID()
 }
 void Turret::Periodic()
 {
-  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(m_controller.Calculate(GetMeasurement()), -0.8, 0.8));
+  if (m_state == Turret::state::Enabled)
+  {
+    double output = std::clamp(m_controller.Calculate(GetMeasurement()), -0.8, 0.8);
+    spdlog::error(output);
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
+  }
+  else
+  {
+    spdlog::error("disabled");
+
+    m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  }
 }
 
 double Turret::GetMeasurement()
 {
+  spdlog::error("encodeur value");
+  spdlog::error(m_encoderTurret.GetDistance());
   return m_encoderTurret.GetDistance();
 }

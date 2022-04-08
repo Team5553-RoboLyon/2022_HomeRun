@@ -19,7 +19,7 @@ void NearShoot::Initialize()
   m_phood->SetSetpoint(4.0);
   m_pShooter->SetSpeed(0.7);
   m_pturret->SetSetpoint(0.0);
-  ChainballInit(m_pConveyor, m_pShooter);
+  ChainballInit2(m_pConveyor, m_pShooter);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -27,13 +27,16 @@ void NearShoot::Execute()
 {
   if (std::abs(m_pturret->GetError()) < 2 && std::abs(m_phood->GetError()) < 2 && m_pShooter->m_countShooter >= 10)
   {
-    ChainballRun(m_pConveyor, m_pShooter);
+    ChainballRun2(m_pConveyor, m_pShooter);
   }
 }
 
 // Called once the command ends or is interrupted.
 void NearShoot::End(bool interrupted)
 {
+  m_phood->SetSetpoint(0.0);
+  m_pShooter->SetSpeed(0.0);
+  m_pturret->SetSetpoint(0.0);
 }
 
 // Returns true when the command should end.

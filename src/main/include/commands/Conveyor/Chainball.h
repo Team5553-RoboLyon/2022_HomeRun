@@ -5,6 +5,7 @@
 #pragma once
 #include "subsystems/Conveyor.h"
 #include "subsystems/Shooter.h"
+#include <spdlog/spdlog.h>
 
 void ChainballInit(Conveyor *m_pConveyor, Shooter *m_pShooter);
 void ChainballRun(Conveyor *m_pConveyor, Shooter *m_pShooter);
@@ -15,6 +16,7 @@ void ChainballRun2(Conveyor *m_pConveyor, Shooter *m_pShooter);
 enum ChainBallState
 {
     Disable,
+    Disabled,
     Disangage,
     Shoot0,
     Shoot1,

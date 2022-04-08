@@ -16,7 +16,7 @@ void UnblockShooter::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void UnblockShooter::Execute()
 {
-  m_pShooter->SetSpeed(SHOOTER_UNBLOCK_SPEED);
+  m_pShooter->Reverse();
 }
 
 // Called once the command ends or is interrupted.

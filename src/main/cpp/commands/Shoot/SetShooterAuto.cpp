@@ -35,7 +35,7 @@ void SetShooterAuto::Initialize()
 {
   m_camera->EnableLED();
   m_shooter->m_countShooter = 0.0;
-  ChainballInit(m_pConveyor, m_shooter);
+  ChainballInit2(m_pConveyor, m_shooter);
 }
 
 void SetShooterAuto::Execute()
@@ -57,7 +57,8 @@ void SetShooterAuto::Execute()
     m_turret->SetSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
     if (m_camera->HasTarget() && (std::abs(m_turret->GetError()) < 2 && std::abs(m_hood->GetError()) < 2 && m_shooter->m_countShooter >= 10))
     {
-      ChainballRun(m_pConveyor, m_shooter);
+      spdlog::error("on doit shooter");
+      ChainballRun2(m_pConveyor, m_shooter);
     }
   }
 }

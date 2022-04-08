@@ -54,13 +54,13 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 }
 void RobotContainer::InitTeleopPeriod()
 {
-  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Schedule();
-  m_Camera.DisableLED();
-  m_Hood.ResetPID();
-  m_Gearbox.InitTeleopPeriod();
-  m_Turret.ResetPID();
-  m_Drivetrain.Enable();
-  m_Gearbox.InitTeleopPeriod();
+  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Execute();
+  // m_Camera.DisableLED();
+  // m_Hood.ResetPID();
+  // m_Gearbox.InitTeleopPeriod();
+  // m_Turret.ResetPID();
+  // m_Drivetrain.Enable();
+  // m_Gearbox.InitTeleopPeriod();
 }
 
 void RobotContainer::ConfigureButtonBindings()
@@ -78,7 +78,7 @@ void RobotContainer::ConfigureButtonBindings()
   frc2::JoystickButton m_buttonIntakeChangePosition = frc2::JoystickButton(&m_DriverLeftJoystick, 2);
   m_buttonIntakeChangePosition.WhileActiveOnce(ChangeIntakePosition(&m_Intake));
 
-  frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 11);
+  frc2::JoystickButton m_buttonIntakeUnblockMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 8);
   m_buttonIntakeUnblockMotor.WhileActiveContinous(frc2::ParallelCommandGroup(UnblockIntakeMotor(&m_Intake), UnblockConveyorMotor(&m_Conveyor), UnblockShooter(&m_Shooter)));
 #endif
 

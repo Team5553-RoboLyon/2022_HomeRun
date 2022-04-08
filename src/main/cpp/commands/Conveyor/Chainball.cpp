@@ -76,56 +76,58 @@ void ChainballRun2(Conveyor *m_pConveyor, Shooter *m_pShooter)
     m_pConveyor->m_count += 1;
     switch (chainBallState)
     {
-    case ChainBallState::Disangage:
-        m_pConveyor->UnblockConveyorMotor();
-        m_pConveyor->UnblockFeedingMotor();
-        if (m_pConveyor->m_count >= 10)
+    case ChainBallState::Disangage:          // on fait desscendre les balles
+        m_pConveyor->UnblockConveyorMotor(); // -10          -10*0.5=-5
+        m_pConveyor->UnblockFeedingMotor();  // -10          -10*0.5=-5
+        if (m_pConveyor->m_count >= 4)
         {
             m_pConveyor->m_count = 0;
             chainBallState = ChainBallState::Shoot0;
         }
         break;
-    case ChainBallState::Shoot0:
-        m_pConveyor->ActiveFeedingMotor();
-        m_pConveyor->StopConveyorMotor();
-        if (m_pConveyor->m_count >= 10)
+    case ChainBallState::Shoot0:           // on prépare le feeder pour feeder les balles
+        m_pConveyor->StopConveyorMotor();  // 0               0*0.5=0
+        m_pConveyor->ActiveFeedingMotor(); // +10             10*0.9=9
+        if (m_pConveyor->m_count >= 5)
         {
             m_pConveyor->m_count = 0;
             chainBallState = ChainBallState::Shoot1;
         }
         break;
-    case ChainBallState::Shoot1:
-        m_pConveyor->ActiveFeedingMotor();
-        m_pConveyor->ActiveConveyorMotor();
-        if (m_pConveyor->m_count >= 5)
+    case ChainBallState::Shoot1:            // on envoie les balle
+        m_pConveyor->ActiveConveyorMotor(); // +5             5*0.8=4
+        m_pConveyor->ActiveFeedingMotor();  // +5             5*0.9=4.5
+        if (m_pConveyor->m_count >= 8)
         {
             m_pConveyor->m_count = 0;
             chainBallState = ChainBallState::Shoot2_Pause;
         }
         break;
 
-    case ChainBallState::Shoot2_Pause:
-        m_pConveyor->ActiveFeedingMotor();
-        m_pConveyor->StopConveyorMotor();
-        if (m_pConveyor->m_count >= 5)
+    case ChainBallState::Shoot2_Pause:     // petite pause entre deux balles
+        m_pConveyor->StopConveyorMotor();  // 0              0*0.5=0
+        m_pConveyor->ActiveFeedingMotor(); // 5              5*0.9=4.5
+        if (m_pConveyor->m_count >= 12)
         {
             m_pConveyor->m_count = 0;
-            chainBallState = ChainBallState::Shoot3;
+            chainBallState = ChainBallState::Disangage;
         }
         break;
-    case ChainBallState::Shoot3:
-        m_pConveyor->ActiveFeedingMotor();
-        m_pConveyor->ActiveConveyorMotor();
-        if (m_pConveyor->m_count >= 5)
-        {
-            m_pConveyor->m_count = 0;
-            chainBallState = ChainBallState::Disable;
-        }
-        break;
-    case ChainBallState::Disable:
-        m_pConveyor->StopAllMotors();
-        break;
-
+    // case ChainBallState::Shoot3:            // on renvoie des balles
+    //     m_pConveyor->ActiveConveyorMotor(); // +5         5*0.8=4
+    //     m_pConveyor->ActiveFeedingMotor();  // +5         5*0.9=4.5
+    //     if (m_pConveyor->m_count >= 15)
+    //     {
+    //         m_pConveyor->m_count = 0;
+    //         chainBallState = ChainBallState::Disable;
+    //     }
+    //     break;
+    // case ChainBallState::Disable:     // on s'arrete
+    //     m_pConveyor->StopAllMotors(); // 0          0*0.0=0
+    //     chainBallState = ChainBallState::Disabled;
+    //     break;
+    // case ChainBallState::Disabled: // arrété
+    //     break;
     default:
         break;
     }

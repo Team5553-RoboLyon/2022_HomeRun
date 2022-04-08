@@ -20,8 +20,8 @@ void Climb::Execute()
 {
   if (m_pClimber->GetEnabled())
   {
-    m_pClimber->MoveRotatingArms(m_rotating() * 1.0);
-    m_pClimber->MoveClimber(m_linear() * 1.0);
+    m_pClimber->MoveRotatingArms(utils::Deadband(m_rotating()) * 1.0);
+    m_pClimber->MoveClimber(utils::Deadband(m_linear()) * 1.0);
   }
 }
 

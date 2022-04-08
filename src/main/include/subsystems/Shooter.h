@@ -15,6 +15,7 @@ public:
   void Periodic();
   void SetSpeed(double speed);
   double AppliedSpeed();
+  void Reverse();
   int m_countShooter;
   bool isReady = false;
 

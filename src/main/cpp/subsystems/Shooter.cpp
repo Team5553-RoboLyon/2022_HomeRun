@@ -23,8 +23,12 @@ Shooter::Shooter()
 
 void Shooter::SetSpeed(double speed)
 {
-    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(speed, 0.0, 1.0));
+    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(speed, 0.0, 1.0)); // TODO ATTENTION A ENLEVER LE COEF
     // m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed); // TODO check les motionProfile controle
+}
+void Shooter::Reverse()
+{
+    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, SHOOTER_UNBLOCK_SPEED);
 }
 
 double Shooter::AppliedSpeed()
