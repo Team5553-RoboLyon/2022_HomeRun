@@ -55,6 +55,12 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 void RobotContainer::InitTeleopPeriod()
 {
   CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Schedule();
+  m_Camera.DisableLED();
+  m_Hood.ResetPID();
+  m_Gearbox.InitTeleopPeriod();
+  m_Turret.ResetPID();
+  m_Drivetrain.Enable();
+  m_Gearbox.InitTeleopPeriod();
 }
 
 void RobotContainer::ConfigureButtonBindings()
@@ -95,9 +101,8 @@ void RobotContainer::ConfigureButtonBindings()
 
 #if SHOOTER && TURRET
   frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverRightJoystick, 1);
-  m_buttonAutoShoot.WhenHeld(frc2::SequentialCommandGroup(
-      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera),
-      ActiveConveyorFeederMotor(&m_Conveyor, &m_Shooter)));
+  m_buttonAutoShoot.WhenHeld(
+      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 
   frc2::JoystickButton m_buttonShootNear = frc2::JoystickButton(&m_DriverRightJoystick, 4);
   m_buttonShootNear.WhenHeld(NearShoot(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret));

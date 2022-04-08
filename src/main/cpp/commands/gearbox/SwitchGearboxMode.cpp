@@ -28,7 +28,7 @@ void SwitchGearboxMode::Execute()
       m_pDrivetrain->Disable();
       m_pClimber->Enable();
       m_pTurret->Enable();
-      m_pTurret->SetClampedSetpoint(0.0);
+      m_pTurret->SetSetpoint(0.0);
       m_pIntake->Close();
       m_pHood->SetSetpoint(0.0);
       m_pconveyor->StopAllMotors();

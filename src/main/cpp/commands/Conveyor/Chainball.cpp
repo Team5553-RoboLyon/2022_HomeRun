@@ -1,0 +1,132 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+#include "commands/Conveyor/Chainball.h"
+
+ChainBallState chainBallState = ChainBallState::Disable;
+
+void ChainballInit(Conveyor *m_pConveyor, Shooter *m_pShooter)
+{
+    m_pConveyor->m_count = 0;
+    m_pConveyor->m_state = Conveyor::state::_INIT;
+    m_pShooter->m_countShooter = 0;
+}
+
+void ChainballRun(Conveyor *m_pConveyor, Shooter *m_pShooter)
+{
+
+    m_pShooter->m_countShooter += 1;
+    if (m_pShooter->m_countShooter >= 25)
+    {
+        switch (m_pConveyor->m_state)
+        {
+        case Conveyor::state::_INIT:
+
+            if (m_pConveyor->m_count >= 20)
+            {
+                m_pConveyor->m_state = Conveyor::state::_ENABLE;
+                m_pConveyor->m_count = 0;
+            }
+            else
+            {
+                m_pConveyor->UnblockFeedingMotor();
+                if (m_pConveyor->m_count <= 8)
+                {
+                    m_pConveyor->UnblockConveyorMotor();
+                }
+                else
+                {
+                    m_pConveyor->StopConveyorMotor();
+                }
+            }
+            m_pConveyor->m_count += 1;
+
+            break;
+        case Conveyor::state::_ENABLE:
+            if (m_pConveyor->m_count >= 10)
+            {
+                m_pConveyor->m_count = 0;
+                m_pConveyor->m_state = Conveyor::state::_INIT;
+            }
+            else
+            {
+                m_pConveyor->m_count += 1;
+                m_pConveyor->ActiveConveyorMotor();
+                m_pConveyor->ActiveFeedingMotor();
+            }
+
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+
+void ChainballInit2(Conveyor *m_pConveyor, Shooter *m_pShooter)
+{
+    m_pConveyor->m_count = 0;
+    chainBallState = ChainBallState::Disangage;
+}
+
+void ChainballRun2(Conveyor *m_pConveyor, Shooter *m_pShooter)
+
+{
+    m_pConveyor->m_count += 1;
+    switch (chainBallState)
+    {
+    case ChainBallState::Disangage:
+        m_pConveyor->UnblockConveyorMotor();
+        m_pConveyor->UnblockFeedingMotor();
+        if (m_pConveyor->m_count >= 10)
+        {
+            m_pConveyor->m_count = 0;
+            chainBallState = ChainBallState::Shoot0;
+        }
+        break;
+    case ChainBallState::Shoot0:
+        m_pConveyor->ActiveFeedingMotor();
+        m_pConveyor->StopConveyorMotor();
+        if (m_pConveyor->m_count >= 10)
+        {
+            m_pConveyor->m_count = 0;
+            chainBallState = ChainBallState::Shoot1;
+        }
+        break;
+    case ChainBallState::Shoot1:
+        m_pConveyor->ActiveFeedingMotor();
+        m_pConveyor->ActiveConveyorMotor();
+        if (m_pConveyor->m_count >= 5)
+        {
+            m_pConveyor->m_count = 0;
+            chainBallState = ChainBallState::Shoot2_Pause;
+        }
+        break;
+
+    case ChainBallState::Shoot2_Pause:
+        m_pConveyor->ActiveFeedingMotor();
+        m_pConveyor->StopConveyorMotor();
+        if (m_pConveyor->m_count >= 5)
+        {
+            m_pConveyor->m_count = 0;
+            chainBallState = ChainBallState::Shoot3;
+        }
+        break;
+    case ChainBallState::Shoot3:
+        m_pConveyor->ActiveFeedingMotor();
+        m_pConveyor->ActiveConveyorMotor();
+        if (m_pConveyor->m_count >= 5)
+        {
+            m_pConveyor->m_count = 0;
+            chainBallState = ChainBallState::Disable;
+        }
+        break;
+    case ChainBallState::Disable:
+        m_pConveyor->StopAllMotors();
+        break;
+
+    default:
+        break;
+    }
+}

@@ -25,7 +25,7 @@ void CompleteInit::Execute()
   m_pCamera->DisableLED();
   m_pHood->ResetPID();
   m_pGearbox->InitTeleopPeriod();
-  m_pTurret->GetController().Reset();
+  m_pTurret->ResetPID();
   m_pDrivetrain->Enable();
 }
 

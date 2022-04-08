@@ -12,18 +12,29 @@
 #include <frc/Timer.h>
 #include "Constants.h"
 
-class Turret : public frc2::PIDSubsystem
+class Turret : public frc2::SubsystemBase
 {
 public:
   Turret();
-  void UseOutput(double output, double setpoint);
+
   double GetMeasurement();
-  void ResetEncoder();
-  void SetPID(double p, double i, double d);
-  void SetClampedSetpoint(double setpoint);
+  void Periodic() override;
+  void SetSetpoint(double setpoint);
+  void Enable();
+  void Disable();
+  void ResetEncoders();
+  double GetError();
+  void ResetPID();
+
+  enum state
+  {
+    Enabled,
+    Disabled
+  };
+  Turret::state m_state = Turret::state::Disabled;
 
 private:
   ctre::phoenix::motorcontrol::can::VictorSPX m_TurretMotor{TURRET_MOTOR_CAN_ID};
   frc::Encoder m_encoderTurret{TURRET_ENCODER_ID_A, TURRET_ENCODER_ID_B};
-  frc::Timer m_Timer;
+  frc2::PIDController m_controller = frc2::PIDController(TURRET_PID_P, TURRET_PID_I, TURRET_PID_D);
 };

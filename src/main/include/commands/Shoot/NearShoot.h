@@ -11,6 +11,7 @@
 #include "subsystems/Hood.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Conveyor.h"
+#include "commands/Conveyor/Chainball.h"
 
 /**
  * An example command.

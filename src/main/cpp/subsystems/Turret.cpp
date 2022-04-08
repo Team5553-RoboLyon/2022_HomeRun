@@ -6,39 +6,46 @@
 #include <spdlog/spdlog.h>
 
 Turret::Turret()
-    : PIDSubsystem(frc2::PIDController(0.04, 0.02, 0.002))
 {
   SetSetpoint(0.0);
-  GetController().SetIntegratorRange(-TURRET_PID_INTEGRATOR_RANGE, TURRET_PID_INTEGRATOR_RANGE);
-  GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
+  m_controller.SetIntegratorRange(-TURRET_PID_INTEGRATOR_RANGE, TURRET_PID_INTEGRATOR_RANGE);
+  m_controller.SetTolerance(0.0, std::numeric_limits<double>::infinity());
   m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
   m_encoderTurret.SetReverseDirection(true);
-  ResetEncoder();
+  ResetEncoders();
   Enable();
 }
 
-void Turret::UseOutput(double output, double setpoint)
+void Turret::SetSetpoint(double setpoint)
 {
-  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(output, -0.8, 0.8));
+  m_controller.SetSetpoint(std::clamp(setpoint, -80.0, 80.0));
+}
+void Turret::Enable()
+{
+  m_state = Turret::state::Enabled;
+}
+void Turret::Disable()
+{
+  m_state = Turret::state::Disabled;
+}
+void Turret::ResetEncoders()
+{
+  m_encoderTurret.Reset();
+}
+double Turret::GetError()
+{
+  return m_controller.GetPositionError();
+}
+void Turret::ResetPID()
+{
+  m_controller.Reset();
+}
+void Turret::Periodic()
+{
+  m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(m_controller.Calculate(GetMeasurement()), -0.8, 0.8));
 }
 
 double Turret::GetMeasurement()
 {
   return m_encoderTurret.GetDistance();
-}
-void Turret::SetClampedSetpoint(double setpoint)
-{
-  SetSetpoint(std::clamp(setpoint, -80.0, 80.0));
-}
-
-void Turret::ResetEncoder()
-{
-  m_encoderTurret.Reset();
-}
-
-void Turret::SetPID(double p, double i, double d)
-{
-  GetController().SetP(p);
-  GetController().SetI(i);
-  GetController().SetD(d);
 }

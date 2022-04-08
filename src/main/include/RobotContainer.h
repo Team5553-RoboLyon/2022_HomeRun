@@ -42,7 +42,6 @@
 #include "commands/Conveyor/ActiveConveyorMotor.h"
 #include "commands/Conveyor/UnblockConveyorMotor.h"
 #include "commands/Conveyor/ActiveFeederMotor.h"
-#include "commands/Conveyor/ActiveConveyorFeederMotor.h"
 #endif
 
 #if SHOOTER

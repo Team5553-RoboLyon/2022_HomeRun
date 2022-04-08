@@ -14,6 +14,7 @@
 #include "subsystems/Conveyor.h"
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableEntry.h"
+#include "commands/Conveyor/Chainball.h"
 
 #define LERP(a, b, t) ((a) + ((b) - (a)) * (t))
 

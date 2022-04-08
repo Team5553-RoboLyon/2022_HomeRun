@@ -23,15 +23,19 @@ SetShooterAuto::SetShooterAuto(Conveyor *pconveyor, Shooter *shooter, Hood *hood
 }
 void SetShooterAuto::End(bool interrupted)
 {
-
+  spdlog::error(m_turret->m_state);
   m_camera->DisableLED();
-  // m_shooter->SetSpeed(0.0);
-  // m_turret->SetClampedSetpoint(0.0);
-  // m_pConveyor->StopAllMotors();
+  m_shooter->SetSpeed(0.0);
+  m_turret->Enable();
+  m_turret->SetSetpoint(0.0);
+  m_hood->SetSetpoint(0.0);
+  m_pConveyor->StopAllMotors();
 }
 void SetShooterAuto::Initialize()
 {
   m_camera->EnableLED();
+  m_shooter->m_countShooter = 0.0;
+  ChainballInit(m_pConveyor, m_shooter);
 }
 
 void SetShooterAuto::Execute()
@@ -50,12 +54,16 @@ void SetShooterAuto::Execute()
     // std::cout << "speed calculated : " << LERP(shooterDataTable[*index][2], shooterDataTable[*(index + 1)][2], t) << std::endl;
     m_hood->SetSetpoint(LERP(shooterDataTable[*index][1], shooterDataTable[*(index + 1)][1], t));
     m_shooter->SetSpeed(LERP(shooterDataTable[*index][2], shooterDataTable[*(index + 1)][2], t));
-    m_turret->SetClampedSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
+    m_turret->SetSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
+    if (m_camera->HasTarget() && (std::abs(m_turret->GetError()) < 2 && std::abs(m_hood->GetError()) < 2 && m_shooter->m_countShooter >= 10))
+    {
+      ChainballRun(m_pConveyor, m_shooter);
+    }
   }
 }
 bool SetShooterAuto::IsFinished()
 {
-  return m_camera->HasTarget() && (std::abs(m_turret->GetController().GetPositionError()) < 2 && std::abs(m_hood->GetError()) < 2 && m_shooter->m_countShooter >= 10);
+  return false;
 }
 
 int *SetShooterAuto::getNearestElementId(double target)
