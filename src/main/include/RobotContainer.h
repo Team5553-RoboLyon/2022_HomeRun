@@ -12,7 +12,7 @@
 #include "lib/RobotError.h"
 
 #include "Constants.h"
-#include "commands/autonomous/SimpleAutonomous.h"
+#include "commands/global/SimpleAutonomous.h"
 
 #if GEARBOX
 #include "subsystems/Gearbox.h"
@@ -75,6 +75,8 @@
 #include <frc2/command/SequentialCommandGroup.h>
 #include <cameraserver/CameraServer.h>
 #include <frc/Compressor.h>
+#include "commands/global/CompleteInit.h"
+#include "commands/gearbox/SwitchGearboxMode.h"
 
 class RobotContainer
 {
@@ -127,12 +129,11 @@ private:
   frc::Joystick m_DriverLeftJoystick{DRIVER_JOYSTICK_LEFT_ID};
 
   frc2::JoystickButton m_ThrottleLeft{&m_DriverLeftJoystick, 1};
-  // frc2::Trigger m_ThrottleLeft{[this]
-  //                              { return m_DriverRightJoystick.GetThrottle(); }};
 
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 
   frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
+      CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain),
       SimpleAutonomous(&m_Drivetrain),
       SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 };
