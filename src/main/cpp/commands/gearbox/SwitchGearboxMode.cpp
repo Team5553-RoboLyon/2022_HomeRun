@@ -4,7 +4,17 @@
 
 #include "commands/gearbox/SwitchGearboxMode.h"
 
-SwitchGearboxMode::SwitchGearboxMode(Gearbox *gearbox, Drivetrain *drivetrain, Climber *climber, Intake *intake, Turret *turret, Hood *hood, Conveyor *conveyor, Shooter *shooter) : m_pGearbox(gearbox), m_pDrivetrain(drivetrain), m_pClimber(climber), m_pTurret(turret), m_pIntake(intake), m_pHood(hood), m_pconveyor(conveyor), m_pshooter(shooter) {}
+SwitchGearboxMode::SwitchGearboxMode(Gearbox *gearbox, Drivetrain *drivetrain, Climber *climber, Intake *intake, Turret *turret, Hood *hood, Conveyor *conveyor, Shooter *shooter)
+{
+  m_pGearbox = gearbox;
+  m_pDrivetrain = drivetrain;
+  m_pClimber = climber;
+  m_pIntake = intake;
+  m_pTurret = turret;
+  m_pHood = hood;
+  m_pconveyor = conveyor;
+  m_pshooter = shooter;
+}
 
 // Called when the command is initially scheduled.
 void SwitchGearboxMode::Initialize() {}

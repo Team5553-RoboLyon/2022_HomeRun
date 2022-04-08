@@ -4,9 +4,16 @@
 
 #include "commands/global/CompleteInit.h"
 
-CompleteInit::CompleteInit(Camera *camera, Hood *hood, Gearbox *gearbox, Drivetrain *drivetrain) : m_pCamera(camera), m_pHood(hood), m_pGearbox(gearbox), m_pDrivetrain(drivetrain)
+CompleteInit::CompleteInit(Camera *camera, Hood *hood, Gearbox *gearbox, Drivetrain *drivetrain, Turret *pturret)
+
 {
-  AddRequirements({m_pCamera, m_pHood, m_pGearbox, m_pDrivetrain});
+  m_pCamera = camera;
+  m_pHood = hood;
+  m_pGearbox = gearbox;
+  m_pDrivetrain = drivetrain;
+  m_pTurret = pturret;
+
+  AddRequirements({m_pCamera, m_pHood, m_pGearbox, m_pDrivetrain, m_pTurret});
 }
 
 // Called when the command is initially scheduled.
@@ -18,6 +25,7 @@ void CompleteInit::Execute()
   m_pCamera->DisableLED();
   m_pHood->ResetPID();
   m_pGearbox->InitTeleopPeriod();
+  m_pTurret->GetController().Reset();
   m_pDrivetrain->Enable();
 }
 

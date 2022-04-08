@@ -66,11 +66,12 @@
 #define TURRET_PID_P 0.04
 #define TURRET_PID_I 0.02
 #define TURRET_PID_D 0.002
+#define TURRET_PID_INTEGRATOR_RANGE 0.025
 // hood
 #define HOOD_PID_P 0.02
 #define HOOD_PID_I 0.008
 #define HOOD_PID_D 0.0
-#define HOOD_PID_INTEGRATOR_RANGE 5
+#define HOOD_PID_INTEGRATOR_RANGE 0.025
 // climber
 #define CLIMBER_PID_P 0.1
 #define CLIMBER_PID_I 0.0

@@ -9,7 +9,7 @@ Turret::Turret()
     : PIDSubsystem(frc2::PIDController(0.04, 0.02, 0.002))
 {
   SetSetpoint(0.0);
-  GetController().SetIntegratorRange(-5, 5);
+  GetController().SetIntegratorRange(-TURRET_PID_INTEGRATOR_RANGE, TURRET_PID_INTEGRATOR_RANGE);
   GetController().SetTolerance(0.0, std::numeric_limits<double>::infinity());
   m_encoderTurret.SetDistancePerPulse(45.000 / 1290);
   m_encoderTurret.SetReverseDirection(true);

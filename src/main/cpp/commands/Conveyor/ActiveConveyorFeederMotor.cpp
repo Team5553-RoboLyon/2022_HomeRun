@@ -23,7 +23,6 @@ void ActiveConveyorFeederMotor::Initialize()
 void ActiveConveyorFeederMotor::Execute()
 {
   m_pShooter->m_countShooter += 1;
-  m_pShooter->SetSpeed(0.53);
   if (m_pShooter->m_countShooter >= 25)
   {
     switch (m_pConveyor->m_state)

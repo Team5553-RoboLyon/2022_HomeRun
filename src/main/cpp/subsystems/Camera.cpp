@@ -42,5 +42,5 @@ double Camera::GetHorizontalError()
 
 bool Camera::HasTarget()
 {
-    return m_camera.HasTargets();
+    return m_camera.GetLatestResult().HasTargets();
 }

@@ -6,13 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/InstantCommand.h>
-
-#include "subsystems/Drivetrain.h"
-#include "subsystems/Camera.h"
-#include "subsystems/Hood.h"
-#include "subsystems/Gearbox.h"
-#include "subsystems/Turret.h"
+#include "subsystems/Conveyor.h"
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -21,11 +16,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class CompleteInit
-    : public frc2::CommandHelper<frc2::InstantCommand, CompleteInit>
+class ActiveConveyorFeederMotor2
+    : public frc2::CommandHelper<frc2::CommandBase, ActiveConveyorFeederMotor2>
 {
 public:
-  CompleteInit(Camera *camera, Hood *hood, Gearbox *gearbox, Drivetrain *drivetrain, Turret *pturret);
+  ActiveConveyorFeederMotor2();
 
   void Initialize() override;
 
@@ -33,10 +28,9 @@ public:
 
   void End(bool interrupted) override;
 
+  bool IsFinished() override;
+
 private:
-  Camera *m_pCamera;
-  Hood *m_pHood;
-  Gearbox *m_pGearbox;
-  Drivetrain *m_pDrivetrain;
-  Turret *m_pTurret;
+  Conveyor *m_pConveyor;
+  Shooter *m_pShooter;
 };

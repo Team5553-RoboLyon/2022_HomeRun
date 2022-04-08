@@ -54,7 +54,7 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 }
 void RobotContainer::InitTeleopPeriod()
 {
-  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain).Schedule();
+  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Schedule();
 }
 
 void RobotContainer::ConfigureButtonBindings()
@@ -64,7 +64,7 @@ void RobotContainer::ConfigureButtonBindings()
 
 #if GEARBOX && CLIMBER
   frc2::JoystickButton m_buttonChangeModeBase = frc2::JoystickButton(&m_DriverRightJoystick, 2);
-  m_buttonChangeModeBase.WhenActive(SwitchGearboxMode((m_gearbox, m_drivetrain, m_climber, m_intake, m_turret, m_hood, m_conveyor, m_shooter));
+  m_buttonChangeModeBase.WhenActive(SwitchGearboxMode(&m_Gearbox, &m_Drivetrain, &m_Climber, &m_Intake, &m_Turret, &m_Hood, &m_Conveyor, &m_Shooter));
 
 #endif
 
@@ -83,7 +83,7 @@ void RobotContainer::ConfigureButtonBindings()
 
   frc2::JoystickButton m_buttonCompressor = frc2::JoystickButton(&m_DriverLeftJoystick, 6);
   m_buttonCompressor.WhenActive(frc2::InstantCommand([this]
-  {
+                                                     {
     if (m_Compressor.Enabled())
     {
       m_Compressor.Disable();
@@ -91,12 +91,13 @@ void RobotContainer::ConfigureButtonBindings()
     else
     {
       m_Compressor.EnableDigital();
-    } 
-  }));
+    } }));
 
 #if SHOOTER && TURRET
   frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverRightJoystick, 1);
-  m_buttonAutoShoot.WhenHeld(SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+  m_buttonAutoShoot.WhenHeld(frc2::SequentialCommandGroup(
+      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera),
+      ActiveConveyorFeederMotor(&m_Conveyor, &m_Shooter)));
 
   frc2::JoystickButton m_buttonShootNear = frc2::JoystickButton(&m_DriverRightJoystick, 4);
   m_buttonShootNear.WhenHeld(NearShoot(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret));
@@ -104,8 +105,7 @@ void RobotContainer::ConfigureButtonBindings()
 
   frc2::JoystickButton m_buttonRemonteIntake = frc2::JoystickButton(&m_DriverLeftJoystick, 8);
   m_buttonRemonteIntake.WhenActive(frc2::InstantCommand([this]
-                                                        {
-    m_Intake.Close(); }));
+                                                        { m_Intake.Close(); }));
 }
 
 void RobotContainer::SetMotorVoltagesWhenAutonomous(units::voltage::volt_t l1, units::voltage::volt_t l2, units::voltage::volt_t r1, units::voltage::volt_t r2)

@@ -133,7 +133,7 @@ private:
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 
   frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
-      CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain),
+      CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret),
       SimpleAutonomous(&m_Drivetrain),
       SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 };

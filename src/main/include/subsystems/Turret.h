@@ -20,7 +20,6 @@ public:
   double GetMeasurement();
   void ResetEncoder();
   void SetPID(double p, double i, double d);
-  void ResetTurretState();
   void SetClampedSetpoint(double setpoint);
 
 private:

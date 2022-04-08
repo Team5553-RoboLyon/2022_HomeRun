@@ -27,6 +27,7 @@ public:
   void Execute() override;
   void End(bool interrupted) override;
   void Initialize() override;
+  bool IsFinished() override;
 
 private:
   int *getNearestElementId(double target);
