@@ -15,7 +15,6 @@ Hood::Hood()
     m_HoodMotor.SetInverted(true);
     m_HoodMotor.SetSmartCurrentLimit(HOOD_CURRENT_LIMIT);
     m_controller.SetIntegratorRange(-HOOD_PID_INTEGRATOR_RANGE, HOOD_PID_INTEGRATOR_RANGE);
-    frc::SmartDashboard::PutNumber("hood setpoint", m_setPoint);
 }
 
 void Hood::Enable()

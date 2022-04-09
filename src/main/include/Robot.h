@@ -19,7 +19,6 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include <frc/DutyCycleEncoder.h>
 #include <frc/DigitalInput.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
 #include <ostream>

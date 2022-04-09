@@ -23,7 +23,6 @@ SetShooterAuto::SetShooterAuto(Conveyor *pconveyor, Shooter *shooter, Hood *hood
 }
 void SetShooterAuto::End(bool interrupted)
 {
-  spdlog::error(m_turret->m_state);
   m_camera->DisableLED();
   m_shooter->SetSpeed(0.0);
   m_turret->Enable();
@@ -57,21 +56,20 @@ void SetShooterAuto::Execute()
     m_turret->SetSetpoint(m_turret->GetMeasurement() + (m_camera->GetHorizontalError() * 0.5));
     if (m_camera->HasTarget() && (std::abs(m_turret->GetError()) < 2 && std::abs(m_hood->GetError()) < 2 && m_shooter->m_countShooter >= 10))
     {
-      spdlog::error("on doit shooter");
       ChainballRun2(m_pConveyor, m_shooter);
     }
   }
 }
 bool SetShooterAuto::IsFinished()
 {
-  if (frc::DriverStation::IsAutonomous())
-  {
-    return (m_shooter->m_countShooter > AUTO_SHOOTING_BALL_TIME);
-  }
-  else
-  {
-    return false;
-  }
+  // if (frc::DriverStation::IsAutonomous())
+  // {
+  //   return (m_shooter->m_countShooter > AUTO_SHOOTING_BALL_TIME);
+  // }
+  // else
+  // {
+  return false;
+  // }
 }
 
 int *SetShooterAuto::getNearestElementId(double target)

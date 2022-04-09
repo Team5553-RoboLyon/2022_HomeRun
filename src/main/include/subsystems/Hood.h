@@ -11,7 +11,6 @@
 #include <iostream>
 #include <frc/DigitalInput.h>
 #include <units/angle.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include "Constants.h"
 #include <spdlog/spdlog.h>

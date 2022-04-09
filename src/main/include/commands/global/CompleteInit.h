@@ -7,12 +7,14 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/InstantCommand.h>
+#include <frc/shuffleboard/Shuffleboard.h>
 
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Camera.h"
 #include "subsystems/Hood.h"
 #include "subsystems/Gearbox.h"
 #include "subsystems/Turret.h"
+#include "subsystems/Intake.h"
 
 /**
  * An example command.
@@ -25,7 +27,7 @@ class CompleteInit
     : public frc2::CommandHelper<frc2::InstantCommand, CompleteInit>
 {
 public:
-  CompleteInit(Camera *camera, Hood *hood, Gearbox *gearbox, Drivetrain *drivetrain, Turret *pturret);
+  CompleteInit(Camera *camera, Hood *hood, Gearbox *gearbox, Drivetrain *drivetrain, Turret *pturret, Intake *intake);
 
   void Initialize() override;
 
@@ -39,4 +41,5 @@ private:
   Gearbox *m_pGearbox;
   Drivetrain *m_pDrivetrain;
   Turret *m_pTurret;
+  Intake *m_pIntake;
 };

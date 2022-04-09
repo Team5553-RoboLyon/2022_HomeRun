@@ -7,7 +7,6 @@
 #include <frc2/command/PIDSubsystem.h>
 #include <frc/Encoder.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/DigitalInput.h>
 #include <frc/Timer.h>
 #include "Constants.h"

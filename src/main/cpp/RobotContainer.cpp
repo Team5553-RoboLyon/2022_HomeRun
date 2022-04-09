@@ -36,11 +36,6 @@ RobotContainer::RobotContainer()
   m_Camera.DisableLED();
 
   m_Drivetrain.Enable();
-
-  frc::SmartDashboard::PutNumber("disangage", 2);
-  frc::SmartDashboard::PutNumber("shoot0", 5);
-  frc::SmartDashboard::PutNumber("Shoot1", 8);
-  frc::SmartDashboard::PutNumber("Shoot2_pause", 12);
 }
 
 /**
@@ -59,7 +54,7 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 }
 void RobotContainer::InitTeleopPeriod()
 {
-  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Execute();
+  CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret, &m_Intake).Execute();
   // m_Camera.DisableLED();
   // m_Hood.ResetPID();
   // m_Gearbox.InitTeleopPeriod();

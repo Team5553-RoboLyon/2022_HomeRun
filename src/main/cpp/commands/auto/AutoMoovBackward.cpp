@@ -13,7 +13,6 @@ AutoMoovBackward::AutoMoovBackward(Drivetrain *drivetrain)
 // Called when the command is initially scheduled.
 void AutoMoovBackward::Initialize()
 {
-  spdlog::error("RobotContainer::AutonomousInit()");
   m_count = 0;
   m_pDrivetrain->GetGearbox()->InitTeleopPeriod();
   m_pDrivetrain->Enable();
@@ -28,7 +27,6 @@ void AutoMoovBackward::Execute()
 // Called once the command ends or is interrupted.
 void AutoMoovBackward::End(bool interrupted)
 {
-  spdlog::error("end");
   m_pDrivetrain->Drive(0.0, 0.0);
 }
 

@@ -7,7 +7,6 @@
 #include "subsystems/Shooter.h"
 #include "subsystems/Intake.h"
 #include <spdlog/spdlog.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 
 void ChainballInit(Conveyor *m_pConveyor, Shooter *m_pShooter);
 void ChainballRun(Conveyor *m_pConveyor, Shooter *m_pShooter);

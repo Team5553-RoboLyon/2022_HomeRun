@@ -75,7 +75,6 @@
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>
-#include <frc/AnalogGyro.h>
 #include <cameraserver/CameraServer.h>
 #include <frc/Compressor.h>
 #include "commands/global/CompleteInit.h"
@@ -135,12 +134,11 @@ private:
 
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 
-  frc::AnalogGyro m_Gyro{0};
-  frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto(&m_Drivetrain, &m_Shooter, &m_Turret,
-                                                               &m_Hood, &m_Conveyor, &m_Intake, &m_Camera,
-                                                               &m_Gearbox, &m_Gyro);
-  // frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
-  //     CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret),
-  //     AutoMoovBackward(&m_Drivetrain),
-  //     SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+  // frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto(&m_Drivetrain, &m_Shooter, &m_Turret,
+  //                                                              &m_Hood, &m_Conveyor, &m_Intake, &m_Camera,
+  //                                                              &m_Gearbox, &m_Gyro);
+  frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
+      CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret, &m_Intake),
+      AutoMoovBackward(&m_Drivetrain),
+      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 };

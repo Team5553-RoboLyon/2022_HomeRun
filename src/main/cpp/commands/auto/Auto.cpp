@@ -26,7 +26,7 @@ Auto::Auto(Drivetrain *drivetrain, Shooter *shooter, Turret *turret,
            Hood *hood, Conveyor *conveyor, Intake *intake, Camera *camera,
            Gearbox *gearbox, frc::AnalogGyro *gyro)
 {
-    AddCommands(CompleteInit(camera, hood, gearbox, drivetrain, turret),
+    AddCommands(CompleteInit(camera, hood, gearbox, drivetrain, turret, intake),
                 AutoMoovBackward(drivetrain),
                 SetShooterAuto(conveyor, shooter, hood, turret, camera),
                 AutoTurn(drivetrain, gyro, -90.0),
