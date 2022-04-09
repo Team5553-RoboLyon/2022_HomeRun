@@ -15,6 +15,8 @@
 #include "commands/auto/AutoMoovToBall.h"
 #include "commands/Intake/ActiveIntakeMotor.h"
 #include "commands/auto/AutoBackToShoot.h"
+#include "commands/Conveyor/IntakeConveyorMode.h"
+#include "commands/auto/AutoTurn.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Shooter.h"
 #include "subsystems/Turret.h"

@@ -13,6 +13,7 @@
 #include "lib/RobotError.h"
 
 #include "commands/auto/Auto.h"
+#include "commands/auto/AutoMoovBackward.h"
 
 #include "Constants.h"
 
@@ -138,4 +139,8 @@ private:
   frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto(&m_Drivetrain, &m_Shooter, &m_Turret,
                                                                &m_Hood, &m_Conveyor, &m_Intake, &m_Camera,
                                                                &m_Gearbox, &m_Gyro);
+  // frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
+  //     CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret),
+  //     AutoMoovBackward(&m_Drivetrain),
+  //     SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 };

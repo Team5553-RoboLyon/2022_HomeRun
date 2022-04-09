@@ -4,10 +4,9 @@
 
 #include "commands/auto/AutoMoovToBall.h"
 
-AutoMoovToBall::AutoMoovToBall(Drivetrain *drivetrain, frc::AnalogGyro *gyro)
+AutoMoovToBall::AutoMoovToBall(Drivetrain *drivetrain)
 {
   m_pDrivetrain = drivetrain;
-  m_pGyro = gyro;
   AddRequirements(m_pDrivetrain);
 }
 
@@ -20,38 +19,18 @@ void AutoMoovToBall::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AutoMoovToBall::Execute()
 {
-  switch (m_state)
-  {
-  case AutoMoovToBall::State::halfTour:
-    error = 180 - m_pGyro->GetAngle();
-    if (m_pGyro->GetAngle() > 180 || std::abs(error) < 2)
-    {
-      m_pDrivetrain->Stop();
-      m_state = State::goToBall;
-    }
-    else
-    {
-      double speed = std::clamp(((error * (DRIVETRAIN_AUTONOMOUS_SPEED - 0.1)) / 180) + 0.1, -DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
-      m_pDrivetrain->Drive(speed, -speed);
-    }
-    break;
-  case AutoMoovToBall::State::goToBall:
-    m_pDrivetrain->Drive(DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
-    m_count += 1;
-    if (m_count > AUTO_TAKING_BALL_TIME)
-    {
-      m_pDrivetrain->Stop();
-      m_state = State::finished;
-    }
-    break;
-  }
+  m_pDrivetrain->Drive(DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
+  m_count += 1;
 }
 
 // Called once the command ends or is interrupted.
-void AutoMoovToBall::End(bool interrupted) {}
+void AutoMoovToBall::End(bool interrupted)
+{
+  m_pDrivetrain->Stop();
+}
 
 // Returns true when the command should end.
 bool AutoMoovToBall::IsFinished()
 {
-  return m_state == State::finished;
+  return (m_count > AUTO_TAKING_BALL_TIME);
 }

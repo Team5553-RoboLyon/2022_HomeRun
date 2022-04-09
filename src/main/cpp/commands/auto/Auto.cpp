@@ -9,6 +9,11 @@
         - check le temps de shoot
         - check la vitesse pour ce retourner
         - check le temps pour avancer sur la balle
+        -check le temps pour reculer au niveau de la balle (UN POIL COURT)
+        - checker le -90 ou 90 degré
+
+
+        - check vitesse shoot pid turret
 
         ps: check les valeur dans le shuffleboard pour le shooter si jamais
 
@@ -24,17 +29,20 @@ Auto::Auto(Drivetrain *drivetrain, Shooter *shooter, Turret *turret,
     AddCommands(CompleteInit(camera, hood, gearbox, drivetrain, turret),
                 AutoMoovBackward(drivetrain),
                 SetShooterAuto(conveyor, shooter, hood, turret, camera),
+                AutoTurn(drivetrain, gyro, -90.0),
                 frc2::InstantCommand(
                     [intake]
                     { intake->Open(); },
                     {intake}),
                 frc2::ParallelRaceGroup(
-                    AutoMoovToBall(drivetrain, gyro),
-                    ActiveIntakeMotor(intake)),
+                    AutoMoovToBall(drivetrain),
+                    ActiveIntakeMotor(intake),
+                    IntakeConveyorMode(conveyor)),
                 frc2::InstantCommand(
                     [intake]
                     { intake->Close(); },
                     {intake}),
-                AutoBackToShoot(drivetrain, gyro),
+                AutoTurn(drivetrain, gyro, 0.0),
+                // AutoBackToShoot(drivetrain, gyro),
                 SetShooterAuto(conveyor, shooter, hood, turret, camera));
 }

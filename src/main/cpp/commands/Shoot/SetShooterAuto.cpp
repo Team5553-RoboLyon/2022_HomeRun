@@ -64,7 +64,7 @@ void SetShooterAuto::Execute()
 }
 bool SetShooterAuto::IsFinished()
 {
-  if (frc::DriverStation::IsAutonomous)
+  if (frc::DriverStation::IsAutonomous())
   {
     return (m_shooter->m_countShooter > AUTO_SHOOTING_BALL_TIME);
   }

@@ -16,11 +16,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoMoovToBall
-    : public frc2::CommandHelper<frc2::CommandBase, AutoMoovToBall>
+class AutoTurn
+    : public frc2::CommandHelper<frc2::CommandBase, AutoTurn>
 {
 public:
-  AutoMoovToBall(Drivetrain *drivetrain);
+  AutoTurn(Drivetrain *drivetrain, frc::AnalogGyro *gyro, double setpoint);
 
   void Initialize() override;
 
@@ -31,7 +31,8 @@ public:
   bool IsFinished() override;
 
 private:
-
-  double m_count = 0.0;
+  double m_setpoint = 0.0;
+  double m_error = 0.0;
   Drivetrain *m_pDrivetrain;
+  frc::AnalogGyro *m_pGyro;
 };
