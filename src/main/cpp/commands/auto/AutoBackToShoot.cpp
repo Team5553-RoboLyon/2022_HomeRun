@@ -29,7 +29,7 @@ void AutoBackToShoot::Execute()
     }
     else
     {
-      double speed = std::clamp((error * DRIVETRAIN_AUTONOMOUS_SPEED) / 180, -DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
+      double speed = std::clamp(((error * (DRIVETRAIN_AUTONOMOUS_SPEED - 0.1)) / 180) + 0.1, -DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
       m_pDrivetrain->Drive(speed, -speed);
     }
     break;
