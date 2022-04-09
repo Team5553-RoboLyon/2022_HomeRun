@@ -36,6 +36,11 @@ RobotContainer::RobotContainer()
   m_Camera.DisableLED();
 
   m_Drivetrain.Enable();
+
+  frc::SmartDashboard::PutNumber("disangage", 2);
+  frc::SmartDashboard::PutNumber("shoot0", 5);
+  frc::SmartDashboard::PutNumber("Shoot1", 8);
+  frc::SmartDashboard::PutNumber("Shoot2_pause", 12);
 }
 
 /**
@@ -84,7 +89,7 @@ void RobotContainer::ConfigureButtonBindings()
 
 #if INTAKE && CONVEYOR
   frc2::JoystickButton m_buttonIntakeConvoyerActiveMotor = frc2::JoystickButton(&m_DriverLeftJoystick, 1);
-  m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), ActiveConveyorMotor(&m_Conveyor)));
+  m_buttonIntakeConvoyerActiveMotor.WhileActiveContinous(frc2::ParallelCommandGroup(ActiveIntakeMotor(&m_Intake), IntakeConveyorMode(&m_Conveyor)));
 #endif
 
   frc2::JoystickButton m_buttonCompressor = frc2::JoystickButton(&m_DriverLeftJoystick, 6);

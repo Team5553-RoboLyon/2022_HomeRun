@@ -16,8 +16,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="ca build toujours on verra les warning aprés">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/RobotContainer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/RobotContainer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/commands/Conveyor/ActiveConveyorMotor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/commands/Conveyor/Chainball.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/commands/Conveyor/Chainball.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/subsystems/Shooter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Shooter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/Constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/Constants.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/RobotContainer.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/RobotContainer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/ActiveConveyorMotor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/commands/Conveyor/Chainball.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/commands/Conveyor/Chainball.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/subsystems/Shooter.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/subsystems/Shooter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,9 +123,9 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.2022_Robot [build]">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="2022_HomeRun [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -223,6 +230,7 @@
       <workItem from="1648888186609" duration="618000" />
       <workItem from="1648888812162" duration="16000" />
       <workItem from="1648931859827" duration="1000" />
+      <workItem from="1649462848902" duration="51000" />
     </task>
     <task id="LOCAL-00001" summary="faut tenter des truc en feed forward mais c'est pas fini">
       <created>1647207401696</created>

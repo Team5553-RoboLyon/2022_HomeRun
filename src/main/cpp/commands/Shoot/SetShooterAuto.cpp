@@ -64,7 +64,14 @@ void SetShooterAuto::Execute()
 }
 bool SetShooterAuto::IsFinished()
 {
-  return false;
+  if (frc::DriverStation::IsAutonomous)
+  {
+    return (m_shooter->m_countShooter > AUTO_SHOOTING_BALL_TIME);
+  }
+  else
+  {
+    return false;
+  }
 }
 
 int *SetShooterAuto::getNearestElementId(double target)

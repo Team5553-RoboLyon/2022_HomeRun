@@ -2,31 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/Conveyor/ActiveConveyorMotor.h"
+#include "commands/Conveyor/IntakeConveyorMode.h"
 
-ActiveConveyorMotor::ActiveConveyorMotor(Conveyor *pconveyor)
+IntakeConveyorMode::IntakeConveyorMode(Conveyor *pconveyor)
     : m_pConveyor(pconveyor)
 {
   AddRequirements(m_pConveyor);
 }
 
 // Called when the command is initially scheduled.
-void ActiveConveyorMotor::Initialize() {}
+void IntakeConveyorMode::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ActiveConveyorMotor::Execute()
+void IntakeConveyorMode::Execute()
 {
   m_pConveyor->ActiveConveyorMotor();
+  m_pConveyor->UnblockFeedingMotor();
 }
 
 // Called once the command ends or is interrupted.
-void ActiveConveyorMotor::End(bool interrupted)
+void IntakeConveyorMode::End(bool interrupted)
 {
-  m_pConveyor->StopConveyorMotor();
+  m_pConveyor->StopAllMotors();
 }
 
 // Returns true when the command should end.
-bool ActiveConveyorMotor::IsFinished()
+bool IntakeConveyorMode::IsFinished()
 {
   return false;
 }

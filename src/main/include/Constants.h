@@ -41,7 +41,7 @@
 #define FEEDER_MOTOR_SPEED 0.9
 #define CONVEYOR_MOTOR_SPEED 0.8
 // autonomous
-#define DRIVETRAIN_AUTONOMOUS_SPEED -0.3
+#define DRIVETRAIN_AUTONOMOUS_SPEED 0.3
 
 // ############ smart current limit ###############
 #define DRIVETRAIN_CURRENT_LIMIT 45
@@ -49,8 +49,8 @@
 #define CONVEYOR_CURRENT_LIMIT 40
 
 // ########### ramp ###############
-#define CONVEYOR_RAMP_RATE 0.0
-#define FEEDER_RAMP_RATE 0.0
+#define CONVEYOR_RAMP_RATE 0.1
+#define FEEDER_RAMP_RATE 0.1
 #define INTAKE_RAMP_RATE 0.5
 #define DRIVETRAIN_RAMPRATE 0.6
 
@@ -82,6 +82,7 @@
 #define LOG_IN_FILE false
 #define CONFIG_FILE_PATH "/home/admin/config.json"
 #define ROBOT_LOOP_TIME 0.02
+#define DEBUG false
 
 // ######### SUBSYSTEM ACTIVATION #########
 #define DRIVETRAIN true
@@ -106,3 +107,8 @@
 // ########### TESTS ###############
 #define DRIVETRAIN_TEST_SPEED 0.1
 #define DRIVETRAIN_TEST_DURATION 0.5
+
+// ########### AUTO ###############
+#define AUTO_OUTGOING_TIME 75
+#define AUTO_TAKING_BALL_TIME 50
+#define AUTO_SHOOTING_BALL_TIME 200

@@ -6,6 +6,9 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix/motorcontrol/can/TalonFX.h>
+#include <frc/DriverStation.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/shuffleboard/Shuffleboard.h>
 #include "Constants.h"
 
 class Shooter : public frc2::SubsystemBase

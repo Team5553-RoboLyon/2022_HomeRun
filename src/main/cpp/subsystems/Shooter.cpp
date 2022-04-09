@@ -19,12 +19,13 @@ Shooter::Shooter()
 
     m_MotorLeft.EnableVoltageCompensation(true);
     m_MotorRight.EnableVoltageCompensation(true);
+
+    frc::Shuffleboard::GetTab("dev").Add("shooter coef", 1.0);
 }
 
 void Shooter::SetSpeed(double speed)
 {
-    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(speed, 0.0, 1.0)); // TODO ATTENTION A ENLEVER LE COEF
-    // m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed); // TODO check les motionProfile controle
+    m_MotorLeft.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, std::clamp(speed, 0.0, 1.0) * frc::Shuffleboard::GetTab("dev").Add("shooter coef", 1.0).GetEntry().GetDouble(1.0)); // TODO ATTENTION A ENLEVER LE COEF
 }
 void Shooter::Reverse()
 {

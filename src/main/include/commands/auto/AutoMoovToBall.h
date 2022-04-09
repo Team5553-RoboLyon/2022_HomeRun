@@ -6,7 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Conveyor.h"
+#include "subsystems/Drivetrain.h"
+#include <frc/AnalogGyro.h>
 
 /**
  * An example command.
@@ -15,20 +16,29 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ActiveConveyorMotor
-    : public frc2::CommandHelper<frc2::CommandBase, ActiveConveyorMotor>
+class AutoMoovToBall
+    : public frc2::CommandHelper<frc2::CommandBase, AutoMoovToBall>
 {
 public:
-  ActiveConveyorMotor(Conveyor *pconveyor);
+  AutoMoovToBall(Gearbox *gearbox, frc::AnalogGyro *gyro);
 
-  void Initialize() ;
+  void Initialize() override;
 
-  void Execute() ;
+  void Execute() override;
 
-  void End(bool interrupted) ;
+  void End(bool interrupted) override;
 
-  bool IsFinished() ;
+  bool IsFinished() override;
 
 private:
-  Conveyor *m_pConveyor;
+  enum State
+  {
+    halfTour,
+    goToBall,
+    finished,
+  };
+  State m_state = State::halfTour;
+  double m_count = 0;
+  Gearbox *m_pGearbox;
+  frc::AnalogGyro *m_pGyro;
 };

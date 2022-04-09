@@ -6,7 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Drivetrain.h"
+#include "subsystems/Conveyor.h"
 
 /**
  * An example command.
@@ -15,21 +15,20 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class SimpleAutonomous
-    : public frc2::CommandHelper<frc2::CommandBase, SimpleAutonomous>
+class IntakeConveyorMode
+    : public frc2::CommandHelper<frc2::CommandBase, IntakeConveyorMode>
 {
 public:
-  SimpleAutonomous(Drivetrain *drivetrain);
+  IntakeConveyorMode(Conveyor *pconveyor);
 
-  void Initialize() override;
+  void Initialize() ;
 
-  void Execute() override;
+  void Execute() ;
 
-  void End(bool interrupted) override;
+  void End(bool interrupted) ;
 
-  bool IsFinished() override;
+  bool IsFinished() ;
 
 private:
-  int m_count = 0;
-  Drivetrain *m_pDrivetrain;
+  Conveyor *m_pConveyor;
 };

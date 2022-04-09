@@ -21,7 +21,6 @@
 #include <frc/DigitalInput.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
-#include <frc/AnalogGyro.h>
 
 #include <ostream>
 
@@ -76,6 +75,4 @@ private:
   NLRAMSETEFOLLOWER m_ramsete;
   NLTRAJECTORY_PACK m_TrajectoryStatePack;
   NLTRAJECTORY_STATE m_currrentState;
-
-  frc::AnalogGyro m_gyro{0};
 };

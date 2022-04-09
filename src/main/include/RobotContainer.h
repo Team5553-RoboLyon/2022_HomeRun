@@ -8,11 +8,13 @@
 #include <frc/Joystick.h>
 #include <frc2/command/button/Trigger.h>
 #include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/InstantCommand.h>
 #include <frc/DriverStation.h>
 #include "lib/RobotError.h"
 
+#include "commands/auto/Auto.h"
+
 #include "Constants.h"
-#include "commands/global/SimpleAutonomous.h"
 
 #if GEARBOX
 #include "subsystems/Gearbox.h"
@@ -39,7 +41,7 @@
 
 #if CONVEYOR
 #include "subsystems/Conveyor.h"
-#include "commands/Conveyor/ActiveConveyorMotor.h"
+#include "commands/Conveyor/IntakeConveyorMode.h"
 #include "commands/Conveyor/UnblockConveyorMotor.h"
 #include "commands/Conveyor/ActiveFeederMotor.h"
 #endif
@@ -72,6 +74,7 @@
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/ParallelCommandGroup.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc/AnalogGyro.h>
 #include <cameraserver/CameraServer.h>
 #include <frc/Compressor.h>
 #include "commands/global/CompleteInit.h"
@@ -131,8 +134,6 @@ private:
 
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 
-  frc2::SequentialCommandGroup m_autonomousGroupCommand = frc2::SequentialCommandGroup(
-      CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret),
-      SimpleAutonomous(&m_Drivetrain),
-      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+  frc::AnalogGyro m_gyro{0};
+  frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto();
 };
