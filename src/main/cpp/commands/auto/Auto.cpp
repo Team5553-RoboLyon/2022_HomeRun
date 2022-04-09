@@ -9,6 +9,8 @@
         - check la vitesse pour ce retourner
         - check le temps pour avancer sur la balle
 
+        ps: check les valeur dans le shuffleboard pour le shooter si jamais
+
 */
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
@@ -18,20 +20,20 @@ Auto::Auto(Drivetrain *drivetrain, Shooter *shooter, Turret *turret,
            Hood *hood, Conveyor *conveyor, Intake *intake, Camera *camera,
            Gearbox *gearbox, frc::AnalogGyro *gyro)
 {
-  AddCommands(CompleteInit(camera, hood, gearbox, drivetrain, turret),
-              AutoMoovBackward(drivetrain),
-              SetShooterAuto(conveyor, shooter, hood, turret, camera),
-              frc2::InstantCommand(
-                  [intake]
-                  { intake->Open(); },
-                  {intake}),
-              frc2::ParallelRaceGroup(
-                  AutoMoovToBall(gearbox, gyro),
-                  ActiveIntakeMotor(intake)),
-              frc2::InstantCommand(
-                  [intake]
-                  { intake->Close(); },
-                  {intake}),
-              AutoBackToShoot(drivetrain, gyro),
-              SetShooterAuto(conveyor, shooter, hood, turret, camera));
+    AddCommands(CompleteInit(camera, hood, gearbox, drivetrain, turret),
+                AutoMoovBackward(drivetrain),
+                SetShooterAuto(conveyor, shooter, hood, turret, camera),
+                frc2::InstantCommand(
+                    [intake]
+                    { intake->Open(); },
+                    {intake}),
+                frc2::ParallelRaceGroup(
+                    AutoMoovToBall(gearbox, gyro),
+                    ActiveIntakeMotor(intake)),
+                frc2::InstantCommand(
+                    [intake]
+                    { intake->Close(); },
+                    {intake}),
+                AutoBackToShoot(drivetrain, gyro),
+                SetShooterAuto(conveyor, shooter, hood, turret, camera));
 }
