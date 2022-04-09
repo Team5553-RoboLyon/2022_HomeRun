@@ -38,7 +38,8 @@ private:
     finished,
   };
   State m_state = State::halfTour;
-  double m_count = 0;
+  double m_count = 0.0;
+  double error = 0.0;
   Drivetrain *m_pDrivetrain;
   frc::AnalogGyro *m_pGyro;
 };

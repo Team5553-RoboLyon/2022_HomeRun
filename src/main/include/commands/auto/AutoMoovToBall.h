@@ -20,7 +20,7 @@ class AutoMoovToBall
     : public frc2::CommandHelper<frc2::CommandBase, AutoMoovToBall>
 {
 public:
-  AutoMoovToBall(Gearbox *gearbox, frc::AnalogGyro *gyro);
+  AutoMoovToBall(Drivetrain *drivetrain, frc::AnalogGyro *gyro);
 
   void Initialize() override;
 
@@ -38,7 +38,8 @@ private:
     finished,
   };
   State m_state = State::halfTour;
-  double m_count = 0;
-  Gearbox *m_pGearbox;
+  double m_count = 0.0;
+  double error = 0.0;
+  Drivetrain *m_pDrivetrain;
   frc::AnalogGyro *m_pGyro;
 };

@@ -134,6 +134,8 @@ private:
 
   frc::Compressor m_Compressor{frc::PneumaticsModuleType::CTREPCM};
 
-  frc::AnalogGyro m_gyro{0};
-  frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto();
+  frc::AnalogGyro m_Gyro{0};
+  frc2::SequentialCommandGroup m_autonomousGroupCommand = Auto(&m_Drivetrain, &m_Shooter, &m_Turret,
+                                                               &m_Hood, &m_Conveyor, &m_Intake, &m_Camera,
+                                                               &m_Gearbox, &m_Gyro);
 };

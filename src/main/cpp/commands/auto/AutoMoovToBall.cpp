@@ -4,11 +4,11 @@
 
 #include "commands/auto/AutoMoovToBall.h"
 
-AutoMoovToBall::AutoMoovToBall(Gearbox *gearbox, frc::AnalogGyro *gyro)
+AutoMoovToBall::AutoMoovToBall(Drivetrain *drivetrain, frc::AnalogGyro *gyro)
 {
-  m_pGearbox = gearbox;
+  m_pDrivetrain = drivetrain;
   m_pGyro = gyro;
-  AddRequirements(m_pGearbox);
+  AddRequirements(m_pDrivetrain);
 }
 
 // Called when the command is initially scheduled.
@@ -22,28 +22,27 @@ void AutoMoovToBall::Execute()
 {
   switch (m_state)
   {
-  case State::halfTour:
-    if (m_pGyro->GetAngle() > 180)
+  case AutoMoovToBall::State::halfTour:
+    error = 180 - m_pGyro->GetAngle();
+    if (m_pGyro->GetAngle() > 180 || std::abs(error) < 2)
     {
-      m_pGearbox->Stop();
+      m_pDrivetrain->Stop();
       m_state = State::goToBall;
     }
     else
     {
-      m_pGearbox->SetEveryone(DRIVETRAIN_AUTONOMOUS_SPEED, -DRIVETRAIN_AUTONOMOUS_SPEED, Gearbox::PTOState::Driving);
+      double speed = std::clamp((error * DRIVETRAIN_AUTONOMOUS_SPEED) / 180, -DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
+      m_pDrivetrain->Drive(speed, -speed);
     }
     break;
-  case State::goToBall:
-    m_pGearbox->SetEveryone(DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED, Gearbox::PTOState::Driving);
+  case AutoMoovToBall::State::goToBall:
+    m_pDrivetrain->Drive(DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
     m_count += 1;
     if (m_count > AUTO_TAKING_BALL_TIME)
     {
-      m_pGearbox->Stop();
+      m_pDrivetrain->Stop();
       m_state = State::finished;
     }
-    break;
-
-  default:
     break;
   }
 }

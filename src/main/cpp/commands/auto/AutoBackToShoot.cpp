@@ -19,18 +19,21 @@ void AutoBackToShoot::Execute()
 {
   switch (m_state)
   {
-  case State::halfTour:
-    if (m_pGyro->GetAngle() < 0)
+  case AutoBackToShoot::State::halfTour:
+    error = 0 - m_pGyro->GetAngle();
+
+    if (m_pGyro->GetAngle() < 0 || std::abs(error) < 2)
     {
       m_pDrivetrain->Drive(0, 0);
       m_state = State::goToShoot;
     }
     else
     {
-      m_pDrivetrain->Drive(-DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
+      double speed = std::clamp((error * DRIVETRAIN_AUTONOMOUS_SPEED) / 180, -DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
+      m_pDrivetrain->Drive(speed, -speed);
     }
     break;
-  case State::goToShoot:
+  case AutoBackToShoot::State::goToShoot:
     m_pDrivetrain->Drive(DRIVETRAIN_AUTONOMOUS_SPEED, DRIVETRAIN_AUTONOMOUS_SPEED);
     m_count += 1;
     if (m_count > AUTO_TAKING_BALL_TIME)
@@ -38,8 +41,6 @@ void AutoBackToShoot::Execute()
       m_pDrivetrain->Stop();
       m_state = State::finished;
     }
-    break;
-  default:
     break;
   }
 }

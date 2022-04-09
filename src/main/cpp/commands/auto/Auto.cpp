@@ -5,6 +5,7 @@
 #include "commands/auto/Auto.h"
 
 /*      TODOLIST
+        - ON REGARDE SI LE GYRO IL MARCHE !!!!
         - check le temps de shoot
         - check la vitesse pour ce retourner
         - check le temps pour avancer sur la balle
@@ -28,7 +29,7 @@ Auto::Auto(Drivetrain *drivetrain, Shooter *shooter, Turret *turret,
                     { intake->Open(); },
                     {intake}),
                 frc2::ParallelRaceGroup(
-                    AutoMoovToBall(gearbox, gyro),
+                    AutoMoovToBall(drivetrain, gyro),
                     ActiveIntakeMotor(intake)),
                 frc2::InstantCommand(
                     [intake]
