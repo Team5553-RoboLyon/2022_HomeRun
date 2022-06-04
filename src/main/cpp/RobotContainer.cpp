@@ -100,11 +100,11 @@ void RobotContainer::ConfigureButtonBindings()
     } }));
 
 #if SHOOTER && TURRET
-  frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverRightJoystick, 1);
-  m_buttonAutoShoot.WhenHeld(
-      SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
+  // frc2::JoystickButton m_buttonAutoShoot = frc2::JoystickButton(&m_DriverRightJoystick, 1);
+  // m_buttonAutoShoot.WhenHeld(
+  //     SetShooterAuto(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret, &m_Camera));
 
-  frc2::JoystickButton m_buttonShootNear = frc2::JoystickButton(&m_DriverRightJoystick, 4);
+  frc2::JoystickButton m_buttonShootNear = frc2::JoystickButton(&m_DriverRightJoystick, 1);
   m_buttonShootNear.WhenHeld(NearShoot(&m_Conveyor, &m_Shooter, &m_Hood, &m_Turret));
 #endif
 
