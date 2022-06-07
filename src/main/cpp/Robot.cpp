@@ -6,6 +6,7 @@
 
 void Robot::RobotInit()
 {
+  frc::SmartDashboard::PutNumber("Shooter Speed", 0.0);
 
 #if LOG_IN_FILE
   std::vector<spdlog::sink_ptr> sinks;

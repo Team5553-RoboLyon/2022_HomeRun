@@ -1,3 +1,5 @@
+#include <frc/smartdashboard/SmartDashboard.h>
+
 // ############ IDs ###############
 // motors
 #define SHOOTER_MOTOR_LEFT_CAN_ID 12
@@ -40,6 +42,7 @@
 #define INTAKE_MOTOR_SPEED 0.7
 #define FEEDER_MOTOR_SPEED 0.9
 #define CONVEYOR_MOTOR_SPEED 0.8
+#define SHOOTER_MOTOR_SPEED frc::SmartDashboard::GetNumber("Shooter Speed", 0.0)
 // autonomous
 #define DRIVETRAIN_AUTONOMOUS_SPEED -0.3
 
