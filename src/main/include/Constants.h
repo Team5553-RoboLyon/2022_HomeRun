@@ -60,9 +60,9 @@
 // ########### voltage compensation ###############
 
 #define SHOOTER_VOLTAGE_COMPENSATION 11.0
-#define CONVEYOR_VOLTAGE_COMPENSATION 10
-#define FEEDER_VOLTAGE_COMPENSATION 10
-#define INTAKE_VOLTAGE_COMPENSATION 10
+#define CONVEYOR_VOLTAGE_COMPENSATION 11
+#define FEEDER_VOLTAGE_COMPENSATION 11
+#define INTAKE_VOLTAGE_COMPENSATION 11
 
 // ########### PID ###############
 // turret

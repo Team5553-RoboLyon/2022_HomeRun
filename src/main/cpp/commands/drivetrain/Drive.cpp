@@ -41,6 +41,8 @@ void Drive::Execute()
     // {
     double forward = utils::Deadband(m_Forward());
     double turn = utils::Deadband(m_Turn());
+    forward *= 1.0;
+    turn *= 0.7;
 
     /*
     double c = 0.35 * (turn * 5.0 * (std::abs(turn) + 1) / (std::abs(forward) + 1));

@@ -52,6 +52,7 @@ frc2::Command *RobotContainer::GetAutonomousCommand()
 {
   return &m_autonomousGroupCommand;
 }
+
 void RobotContainer::InitTeleopPeriod()
 {
   CompleteInit(&m_Camera, &m_Hood, &m_Gearbox, &m_Drivetrain, &m_Turret).Execute();

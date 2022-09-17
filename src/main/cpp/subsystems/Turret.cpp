@@ -45,7 +45,7 @@ void Turret::Periodic()
   if (m_state == Turret::state::Enabled)
   {
     double output = std::clamp(m_controller.Calculate(GetMeasurement()), -0.8, 0.8);
-    spdlog::error(output);
+    // spdlog::error(output);
     m_TurretMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, output);
   }
   else
@@ -58,7 +58,7 @@ void Turret::Periodic()
 
 double Turret::GetMeasurement()
 {
-  spdlog::error("encodeur value");
-  spdlog::error(m_encoderTurret.GetDistance());
+  // spdlog::error("encodeur value");
+  // spdlog::error(m_encoderTurret.GetDistance());
   return m_encoderTurret.GetDistance();
 }

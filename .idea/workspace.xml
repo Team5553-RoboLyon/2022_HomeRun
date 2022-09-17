@@ -6,7 +6,10 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
     <generated />
   </component>
   <component name="CMakeSettings">
@@ -17,7 +20,11 @@
   <component name="ChangeListManager">
     <list default="true" id="715b88c7-c839-4a0b-896d-ca73f2183770" name="Changes" comment="ca build toujours on verra les warning aprés">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/lib/N/File/NFile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/commands/Shoot/NearShoot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/commands/Shoot/NearShoot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/commands/drivetrain/Drive.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/commands/drivetrain/Drive.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cpp/subsystems/Turret.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cpp/subsystems/Turret.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/include/Constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/include/Constants.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,23 +95,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="cf.advertisement.text.has.clang-format" value="true" />
-    <property name="cf.first.check.clang-format" value="false" />
-    <property name="cidr.known.project.marker" value="true" />
-    <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/compile_commands.json" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hatch\Documents\GitHub\2022_HomeRun" />
@@ -115,10 +113,10 @@
       <recent name="$PROJECT_DIR$/src/main/include" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.2022_Robot [build]">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="2022_HomeRun [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -184,17 +182,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Gradle.2022_Robot [build]" />
-      <item itemvalue="Gradle.2022_HomeRun [generateCompileCommands]" />
-      <item itemvalue="Gradle.2022_HomeRun [check]" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.2022_HomeRun [check]" />
-        <item itemvalue="Gradle.2022_HomeRun [generateCompileCommands]" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -223,6 +210,7 @@
       <workItem from="1648888186609" duration="618000" />
       <workItem from="1648888812162" duration="16000" />
       <workItem from="1648931859827" duration="1000" />
+      <workItem from="1657111831590" duration="47000" />
     </task>
     <task id="LOCAL-00001" summary="faut tenter des truc en feed forward mais c'est pas fini">
       <created>1647207401696</created>
@@ -316,7 +304,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>

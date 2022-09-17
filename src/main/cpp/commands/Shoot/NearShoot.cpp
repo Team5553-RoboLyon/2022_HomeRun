@@ -16,8 +16,8 @@ NearShoot::NearShoot(Conveyor *pconveyor, Shooter *shooter, Hood *hood, Turret *
 // Called when the command is initially scheduled.
 void NearShoot::Initialize()
 {
-  m_phood->SetSetpoint(4.0);
-  m_pShooter->SetSpeed(SHOOTER_MOTOR_SPEED);
+  m_phood->SetSetpoint(45.0);
+  m_pShooter->SetSpeed(0.45);
   m_pShooter->m_countShooter = 0;
   m_pturret->SetSetpoint(0.0);
   ChainballInit2(m_pConveyor, m_pShooter);
